@@ -54,9 +54,14 @@ public class PlayerEditor {
 		break;
 		case BASEPLATE: togglePlate(armorStand);
 		break;
+		case GRAVITY: toggleGravity(armorStand);
 		default:
 		case NONE: sendMessage("You need to select and editing mode from the menu before editing an armorstand!"); break;
 		}
+	}
+
+	private void toggleGravity(ArmorStand armorStand) {
+		armorStand.setGravity(toggleFlag(armorStand.hasGravity()));
 	}
 
 	void togglePlate(ArmorStand armorStand) {

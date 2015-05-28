@@ -8,10 +8,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class ArmorStandEditorPlugin extends JavaPlugin{
 	CommandEx execute;
 	public PlayerEditorManager editor;
-	public Material editTool = Material.FLINT;
+	public Material editTool;
 	boolean debug = true;
 	
 	public void onEnable(){
+		editTool = Material.FLINT;
 		editor = new PlayerEditorManager(this);
 		execute = new CommandEx(this);
 		getCommand("ase").setExecutor(execute);
