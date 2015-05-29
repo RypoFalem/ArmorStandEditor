@@ -49,7 +49,7 @@ public class CommandEx implements CommandExecutor{
 				return true;
 			}
 		}
-		return false;
+		return true;
 	}
 
 	private void commandSlot(Player player, String[] args) {
@@ -121,7 +121,6 @@ public class CommandEx implements CommandExecutor{
 					return;
 				}
 			}
-			player.sendMessage(LISTMODE);
 		}
 	}
 
@@ -146,10 +145,12 @@ public class CommandEx implements CommandExecutor{
 
 	private <T extends Enum<?>> String getEnumList(Class<T> enumType, String delimiter){
 		String list = "";
+		boolean put =false;
 		for(Enum<?> e : enumType.getEnumConstants()){
 			list = list + e.toString() + delimiter;
+			put = true;
 		}
-		list = list.substring(0, list.length() - delimiter.length());
+		if(put) list = list.substring(0, list.length() - delimiter.length());
 		return list;
 	}
 }

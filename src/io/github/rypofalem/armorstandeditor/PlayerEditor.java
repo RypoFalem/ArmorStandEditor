@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Player;
 import org.bukkit.util.EulerAngle;
 
 public class PlayerEditor {
@@ -245,6 +246,13 @@ public class PlayerEditor {
 	public PlayerEditorManager getManager(){
 		return plugin.editor;
 	}
+	
+	public Player getPlayer(){
+		return plugin.getServer().getPlayer(getUUID());
+	}
+	public UUID getUUID() {
+		return uuid;
+	}
 
 	public void openMenu() {
 		plugin.getServer().getScheduler().runTaskLater(plugin, new OpenMenuTask(), 1);
@@ -252,11 +260,7 @@ public class PlayerEditor {
 
 	public void cancelOpenMenu() {
 		cancelMenuOpen = true;
-		plugin.getServer().getScheduler().runTaskLater(plugin, new MenuUncancelTask(), 1);
-	}
-	
-	public UUID getUUID() {
-		return uuid;
+		plugin.getServer().getScheduler().runTaskLater(plugin, new MenuUncancelTask(), 3);
 	}
 
 	class OpenMenuTask implements Runnable{
