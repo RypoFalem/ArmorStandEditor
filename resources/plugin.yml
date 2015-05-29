@@ -14,12 +14,13 @@ permissions:
       description: Permit ALL the things!
       default: op
       children:
+        asedit.basic: true
+        asedit.copy: true
         asedit.showarms: true
         asedit.invisible: true
         asedit.size: true
         asedit.baseplate: true
         asedit.gravity: true
-        asedit.blockhead: true
         asedit.positionhead: true
         asedit.positionbody: true
         asedit.positionarms: true
@@ -27,6 +28,9 @@ permissions:
     asedit.basic:
       desciption: Allow use armorstand edit functions. If set to false it will override all other functions.
       default: true
+    asedit.copy:
+      description: Allows use of the copy/paste settings fuction.
+      default: false
     asedit.showarms:
       description: Toggle arms on/off.
       default: true
@@ -41,9 +45,6 @@ permissions:
       default: true
     asedit.gravity: 
       description: Toggle falling/floating armorstand.
-      default: false
-    asedit.blockhead:
-      description: Place blocks on armorstand heads.
       default: false
     asedit.head:
       description: Adjust head position.
