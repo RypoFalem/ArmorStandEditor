@@ -27,6 +27,7 @@ public class PlayerEditor {
 	double angleChange;
 	Menu chestMenu;
 	boolean cancelMenuOpen = false;
+	int uncancelTaskID =0;
 
 
 	public PlayerEditor(UUID uuid, ArmorStandEditorPlugin plugin){
@@ -103,7 +104,6 @@ public class PlayerEditor {
 		copySlots.copyDataToSlot(armorStand);
 		sendMessage("ArmorStand state copied to slot " + (copySlots.currentSlot + 1) + ".");
 		setMode(EditMode.PASTE);
-		sendMessage("Setting mode to paste!");
 	}
 
 	private void paste(ArmorStand armorStand){
@@ -259,8 +259,12 @@ public class PlayerEditor {
 	}
 
 	public void cancelOpenMenu() {
-		cancelMenuOpen = true;
-		plugin.getServer().getScheduler().runTaskLater(plugin, new MenuUncancelTask(), 3);
+		if(cancelMenuOpen){
+			plugin.getServer().getScheduler().cancelTask(uncancelTaskID);
+		}else{
+			cancelMenuOpen = true;
+		}
+		uncancelTaskID = plugin.getServer().getScheduler().runTaskLater(plugin, new MenuUncancelTask(), 3).getTaskId();
 	}
 
 	class OpenMenuTask implements Runnable{

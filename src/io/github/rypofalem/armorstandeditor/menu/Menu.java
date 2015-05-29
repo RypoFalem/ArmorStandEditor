@@ -310,6 +310,6 @@ public class Menu {
 	}
 
 	public void openMenu(){
-		pe.plugin.getServer().getPlayer(pe.getUUID()).openInventory(menuInv);
+		pe.getPlayer().openInventory(menuInv);
 	}
 }
