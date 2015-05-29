@@ -155,7 +155,7 @@ public class Menu {
 			showArms.setItemMeta(iMeta);
 		}
 
-		if(pe.getPlayer().hasPermission("asedit.invsible")){
+		if(pe.getPlayer().hasPermission("asedit.invisible")){
 			visibility = new Potion(PotionType.INVISIBILITY).toItemStack(1);
 			iMeta = visibility.getItemMeta();
 			iMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.UNDERLINE + "Visibility");
