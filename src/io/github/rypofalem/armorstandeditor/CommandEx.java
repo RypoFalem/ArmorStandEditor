@@ -23,31 +23,36 @@ public class CommandEx implements CommandExecutor{
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		if(sender instanceof Player && checkPermission((Player)sender,"basic",true)){
-
-			if(args.length == 0){
-				sender.sendMessage(LISTMODE);
-				sender.sendMessage(LISTAXIS);
-				return true;
-			}
-
-			if(args.length > 0){
-				switch(args[0].toLowerCase()){
-				case "mode": commandMode( ( (Player) sender), args);
-				break;
-				case "axis": commandAxis( ( (Player) sender), args);
-				break;
-				case "adj": commandAdj( ( (Player) sender), args);
-				break;
-				case "slot": commandSlot( ( (Player) sender), args);
-				break;
-				default:
+		try {
+			if(sender instanceof Player && checkPermission((Player)sender,"basic",true)){
+				if(args.length == 0){
 					sender.sendMessage(LISTMODE);
 					sender.sendMessage(LISTAXIS);
-					sender.sendMessage(LISTADJUSTMENT);
+					return true;
 				}
-				return true;
+
+				if(args.length > 0){
+					switch(args[0].toLowerCase()){
+					case "mode": commandMode( ( (Player) sender), args);
+					break;
+					case "axis": commandAxis( ( (Player) sender), args);
+					break;
+					case "adj": commandAdj( ( (Player) sender), args);
+					break;
+					case "slot": commandSlot( ( (Player) sender), args);
+					break;
+					default:
+						sender.sendMessage(LISTMODE);
+						sender.sendMessage(LISTAXIS);
+						sender.sendMessage(LISTADJUSTMENT);
+					}
+					return true;
+				}
 			}
+		}catch(Exception exception){
+			plugin.logError(exception);
+		}catch(Error error){
+			plugin.logError(error);
 		}
 		return true;
 	}

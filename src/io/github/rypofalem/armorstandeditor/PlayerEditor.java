@@ -277,7 +277,7 @@ public class PlayerEditor {
 		}
 	}
 	
-	class MenuUncancelTask implements Runnable{
+	class MenuUncancelTask implements Runnable {
 
 		@Override
 		public void run() {
