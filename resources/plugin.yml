@@ -10,7 +10,7 @@ commands:
     usage: /<command> ? - list subcommands
     permissions: asedit.basic
 permissions:
-    asedit.*:
+    asedit.all:
       description: Permit ALL the things!
       default: op
       children:
@@ -21,22 +21,24 @@ permissions:
         asedit.size: true
         asedit.baseplate: true
         asedit.gravity: true
-        asedit.positionhead: true
-        asedit.positionbody: true
-        asedit.positionarms: true
-        asedit.positionlegs: true
+        asedit.head: true
+        asedit.body: true
+        asedit.rightarm: true
+        asedit.leftarm: true
+        asedit.rightleg: true
+        asedit.leftleg: true
     asedit.basic:
       desciption: Allow use armorstand edit functions. If set to false it will override all other functions.
       default: true
     asedit.copy:
       description: Allows use of the copy/paste settings fuction.
-      default: false
+      default: true
     asedit.showarms:
       description: Toggle arms on/off.
       default: true
     asedit.invisible:
       description: Toggle armorstand visible/invisible.
-      default: false
+      default: true
     asedit.size:
       description: Toggle armorstand size normal/small.
       default: true
@@ -45,7 +47,7 @@ permissions:
       default: true
     asedit.gravity: 
       description: Toggle falling/floating armorstand.
-      default: false
+      default: true
     asedit.head:
       description: Adjust head position.
       default: true

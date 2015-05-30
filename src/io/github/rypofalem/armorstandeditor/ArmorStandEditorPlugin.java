@@ -34,17 +34,15 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	}
 
 	public void onDisable(){
+	}
+
+	void logError(Throwable throwable){
 		for(World world : getServer().getWorlds()){
 			for(Player player : world.getPlayers()){
 				player.closeInventory();
 			}
 		}
-		getServer().getScheduler().cancelTasks(this);
-	}
-
-	void logError(Throwable throwable){
 		Writer writer = null;
-		print("Disabling ASE");
 		try {
 			File logFileDir = new File("plugins/ArmorStandEditor/");
 			logFileDir.mkdirs();
@@ -61,9 +59,8 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		} finally {
 			try {writer.close();} catch (Exception ex) {}
 			getLogger().info("\n***********************\n***********************\n***********************\n"
-					+ "Disabling ArmorStandEditor! Check plugins/ArmorStandEditor/log.txt"
+					+ "ArmorStandEditor Encountered an error! Check plugins/ArmorStandEditor/log.txt"
 					+ "\n***********************\n***********************\n***********************");
-			this.getPluginLoader().disablePlugin(this);
 		}
 	}
 

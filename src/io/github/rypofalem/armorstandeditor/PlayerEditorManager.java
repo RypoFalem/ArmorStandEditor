@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
@@ -71,10 +72,15 @@ public class PlayerEditorManager implements Listener{
 	@EventHandler (priority = EventPriority.HIGH, ignoreCancelled=false)
 	void onRightClickTool(PlayerInteractEvent e){
 		try {
-			Player player = (Player) e.getPlayer();
-			if(player.getItemInHand() != null && player.getItemInHand().getType() == plugin.editTool){
-				e.setCancelled(true);
-				getPlayerEditor(player.getUniqueId()).openMenu();
+			if(e.getAction() == Action.LEFT_CLICK_AIR 
+					|| e.getAction() == Action.RIGHT_CLICK_AIR
+					|| e.getAction() == Action.LEFT_CLICK_BLOCK
+					|| e.getAction() == Action.RIGHT_CLICK_BLOCK){
+				Player player = (Player) e.getPlayer();
+				if(player.getItemInHand() != null && player.getItemInHand().getType() == plugin.editTool){
+					e.setCancelled(true);
+					getPlayerEditor(player.getUniqueId()).openMenu();
+				}
 			}
 		}catch(Exception exception){
 			plugin.logError(exception);
