@@ -60,6 +60,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			try {writer.close();} catch (Exception ex) {}
 			getLogger().info("\n***********************\n***********************\n***********************\n"
 					+ "ArmorStandEditor Encountered an error! Check plugins/ArmorStandEditor/log.txt"
+					+"\nYou should send this file to the developer."
 					+ "\n***********************\n***********************\n***********************");
 		}
 	}

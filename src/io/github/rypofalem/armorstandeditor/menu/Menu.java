@@ -224,7 +224,7 @@ public class Menu {
 			slot1.setItemMeta(iMeta);
 
 			// Red_Rose 3 is the first thing to come to mind when I think "Azure Bluet"
-			slot2 = new ItemStack(Material.RED_ROSE, 1, (short) 3);
+			slot2 = new ItemStack(Material.RED_ROSE, 2, (short) 3);
 			iMeta = slot2.getItemMeta();
 			iMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.UNDERLINE + "Copy Slot 2");
 			lore = new ArrayList<String>();
@@ -233,7 +233,7 @@ public class Menu {
 			slot2.setItemMeta(iMeta);
 
 			//"Poppy" are you even trying, Materials?
-			slot3 = new ItemStack(Material.RED_ROSE, 1, (short) 1);
+			slot3 = new ItemStack(Material.RED_ROSE, 3, (short) 1);
 			iMeta = slot3.getItemMeta();
 			iMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.UNDERLINE + "Copy Slot 3");
 			lore = new ArrayList<String>();
@@ -242,7 +242,7 @@ public class Menu {
 			slot3.setItemMeta(iMeta);
 
 			//"Peony" Oh, a third material type with some arbitray value attached
-			slot4 = new ItemStack(Material.DOUBLE_PLANT, 1, (short) 5);
+			slot4 = new ItemStack(Material.DOUBLE_PLANT, 4, (short) 5);
 			iMeta = slot4.getItemMeta();
 			iMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.UNDERLINE + "Copy Slot 4");
 			lore = new ArrayList<String>();
@@ -253,7 +253,7 @@ public class Menu {
 			//"Red Tulip" I am honestly surprised they didn't stick this one under "yellow flower"
 			// I can only assume they thought that would be consistently inconsistent and decided to opt
 			// for inconsistently inconsistent instead.
-			slot5 = new ItemStack(Material.RED_ROSE, 1, (short) 4);
+			slot5 = new ItemStack(Material.RED_ROSE, 5, (short) 4);
 			iMeta = slot5.getItemMeta();
 			iMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.UNDERLINE + "Copy Slot 5");
 			lore = new ArrayList<String>();
@@ -262,7 +262,7 @@ public class Menu {
 			slot5.setItemMeta(iMeta);
 
 			//"Allium" this purple flower is also a red rose.
-			slot6 = new ItemStack(Material.RED_ROSE, 1, (short) 2);
+			slot6 = new ItemStack(Material.RED_ROSE, 6, (short) 2);
 			iMeta = slot6.getItemMeta();
 			iMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.UNDERLINE + "Copy Slot 6");
 			lore = new ArrayList<String>();
@@ -271,7 +271,7 @@ public class Menu {
 			slot6.setItemMeta(iMeta);
 
 			//"Blue Orchid" but seriously, what where these guys thinking?
-			slot7 = new ItemStack(Material.RED_ROSE, 1, (short) 1);
+			slot7 = new ItemStack(Material.RED_ROSE, 7, (short) 1);
 			iMeta = slot7.getItemMeta();
 			iMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.UNDERLINE + "Copy Slot 7");
 			lore = new ArrayList<String>();
@@ -280,7 +280,7 @@ public class Menu {
 			slot7.setItemMeta(iMeta);
 
 			//"Oxeye Daisy" Almost getting tired of mocking this
-			slot8 = new ItemStack(Material.RED_ROSE, 1, (short) 8);
+			slot8 = new ItemStack(Material.RED_ROSE, 8, (short) 8);
 			iMeta = slot8.getItemMeta();
 			iMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.UNDERLINE + "Copy Slot 8");
 			lore = new ArrayList<String>();
@@ -289,7 +289,7 @@ public class Menu {
 			slot8.setItemMeta(iMeta);
 
 			//"Rose bush", goes by the pseudonym "DOUBLE_PLANT:1"
-			slot9 = new ItemStack(Material.DOUBLE_PLANT, 1, (short) 1);
+			slot9 = new ItemStack(Material.DOUBLE_PLANT, 9, (short) 1);
 			iMeta = slot9.getItemMeta();
 			iMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.UNDERLINE + "Copy Slot 9");
 			lore = new ArrayList<String>();
