@@ -70,17 +70,17 @@ public class PlayerEditor {
 
 	public void editArmorStand(ArmorStand armorStand) {
 		switch(eMode){
-		case LEFTARM: armorStand.setLeftArmPose(addEulerAngle(armorStand.getLeftArmPose()));
+		case LEFTARM: armorStand.setLeftArmPose(subEulerAngle(armorStand.getLeftArmPose()));
 		break;
-		case RIGHTARM: armorStand.setRightArmPose(addEulerAngle(armorStand.getRightArmPose()));
+		case RIGHTARM: armorStand.setRightArmPose(subEulerAngle(armorStand.getRightArmPose()));
 		break;
-		case BODY: armorStand.setBodyPose(addEulerAngle(armorStand.getBodyPose()));
+		case BODY: armorStand.setBodyPose(subEulerAngle(armorStand.getBodyPose()));
 		break;
-		case HEAD: armorStand.setHeadPose(addEulerAngle(armorStand.getHeadPose()));
+		case HEAD: armorStand.setHeadPose(subEulerAngle(armorStand.getHeadPose()));
 		break;
-		case LEFTLEG: armorStand.setLeftLegPose(addEulerAngle(armorStand.getLeftLegPose()));
+		case LEFTLEG: armorStand.setLeftLegPose(subEulerAngle(armorStand.getLeftLegPose()));
 		break;
-		case RIGHTLEG: armorStand.setRightLegPose(addEulerAngle(armorStand.getRightLegPose()));
+		case RIGHTLEG: armorStand.setRightLegPose(subEulerAngle(armorStand.getRightLegPose()));
 		break;
 		case SHOWARMS: toggleArms(armorStand);
 		break;
@@ -124,17 +124,17 @@ public class PlayerEditor {
 
 	public void reverseEditArmorStand(ArmorStand armorStand){
 		switch(eMode){
-		case LEFTARM: armorStand.setLeftArmPose(subEulerAngle(armorStand.getLeftArmPose()));
+		case LEFTARM: armorStand.setLeftArmPose(addEulerAngle(armorStand.getLeftArmPose()));
 		break;
-		case RIGHTARM: armorStand.setRightArmPose(subEulerAngle(armorStand.getRightArmPose()));
+		case RIGHTARM: armorStand.setRightArmPose(addEulerAngle(armorStand.getRightArmPose()));
 		break;
-		case BODY: armorStand.setBodyPose(subEulerAngle(armorStand.getBodyPose()));
+		case BODY: armorStand.setBodyPose(addEulerAngle(armorStand.getBodyPose()));
 		break;
-		case HEAD: armorStand.setHeadPose(subEulerAngle(armorStand.getHeadPose()));
+		case HEAD: armorStand.setHeadPose(addEulerAngle(armorStand.getHeadPose()));
 		break;
-		case LEFTLEG: armorStand.setLeftLegPose(subEulerAngle(armorStand.getLeftLegPose()));
+		case LEFTLEG: armorStand.setLeftLegPose(addEulerAngle(armorStand.getLeftLegPose()));
 		break;
-		case RIGHTLEG: armorStand.setRightLegPose(subEulerAngle(armorStand.getRightLegPose()));
+		case RIGHTLEG: armorStand.setRightLegPose(addEulerAngle(armorStand.getRightLegPose()));
 		break;
 		default: break;	
 		}

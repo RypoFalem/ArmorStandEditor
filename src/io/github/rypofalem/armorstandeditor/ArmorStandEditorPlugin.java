@@ -17,7 +17,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	CommandEx execute;
 	public PlayerEditorManager editor;
 	public Material editTool;
-	boolean debug = false;
+	boolean debug = true;
 	double coarseRot;
 	double fineRot;
 
