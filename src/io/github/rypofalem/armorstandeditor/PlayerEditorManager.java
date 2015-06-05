@@ -5,7 +5,7 @@ import io.github.rypofalem.armorstandeditor.menu.ASEHolder;
 import java.util.HashMap;
 import java.util.UUID;
 
-import org.bukkit.entity.EntityType;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -13,7 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -30,62 +30,60 @@ public class PlayerEditorManager implements Listener{
 		players = new HashMap<UUID, PlayerEditor>();
 	}
 
-		//Stop players from damaging armorstands with tool in their hands and then tries to edit it.
-		@EventHandler (priority = EventPriority.HIGH, ignoreCancelled=false)
-		void onArmorStandLeftClick(EntityDamageByEntityEvent e){
-			try{
-				if(e.getEntityType() == EntityType.ARMOR_STAND){
-					if(e.getDamager() instanceof Player){
-						Player player = (Player) e.getDamager();
-						if(player.getItemInHand().getType() == plugin.editTool){
-							e.setCancelled(true);
-						}
+	//Stop players from damaging armorstands with tool in their hands and then tries to edit it.
+	@EventHandler (priority = EventPriority.NORMAL, ignoreCancelled=false)
+	void onArmorStandLeftClick(EntityDamageByEntityEvent e){
+		try{
+			if(e.getEntity() instanceof ArmorStand){
+				ArmorStand as = (ArmorStand)e.getEntity();
+				if(e.getDamager() instanceof Player){
+					Player player = (Player) e.getDamager();
+					if(player.getItemInHand().getType() == plugin.editTool){
+						e.setCancelled(true);
+						getPlayerEditor(player.getUniqueId()).cancelOpenMenu();
+						getPlayerEditor(player.getUniqueId()).editArmorStand(as);
 					}
 				}
 			}
-			catch(Exception exception){
+		}
+		catch(Exception exception){
+			plugin.logError(exception);
+		}catch(Error error){
+			plugin.logError(error);
+		}
+	}
+
+		@EventHandler (priority = EventPriority.NORMAL, ignoreCancelled=false)
+		void onArmorStandRightClick(PlayerInteractAtEntityEvent e){
+			try {
+				Player player =  e.getPlayer(); 
+				if(e.getRightClicked() instanceof ArmorStand 
+						&& player.getItemInHand() != null 
+						&& player.getItemInHand().getType() == plugin.editTool){
+					e.setCancelled(true);
+					
+					ArmorStand as = (ArmorStand)e.getRightClicked();
+					getPlayerEditor(player.getUniqueId()).cancelOpenMenu();
+					getPlayerEditor(player.getUniqueId()).reverseEditArmorStand(as);
+				}
+			}catch(Exception exception){
 				plugin.logError(exception);
 			}catch(Error error){
 				plugin.logError(error);
 			}
 		}
 
-	@EventHandler (priority = EventPriority.HIGH, ignoreCancelled=false)
-	void onArmorStandRightClick(PlayerArmorStandManipulateEvent e){
-		try {
-			if(e.getPlayer().isSneaking()){
-				Player player = (Player) e.getPlayer();
-				if(player.getItemInHand().getType() == plugin.editTool){
-					e.setCancelled(true);
-					getPlayerEditor(player.getUniqueId()).cancelOpenMenu();
-					getPlayerEditor(player.getUniqueId()).reverseEditArmorStand(e.getRightClicked());
-				}
-			}else{
-				Player player =  e.getPlayer();
-				if(player.getItemInHand().getType() == plugin.editTool){
-					e.setCancelled(true);
-					getPlayerEditor(player.getUniqueId()).cancelOpenMenu();
-					getPlayerEditor(player.getUniqueId()).editArmorStand(e.getRightClicked());
-				}
-			}
-		}catch(Exception exception){
-			plugin.logError(exception);
-		}catch(Error error){
-			plugin.logError(error);
-		}
-	}
-
-	@EventHandler (priority = EventPriority.HIGH, ignoreCancelled=false)
+	@EventHandler (priority = EventPriority.NORMAL, ignoreCancelled=false)
 	void onRightClickTool(PlayerInteractEvent e){
 		try {
 			if(e.getAction() == Action.LEFT_CLICK_AIR 
 					|| e.getAction() == Action.RIGHT_CLICK_AIR
 					|| e.getAction() == Action.LEFT_CLICK_BLOCK
 					|| e.getAction() == Action.RIGHT_CLICK_BLOCK){
-				Player player = (Player) e.getPlayer();
+				Player player = e.getPlayer();
 				if(player.getItemInHand() != null && player.getItemInHand().getType() == plugin.editTool){
 					e.setCancelled(true);
-					getPlayerEditor(player.getUniqueId()).openMenu();
+						getPlayerEditor(player.getUniqueId()).openMenu();
 				}
 			}
 		}catch(Exception exception){
@@ -95,12 +93,14 @@ public class PlayerEditorManager implements Listener{
 		}
 	}
 
-	@EventHandler (priority = EventPriority.HIGH, ignoreCancelled=false)
+	@EventHandler (priority = EventPriority.NORMAL, ignoreCancelled=false)
 	void onScrollNCrouch(PlayerItemHeldEvent e){
 		try {
 			Player player = e.getPlayer();
 			if(player.isSneaking()){
-				if(player.getInventory().getItem(e.getPreviousSlot()) != null && player.getInventory().getItem(e.getPreviousSlot()).getType() == plugin.editTool){
+				if(player.getInventory().getItem(e.getPreviousSlot()) != null 
+						&& player.getInventory().getItem(e.getPreviousSlot()).getType() == plugin.editTool){
+					e.setCancelled(true);
 					if(e.getNewSlot() == e.getPreviousSlot() +1 || (e.getNewSlot() == 0 && e.getPreviousSlot() == 8)){
 						getPlayerEditor(player.getUniqueId()).cycleAxis(1);
 					}else{
@@ -108,7 +108,6 @@ public class PlayerEditorManager implements Listener{
 							getPlayerEditor(player.getUniqueId()).cycleAxis(-1);
 						}
 					}
-					e.setCancelled(true);
 				}
 			}
 		}catch(Exception exception){
@@ -118,7 +117,7 @@ public class PlayerEditorManager implements Listener{
 		}
 	}
 
-	@EventHandler (priority = EventPriority.HIGH, ignoreCancelled=false)
+	@EventHandler (priority = EventPriority.NORMAL, ignoreCancelled=false)
 	void onPlayerMenuSelect(InventoryClickEvent e){
 		try {
 			if(e.getInventory()!= null && e.getInventory().getHolder() != null && e.getInventory().getHolder() instanceof ASEHolder ) {

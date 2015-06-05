@@ -9,7 +9,12 @@ import io.github.rypofalem.armorstandeditor.modes.EditMode;
 
 import java.util.UUID;
 
+import me.ryanhamshire.GriefPrevention.Claim;
+import me.ryanhamshire.GriefPrevention.GriefPrevention;
+
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.util.EulerAngle;
@@ -62,82 +67,119 @@ public class PlayerEditor {
 		}
 		sendMessage("Set adjustment to " + adjMode.toString());
 	}
-	
+
 	public void setCopySlot(byte slot){
 		copySlots.changeSlots(slot);
 		sendMessage("Set copy slot to " + (slot + 1));
 	}
 
 	public void editArmorStand(ArmorStand armorStand) {
-		switch(eMode){
-		case LEFTARM: armorStand.setLeftArmPose(subEulerAngle(armorStand.getLeftArmPose()));
-		break;
-		case RIGHTARM: armorStand.setRightArmPose(subEulerAngle(armorStand.getRightArmPose()));
-		break;
-		case BODY: armorStand.setBodyPose(subEulerAngle(armorStand.getBodyPose()));
-		break;
-		case HEAD: armorStand.setHeadPose(subEulerAngle(armorStand.getHeadPose()));
-		break;
-		case LEFTLEG: armorStand.setLeftLegPose(subEulerAngle(armorStand.getLeftLegPose()));
-		break;
-		case RIGHTLEG: armorStand.setRightLegPose(subEulerAngle(armorStand.getRightLegPose()));
-		break;
-		case SHOWARMS: toggleArms(armorStand);
-		break;
-		case SIZE: toggleSize(armorStand);
-		break;
-		case INVISIBLE: toggleVisible(armorStand);
-		break;
-		case BASEPLATE: togglePlate(armorStand);
-		break;
-		case GRAVITY: toggleGravity(armorStand);
-		break;
-		case COPY: copy(armorStand);
-		break;
-		case PASTE: paste(armorStand);
-		break;
-		case NONE: sendMessage("You need to select and editing mode from the menu before editing an armorstand!"); break;
+		if(canBuild(armorStand.getLocation())){
+			switch(eMode){
+			case LEFTARM: armorStand.setLeftArmPose(subEulerAngle(armorStand.getLeftArmPose()));
+			break;
+			case RIGHTARM: armorStand.setRightArmPose(subEulerAngle(armorStand.getRightArmPose()));
+			break;
+			case BODY: armorStand.setBodyPose(subEulerAngle(armorStand.getBodyPose()));
+			break;
+			case HEAD: armorStand.setHeadPose(subEulerAngle(armorStand.getHeadPose()));
+			break;
+			case LEFTLEG: armorStand.setLeftLegPose(subEulerAngle(armorStand.getLeftLegPose()));
+			break;
+			case RIGHTLEG: armorStand.setRightLegPose(subEulerAngle(armorStand.getRightLegPose()));
+			break;
+			case SHOWARMS: toggleArms(armorStand);
+			break;
+			case SIZE: toggleSize(armorStand);
+			break;
+			case INVISIBLE: toggleVisible(armorStand);
+			break;
+			case BASEPLATE: togglePlate(armorStand);
+			break;
+			case GRAVITY: toggleGravity(armorStand);
+			break;
+			case COPY: copy(armorStand);
+			break;
+			case PASTE: paste(armorStand);
+			break;
+			case NONE: sendMessage("You need to select and editing mode from the menu before editing an armorstand!"); break;
+			}
+		}else{
+			cannotBuildMessage();
 		}
 	}
 
 	private void copy(ArmorStand armorStand) {
-		copySlots.copyDataToSlot(armorStand);
-		sendMessage("ArmorStand state copied to slot " + (copySlots.currentSlot + 1) + ".");
-		setMode(EditMode.PASTE);
+		if(canBuild(armorStand.getLocation())){
+			copySlots.copyDataToSlot(armorStand);
+			sendMessage("ArmorStand state copied to slot " + (copySlots.currentSlot + 1) + ".");
+			setMode(EditMode.PASTE);
+		}else{
+			cannotBuildMessage();
+		}
 	}
 
 	private void paste(ArmorStand armorStand){
-		ArmorStandData data = copySlots.getDataToPaste();
-		if(data == null ) return;
-		armorStand.setHeadPose(data.headPos);
-		armorStand.setBodyPose(data.bodyPos);
-		armorStand.setLeftArmPose(data.leftArmPos);
-		armorStand.setRightArmPose(data.rightArmPos);
-		armorStand.setLeftLegPose(data.leftLegPos);
-		armorStand.setRightLegPose(data.rightLegPos);
-		armorStand.setSmall(data.size);
-		armorStand.setGravity(data.gravity);
-		armorStand.setBasePlate(data.basePlate);
-		armorStand.setArms(data.showArms);
-		armorStand.setVisible(data.visible);
+		if(canBuild(armorStand.getLocation())){
+			ArmorStandData data = copySlots.getDataToPaste();
+			if(data == null ) return;
+			armorStand.setHeadPose(data.headPos);
+			armorStand.setBodyPose(data.bodyPos);
+			armorStand.setLeftArmPose(data.leftArmPos);
+			armorStand.setRightArmPose(data.rightArmPos);
+			armorStand.setLeftLegPose(data.leftLegPos);
+			armorStand.setRightLegPose(data.rightLegPos);
+			armorStand.setSmall(data.size);
+			armorStand.setGravity(data.gravity);
+			armorStand.setBasePlate(data.basePlate);
+			armorStand.setArms(data.showArms);
+			armorStand.setVisible(data.visible);
+			sendMessage("ArmorStand state pasted from slot " + (copySlots.currentSlot + 1) + ".");
+		}else{
+			cannotBuildMessage();
+		}
 	}
 
 	public void reverseEditArmorStand(ArmorStand armorStand){
-		switch(eMode){
-		case LEFTARM: armorStand.setLeftArmPose(addEulerAngle(armorStand.getLeftArmPose()));
-		break;
-		case RIGHTARM: armorStand.setRightArmPose(addEulerAngle(armorStand.getRightArmPose()));
-		break;
-		case BODY: armorStand.setBodyPose(addEulerAngle(armorStand.getBodyPose()));
-		break;
-		case HEAD: armorStand.setHeadPose(addEulerAngle(armorStand.getHeadPose()));
-		break;
-		case LEFTLEG: armorStand.setLeftLegPose(addEulerAngle(armorStand.getLeftLegPose()));
-		break;
-		case RIGHTLEG: armorStand.setRightLegPose(addEulerAngle(armorStand.getRightLegPose()));
-		break;
-		default: break;	
+		if(canBuild(armorStand.getLocation())){
+			switch(eMode){
+			case LEFTARM: armorStand.setLeftArmPose(addEulerAngle(armorStand.getLeftArmPose()));
+			break;
+			case RIGHTARM: armorStand.setRightArmPose(addEulerAngle(armorStand.getRightArmPose()));
+			break;
+			case BODY: armorStand.setBodyPose(addEulerAngle(armorStand.getBodyPose()));
+			break;
+			case HEAD: armorStand.setHeadPose(addEulerAngle(armorStand.getHeadPose()));
+			break;
+			case LEFTLEG: armorStand.setLeftLegPose(addEulerAngle(armorStand.getLeftLegPose()));
+			break;
+			case RIGHTLEG: armorStand.setRightLegPose(addEulerAngle(armorStand.getRightLegPose()));
+			break;
+			default: editArmorStand(armorStand);	
+			}
+		}else{
+			cannotBuildMessage();
 		}
+	}
+
+	private boolean canBuild(Location location) {
+		if(plugin.isPluginEnabled("WorldGuard")){
+			if(!plugin.getWorldGuardPlugin().canBuild(getPlayer(), location)){
+				return false;
+			}
+		}
+		if(plugin.isPluginEnabled("GriefPrevention")){
+			Claim claim = GriefPrevention.instance.dataStore.getClaimAt(location, false, null);
+			if(claim != null 
+					&& claim.allowBuild(getPlayer(), Material.DIAMOND_BLOCK ) != null){ //claim.allowBuild returns null if player has permission to build
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private void cannotBuildMessage(){
+		getPlayer().sendMessage(ChatColor.RED + "Sorry, you cannot edit armor stands here!");
 	}
 
 	private void toggleGravity(ArmorStand armorStand) {
@@ -169,8 +211,7 @@ public class PlayerEditor {
 			return true;
 		}
 	}
-	
-	//lol
+
 	void cycleAxis(int i) {
 		int index = axis.ordinal();
 		index += i;
@@ -242,14 +283,15 @@ public class PlayerEditor {
 	void sendMessage(String message){
 		plugin.getServer().getPlayer(getUUID()).sendMessage(ChatColor.GREEN + message);
 	}
-	
+
 	public PlayerEditorManager getManager(){
 		return plugin.editor;
 	}
-	
+
 	public Player getPlayer(){
 		return plugin.getServer().getPlayer(getUUID());
 	}
+	
 	public UUID getUUID() {
 		return uuid;
 	}
@@ -268,7 +310,7 @@ public class PlayerEditor {
 	}
 
 	class OpenMenuTask implements Runnable{
-		
+
 		@Override
 		public void run() {
 			if(!cancelMenuOpen){
@@ -276,13 +318,13 @@ public class PlayerEditor {
 			}
 		}
 	}
-	
+
 	class MenuUncancelTask implements Runnable {
 
 		@Override
 		public void run() {
 			cancelMenuOpen = false;
 		}
-		
+
 	}
 }

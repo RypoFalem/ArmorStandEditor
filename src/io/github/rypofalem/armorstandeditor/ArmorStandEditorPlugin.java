@@ -8,18 +8,25 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Date;
 
+import me.ryanhamshire.GriefPrevention.GriefPrevention;
+
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
 public class ArmorStandEditorPlugin extends JavaPlugin{
 	CommandEx execute;
 	public PlayerEditorManager editor;
 	public Material editTool;
-	boolean debug = true;
+	boolean debug = false;
 	double coarseRot;
 	double fineRot;
+	WorldGuardPlugin wgPlugin;
+	GriefPrevention gpPlugin;
 
 	public void onEnable(){
 		saveDefaultConfig();
@@ -31,6 +38,14 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		execute = new CommandEx(this);
 		getCommand("ase").setExecutor(execute);
 		getServer().getPluginManager().registerEvents(editor, this);
+		if(isPluginEnabled("WorldGuard")){
+			wgPlugin = (WorldGuardPlugin) getServer().getPluginManager().getPlugin("WorldGuard");
+			log("WoldGuard detected");
+		}
+		if(isPluginEnabled("GriefPrevention")){
+			gpPlugin = (GriefPrevention) getServer().getPluginManager().getPlugin("GriePrevention");
+			log("GriefPrevention detected");
+		}
 	}
 
 	public void onDisable(){
@@ -48,6 +63,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			logFileDir.mkdirs();
 			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("plugins/ArmorStandEditor/log.txt"), true)));
 			writer.append("********"+ new Date(System.currentTimeMillis()).toString() + "********\n\n");
+			writer.append("Plugins: " + listPlugins() + "\n\n\n");
 			writer.append(throwable.getClass().getName() + "\n");
 			for(StackTraceElement ste: throwable.getStackTrace()){
 				writer.append(ste.toString());
@@ -64,11 +80,43 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 					+ "\n***********************\n***********************\n***********************");
 		}
 	}
+	
+	public boolean isPluginEnabled(String plugin){
+		return getServer().getPluginManager().isPluginEnabled(plugin);
+	}
+	
+	public WorldGuardPlugin getWorldGuardPlugin(){
+		if(wgPlugin != null && wgPlugin.isEnabled()){
+			return wgPlugin;
+		}
+		return null;
+	}
+	
+	public GriefPrevention getGPPlugin(){
+		if(gpPlugin != null && gpPlugin.isEnabled()){
+			return gpPlugin;
+		}
+		return null;
+	}
 
-
+	public void log(String message){
+		this.getServer().getLogger().info("ArmorStandEditor: " + message);
+	}
+	
 	public void print(String message){
 		if(debug){
 			this.getServer().broadcastMessage(message);
 		}
+	}
+	
+	public String listPlugins(){
+		Plugin[] plugins = getServer().getPluginManager().getPlugins();
+		String list = "";
+		for(Plugin p : plugins){
+			if(p!=null){
+				list = list +" :" + p.getName() + ": ";
+			}
+		}
+		return list;
 	}
 }
