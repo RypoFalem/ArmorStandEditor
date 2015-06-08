@@ -12,9 +12,9 @@ import org.bukkit.entity.Player;
 
 public class CommandEx implements CommandExecutor{
 	ArmorStandEditorPlugin plugin;
-	final String LISTMODE = ChatColor.GREEN + "/ase mode <" + getEnumList(EditMode.class) + ">";
-	final String LISTAXIS = ChatColor.GREEN + "/ase axis <" + getEnumList(Axis.class) + ">";
-	final String LISTADJUSTMENT = ChatColor.GREEN + "/ase adj <" + getEnumList(AdjustmentMode.class) + ">";
+	final String LISTMODE = ChatColor.GREEN + "/ase mode <" + Util.getEnumList(EditMode.class) + ">";
+	final String LISTAXIS = ChatColor.GREEN + "/ase axis <" + Util.getEnumList(Axis.class) + ">";
+	final String LISTADJUSTMENT = ChatColor.GREEN + "/ase adj <" + Util.getEnumList(AdjustmentMode.class) + ">";
 	final String LISTSLOT =  ChatColor.GREEN + "/ase slot <1-9>";
 
 	public CommandEx(ArmorStandEditorPlugin armorStandEditorPlugin) {
@@ -142,20 +142,5 @@ public class CommandEx implements CommandExecutor{
 			}
 			return false;
 		}
-	}
-
-	private <T extends Enum<?>> String getEnumList(Class<T> enumType){
-		return getEnumList(enumType, " | ");
-	}
-
-	private <T extends Enum<?>> String getEnumList(Class<T> enumType, String delimiter){
-		String list = "";
-		boolean put =false;
-		for(Enum<?> e : enumType.getEnumConstants()){
-			list = list + e.toString() + delimiter;
-			put = true;
-		}
-		if(put) list = list.substring(0, list.length() - delimiter.length());
-		return list;
 	}
 }

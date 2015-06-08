@@ -26,9 +26,6 @@ public class PlayerEditor {
 	AdjustmentMode adjMode;
 	CopySlots copySlots;
 	Axis axis;
-	final double FULLCIRCLE = Math.PI*2;
-	double coarseAdj;
-	double fineAdj;
 	double angleChange;
 	Menu chestMenu;
 	boolean cancelMenuOpen = false;
@@ -42,9 +39,7 @@ public class PlayerEditor {
 		adjMode = AdjustmentMode.COARSE;
 		axis = Axis.X;
 		copySlots = new CopySlots();
-		coarseAdj = FULLCIRCLE / plugin.coarseRot;
-		fineAdj = FULLCIRCLE / plugin.fineRot;
-		angleChange = coarseAdj;
+		angleChange = plugin.editor.coarseAdj;
 		chestMenu = new Menu(this);
 	}
 
@@ -61,9 +56,9 @@ public class PlayerEditor {
 	public void setAdjMode(AdjustmentMode adjMode){
 		this.adjMode = adjMode;
 		if(adjMode == AdjustmentMode.COARSE){
-			angleChange = coarseAdj;
+			angleChange = plugin.editor.coarseAdj;
 		}else{
-			angleChange = fineAdj;
+			angleChange = plugin.editor.fineAdj;
 		}
 		sendMessage("Set adjustment to " + adjMode.toString());
 	}
@@ -224,11 +219,11 @@ public class PlayerEditor {
 
 	private EulerAngle addEulerAngle(EulerAngle angle) {
 		switch(axis){
-		case X: angle = angle.setX(addAngle(angle.getX()));
+		case X: angle = angle.setX(Util.addAngle(angle.getX(), angleChange));
 		break;
-		case Y: angle = angle.setY(addAngle(angle.getY()));
+		case Y: angle = angle.setY(Util.addAngle(angle.getY(), angleChange));
 		break;
-		case Z: angle = angle.setZ(addAngle(angle.getZ()));
+		case Z: angle = angle.setZ(Util.addAngle(angle.getZ(), angleChange));
 		break;
 		default:
 			break;
@@ -238,44 +233,14 @@ public class PlayerEditor {
 
 	private EulerAngle subEulerAngle(EulerAngle angle) {
 		switch(axis){
-		case X: angle = angle.setX(subAngle(angle.getX()));
+		case X: angle = angle.setX(Util.subAngle(angle.getX(), angleChange));
 		break;
-		case Y: angle = angle.setY(subAngle(angle.getY()));
+		case Y: angle = angle.setY(Util.subAngle(angle.getY(), angleChange));
 		break;
-		case Z: angle = angle.setZ(subAngle(angle.getZ()));
+		case Z: angle = angle.setZ(Util.subAngle(angle.getZ(), angleChange));
 		break;
 		default:
 			break;
-		}
-		return angle;
-	}
-
-	private double addAngle(double current) {
-		current += angleChange;
-		current = fixAngle(current);
-		return current;
-	}
-
-	private double subAngle(double current){
-		current -= angleChange;
-		current = fixAngle(current);
-		return current;
-	}
-
-	//clamps angle to 0 if it exceeds 2PI rad (360 degrees), is closer to 0 than angleChange value, or is closer to 2PI rad than 2PI rad - angleChange value.
-	private double fixAngle(double angle){
-		if(angle > FULLCIRCLE){
-			return angle = 0;
-		}
-		if(angle > 0 && angle < angleChange){
-			if(angle < angleChange/2){
-				return angle = 0;
-			}
-		}
-		if(angle > FULLCIRCLE-angle){
-			if(angle > FULLCIRCLE - (angleChange/2)){
-				return angle = 0;
-			}
 		}
 		return angle;
 	}

@@ -24,10 +24,14 @@ public class PlayerEditorManager implements Listener{
 	ArmorStandEditorPlugin plugin;
 	HashMap<UUID, PlayerEditor> players;
 	private ASEHolder pluginHolder= new ASEHolder();
+	double coarseAdj;
+	double fineAdj;
 
 	public PlayerEditorManager(ArmorStandEditorPlugin plugin){
 		this.plugin = plugin;
 		players = new HashMap<UUID, PlayerEditor>();
+		coarseAdj = Util.FULLCIRCLE / plugin.coarseRot;
+		fineAdj = Util.FULLCIRCLE / plugin.fineRot;
 	}
 
 	//Stop players from damaging armorstands with tool in their hands and then tries to edit it.
