@@ -5,6 +5,8 @@ import io.github.rypofalem.armorstandeditor.menu.ASEHolder;
 import java.util.HashMap;
 import java.util.UUID;
 
+import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -57,25 +59,41 @@ public class PlayerEditorManager implements Listener{
 		}
 	}
 
-		@EventHandler (priority = EventPriority.NORMAL, ignoreCancelled=false)
-		void onArmorStandRightClick(PlayerInteractAtEntityEvent e){
-			try {
-				Player player =  e.getPlayer(); 
-				if(e.getRightClicked() instanceof ArmorStand 
-						&& player.getItemInHand() != null 
-						&& player.getItemInHand().getType() == plugin.editTool){
+	@EventHandler (priority = EventPriority.NORMAL, ignoreCancelled=true)
+	void onArmorStandRightClick(PlayerInteractAtEntityEvent e){
+		try {
+			Player player =  e.getPlayer();
+			if(e.getRightClicked() instanceof ArmorStand 
+					&& player.getItemInHand() != null){
+				if(player.getItemInHand().getType() == plugin.editTool){ // if holding the edit tool apply options to click armorstand
 					e.setCancelled(true);
-					
 					ArmorStand as = (ArmorStand)e.getRightClicked();
 					getPlayerEditor(player.getUniqueId()).cancelOpenMenu();
 					getPlayerEditor(player.getUniqueId()).reverseEditArmorStand(as);
+				}else if(player.getItemInHand().getType() == Material.NAME_TAG){ //if the clicked an armorstand with a nametag, apply the name
+					ItemStack nameTag = player.getItemInHand();
+					if(nameTag.hasItemMeta() && nameTag.getItemMeta().hasDisplayName()){
+						ArmorStand as = (ArmorStand)e.getRightClicked();
+						as.setCustomName(nameTag.getItemMeta().getDisplayName());
+						as.setCustomNameVisible(true);
+
+						if(!(player.getGameMode() == GameMode.CREATIVE)){ //if not in creative mode, consume a nametag
+							if(nameTag.getAmount() > 1){
+								nameTag.setAmount(nameTag.getAmount() - 1);
+							}else{
+								nameTag = new ItemStack(Material.AIR);
+							}
+							player.getInventory().setItemInHand(nameTag);
+						}
+					}
 				}
-			}catch(Exception exception){
-				plugin.logError(exception);
-			}catch(Error error){
-				plugin.logError(error);
 			}
+		}catch(Exception exception){
+			plugin.logError(exception);
+		}catch(Error error){
+			plugin.logError(error);
 		}
+	}
 
 	@EventHandler (priority = EventPriority.NORMAL, ignoreCancelled=false)
 	void onRightClickTool(PlayerInteractEvent e){
@@ -87,7 +105,7 @@ public class PlayerEditorManager implements Listener{
 				Player player = e.getPlayer();
 				if(player.getItemInHand() != null && player.getItemInHand().getType() == plugin.editTool){
 					e.setCancelled(true);
-						getPlayerEditor(player.getUniqueId()).openMenu();
+					getPlayerEditor(player.getUniqueId()).openMenu();
 				}
 			}
 		}catch(Exception exception){
