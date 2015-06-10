@@ -1,11 +1,13 @@
 package io.github.rypofalem.armorstandeditor.modes;
 
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.EulerAngle;
 
 public class ArmorStandData {
 	public EulerAngle headPos, leftArmPos, rightArmPos, bodyPos, leftLegPos, rightLegPos;
 	public boolean visible, size, basePlate, gravity, showArms;
+	public ItemStack head, body, legs, feetsies, hand;
 	
 	ArmorStandData(ArmorStand as){
 		this.headPos = as.getHeadPose();
@@ -19,5 +21,10 @@ public class ArmorStandData {
 		this.gravity = as.hasGravity();
 		this.showArms = as.hasArms();
 		this.visible = as.isVisible();
+		this.head = as.getHelmet();
+		this.body = as.getChestplate();
+		this.legs = as.getLeggings();
+		this.feetsies = as.getBoots();
+		this.hand = as.getItemInHand();
 	}
 }

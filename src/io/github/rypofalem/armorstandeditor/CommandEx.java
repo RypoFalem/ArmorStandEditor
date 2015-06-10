@@ -68,7 +68,7 @@ public class CommandEx implements CommandExecutor{
 			try{
 				byte slot = (byte) (Byte.parseByte(args[1]) - 0b1);
 				if(slot >= 0 && slot < 9){
-					plugin.editor.getPlayerEditor(player.getUniqueId()).setCopySlot(slot);
+					plugin.editorManager.getPlayerEditor(player.getUniqueId()).setCopySlot(slot);
 				}else{
 					player.sendMessage(LISTSLOT);
 				}
@@ -88,7 +88,7 @@ public class CommandEx implements CommandExecutor{
 		if(args.length > 1){
 			for(AdjustmentMode adj : AdjustmentMode.values()){
 				if(adj.toString().toLowerCase().contentEquals(args[1].toLowerCase())){
-					plugin.editor.getPlayerEditor(player.getUniqueId()).setAdjMode(adj);
+					plugin.editorManager.getPlayerEditor(player.getUniqueId()).setAdjMode(adj);
 					return;
 				}
 			}
@@ -105,7 +105,7 @@ public class CommandEx implements CommandExecutor{
 		if(args.length > 1){
 			for(Axis axis : Axis.values()){
 				if(axis.toString().toLowerCase().contentEquals(args[1].toLowerCase())){
-					plugin.editor.getPlayerEditor(player.getUniqueId()).setAxis(axis);
+					plugin.editorManager.getPlayerEditor(player.getUniqueId()).setAxis(axis);
 					return;
 				}
 			}
@@ -122,7 +122,7 @@ public class CommandEx implements CommandExecutor{
 		if(args.length > 1){
 			for(EditMode mode : EditMode.values()){
 				if(mode.toString().toLowerCase().contentEquals(args[1].toLowerCase()) && checkPermission(player,args[1],true)){
-					plugin.editor.getPlayerEditor(player.getUniqueId()).setMode(mode);
+					plugin.editorManager.getPlayerEditor(player.getUniqueId()).setMode(mode);
 					return;
 				}
 			}

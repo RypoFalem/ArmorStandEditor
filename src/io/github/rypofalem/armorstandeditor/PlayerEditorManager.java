@@ -28,12 +28,16 @@ public class PlayerEditorManager implements Listener{
 	private ASEHolder pluginHolder= new ASEHolder();
 	double coarseAdj;
 	double fineAdj;
+	double coarseMov;
+	double fineMov;
 
 	public PlayerEditorManager(ArmorStandEditorPlugin plugin){
 		this.plugin = plugin;
 		players = new HashMap<UUID, PlayerEditor>();
 		coarseAdj = Util.FULLCIRCLE / plugin.coarseRot;
 		fineAdj = Util.FULLCIRCLE / plugin.fineRot;
+		coarseMov = 1;
+		fineMov = .1;
 	}
 
 	//Stop players from damaging armorstands with tool in their hands and then tries to edit it.
@@ -59,7 +63,7 @@ public class PlayerEditorManager implements Listener{
 		}
 	}
 
-	@EventHandler (priority = EventPriority.NORMAL, ignoreCancelled=true)
+	@EventHandler (priority = EventPriority.NORMAL, ignoreCancelled=false)
 	void onArmorStandRightClick(PlayerInteractAtEntityEvent e){
 		try {
 			Player player =  e.getPlayer();
@@ -159,6 +163,12 @@ public class PlayerEditorManager implements Listener{
 			plugin.logError(error);
 		}
 	}
+	
+	//Stop tracking player when he leaves
+		@EventHandler (priority = EventPriority.MONITOR, ignoreCancelled=false)
+		void onPlayerLogOut(PlayerQuitEvent e){
+			removePlayerEditor(e.getPlayer().getUniqueId());
+		}
 
 	public PlayerEditor getPlayerEditor(UUID uuid){
 		return players.containsKey(uuid) ? players.get(uuid) : addPlayerEditor(uuid);
@@ -172,12 +182,6 @@ public class PlayerEditorManager implements Listener{
 
 	void removePlayerEditor(UUID uuid){
 		players.remove(uuid);
-	}
-
-	//Stop tracking player when he leaves
-	@EventHandler (priority = EventPriority.MONITOR, ignoreCancelled=false)
-	void onPlayerLogOut(PlayerQuitEvent e){
-		removePlayerEditor(e.getPlayer().getUniqueId());
 	}
 
 	//returns the inventoryholder that owns all the menu inventories

@@ -29,6 +29,7 @@ permissions:
         asedit.leftarm: true
         asedit.rightleg: true
         asedit.leftleg: true
+        asedit.placement: true
     asedit.basic:
       desciption: Allow use armorstand edit functions. If set to false it will override all other functions.
       default: true
@@ -49,6 +50,9 @@ permissions:
       default: true
     asedit.gravity: 
       description: Toggle falling/floating armorstand.
+      default: true
+    asedit.placement:
+      description: Adjust armorstand's location.
       default: true
     asedit.head:
       description: Adjust head position.

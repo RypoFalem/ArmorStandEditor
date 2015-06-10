@@ -20,7 +20,7 @@ import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
 public class ArmorStandEditorPlugin extends JavaPlugin{
 	CommandEx execute;
-	public PlayerEditorManager editor;
+	public PlayerEditorManager editorManager;
 	public Material editTool;
 	boolean debug = false;
 	double coarseRot;
@@ -34,10 +34,10 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		fineRot = getConfig().getDouble("fine");
 		String tool = getConfig().getString("tool");
 		editTool = Material.getMaterial(tool);
-		editor = new PlayerEditorManager(this);
+		editorManager = new PlayerEditorManager(this);
 		execute = new CommandEx(this);
 		getCommand("ase").setExecutor(execute);
-		getServer().getPluginManager().registerEvents(editor, this);
+		getServer().getPluginManager().registerEvents(editorManager, this);
 		if(isPluginEnabled("WorldGuard")){
 			wgPlugin = (WorldGuardPlugin) getServer().getPluginManager().getPlugin("WorldGuard");
 			log("WoldGuard detected");
@@ -85,7 +85,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		return getServer().getPluginManager().isPluginEnabled(plugin);
 	}
 	
-	public WorldGuardPlugin getWorldGuardPlugin(){
+	public WorldGuardPlugin getWGPlugin(){
 		if(wgPlugin != null && wgPlugin.isEnabled()){
 			return wgPlugin;
 		}

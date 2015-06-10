@@ -66,4 +66,12 @@ public abstract class Util {
 		}
 		return angle;
 	}
+	
+	static boolean toggleFlag(boolean flag){
+		if(flag){
+			return false;
+		}else{
+			return true;
+		}
+	}
 }

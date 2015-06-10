@@ -30,7 +30,7 @@ public class Menu {
 		menuInv.clear();
 		ArrayList<String> lore = new ArrayList<String>();
 		
-		ItemStack xAxis= null, yAxis= null, zAxis= null, coarseAdj= null, fineAdj= null, headPos= null, 
+		ItemStack xAxis= null, yAxis= null, zAxis= null, coarseAdj= null, fineAdj= null, headPos= null, place = null,
 		rightArmPos= null, bodyPos= null, leftArmPos= null, showArms= null, visibility= null, size= null,
 		rightLegPos= null, leftLegPos= null, gravity= null, plate= null, copy= null, paste= null,
 		slot1= null, slot2= null, slot3= null, slot4= null, slot5= null, slot6= null, slot7= null, slot8= null, slot9 = null;
@@ -194,6 +194,16 @@ public class Menu {
 			iMeta.setLore(lore);
 			plate.setItemMeta(iMeta);
 		}
+		
+		if(pe.getPlayer().hasPermission("asedit.placement")){
+			place = new ItemStack(Material.MINECART, 1, (short) 0);
+			iMeta = place.getItemMeta();
+			iMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.UNDERLINE + "Placement");
+			lore = new ArrayList<String>();
+			lore.add((Util.encodeHiddenLore("ase mode placement")));
+			iMeta.setLore(lore);
+			place.setItemMeta(iMeta);
+		}
 
 		if(pe.getPlayer().hasPermission("asedit.copy")){
 			copy = new ItemStack(Material.BOOK_AND_QUILL);
@@ -299,7 +309,7 @@ public class Menu {
 		}
 
 		ItemStack[] items = 
-			{xAxis, yAxis, zAxis, null, coarseAdj, fineAdj, null, null, null,
+			{xAxis, yAxis, zAxis, null, coarseAdj, fineAdj, null, null, place,
 				null, headPos, null, null, null, null, null, null, null,
 				rightArmPos, bodyPos, leftArmPos, null, null, null, showArms, visibility, size,
 				rightLegPos, null, leftLegPos, null, null, null, null, gravity, plate,
