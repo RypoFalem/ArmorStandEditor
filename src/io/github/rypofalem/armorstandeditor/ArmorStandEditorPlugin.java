@@ -16,17 +16,22 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.intellectualcrafters.plot.api.PlotAPI;
+
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
 public class ArmorStandEditorPlugin extends JavaPlugin{
 	CommandEx execute;
 	public PlayerEditorManager editorManager;
 	public Material editTool;
-	boolean debug = false;
+	boolean debug = true; //weather or not to broadcast messages via print(String message)
 	double coarseRot;
 	double fineRot;
-	WorldGuardPlugin wgPlugin;
-	GriefPrevention gpPlugin;
+	private WorldGuardPlugin wgPlugin;
+	private GriefPrevention gpPlugin;
+	private PlotAPI plotSAPI;
+	private Plugin plotSPlugin;
+	boolean unrecognisedProtMode = false;
 
 	public void onEnable(){
 		saveDefaultConfig();
@@ -43,8 +48,16 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			log("WoldGuard detected");
 		}
 		if(isPluginEnabled("GriefPrevention")){
-			gpPlugin = (GriefPrevention) getServer().getPluginManager().getPlugin("GriePrevention");
+			gpPlugin = (GriefPrevention) getServer().getPluginManager().getPlugin("GriefPrevention");
 			log("GriefPrevention detected");
+		}
+		if(isPluginEnabled("PlotSquared")){
+			plotSAPI =new PlotAPI();
+			plotSPlugin = getServer().getPluginManager().getPlugin("PlotSquared");
+			log("PlotSquared detected");
+		}
+		if(wgPlugin == null && gpPlugin == null && plotSPlugin == null){
+			unrecognisedProtMode = true;
 		}
 	}
 
@@ -95,6 +108,13 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	public GriefPrevention getGPPlugin(){
 		if(gpPlugin != null && gpPlugin.isEnabled()){
 			return gpPlugin;
+		}
+		return null;
+	}
+	
+	public PlotAPI getPlotSAPI(){
+		if(plotSPlugin != null &&  plotSPlugin.isEnabled() && plotSAPI!= null){
+			return plotSAPI;
 		}
 		return null;
 	}

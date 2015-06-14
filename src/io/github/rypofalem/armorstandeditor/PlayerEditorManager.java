@@ -44,6 +44,9 @@ public class PlayerEditorManager implements Listener{
 	@EventHandler (priority = EventPriority.NORMAL, ignoreCancelled=false)
 	void onArmorStandLeftClick(EntityDamageByEntityEvent e){
 		try{
+			if(plugin.unrecognisedProtMode && e.isCancelled()){
+				return;
+			}
 			if(e.getEntity() instanceof ArmorStand){
 				ArmorStand as = (ArmorStand)e.getEntity();
 				if(e.getDamager() instanceof Player){
@@ -66,6 +69,9 @@ public class PlayerEditorManager implements Listener{
 	@EventHandler (priority = EventPriority.NORMAL, ignoreCancelled=false)
 	void onArmorStandRightClick(PlayerInteractAtEntityEvent e){
 		try {
+			if(plugin.unrecognisedProtMode && e.isCancelled()){
+				return;
+			}
 			Player player =  e.getPlayer();
 			if(e.getRightClicked() instanceof ArmorStand 
 					&& player.getItemInHand() != null){

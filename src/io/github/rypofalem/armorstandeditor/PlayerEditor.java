@@ -20,6 +20,9 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.util.EulerAngle;
 
+import com.intellectualcrafters.plot.api.PlotAPI;
+import com.intellectualcrafters.plot.object.Plot;
+
 public class PlayerEditor {
 	public ArmorStandEditorPlugin plugin;
 	private UUID uuid;
@@ -286,6 +289,17 @@ public class PlayerEditor {
 					&& claim.allowBuild(getPlayer(), Material.DIAMOND_BLOCK ) != null){ //claim.allowBuild returns null if player has permission to build
 				return false;
 			}
+		}
+		if(plugin.isPluginEnabled("PlotSquared")){
+			PlotAPI plotAPI= plugin.getPlotSAPI();
+			if(plotAPI != null && plotAPI.isPlotWorld(location.getWorld())){
+				Plot plot = plotAPI.getPlot(location);
+				if(plot == null) return false;
+				if( plot.isDenied(uuid) || !(plot.isOwner(uuid) || plot.isAdded(uuid) ) ){
+					plugin.print("ps");
+					return false;
+				}
+			}	
 		}
 		return true;
 	}
