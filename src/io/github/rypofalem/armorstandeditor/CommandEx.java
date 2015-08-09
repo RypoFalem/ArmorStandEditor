@@ -136,8 +136,6 @@ public class CommandEx implements CommandExecutor{
 		if(permName.toLowerCase().equals("paste")){
 			permName = "copy";
 		}
-		plugin.print(permName);
-		
 		if(player.hasPermission("asedit." + permName.toLowerCase())){
 			return true;
 		}else{

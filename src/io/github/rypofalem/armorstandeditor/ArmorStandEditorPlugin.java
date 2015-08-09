@@ -24,7 +24,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	CommandEx execute;
 	public PlayerEditorManager editorManager;
 	public Material editTool;
-	boolean debug = true; //weather or not to broadcast messages via print(String message)
+	boolean debug = false; //weather or not to broadcast messages via print(String message)
 	double coarseRot;
 	double fineRot;
 	private WorldGuardPlugin wgPlugin;
