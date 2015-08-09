@@ -28,6 +28,8 @@ public class CommandEx implements CommandExecutor{
 				if(args.length == 0){
 					sender.sendMessage(LISTMODE);
 					sender.sendMessage(LISTAXIS);
+					sender.sendMessage(LISTSLOT);
+					sender.sendMessage(LISTADJUSTMENT);
 					return true;
 				}
 
@@ -44,6 +46,7 @@ public class CommandEx implements CommandExecutor{
 					default:
 						sender.sendMessage(LISTMODE);
 						sender.sendMessage(LISTAXIS);
+						sender.sendMessage(LISTSLOT);
 						sender.sendMessage(LISTADJUSTMENT);
 					}
 					return true;
@@ -130,9 +133,10 @@ public class CommandEx implements CommandExecutor{
 	}
 
 	private boolean checkPermission(Player player, String permName, boolean sendMessageOnInvalidation){
-		if(permName.toLowerCase() == "paste"){
+		if(permName.toLowerCase().equals("paste")){
 			permName = "copy";
 		}
+		plugin.print(permName);
 		
 		if(player.hasPermission("asedit." + permName.toLowerCase())){
 			return true;

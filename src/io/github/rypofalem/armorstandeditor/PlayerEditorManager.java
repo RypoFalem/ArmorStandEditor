@@ -5,6 +5,8 @@ import io.github.rypofalem.armorstandeditor.menu.ASEHolder;
 import java.util.HashMap;
 import java.util.UUID;
 
+import net.md_5.bungee.api.ChatColor;
+
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
@@ -37,7 +39,7 @@ public class PlayerEditorManager implements Listener{
 		coarseAdj = Util.FULLCIRCLE / plugin.coarseRot;
 		fineAdj = Util.FULLCIRCLE / plugin.fineRot;
 		coarseMov = 1;
-		fineMov = .1;
+		fineMov = .03125; // 1/32nd
 	}
 
 	//Stop players from damaging armorstands with tool in their hands and then tries to edit it.
@@ -84,16 +86,25 @@ public class PlayerEditorManager implements Listener{
 					ItemStack nameTag = player.getItemInHand();
 					if(nameTag.hasItemMeta() && nameTag.getItemMeta().hasDisplayName()){
 						ArmorStand as = (ArmorStand)e.getRightClicked();
-						as.setCustomName(nameTag.getItemMeta().getDisplayName());
-						as.setCustomNameVisible(true);
+						String name = nameTag.getItemMeta().getDisplayName();
+						name = name.replace('&', ChatColor.COLOR_CHAR);
+						if((as.getCustomName() != null && !as.getCustomName().equals(name)) // armorstand has name and that name is not the same as the nametag
+								|| (as.getCustomName() == null && (!name.equals(""))) ){ // neither the armorstand or the nametag have names
+							
+							e.setCancelled(true); //nametag NOT given to armorstand
+							as.setCustomName(name);
+							as.setCustomNameVisible(true);
 
-						if(!(player.getGameMode() == GameMode.CREATIVE)){ //if not in creative mode, consume a nametag
-							if(nameTag.getAmount() > 1){
-								nameTag.setAmount(nameTag.getAmount() - 1);
-							}else{
-								nameTag = new ItemStack(Material.AIR);
+							//if not in creative mode, consume a nametag
+							if(!(player.getGameMode() == GameMode.CREATIVE)){
+								if(nameTag.getAmount() > 1){
+									nameTag.setAmount(nameTag.getAmount() - 1);
+								}else{
+									nameTag = new ItemStack(Material.AIR);
+								}
+								player.getInventory().setItemInHand(nameTag);
 							}
-							player.getInventory().setItemInHand(nameTag);
+
 						}
 					}
 				}
@@ -169,12 +180,12 @@ public class PlayerEditorManager implements Listener{
 			plugin.logError(error);
 		}
 	}
-	
+
 	//Stop tracking player when he leaves
-		@EventHandler (priority = EventPriority.MONITOR, ignoreCancelled=false)
-		void onPlayerLogOut(PlayerQuitEvent e){
-			removePlayerEditor(e.getPlayer().getUniqueId());
-		}
+	@EventHandler (priority = EventPriority.MONITOR, ignoreCancelled=false)
+	void onPlayerLogOut(PlayerQuitEvent e){
+		removePlayerEditor(e.getPlayer().getUniqueId());
+	}
 
 	public PlayerEditor getPlayerEditor(UUID uuid){
 		return players.containsKey(uuid) ? players.get(uuid) : addPlayerEditor(uuid);

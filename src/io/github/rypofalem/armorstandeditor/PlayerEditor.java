@@ -278,25 +278,24 @@ public class PlayerEditor {
 	}
 	
 	private boolean canBuild(Location location) {
-		if(plugin.isPluginEnabled("WorldGuard")){
+		if(plugin.getWGPlugin() != null){
 			if(!plugin.getWGPlugin().canBuild(getPlayer(), location)){
 				return false;
 			}
 		}
-		if(plugin.isPluginEnabled("GriefPrevention")){
+		if(plugin.getGPPlugin() != null){
 			Claim claim = GriefPrevention.instance.dataStore.getClaimAt(location, false, null);
 			if(claim != null 
 					&& claim.allowBuild(getPlayer(), Material.DIAMOND_BLOCK ) != null){ //claim.allowBuild returns null if player has permission to build
 				return false;
 			}
 		}
-		if(plugin.isPluginEnabled("PlotSquared")){
+		if(plugin.getPlotSAPI() != null){
 			PlotAPI plotAPI= plugin.getPlotSAPI();
 			if(plotAPI != null && plotAPI.isPlotWorld(location.getWorld())){
 				Plot plot = plotAPI.getPlot(location);
 				if(plot == null) return false;
 				if( plot.isDenied(uuid) || !(plot.isOwner(uuid) || plot.isAdded(uuid) ) ){
-					plugin.print("ps");
 					return false;
 				}
 			}	
