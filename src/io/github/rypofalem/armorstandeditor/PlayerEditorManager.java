@@ -54,9 +54,12 @@ public class PlayerEditorManager implements Listener{
 				if(e.getDamager() instanceof Player){
 					Player player = (Player) e.getDamager();
 					if(player.getItemInHand().getType() == plugin.editTool){
-						e.setCancelled(true);
-						getPlayerEditor(player.getUniqueId()).cancelOpenMenu();
-						getPlayerEditor(player.getUniqueId()).editArmorStand(as);
+						//TODO: Temporary fix; Need to add exact permission nodes!
+						if (player.hasPermission("asedit.all")) {
+							e.setCancelled(true);
+							getPlayerEditor(player.getUniqueId()).cancelOpenMenu();
+							getPlayerEditor(player.getUniqueId()).editArmorStand(as);
+						}
 					}
 				}
 			}
@@ -75,36 +78,42 @@ public class PlayerEditorManager implements Listener{
 				return;
 			}
 			Player player =  e.getPlayer();
-			if(e.getRightClicked() instanceof ArmorStand 
+			if(e.getRightClicked() instanceof ArmorStand
 					&& player.getItemInHand() != null){
 				if(player.getItemInHand().getType() == plugin.editTool){ // if holding the edit tool apply options to click armorstand
-					e.setCancelled(true);
-					ArmorStand as = (ArmorStand)e.getRightClicked();
-					getPlayerEditor(player.getUniqueId()).cancelOpenMenu();
-					getPlayerEditor(player.getUniqueId()).reverseEditArmorStand(as);
+					//TODO: Temporary fix; Need to add exact permission nodes!
+					if (player.hasPermission("asedit.all")) {
+						e.setCancelled(true);
+						ArmorStand as = (ArmorStand)e.getRightClicked();
+						getPlayerEditor(player.getUniqueId()).cancelOpenMenu();
+						getPlayerEditor(player.getUniqueId()).reverseEditArmorStand(as);
+					}
 				}else if(player.getItemInHand().getType() == Material.NAME_TAG){ //if the clicked an armorstand with a nametag, apply the name
 					ItemStack nameTag = player.getItemInHand();
 					if(nameTag.hasItemMeta() && nameTag.getItemMeta().hasDisplayName()){
-						ArmorStand as = (ArmorStand)e.getRightClicked();
-						String name = nameTag.getItemMeta().getDisplayName();
-						name = name.replace('&', ChatColor.COLOR_CHAR);
-						if((as.getCustomName() != null && !as.getCustomName().equals(name)) // armorstand has name and that name is not the same as the nametag
-								|| (as.getCustomName() == null && (!name.equals(""))) ){ // neither the armorstand or the nametag have names
-							
-							e.setCancelled(true); //nametag NOT given to armorstand
-							as.setCustomName(name);
-							as.setCustomNameVisible(true);
+						//TODO: Temporary fix; Need to add exact permission nodes!
+						if (player.hasPermission("asedit.all")) {
+							ArmorStand as = (ArmorStand)e.getRightClicked();
+							String name = nameTag.getItemMeta().getDisplayName();
+							name = name.replace('&', ChatColor.COLOR_CHAR);
+							if((as.getCustomName() != null && !as.getCustomName().equals(name)) // armorstand has name and that name is not the same as the nametag
+                                    || (as.getCustomName() == null && (!name.equals(""))) ){ // neither the armorstand or the nametag have names
 
-							//if not in creative mode, consume a nametag
-							if(!(player.getGameMode() == GameMode.CREATIVE)){
-								if(nameTag.getAmount() > 1){
-									nameTag.setAmount(nameTag.getAmount() - 1);
-								}else{
-									nameTag = new ItemStack(Material.AIR);
-								}
-								player.getInventory().setItemInHand(nameTag);
-							}
+                                e.setCancelled(true); //nametag NOT given to armorstand
+                                as.setCustomName(name);
+                                as.setCustomNameVisible(true);
 
+                                //if not in creative mode, consume a nametag
+                                if(!(player.getGameMode() == GameMode.CREATIVE)){
+                                    if(nameTag.getAmount() > 1){
+                                        nameTag.setAmount(nameTag.getAmount() - 1);
+                                    }else{
+                                        nameTag = new ItemStack(Material.AIR);
+                                    }
+                                    player.getInventory().setItemInHand(nameTag);
+                                }
+
+                            }
 						}
 					}
 				}
@@ -119,14 +128,17 @@ public class PlayerEditorManager implements Listener{
 	@EventHandler (priority = EventPriority.NORMAL, ignoreCancelled=false)
 	void onRightClickTool(PlayerInteractEvent e){
 		try {
-			if(e.getAction() == Action.LEFT_CLICK_AIR 
+			if(e.getAction() == Action.LEFT_CLICK_AIR
 					|| e.getAction() == Action.RIGHT_CLICK_AIR
 					|| e.getAction() == Action.LEFT_CLICK_BLOCK
 					|| e.getAction() == Action.RIGHT_CLICK_BLOCK){
 				Player player = e.getPlayer();
 				if(player.getItemInHand() != null && player.getItemInHand().getType() == plugin.editTool){
-					e.setCancelled(true);
-					getPlayerEditor(player.getUniqueId()).openMenu();
+					//TODO: Temporary fix; Need to add exact permission nodes!
+					if (player.hasPermission("asedit.all")) {
+						e.setCancelled(true);
+						getPlayerEditor(player.getUniqueId()).openMenu();
+					}
 				}
 			}
 		}catch(Exception exception){
@@ -141,15 +153,18 @@ public class PlayerEditorManager implements Listener{
 		try {
 			Player player = e.getPlayer();
 			if(player.isSneaking()){
-				if(player.getInventory().getItem(e.getPreviousSlot()) != null 
+				if(player.getInventory().getItem(e.getPreviousSlot()) != null
 						&& player.getInventory().getItem(e.getPreviousSlot()).getType() == plugin.editTool){
-					e.setCancelled(true);
-					if(e.getNewSlot() == e.getPreviousSlot() +1 || (e.getNewSlot() == 0 && e.getPreviousSlot() == 8)){
-						getPlayerEditor(player.getUniqueId()).cycleAxis(1);
-					}else{
-						if(e.getNewSlot() == e.getPreviousSlot() - 1 || (e.getNewSlot() == 8 && e.getPreviousSlot() == 0)){
-							getPlayerEditor(player.getUniqueId()).cycleAxis(-1);
-						}
+					//TODO: Temporary fix; Need to add exact permission nodes!
+					if (player.hasPermission("asedit.all")) {
+						e.setCancelled(true);
+						if(e.getNewSlot() == e.getPreviousSlot() +1 || (e.getNewSlot() == 0 && e.getPreviousSlot() == 8)){
+                            getPlayerEditor(player.getUniqueId()).cycleAxis(1);
+                        }else{
+                            if(e.getNewSlot() == e.getPreviousSlot() - 1 || (e.getNewSlot() == 8 && e.getPreviousSlot() == 0)){
+                                getPlayerEditor(player.getUniqueId()).cycleAxis(-1);
+                            }
+                        }
 					}
 				}
 			}
@@ -167,7 +182,7 @@ public class PlayerEditorManager implements Listener{
 				e.setCancelled(true);
 				ItemStack item = e.getCurrentItem();
 				if(item!= null && item.hasItemMeta() && item.getItemMeta().hasLore()
-						&& !item.getItemMeta().getLore().isEmpty() 
+						&& !item.getItemMeta().getLore().isEmpty()
 						&& item.getItemMeta().getLore().get(0).startsWith(Util.encodeHiddenLore("ase"))){
 					Player player = (Player) e.getWhoClicked();
 					String command = Util.decodeHiddenLore(item.getItemMeta().getLore().get(0));
