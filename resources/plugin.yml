@@ -31,55 +31,55 @@ permissions:
         asedit.placement: true
     asedit.basic:
       desciption: Allow use armorstand edit functions. If set to false it will override all other functions.
-      default: true
+      default: op
     asedit.copy:
       description: Allows use of the copy/paste settings fuction.
-      default: true
+      default: op
     asedit.showarms:
       description: Toggle arms on/off.
-      default: true
+      default: op
     asedit.invisible:
       description: Toggle armorstand visible/invisible.
-      default: true
+      default: op
     asedit.size:
       description: Toggle armorstand size normal/small.
-      default: true
+      default: op
     asedit.baseplate:
       description: Toggle baseplate visible/invisible.
-      default: true
+      default: op
     asedit.gravity: 
       description: Toggle falling/floating armorstand.
-      default: true
+      default: op
     asedit.placement:
       description: Adjust armorstand's location.
-      default: true
+      default: op
     asedit.head:
       description: Adjust head position.
-      default: true
+      default: op
     asedit.body:
       description: Adjust body position.
-      default: true
+      default: op
     asedit.positionarms:
       description: Adjust arm position.
-      default: true
+      default: op
       children:
       asedit.leftarm: true
       asedit.rightarm: true
     asedit.positionlegs:
       description: Adjust leg position.
-      default: true
+      default: op
       children:
       asedit.leftleg: true
       asedit.rightleg: true
     asedit.leftarm:
       description: Adjust left arm position
-      default: true
+      default: op
     asedit.rightarm:
       description: Adjust right arm position
-      default: true
+      default: op
     asedit.leftleg: 
       description: Adjust left leg position
-      default: true
+      default: op
     asedit.rightleg:
       description: Adjust right leg position
-      default: true
+      default: op
