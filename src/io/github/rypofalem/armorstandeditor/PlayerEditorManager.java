@@ -118,6 +118,9 @@ public class PlayerEditorManager implements Listener{
 
 	@EventHandler (priority = EventPriority.NORMAL, ignoreCancelled=false)
 	void onRightClickTool(PlayerInteractEvent e){
+		if (!e.getPlayer().hasPermission("asedit.basic")) {
+			return;
+		}
 		try {
 			if(e.getAction() == Action.LEFT_CLICK_AIR 
 					|| e.getAction() == Action.RIGHT_CLICK_AIR
