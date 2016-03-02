@@ -4,16 +4,16 @@ import io.github.rypofalem.armorstandeditor.PlayerEditor;
 import io.github.rypofalem.armorstandeditor.Util;
 
 import java.util.ArrayList;
-
-
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.Potion;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
 
 public class Menu {
@@ -29,12 +29,12 @@ public class Menu {
 	private void fillInventory() {
 		menuInv.clear();
 		ArrayList<String> lore = new ArrayList<String>();
-		
+
 		ItemStack xAxis= null, yAxis= null, zAxis= null, coarseAdj= null, fineAdj= null, headPos= null, place = null,
-		rightArmPos= null, bodyPos= null, leftArmPos= null, showArms= null, visibility= null, size= null,
-		rightLegPos= null, leftLegPos= null, gravity= null, plate= null, copy= null, paste= null,
-		slot1= null, slot2= null, slot3= null, slot4= null, slot5= null, slot6= null, slot7= null, slot8= null, slot9 = null;
-		
+				rightArmPos= null, bodyPos= null, leftArmPos= null, showArms= null, visibility= null, size= null,
+				rightLegPos= null, leftLegPos= null, gravity= null, plate= null, copy= null, paste= null,
+				slot1= null, slot2= null, slot3= null, slot4= null, slot5= null, slot6= null, slot7= null, slot8= null, slot9 = null;
+
 		ItemMeta iMeta;
 
 		if(pe.getPlayer().hasPermission("asedit.head") ||
@@ -43,7 +43,7 @@ public class Menu {
 				pe.getPlayer().hasPermission("asedit.rightarm") ||
 				pe.getPlayer().hasPermission("asedit.leftleg") ||
 				pe.getPlayer().hasPermission("asedit.rightleg")){
-			
+
 			xAxis = new ItemStack(Material.WOOL, 1, (short) 14);
 			iMeta = xAxis.getItemMeta();
 			iMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.UNDERLINE + "X Axis");
@@ -156,13 +156,15 @@ public class Menu {
 		}
 
 		if(pe.getPlayer().hasPermission("asedit.invisible")){
-			visibility = new Potion(PotionType.INVISIBILITY).toItemStack(1);
-			iMeta = visibility.getItemMeta();
-			iMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.UNDERLINE + "Visibility");
+			visibility = new ItemStack(Material.POTION, 1);
+			PotionMeta potionMeta = (PotionMeta) visibility.getItemMeta();
+			potionMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.UNDERLINE + "Visibility");
 			lore = new ArrayList<String>();
 			lore.add((Util.encodeHiddenLore("ase mode invisible")));
-			iMeta.setLore(lore);
-			visibility.setItemMeta(iMeta);
+			potionMeta.setLore(lore);
+			PotionEffect eff1 = new PotionEffect(PotionEffectType.INVISIBILITY, 1, 0);
+			potionMeta.addCustomEffect(eff1, true);
+			visibility.setItemMeta(potionMeta);
 		}
 
 		if(pe.getPlayer().hasPermission("asedit.size")){
@@ -194,7 +196,7 @@ public class Menu {
 			iMeta.setLore(lore);
 			plate.setItemMeta(iMeta);
 		}
-		
+
 		if(pe.getPlayer().hasPermission("asedit.placement")){
 			place = new ItemStack(Material.MINECART, 1, (short) 0);
 			iMeta = place.getItemMeta();
@@ -308,14 +310,14 @@ public class Menu {
 			slot9.setItemMeta(iMeta);
 		}
 
-		ItemStack[] items = 
-			{xAxis, yAxis, zAxis, null, coarseAdj, fineAdj, null, null, place,
-				null, headPos, null, null, null, null, null, null, null,
-				rightArmPos, bodyPos, leftArmPos, null, null, null, showArms, visibility, size,
-				rightLegPos, null, leftLegPos, null, null, null, null, gravity, plate,
-				null, null, null, null, copy, paste, null, null, null,
-				slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9
-			};
+		ItemStack[] items =
+				{xAxis, yAxis, zAxis, null, coarseAdj, fineAdj, null, null, place,
+						null, headPos, null, null, null, null, null, null, null,
+						rightArmPos, bodyPos, leftArmPos, null, null, null, showArms, visibility, size,
+						rightLegPos, null, leftLegPos, null, null, null, null, gravity, plate,
+						null, null, null, null, copy, paste, null, null, null,
+						slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9
+				};
 		menuInv.setContents(items);
 	}
 
