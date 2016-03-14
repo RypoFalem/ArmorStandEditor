@@ -4,16 +4,16 @@ import io.github.rypofalem.armorstandeditor.PlayerEditor;
 import io.github.rypofalem.armorstandeditor.Util;
 
 import java.util.ArrayList;
-
-
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.Potion;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
 
 public class Menu {
@@ -43,7 +43,7 @@ public class Menu {
 				pe.getPlayer().hasPermission("asedit.rightarm") ||
 				pe.getPlayer().hasPermission("asedit.leftleg") ||
 				pe.getPlayer().hasPermission("asedit.rightleg")){
-			
+
 			xAxis = new ItemStack(Material.WOOL, 1, (short) 14);
 			iMeta = xAxis.getItemMeta();
 			iMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.UNDERLINE + "X Axis");
@@ -166,13 +166,15 @@ public class Menu {
 		}
 
 		if(pe.getPlayer().hasPermission("asedit.invisible")){
-			visibility = new ItemStack(Material.POTION);
-			iMeta = visibility.getItemMeta();
-			iMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.UNDERLINE + "Visibility");
+			visibility = new ItemStack(Material.POTION, 1);
+			PotionMeta potionMeta = (PotionMeta) visibility.getItemMeta();
+			potionMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.UNDERLINE + "Visibility");
 			lore = new ArrayList<String>();
 			lore.add((Util.encodeHiddenLore("ase mode invisible")));
-			iMeta.setLore(lore);
-			visibility.setItemMeta(iMeta);
+			potionMeta.setLore(lore);
+			PotionEffect eff1 = new PotionEffect(PotionEffectType.INVISIBILITY, 1, 0);
+			potionMeta.addCustomEffect(eff1, true);
+			visibility.setItemMeta(potionMeta);
 		}
 
 		if(pe.getPlayer().hasPermission("asedit.size")){
@@ -214,7 +216,7 @@ public class Menu {
 			iMeta.setLore(lore);
 			plate.setItemMeta(iMeta);
 		}
-		
+
 		if(pe.getPlayer().hasPermission("asedit.placement")){
 			place = new ItemStack(Material.MINECART, 1);
 			iMeta = place.getItemMeta();
@@ -356,7 +358,6 @@ public class Menu {
 			iMeta.setLore(lore);
 			slot9.setItemMeta(iMeta);
 		}
-
 		ItemStack[] items = 
 			{xAxis, yAxis, zAxis, null, coarseAdj, fineAdj, null, rotate, place,
 				null, headPos, null, null, null, null, null, null, target,
