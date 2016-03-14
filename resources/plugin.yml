@@ -30,6 +30,7 @@ permissions:
         asedit.leftleg: true
         asedit.placement: true
         asedit.equipment: true
+        asedit.rotate: true
     asedit.basic:
       desciption: Allow use armorstand edit functions. If set to false it will override all other functions.
       default: true
@@ -56,6 +57,9 @@ permissions:
       default: true
     asedit.equipment:
       description: Equip and unequip via menu
+      default: true
+    asedit.rotate:
+      description: Rotate the armorstand
       default: true
     asedit.head:
       description: Adjust head position.

@@ -1,6 +1,7 @@
 package io.github.rypofalem.armorstandeditor;
 
 import io.github.rypofalem.armorstandeditor.protection.GPProtection;
+import io.github.rypofalem.armorstandeditor.protection.PlotSqProtection;
 //import io.github.rypofalem.armorstandeditor.protection.PlotSProtection;
 import io.github.rypofalem.armorstandeditor.protection.Protection;
 import io.github.rypofalem.armorstandeditor.protection.WGProtection;
@@ -22,7 +23,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-//import com.intellectualcrafters.plot.PlotSquared;
+import com.intellectualcrafters.plot.api.PlotAPI;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
@@ -56,10 +57,10 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			addProtection(new GPProtection(gpPlugin));
 		}
 		
-//		if(isPluginEnabled("PlotSquared")){
-//			PlotSquared plotSPlugin = (PlotSquared) getServer().getPluginManager().getPlugin("PlotSquared");
-//			addProtection(new PlotSProtection(plotSPlugin));
-//		}
+		if(isPluginEnabled("PlotSquared")){
+			Plugin plotSqPlugin = getServer().getPluginManager().getPlugin("PlotSquared");
+			addProtection(new PlotSqProtection(plotSqPlugin, new PlotAPI()));
+		}
 	}
 
 	public void onDisable(){
@@ -89,7 +90,8 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			ex.printStackTrace();
 		} finally {
 			try {writer.close();} catch (Exception ex) {}
-			getLogger().info("\n***********************\n***********************\n***********************\n"
+			getLogger().info(
+					"\n***********************\n***********************\n***********************\n"
 					+ "ArmorStandEditor Encountered an error! Check plugins/ArmorStandEditor/log.txt"
 					+"\nYou should send this file to the developer."
 					+ "\n***********************\n***********************\n***********************");
@@ -133,11 +135,8 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 //Localisation
 //Access to "DisabledSlots" data (probably simplified just a toggle enable/disable)
 //Access to the "Marker" switch (so you can make the hitbox super small)
-//*****Ability to rotate armorstands
 //API so that developers can add their own means of having editing respect protected regions (the plugin already supports worldguard, greifprevention and plotsquared)
 //Target a specific armorstand to edit, so solve the issue of editing armorstands close to each other and to make the Marker switch a viable option.
 //Ability for users to set a per-user amount for coarse/fine adjustment
 //Force an update packet when an armorstand moves a small amount so it feels more responsive.
-//Place items in the head and arm slots via menu
 //Menu description
-//Dual wielding

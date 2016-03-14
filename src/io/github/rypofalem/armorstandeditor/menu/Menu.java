@@ -11,10 +11,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.potion.PotionType;
 
 public class Menu {
 	Inventory menuInv;
@@ -227,7 +225,7 @@ public class Menu {
 			place.setItemMeta(iMeta);
 		}
 		
-		if(pe.getPlayer().hasPermission("asedit.placement")){
+		if(pe.getPlayer().hasPermission("asedit.rotate")){
 			rotate = new ItemStack(Material.COMPASS, 1);
 			iMeta = rotate.getItemMeta();
 			iMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.UNDERLINE + "Rotate");
