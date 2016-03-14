@@ -1,27 +1,27 @@
 package io.github.rypofalem.armorstandeditor;
 
+import io.github.rypofalem.armorstandeditor.menu.EquipmentMenu;
 import io.github.rypofalem.armorstandeditor.menu.Menu;
 import io.github.rypofalem.armorstandeditor.modes.AdjustmentMode;
 import io.github.rypofalem.armorstandeditor.modes.ArmorStandData;
 import io.github.rypofalem.armorstandeditor.modes.Axis;
 import io.github.rypofalem.armorstandeditor.modes.CopySlots;
 import io.github.rypofalem.armorstandeditor.modes.EditMode;
+import io.github.rypofalem.armorstandeditor.protection.Protection;
 
 import java.util.UUID;
 
-import me.ryanhamshire.GriefPrevention.Claim;
-import me.ryanhamshire.GriefPrevention.GriefPrevention;
-
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.EntityEquipment;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.EulerAngle;
-
-import com.intellectualcrafters.plot.api.PlotAPI;
-import com.intellectualcrafters.plot.object.Plot;
 
 public class PlayerEditor {
 	public ArmorStandEditorPlugin plugin;
@@ -30,11 +30,14 @@ public class PlayerEditor {
 	AdjustmentMode adjMode;
 	CopySlots copySlots;
 	Axis axis;
-	double angleChange;
+	double eulerAngleChange;
+	double degreeAngleChange;
 	double movChange;
 	Menu chestMenu;
 	boolean cancelMenuOpen = false;
 	int uncancelTaskID =0;
+	ArmorStand target;
+	EquipmentMenu equipMenu;
 
 	public PlayerEditor(UUID uuid, ArmorStandEditorPlugin plugin){
 		this.uuid =uuid;
@@ -43,7 +46,8 @@ public class PlayerEditor {
 		adjMode = AdjustmentMode.COARSE;
 		axis = Axis.X;
 		copySlots = new CopySlots();
-		angleChange = getManager().coarseAdj;
+		eulerAngleChange = getManager().coarseAdj;
+		degreeAngleChange = eulerAngleChange /Math.PI * 180;
 		movChange = getManager().coarseMov;
 		chestMenu = new Menu(this);
 	}
@@ -61,12 +65,13 @@ public class PlayerEditor {
 	public void setAdjMode(AdjustmentMode adjMode){
 		this.adjMode = adjMode;
 		if(adjMode == AdjustmentMode.COARSE){
-			angleChange = getManager().coarseAdj;
+			eulerAngleChange = getManager().coarseAdj;
 			movChange = getManager().coarseMov;
 		}else{
-			angleChange = getManager().fineAdj;
+			eulerAngleChange = getManager().fineAdj;
 			movChange = getManager().fineMov;
 		}
+		degreeAngleChange = eulerAngleChange /Math.PI * 180;
 		sendMessage("Set adjustment to " + adjMode.toString());
 	}
 
@@ -76,7 +81,7 @@ public class PlayerEditor {
 	}
 
 	public void editArmorStand(ArmorStand armorStand) {
-		if(canBuild(armorStand.getLocation())){
+		if(canBuild(armorStand)){
 			switch(eMode){
 			case LEFTARM: armorStand.setLeftArmPose(subEulerAngle(armorStand.getLeftArmPose()));
 			break;
@@ -105,7 +110,13 @@ public class PlayerEditor {
 			case PASTE: paste(armorStand);
 			break;
 			case PLACEMENT: move(armorStand);
-				break;
+			break;
+			case ROTATE: rotate(armorStand);
+			break;
+			case DISABLESLOTS: toggleDisableSlots(armorStand);
+			break;
+			case EQUIPMENT: openEquipment(armorStand);
+			break;
 			case NONE: sendMessage("Click with the edit tool away from the armorstand to select an editing mode first!"); break;
 			}
 		}else{
@@ -113,8 +124,13 @@ public class PlayerEditor {
 		}
 	}
 
+	private void openEquipment(ArmorStand armorStand) {
+		equipMenu = new EquipmentMenu(this, armorStand);
+		equipMenu.open();
+	}
+
 	public void reverseEditArmorStand(ArmorStand armorStand){
-		if(canBuild(armorStand.getLocation())){
+		if(canBuild(armorStand)){
 			switch(eMode){
 			case LEFTARM: armorStand.setLeftArmPose(addEulerAngle(armorStand.getLeftArmPose()));
 			break;
@@ -129,6 +145,8 @@ public class PlayerEditor {
 			case RIGHTLEG: armorStand.setRightLegPose(addEulerAngle(armorStand.getRightLegPose()));
 			break;
 			case PLACEMENT: reverseMove(armorStand);
+			break;
+			case ROTATE: reverseRotate(armorStand);
 			break;
 			default: editArmorStand(armorStand);	
 			}
@@ -162,9 +180,23 @@ public class PlayerEditor {
 		}
 		armorStand.teleport(loc);
 	}
+	
+	private void rotate(ArmorStand armorStand){
+		Location loc = armorStand.getLocation();
+		float yaw = loc.getYaw();
+		loc.setYaw((yaw + 180 + (float)degreeAngleChange)%360 - 180);
+		armorStand.teleport(loc);
+	}
+	
+	private void reverseRotate(ArmorStand armorStand){
+		Location loc = armorStand.getLocation();
+		float yaw = loc.getYaw();
+		loc.setYaw((yaw + 180 - (float)degreeAngleChange)%360 - 180);
+		armorStand.teleport(loc);
+	}
 
 	private void copy(ArmorStand armorStand) {
-		if(canBuild(armorStand.getLocation())){
+		if(canBuild(armorStand)){
 			copySlots.copyDataToSlot(armorStand);
 			sendMessage("ArmorStand state copied to slot " + (copySlots.currentSlot + 1) + ".");
 			setMode(EditMode.PASTE);
@@ -174,7 +206,7 @@ public class PlayerEditor {
 	}
 
 	private void paste(ArmorStand armorStand){
-		if(canBuild(armorStand.getLocation())){
+		if(canBuild(armorStand)){
 			ArmorStandData data = copySlots.getDataToPaste();
 			if(data == null ) return;
 			armorStand.setHeadPose(data.headPos);
@@ -199,6 +231,10 @@ public class PlayerEditor {
 		}else{
 			cannotBuildMessage();
 		}
+	}
+	
+	private void toggleDisableSlots(ArmorStand armorStand) {
+		
 	}
 
 	private void toggleGravity(ArmorStand armorStand) {
@@ -235,11 +271,11 @@ public class PlayerEditor {
 
 	private EulerAngle addEulerAngle(EulerAngle angle) {
 		switch(axis){
-		case X: angle = angle.setX(Util.addAngle(angle.getX(), angleChange));
+		case X: angle = angle.setX(Util.addAngle(angle.getX(), eulerAngleChange));
 		break;
-		case Y: angle = angle.setY(Util.addAngle(angle.getY(), angleChange));
+		case Y: angle = angle.setY(Util.addAngle(angle.getY(), eulerAngleChange));
 		break;
-		case Z: angle = angle.setZ(Util.addAngle(angle.getZ(), angleChange));
+		case Z: angle = angle.setZ(Util.addAngle(angle.getZ(), eulerAngleChange));
 		break;
 		default:
 			break;
@@ -249,16 +285,20 @@ public class PlayerEditor {
 
 	private EulerAngle subEulerAngle(EulerAngle angle) {
 		switch(axis){
-		case X: angle = angle.setX(Util.subAngle(angle.getX(), angleChange));
+		case X: angle = angle.setX(Util.subAngle(angle.getX(), eulerAngleChange));
 		break;
-		case Y: angle = angle.setY(Util.subAngle(angle.getY(), angleChange));
+		case Y: angle = angle.setY(Util.subAngle(angle.getY(), eulerAngleChange));
 		break;
-		case Z: angle = angle.setZ(Util.subAngle(angle.getZ(), angleChange));
+		case Z: angle = angle.setZ(Util.subAngle(angle.getZ(), eulerAngleChange));
 		break;
 		default:
 			break;
 		}
 		return angle;
+	}
+	
+	public void setTarget(ArmorStand armorstand){
+		this.target = armorstand;
 	}
 
 	void sendMessage(String message){
@@ -277,28 +317,9 @@ public class PlayerEditor {
 		return uuid;
 	}
 	
-	private boolean canBuild(Location location) {
-		if(plugin.getWGPlugin() != null){
-			if(!plugin.getWGPlugin().canBuild(getPlayer(), location)){
-				return false;
-			}
-		}
-		if(plugin.getGPPlugin() != null){
-			Claim claim = GriefPrevention.instance.dataStore.getClaimAt(location, false, null);
-			if(claim != null 
-					&& claim.allowBuild(getPlayer(), Material.DIAMOND_BLOCK ) != null){ //claim.allowBuild returns null if player has permission to build
-				return false;
-			}
-		}
-		if(plugin.getPlotSAPI() != null){
-			PlotAPI plotAPI= plugin.getPlotSAPI();
-			if(plotAPI != null && plotAPI.isPlotWorld(location.getWorld())){
-				Plot plot = plotAPI.getPlot(location);
-				if(plot == null) return false;
-				if( plot.isDenied(uuid) || !(plot.isOwner(uuid) || plot.isAdded(uuid) ) ){
-					return false;
-				}
-			}	
+	boolean canBuild(ArmorStand armorstand) {
+		for(Protection prot : plugin.getProtections()){
+			if(!prot.canEdit(getPlayer(), armorstand)) return false;
 		}
 		return true;
 	}
@@ -336,6 +357,5 @@ public class PlayerEditor {
 		public void run() {
 			cancelMenuOpen = false;
 		}
-
 	}
 }

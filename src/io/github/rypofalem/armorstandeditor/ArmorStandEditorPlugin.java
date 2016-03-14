@@ -1,11 +1,17 @@
 package io.github.rypofalem.armorstandeditor;
 
+import io.github.rypofalem.armorstandeditor.protection.GPProtection;
+//import io.github.rypofalem.armorstandeditor.protection.PlotSProtection;
+import io.github.rypofalem.armorstandeditor.protection.Protection;
+import io.github.rypofalem.armorstandeditor.protection.WGProtection;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.Date;
 
 import me.ryanhamshire.GriefPrevention.GriefPrevention;
@@ -16,7 +22,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.intellectualcrafters.plot.api.PlotAPI;
+//import com.intellectualcrafters.plot.PlotSquared;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
@@ -24,14 +30,10 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	CommandEx execute;
 	public PlayerEditorManager editorManager;
 	public Material editTool;
-	boolean debug = false; //weather or not to broadcast messages via print(String message)
+	boolean debug = true; //weather or not to broadcast messages via print(String message)
 	double coarseRot;
 	double fineRot;
-	private WorldGuardPlugin wgPlugin;
-	private GriefPrevention gpPlugin;
-	private PlotAPI plotSAPI;
-	private Plugin plotSPlugin;
-	boolean unrecognisedProtMode = false;
+	private ArrayList<Protection> protections;
 
 	public void onEnable(){
 		saveDefaultConfig();
@@ -43,25 +45,25 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		execute = new CommandEx(this);
 		getCommand("ase").setExecutor(execute);
 		getServer().getPluginManager().registerEvents(editorManager, this);
+		protections = new ArrayList<Protection>();
 		if(isPluginEnabled("WorldGuard")){
-			wgPlugin = (WorldGuardPlugin) getServer().getPluginManager().getPlugin("WorldGuard");
-			log("WoldGuard detected");
+			WorldGuardPlugin wgPlugin = (WorldGuardPlugin) getServer().getPluginManager().getPlugin("WorldGuard");
+			addProtection(new WGProtection(wgPlugin));
 		}
+		
 		if(isPluginEnabled("GriefPrevention")){
-			gpPlugin = (GriefPrevention) getServer().getPluginManager().getPlugin("GriefPrevention");
-			log("GriefPrevention detected");
+			GriefPrevention gpPlugin = (GriefPrevention) getServer().getPluginManager().getPlugin("GriefPrevention");
+			addProtection(new GPProtection(gpPlugin));
 		}
-		if(isPluginEnabled("PlotSquared")){
-			plotSAPI =new PlotAPI();
-			plotSPlugin = getServer().getPluginManager().getPlugin("PlotSquared");
-			log("PlotSquared detected");
-		}
-		if(wgPlugin == null && gpPlugin == null && plotSPlugin == null){
-			unrecognisedProtMode = true;
-		}
+		
+//		if(isPluginEnabled("PlotSquared")){
+//			PlotSquared plotSPlugin = (PlotSquared) getServer().getPluginManager().getPlugin("PlotSquared");
+//			addProtection(new PlotSProtection(plotSPlugin));
+//		}
 	}
 
 	public void onDisable(){
+		
 	}
 
 	void logError(Throwable throwable){
@@ -98,25 +100,12 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		return getServer().getPluginManager().isPluginEnabled(plugin);
 	}
 	
-	public WorldGuardPlugin getWGPlugin(){
-		if(wgPlugin != null && wgPlugin.isEnabled()){
-			return wgPlugin;
-		}
-		return null;
+	public void addProtection (Protection protection){
+		protections.add(protection);
 	}
 	
-	public GriefPrevention getGPPlugin(){
-		if(gpPlugin != null && gpPlugin.isEnabled()){
-			return gpPlugin;
-		}
-		return null;
-	}
-	
-	public PlotAPI getPlotSAPI(){
-		if(plotSPlugin != null &&  plotSPlugin.isEnabled() && plotSAPI!= null){
-			return plotSAPI;
-		}
-		return null;
+	public ArrayList<Protection> getProtections(){
+		return protections;
 	}
 
 	public void log(String message){
@@ -134,9 +123,21 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		String list = "";
 		for(Plugin p : plugins){
 			if(p!=null){
-				list = list +" :" + p.getName() + ": ";
+				list = list +" :" + p.getName() + " " + p.getDescription().getVersion() + ": ";
 			}
 		}
 		return list;
 	}
 }
+//todo: 
+//Localisation
+//Access to "DisabledSlots" data (probably simplified just a toggle enable/disable)
+//Access to the "Marker" switch (so you can make the hitbox super small)
+//*****Ability to rotate armorstands
+//API so that developers can add their own means of having editing respect protected regions (the plugin already supports worldguard, greifprevention and plotsquared)
+//Target a specific armorstand to edit, so solve the issue of editing armorstands close to each other and to make the Marker switch a viable option.
+//Ability for users to set a per-user amount for coarse/fine adjustment
+//Force an update packet when an armorstand moves a small amount so it feels more responsive.
+//Place items in the head and arm slots via menu
+//Menu description
+//Dual wielding

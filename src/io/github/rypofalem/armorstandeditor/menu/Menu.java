@@ -19,22 +19,22 @@ import org.bukkit.potion.PotionType;
 public class Menu {
 	Inventory menuInv;
 	private PlayerEditor pe;
+	static String name = "Select an option!";
 
 	public Menu(PlayerEditor pe){
 		this.pe = pe;
-		menuInv = Bukkit.createInventory(pe.getManager().getPluginHolder(), 54, "Select an option!");
+		menuInv = Bukkit.createInventory(pe.getManager().getPluginHolder(), 54, name);
 		fillInventory();
 	}
 
 	private void fillInventory() {
 		menuInv.clear();
 		ArrayList<String> lore = new ArrayList<String>();
-		
-		ItemStack xAxis= null, yAxis= null, zAxis= null, coarseAdj= null, fineAdj= null, headPos= null, place = null,
-		rightArmPos= null, bodyPos= null, leftArmPos= null, showArms= null, visibility= null, size= null,
-		rightLegPos= null, leftLegPos= null, gravity= null, plate= null, copy= null, paste= null,
-		slot1= null, slot2= null, slot3= null, slot4= null, slot5= null, slot6= null, slot7= null, slot8= null, slot9 = null;
-		
+		ItemStack xAxis= null, yAxis= null, zAxis= null, coarseAdj= null, fineAdj= null, rotate = null, place = null,
+				headPos= null, target = null,
+				rightArmPos= null, bodyPos= null, leftArmPos= null, showArms= null, visibility= null, size= null,
+				rightLegPos= null, equipment = null, leftLegPos= null, disableSlots = null, gravity= null, plate= null, copy= null, paste= null,
+				slot1= null, slot2= null, slot3= null, slot4= null, slot5= null, slot6= null, slot7= null, slot8= null, slot9 = null;
 		ItemMeta iMeta;
 
 		if(pe.getPlayer().hasPermission("asedit.head") ||
@@ -144,6 +144,16 @@ public class Menu {
 			iMeta.setLore(lore);
 			rightArmPos.setItemMeta(iMeta);
 		}
+		
+		if(pe.getPlayer().hasPermission("asedit.equipment")){
+			equipment = new ItemStack(Material.CHEST);
+			iMeta = equipment.getItemMeta();
+			iMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.UNDERLINE + "Equipment");
+			lore = new ArrayList<String>();
+			lore.add((Util.encodeHiddenLore("ase equipment")));
+			iMeta.setLore(lore);
+			equipment.setItemMeta(iMeta);
+		}
 
 		if(pe.getPlayer().hasPermission("asedit.showarms")){
 			showArms = new ItemStack(Material.STICK);
@@ -156,7 +166,7 @@ public class Menu {
 		}
 
 		if(pe.getPlayer().hasPermission("asedit.invisible")){
-			visibility = new Potion(PotionType.INVISIBILITY).toItemStack(1);
+			visibility = new ItemStack(Material.POTION);
 			iMeta = visibility.getItemMeta();
 			iMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.UNDERLINE + "Visibility");
 			lore = new ArrayList<String>();
@@ -174,7 +184,17 @@ public class Menu {
 			iMeta.setLore(lore);
 			size.setItemMeta(iMeta);
 		}
-
+		
+		if(pe.getPlayer().hasPermission("asedit.disableslots")){
+			disableSlots = new ItemStack(Material.BARRIER);
+			iMeta = disableSlots.getItemMeta();
+			iMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.UNDERLINE + "Disable Slots");
+			lore = new ArrayList<String>();
+			lore.add((Util.encodeHiddenLore("ase mode disableslots")));
+			iMeta.setLore(lore);
+			disableSlots.setItemMeta(iMeta);
+		}
+		
 		if(pe.getPlayer().hasPermission("asedit.gravity")){
 			gravity = new ItemStack(Material.SAND);
 			iMeta = gravity.getItemMeta();
@@ -186,7 +206,7 @@ public class Menu {
 		}
 
 		if(pe.getPlayer().hasPermission("asedit.baseplate")){
-			plate = new ItemStack(Material.STEP, 1, (short) 0);
+			plate = new ItemStack(Material.STEP, 1);
 			iMeta = plate.getItemMeta();
 			iMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.UNDERLINE + "BasePlate");
 			lore = new ArrayList<String>();
@@ -196,13 +216,42 @@ public class Menu {
 		}
 		
 		if(pe.getPlayer().hasPermission("asedit.placement")){
-			place = new ItemStack(Material.MINECART, 1, (short) 0);
+			place = new ItemStack(Material.MINECART, 1);
 			iMeta = place.getItemMeta();
 			iMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.UNDERLINE + "Placement");
 			lore = new ArrayList<String>();
 			lore.add((Util.encodeHiddenLore("ase mode placement")));
 			iMeta.setLore(lore);
 			place.setItemMeta(iMeta);
+		}
+		
+		if(pe.getPlayer().hasPermission("asedit.placement")){
+			rotate = new ItemStack(Material.COMPASS, 1);
+			iMeta = rotate.getItemMeta();
+			iMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.UNDERLINE + "Rotate");
+			lore = new ArrayList<String>();
+			lore.add((Util.encodeHiddenLore("ase mode rotate")));
+			iMeta.setLore(lore);
+			rotate.setItemMeta(iMeta);
+		}
+		
+		target = new ItemStack(Material.END_CRYSTAL, 1);
+		iMeta = target.getItemMeta();
+		iMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.UNDERLINE + "Target");
+		lore = new ArrayList<String>();
+		lore.add((Util.encodeHiddenLore("ase mode target")));
+		lore.add("Coming soon!");
+		iMeta.setLore(lore);
+		target.setItemMeta(iMeta);
+		
+		if(pe.getPlayer().hasPermission("asedit.equipment")){
+			equipment = new ItemStack(Material.CHEST, 1);
+			iMeta = target.getItemMeta();
+			iMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.UNDERLINE + "Equipment");
+			lore = new ArrayList<String>();
+			lore.add((Util.encodeHiddenLore("ase mode equipment")));
+			iMeta.setLore(lore);
+			equipment.setItemMeta(iMeta);
 		}
 
 		if(pe.getPlayer().hasPermission("asedit.copy")){
@@ -309,10 +358,10 @@ public class Menu {
 		}
 
 		ItemStack[] items = 
-			{xAxis, yAxis, zAxis, null, coarseAdj, fineAdj, null, null, place,
-				null, headPos, null, null, null, null, null, null, null,
+			{xAxis, yAxis, zAxis, null, coarseAdj, fineAdj, null, rotate, place,
+				null, headPos, null, null, null, null, null, null, target,
 				rightArmPos, bodyPos, leftArmPos, null, null, null, showArms, visibility, size,
-				rightLegPos, null, leftLegPos, null, null, null, null, gravity, plate,
+				rightLegPos, equipment, leftLegPos, null, null, null, null, gravity, plate,
 				null, null, null, null, copy, paste, null, null, null,
 				slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9
 			};
@@ -320,6 +369,11 @@ public class Menu {
 	}
 
 	public void openMenu(){
+		fillInventory();
 		pe.getPlayer().openInventory(menuInv);
+	}
+	
+	public static String getName(){
+		return name;
 	}
 }
