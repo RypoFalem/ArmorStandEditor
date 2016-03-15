@@ -1,8 +1,8 @@
 package io.github.rypofalem.armorstandeditor;
 
+import io.github.rypofalem.armorstandeditor.protection.ClaimsProtection;
 import io.github.rypofalem.armorstandeditor.protection.GPProtection;
 import io.github.rypofalem.armorstandeditor.protection.PlotSqProtection;
-//import io.github.rypofalem.armorstandeditor.protection.PlotSProtection;
 import io.github.rypofalem.armorstandeditor.protection.Protection;
 import io.github.rypofalem.armorstandeditor.protection.WGProtection;
 
@@ -23,15 +23,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.intellectualcrafters.plot.api.PlotAPI;
-
+import com.plotsquared.bukkit.BukkitMain;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import com.winthier.claims.bukkit.BukkitClaimsPlugin;
 
 public class ArmorStandEditorPlugin extends JavaPlugin{
 	CommandEx execute;
 	public PlayerEditorManager editorManager;
 	public Material editTool;
-	boolean debug = false; //weather or not to broadcast messages via print(String message)
+	boolean debug = true; //weather or not to broadcast messages via print(String message)
 	double coarseRot;
 	double fineRot;
 	private ArrayList<Protection> protections;
@@ -51,20 +51,25 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			WorldGuardPlugin wgPlugin = (WorldGuardPlugin) getServer().getPluginManager().getPlugin("WorldGuard");
 			addProtection(new WGProtection(wgPlugin));
 		}
-		
+
 		if(isPluginEnabled("GriefPrevention")){
-			GriefPrevention gpPlugin = (GriefPrevention) getServer().getPluginManager().getPlugin("GriefPrevention");
-			addProtection(new GPProtection(gpPlugin));
+			Plugin gpPlugin =  getServer().getPluginManager().getPlugin("GriefPrevention");
+			if(gpPlugin instanceof GriefPrevention) addProtection(new GPProtection( (GriefPrevention)gpPlugin));
 		}
-		
+
 		if(isPluginEnabled("PlotSquared")){
 			Plugin plotSqPlugin = getServer().getPluginManager().getPlugin("PlotSquared");
-			addProtection(new PlotSqProtection(plotSqPlugin, new PlotAPI()));
+			if(plotSqPlugin instanceof BukkitMain) addProtection(new PlotSqProtection((BukkitMain) plotSqPlugin));
+		}
+
+		if(isPluginEnabled("Claims")){
+			Plugin bcp = getServer().getPluginManager().getPlugin("Claims");
+			if(bcp instanceof BukkitClaimsPlugin) addProtection(new ClaimsProtection((BukkitClaimsPlugin) bcp));
 		}
 	}
 
 	public void onDisable(){
-		
+
 	}
 
 	void logError(Throwable throwable){
@@ -92,20 +97,20 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			try {writer.close();} catch (Exception ex) {}
 			getLogger().info(
 					"\n***********************\n***********************\n***********************\n"
-					+ "ArmorStandEditor Encountered an error! Check plugins/ArmorStandEditor/log.txt"
-					+"\nYou should send this file to the developer."
-					+ "\n***********************\n***********************\n***********************");
+							+ "ArmorStandEditor Encountered an error! Check plugins/ArmorStandEditor/log.txt"
+							+"\nYou should send this file to the developer."
+							+ "\n***********************\n***********************\n***********************");
 		}
 	}
-	
+
 	public boolean isPluginEnabled(String plugin){
 		return getServer().getPluginManager().isPluginEnabled(plugin);
 	}
-	
+
 	public void addProtection (Protection protection){
 		protections.add(protection);
 	}
-	
+
 	public ArrayList<Protection> getProtections(){
 		return protections;
 	}
@@ -113,13 +118,13 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	public void log(String message){
 		this.getServer().getLogger().info("ArmorStandEditor: " + message);
 	}
-	
+
 	public void print(String message){
 		if(debug){
 			this.getServer().broadcastMessage(message);
 		}
 	}
-	
+
 	public String listPlugins(){
 		Plugin[] plugins = getServer().getPluginManager().getPlugins();
 		String list = "";

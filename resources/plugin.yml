@@ -4,7 +4,7 @@ version: 1.9-0.1.6BETA
 website: rypofalem.github.io
 author: RypoFalem
 description: Allows players to edit certain NBT tags of armorstands without any commands.
-softdepend: [WorldGuard,PlotSquared,GriefPrevention]
+softdepend: [WorldGuard,PlotSquared,GriefPrevention,Claims]
 commands:
   ase:
     description: Changes the function of the armorstand edit tool.

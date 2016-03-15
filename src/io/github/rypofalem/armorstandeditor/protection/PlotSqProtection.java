@@ -1,9 +1,7 @@
 package io.github.rypofalem.armorstandeditor.protection;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 import com.intellectualcrafters.plot.PS;
 import com.intellectualcrafters.plot.api.PlotAPI;
@@ -12,12 +10,13 @@ import com.plotsquared.bukkit.BukkitMain;
 
 public class PlotSqProtection implements Protection{
 
-	private Plugin plotSqPlugin;
+	private BukkitMain plotSqPlugin;
 	private PlotAPI plotAPI;
 
-	public PlotSqProtection(Plugin plotSPlugin, PlotAPI api) {
+	@SuppressWarnings("deprecation")
+	public PlotSqProtection(BukkitMain plotSPlugin) {
 		this.plotSqPlugin = plotSPlugin;
-		plotAPI = api;
+		plotAPI = new PlotAPI();
 	}
 
 	@Override

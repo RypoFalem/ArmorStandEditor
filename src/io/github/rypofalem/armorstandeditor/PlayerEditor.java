@@ -11,16 +11,11 @@ import io.github.rypofalem.armorstandeditor.protection.Protection;
 
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.EntityEquipment;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.EulerAngle;
 
 public class PlayerEditor {
@@ -117,6 +112,8 @@ public class PlayerEditor {
 			break;
 			case EQUIPMENT: openEquipment(armorStand);
 			break;
+			case TARGET:;
+			break;
 			case NONE: sendMessage("Click with the edit tool away from the armorstand to select an editing mode first!"); break;
 			}
 		}else{
@@ -154,40 +151,40 @@ public class PlayerEditor {
 			cannotBuildMessage();
 		}
 	}
-	
+
 	private void move(ArmorStand armorStand) {
 		Location loc = armorStand.getLocation();
 		switch(axis){
 		case X: loc.add(movChange, 0, 0);
-			break;
+		break;
 		case Y: loc.add(0, movChange, 0);
-			break;
+		break;
 		case Z: loc.add(0, 0, movChange);
-			break;
+		break;
 		}
 		armorStand.teleport(loc);
 	}
-	
+
 	private void reverseMove(ArmorStand armorStand) {
 		Location loc = armorStand.getLocation();
 		switch(axis){
 		case X: loc.subtract(movChange, 0, 0);
-			break;
+		break;
 		case Y: loc.subtract(0, movChange, 0);
-			break;
+		break;
 		case Z: loc.subtract(0, 0, movChange);
-			break;
+		break;
 		}
 		armorStand.teleport(loc);
 	}
-	
+
 	private void rotate(ArmorStand armorStand){
 		Location loc = armorStand.getLocation();
 		float yaw = loc.getYaw();
 		loc.setYaw((yaw + 180 + (float)degreeAngleChange)%360 - 180);
 		armorStand.teleport(loc);
 	}
-	
+
 	private void reverseRotate(ArmorStand armorStand){
 		Location loc = armorStand.getLocation();
 		float yaw = loc.getYaw();
@@ -232,9 +229,9 @@ public class PlayerEditor {
 			cannotBuildMessage();
 		}
 	}
-	
+
 	private void toggleDisableSlots(ArmorStand armorStand) {
-		
+
 	}
 
 	private void toggleGravity(ArmorStand armorStand) {
@@ -296,7 +293,7 @@ public class PlayerEditor {
 		}
 		return angle;
 	}
-	
+
 	public void setTarget(ArmorStand armorstand){
 		this.target = armorstand;
 	}
@@ -312,11 +309,11 @@ public class PlayerEditor {
 	public Player getPlayer(){
 		return plugin.getServer().getPlayer(getUUID());
 	}
-	
+
 	public UUID getUUID() {
 		return uuid;
 	}
-	
+
 	boolean canBuild(ArmorStand armorstand) {
 		for(Protection prot : plugin.getProtections()){
 			if(!prot.canEdit(getPlayer(), armorstand)) return false;
