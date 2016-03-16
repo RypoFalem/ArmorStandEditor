@@ -24,5 +24,4 @@ public class ClaimsProtection implements Protection {
 		}
 		return claims.canBuild(player.getUniqueId(), player.getWorld().getName(), armorstand.getLocation().getBlockX(), armorstand.getLocation().getBlockY(), armorstand.getLocation().getBlockZ());
 	}
-	
 }

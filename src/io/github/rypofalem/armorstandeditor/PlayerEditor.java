@@ -193,13 +193,9 @@ public class PlayerEditor {
 	}
 
 	private void copy(ArmorStand armorStand) {
-		if(canBuild(armorStand)){
 			copySlots.copyDataToSlot(armorStand);
 			sendMessage("ArmorStand state copied to slot " + (copySlots.currentSlot + 1) + ".");
 			setMode(EditMode.PASTE);
-		}else{
-			cannotBuildMessage();
-		}
 	}
 
 	private void paste(ArmorStand armorStand){
@@ -222,7 +218,8 @@ public class PlayerEditor {
 				armorStand.setChestplate(data.body);
 				armorStand.setLeggings(data.legs);
 				armorStand.setBoots(data.feetsies);
-				armorStand.setItemInHand(data.hand);
+				armorStand.setItemInHand(data.rightHand);
+				armorStand.getEquipment().setItemInOffHand(data.leftHand);
 			}
 			sendMessage("ArmorStand state pasted from slot " + (copySlots.currentSlot + 1) + ".");
 		}else{
