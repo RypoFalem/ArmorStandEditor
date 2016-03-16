@@ -29,7 +29,6 @@ public class EquipmentMenu {
 	
 	private void fillInventory(){
 		menuInv.clear();
-		if(armorstand == null) pe.plugin.print("It's null, Jim");
 		EntityEquipment equipment = armorstand.getEquipment();
 		ItemStack helmet = equipment.getHelmet();
 		ItemStack chest = equipment.getChestplate();

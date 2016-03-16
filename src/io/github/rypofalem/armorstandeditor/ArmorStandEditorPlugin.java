@@ -69,7 +69,6 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	}
 
 	public void onDisable(){
-
 	}
 
 	void logError(Throwable throwable){

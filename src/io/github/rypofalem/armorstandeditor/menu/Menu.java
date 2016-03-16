@@ -17,7 +17,7 @@ import org.bukkit.potion.PotionEffectType;
 public class Menu {
 	Inventory menuInv;
 	private PlayerEditor pe;
-	static String name = "Select an option!";
+	static String name = "Armor Stand Editor Menu";
 
 	public Menu(PlayerEditor pe){
 		this.pe = pe;
