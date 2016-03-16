@@ -17,7 +17,11 @@ public class ClaimsProtection implements Protection {
 	
 	@Override
 	public boolean canEdit(Player player, ArmorStand armorstand) {
-		if(plugin == null || claims == null || !plugin.isEnabled()) return true;
+		if(plugin == null || !plugin.isEnabled()) return true;
+		if(claims == null){
+			claims = Claims.getInstance();
+			if(claims == null) return true;
+		}
 		return claims.canBuild(player.getUniqueId(), player.getWorld().getName(), armorstand.getLocation().getBlockX(), armorstand.getLocation().getBlockY(), armorstand.getLocation().getBlockZ());
 	}
 	
