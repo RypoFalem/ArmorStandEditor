@@ -17,6 +17,7 @@ import java.util.Date;
 
 import me.ryanhamshire.GriefPrevention.GriefPrevention;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -83,6 +84,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			logFileDir.mkdirs();
 			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("plugins/ArmorStandEditor/log.txt"), true)));
 			writer.append("********"+ new Date(System.currentTimeMillis()).toString() + "********\n\n");
+			writer.append(Bukkit.getServer().getVersion() + "\n");
 			writer.append("Plugins: " + listPlugins() + "\n\n\n");
 			writer.append(throwable.getClass().getName() + "\n");
 			for(StackTraceElement ste: throwable.getStackTrace()){
