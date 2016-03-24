@@ -80,7 +80,7 @@ public class PlayerEditorManager implements Listener{
 					getPlayerEditor(player.getUniqueId()).cancelOpenMenu();
 					getPlayerEditor(player.getUniqueId()).reverseEditArmorStand(as);
 				}else if(player.getInventory().getItemInMainHand().getType() == Material.NAME_TAG){ //if the clicked an armorstand with a nametag, apply the name
-					ItemStack nameTag = player.getInventory().getItemInMainHand();
+					ItemStack nameTag = player.getInventory().getItemInMainHand(); 
 					if(nameTag.hasItemMeta() && nameTag.getItemMeta().hasDisplayName()){
 						ArmorStand as = (ArmorStand)e.getRightClicked();
 						String name = nameTag.getItemMeta().getDisplayName();
@@ -191,7 +191,7 @@ public class PlayerEditorManager implements Listener{
 		}
 	}
 	
-	@EventHandler (priority = EventPriority.NORMAL, ignoreCancelled=true)
+	@EventHandler (priority = EventPriority.MONITOR, ignoreCancelled=true)
 	void onPlayerMenuClose(InventoryCloseEvent e){
 		try {
 			if(e.getInventory() == null) return;
@@ -209,7 +209,7 @@ public class PlayerEditorManager implements Listener{
 	}
 
 	//Stop tracking player when he leaves
-	@EventHandler (priority = EventPriority.MONITOR, ignoreCancelled=false)
+	@EventHandler (priority = EventPriority.MONITOR)
 	void onPlayerLogOut(PlayerQuitEvent e){
 		removePlayerEditor(e.getPlayer().getUniqueId());
 	}

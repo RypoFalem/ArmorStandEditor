@@ -1,5 +1,6 @@
 package io.github.rypofalem.armorstandeditor;
 
+import io.github.armorstandeditor.language.Language;
 import io.github.rypofalem.armorstandeditor.protection.ClaimsProtection;
 import io.github.rypofalem.armorstandeditor.protection.GPProtection;
 import io.github.rypofalem.armorstandeditor.protection.PlotSqProtection;
@@ -30,6 +31,7 @@ import com.winthier.claims.bukkit.BukkitClaimsPlugin;
 
 public class ArmorStandEditorPlugin extends JavaPlugin{
 	CommandEx execute;
+	Language lang;
 	public PlayerEditorManager editorManager;
 	public Material editTool;
 	boolean debug = true; //weather or not to broadcast messages via print(String message)
@@ -39,9 +41,11 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
 	public void onEnable(){
 		saveDefaultConfig();
+		addNewConfigValues();
 		coarseRot = getConfig().getDouble("coarse");
 		fineRot = getConfig().getDouble("fine");
 		String tool = getConfig().getString("tool");
+		lang = new Language(getConfig().getString("lang"), this);
 		editTool = Material.getMaterial(tool);
 		editorManager = new PlayerEditorManager(this);
 		execute = new CommandEx(this);
@@ -67,6 +71,10 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			Plugin bcp = getServer().getPluginManager().getPlugin("Claims");
 			if(bcp instanceof BukkitClaimsPlugin) addProtection(new ClaimsProtection((BukkitClaimsPlugin) bcp));
 		}
+	}
+
+	private void addNewConfigValues() {
+		getConfig().createSection("lang");
 	}
 
 	public void onDisable(){
@@ -135,6 +143,10 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			}
 		}
 		return list;
+	}
+	
+	public Language getLang(){
+		return lang;
 	}
 }
 //todo: 

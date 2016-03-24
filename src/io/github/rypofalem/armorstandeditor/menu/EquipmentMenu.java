@@ -3,7 +3,6 @@ package io.github.rypofalem.armorstandeditor.menu;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.inventory.EntityEquipment;
@@ -24,6 +23,7 @@ public class EquipmentMenu {
 	public EquipmentMenu(PlayerEditor pe, ArmorStand as){
 		this.pe = pe;
 		this.armorstand = as;
+		name = pe.plugin.getLang().getMessage("equiptitle", "menutitle");
 		menuInv = Bukkit.createInventory(pe.getManager().getPluginHolder(), 18, name);
 	}
 	
@@ -37,13 +37,21 @@ public class EquipmentMenu {
 		ItemStack rightHand = equipment.getItemInMainHand();
 		ItemStack leftHand = equipment.getItemInOffHand();
 		equipment.clear();
-		ItemStack disabledIcon = createIcon(Material.BARRIER, "Disabled", "This does nothing!");
-		ItemStack helmetIcon = createIcon(Material.LEATHER_HELMET, "Helmet Slot", "Drag your helmet into the slot below");
-		ItemStack chestIcon = createIcon(Material.LEATHER_CHESTPLATE, "Chestplate Slot", "Drag your chestplate into the slot below");
-		ItemStack pantsIcon = createIcon(Material.LEATHER_LEGGINGS, "Helmet Slot", "Drag your pants into the slot below");
-		ItemStack feetsiesIcon = createIcon(Material.LEATHER_BOOTS, "Feetsies Slot", "Drag your boots into the slot below");
-		ItemStack rightHandIcon = createIcon(Material.WOOD_SWORD, "Right Hand Slot", "Drag your right hand item into the slot below");
-		ItemStack leftHandIcon = createIcon(Material.SHIELD, "Left Hand Slot", "Drag your left hand item into the slot below");
+		
+		ItemStack disabledIcon = new ItemStack(Material.BARRIER);
+		ItemMeta meta = disabledIcon.getItemMeta();
+		meta.setDisplayName(pe.plugin.getLang().getMessage("disabled", "warn")); //equipslot.msg <option>
+		ArrayList<String> loreList = new ArrayList<String>();
+		loreList.add(Util.encodeHiddenLore("ase icon"));
+		meta.setLore(loreList);
+		disabledIcon.setItemMeta(meta);
+		
+		ItemStack helmetIcon = createIcon(Material.LEATHER_HELMET, "helm");
+		ItemStack chestIcon = createIcon(Material.LEATHER_CHESTPLATE, "chest");
+		ItemStack pantsIcon = createIcon(Material.LEATHER_LEGGINGS, "pants");
+		ItemStack feetsiesIcon = createIcon(Material.LEATHER_BOOTS, "boots");
+		ItemStack rightHandIcon = createIcon(Material.WOOD_SWORD, "rhand");
+		ItemStack leftHandIcon = createIcon(Material.SHIELD, "lhand");
 		ItemStack[] items = 
 			{ helmetIcon, chestIcon, pantsIcon, feetsiesIcon, rightHandIcon, leftHandIcon, disabledIcon, disabledIcon, disabledIcon,
 					helmet, chest, pants, feetsies, rightHand, leftHand, disabledIcon, disabledIcon, disabledIcon
@@ -51,12 +59,12 @@ public class EquipmentMenu {
 		menuInv.setContents(items);
 	}
 	
-	private ItemStack createIcon(Material mat, String name, String lore){
+	private ItemStack createIcon(Material mat, String slot){
 		ItemStack icon = new ItemStack(mat);
 		ItemMeta meta = icon.getItemMeta();
-		meta.setDisplayName(ChatColor.GREEN + "" + ChatColor.UNDERLINE + name);
+		meta.setDisplayName(pe.plugin.getLang().getMessage("equipslot", "iconname", slot)); //equipslot.msg <option>
 		ArrayList<String> loreList = new ArrayList<String>();
-		loreList.add(ChatColor.GREEN + lore);
+		loreList.add(pe.plugin.getLang().getMessage("equipslot.description", "icondescription", slot)); //equioslot.description.msg <option>
 		loreList.add(Util.encodeHiddenLore("ase icon"));
 		meta.setLore(loreList);
 		icon.setItemMeta(meta);

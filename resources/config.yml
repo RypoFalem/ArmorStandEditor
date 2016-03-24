@@ -6,3 +6,6 @@ fine: 120
 
 #Name of the edit tool's item Material. You can find a full list at https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
 tool: FLINT
+
+#Name of the language file you wish to use
+lang: en_US.yml

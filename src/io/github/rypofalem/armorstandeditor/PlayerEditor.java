@@ -11,7 +11,6 @@ import io.github.rypofalem.armorstandeditor.protection.Protection;
 
 import java.util.UUID;
 
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
@@ -49,12 +48,12 @@ public class PlayerEditor {
 
 	public void setMode(EditMode editMode){
 		this.eMode = editMode;
-		sendMessage("Setting mode to " + editMode.toString());
+		sendMessage("setmode", editMode.toString().toLowerCase());
 	}
 
 	public void setAxis(Axis axis){
 		this.axis = axis;
-		sendMessage("Setting axis to " + axis.toString());
+		sendMessage("setaxis", axis.toString().toLowerCase());
 	}
 
 	public void setAdjMode(AdjustmentMode adjMode){
@@ -67,12 +66,12 @@ public class PlayerEditor {
 			movChange = getManager().fineMov;
 		}
 		degreeAngleChange = eulerAngleChange /Math.PI * 180;
-		sendMessage("Set adjustment to " + adjMode.toString());
+		sendMessage("setadj", adjMode.toString().toLowerCase());
 	}
 
 	public void setCopySlot(byte slot){
 		copySlots.changeSlots(slot);
-		sendMessage("Set copy slot to " + (slot + 1));
+		sendMessage("setslot" , String.valueOf((slot + 1)));
 	}
 
 	public void editArmorStand(ArmorStand armorStand) {
@@ -114,7 +113,7 @@ public class PlayerEditor {
 			break;
 			case TARGET:;
 			break;
-			case NONE: sendMessage("Click with the edit tool away from the armorstand to select an editing mode first!"); break;
+			case NONE: sendMessage("nomode", null); break;
 			}
 		}else{
 			cannotBuildMessage();
@@ -194,7 +193,7 @@ public class PlayerEditor {
 
 	private void copy(ArmorStand armorStand) {
 			copySlots.copyDataToSlot(armorStand);
-			sendMessage("ArmorStand state copied to slot " + (copySlots.currentSlot + 1) + ".");
+			sendMessage("copied" , "" + (copySlots.currentSlot + 1));
 			setMode(EditMode.PASTE);
 	}
 
@@ -221,7 +220,7 @@ public class PlayerEditor {
 				armorStand.setItemInHand(data.rightHand);
 				armorStand.getEquipment().setItemInOffHand(data.leftHand);
 			}
-			sendMessage("ArmorStand state pasted from slot " + (copySlots.currentSlot + 1) + ".");
+			sendMessage("pasted", ""+ (copySlots.currentSlot + 1));
 		}else{
 			cannotBuildMessage();
 		}
@@ -234,7 +233,7 @@ public class PlayerEditor {
 	private void toggleGravity(ArmorStand armorStand) {
 		armorStand.setGravity(Util.toggleFlag(armorStand.hasGravity()));
 		String state = armorStand.hasGravity() ? "on" : "off";
-		sendMessage("Gravity turned " + state + ".");
+		sendMessage("setgravity", state);
 	}
 
 	void togglePlate(ArmorStand armorStand) {
@@ -295,8 +294,9 @@ public class PlayerEditor {
 		this.target = armorstand;
 	}
 
-	void sendMessage(String message){
-		plugin.getServer().getPlayer(getUUID()).sendMessage(ChatColor.GREEN + message);
+	void sendMessage(String path, String option){
+		String message = plugin.getLang().getMessage(path, "info", option);
+		plugin.getServer().getPlayer(getUUID()).sendMessage(message);
 	}
 
 	public PlayerEditorManager getManager(){
@@ -319,7 +319,7 @@ public class PlayerEditor {
 	}
 
 	private void cannotBuildMessage(){
-		getPlayer().sendMessage(ChatColor.RED + "Sorry, you cannot edit armor stands here!");
+		getPlayer().sendMessage(plugin.getLang().getMessage("cantedit", "warn"));
 	}
 
 	public void openMenu() {

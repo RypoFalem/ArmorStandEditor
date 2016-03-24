@@ -63,7 +63,7 @@ public class CommandEx implements CommandExecutor{
 	private void commandSlot(Player player, String[] args) {
 
 		if(args.length <=1){
-			player.sendMessage(ChatColor.GREEN + "You must specify the slot number!");
+			player.sendMessage(plugin.getLang().getMessage("noslotnumcom", "warn"));
 			player.sendMessage(LISTSLOT);
 		}
 
@@ -84,7 +84,7 @@ public class CommandEx implements CommandExecutor{
 
 	private void commandAdj(Player player, String[] args) {
 		if(args.length <=1){
-			player.sendMessage(ChatColor.GREEN + "You must specify Coarse or Fine adjustment!");
+			player.sendMessage(plugin.getLang().getMessage("noadjcom", "warn"));
 			player.sendMessage(LISTADJUSTMENT );
 		}
 
@@ -101,7 +101,7 @@ public class CommandEx implements CommandExecutor{
 
 	private void commandAxis(Player player, String[] args) {
 		if(args.length <=1){
-			player.sendMessage(ChatColor.GREEN + "You must specify an axis!");
+			player.sendMessage(plugin.getLang().getMessage("noaxiscom", "warn"));
 			player.sendMessage(LISTAXIS);
 		}
 
@@ -118,7 +118,7 @@ public class CommandEx implements CommandExecutor{
 
 	private void commandMode(Player player, String[] args) {
 		if(args.length <=1){
-			player.sendMessage(ChatColor.GREEN + "You must specify a mode!");
+			player.sendMessage(plugin.getLang().getMessage("nomodecom", "warn"));
 			player.sendMessage(LISTMODE);
 		}
 
@@ -140,7 +140,7 @@ public class CommandEx implements CommandExecutor{
 			return true;
 		}else{
 			if(sendMessageOnInvalidation){
-				player.sendMessage(ChatColor.RED + "You do not have permission to use this!");
+				player.sendMessage(plugin.getLang().getMessage("noperm", "warn"));
 			}
 			return false;
 		}
