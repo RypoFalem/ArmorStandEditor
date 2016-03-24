@@ -1,6 +1,6 @@
 package io.github.rypofalem.armorstandeditor;
 
-import io.github.armorstandeditor.language.Language;
+import io.github.rypofalem.armorstandeditor.language.Language;
 import io.github.rypofalem.armorstandeditor.protection.ClaimsProtection;
 import io.github.rypofalem.armorstandeditor.protection.GPProtection;
 import io.github.rypofalem.armorstandeditor.protection.PlotSqProtection;

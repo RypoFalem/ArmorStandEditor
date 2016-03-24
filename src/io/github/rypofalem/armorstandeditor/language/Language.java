@@ -1,4 +1,4 @@
-package io.github.armorstandeditor.language;
+package io.github.rypofalem.armorstandeditor.language;
 
 import java.io.File;
 import java.io.IOException;
