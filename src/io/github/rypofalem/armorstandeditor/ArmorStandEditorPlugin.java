@@ -11,7 +11,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.Reader;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,6 +24,7 @@ import me.ryanhamshire.GriefPrevention.GriefPrevention;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -34,23 +38,28 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	Language lang;
 	public PlayerEditorManager editorManager;
 	public Material editTool;
-	boolean debug = true; //weather or not to broadcast messages via print(String message)
+	boolean debug = false; //weather or not to broadcast messages via print(String message)
 	double coarseRot;
 	double fineRot;
 	private ArrayList<Protection> protections;
 
 	public void onEnable(){
 		saveDefaultConfig();
-		addNewConfigValues();
+		lang = new Language(getConfig().getString("lang"), this);
+		updateConfig("", "config.yml");
+		updateConfig("lang", "en_US.yml");
+		updateConfig("lang", "test_NA.yml");
+
 		coarseRot = getConfig().getDouble("coarse");
 		fineRot = getConfig().getDouble("fine");
 		String tool = getConfig().getString("tool");
-		lang = new Language(getConfig().getString("lang"), this);
 		editTool = Material.getMaterial(tool);
+
 		editorManager = new PlayerEditorManager(this);
 		execute = new CommandEx(this);
 		getCommand("ase").setExecutor(execute);
 		getServer().getPluginManager().registerEvents(editorManager, this);
+
 		protections = new ArrayList<Protection>();
 		if(isPluginEnabled("WorldGuard")){
 			WorldGuardPlugin wgPlugin = (WorldGuardPlugin) getServer().getPluginManager().getPlugin("WorldGuard");
@@ -73,8 +82,36 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		}
 	}
 
-	private void addNewConfigValues() {
-		getConfig().createSection("lang");
+	//add missing configuration values
+	private void updateConfig(String folder, String config) {
+		YamlConfiguration defaultConfig = new YamlConfiguration();
+		YamlConfiguration currentConfig = new YamlConfiguration();
+		try {
+			InputStream input;
+			if(folder == "" || folder == null){
+				input = getResource(config);
+			} else{
+				input = getResource(folder + "/" + config); //getResource doesn't accept File.seperator on windows, need to hardcode unix seperator "/" instead
+				config = folder + File.separator + config;
+			}
+			Reader defaultConfigStream = new InputStreamReader(input, "UTF8");
+			if(defaultConfigStream != null){
+				defaultConfig = YamlConfiguration.loadConfiguration(defaultConfigStream);
+			}
+			currentConfig = YamlConfiguration.loadConfiguration(new File(getDataFolder(), config));
+
+			for(String key : defaultConfig.getKeys(true)){
+				if(!currentConfig.contains(key)){
+					currentConfig.set(key, defaultConfig.get(key));
+					print(String.format("key not found %s. Setting value", key));
+				}
+			}
+			currentConfig.save(new File(getDataFolder(), config));
+		} catch (IOException e) {
+			e.printStackTrace();
+			log("Cannot update default configuration.");
+			return;
+		}
 	}
 
 	public void onDisable(){
@@ -144,7 +181,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		}
 		return list;
 	}
-	
+
 	public Language getLang(){
 		return lang;
 	}
