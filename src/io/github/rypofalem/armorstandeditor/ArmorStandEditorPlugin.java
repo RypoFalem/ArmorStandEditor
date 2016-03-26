@@ -99,7 +99,10 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 				defaultConfig = YamlConfiguration.loadConfiguration(defaultConfigStream);
 			}
 			currentConfig = YamlConfiguration.loadConfiguration(new File(getDataFolder(), config));
-
+			if(currentConfig == null || defaultConfig == null){
+				log("Either the current or default configuration could not me loaded.");
+				return;
+			}
 			for(String key : defaultConfig.getKeys(true)){
 				if(!currentConfig.contains(key)){
 					currentConfig.set(key, defaultConfig.get(key));
@@ -109,7 +112,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			currentConfig.save(new File(getDataFolder(), config));
 		} catch (IOException e) {
 			e.printStackTrace();
-			log("Cannot update default configuration.");
+			log("Failed to update configuration: " + config);
 			return;
 		}
 	}
