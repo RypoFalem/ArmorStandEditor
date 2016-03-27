@@ -1,0 +1,177 @@
+#Translation by Sikatsu1997
+iconname: 2n
+icondescription: 5
+info: 2
+warn: c
+menutitle: 8
+setmode:
+  msg: Modus gezet op <x>.
+  head: Hoofd Positie
+  body: Lichaam Positie
+  leftleg: Linkerbeen Positie
+  rightleg: Rechterbeen Positie
+  leftarm: Linkerarm Positie
+  rightarm: Rechterarm Positie
+  equipment: Uitrusting
+  showarms: Toggle Toon Armen
+  invisible: Toggle Zichtbaarheid
+  size: Toggle Grootte
+  disableslots: Toggle Slots Uitschakelen
+  gravity: Toggle Zwaartekracht
+  baseplate: Toggle Bodemplaat
+  placement: Plaatsing
+  rotate: Draaien
+  target: Doel
+  copy: Kopiëren
+  paste: Plakken
+setaxis:
+  msg: As gezet op <x>.
+  x: X
+  y: Y
+  z: Z
+setslot:
+  msg: Kopieer slot gezet op <x>.
+setadj:
+  msg: Aanpassing gezet op <x>.
+  coarse: Grof
+  fine: Fijn
+setgravity:
+  msg: Zwaartekracht staat nu <x>.
+  'true': aan
+  'false': uit
+nomode:
+  msg: Klik met het aanpas tool weg van een armorstand om een aanpas modus te selecteren!
+copied:
+  msg: Armorstand status gekopieerd naar slot <x>.
+pasted:
+  msg: Armorstand status geplakt vanuit slot <x>.
+cantedit:
+  msg: Sorry, je kunt hier geen armorstands aanpassen!
+noperm:
+  msg: Je hebt geen toestemming om dit te gebruiken!
+noslotnumcom:
+  msg: Je moet een slot nummer opgeven!
+noadjcom:
+  msg: Je moet een grove of fijne aanpassing opgeven!
+noaxiscom:
+  msg: Je moet een as opgeven!
+nomodecom:
+  msg: Je moet een modus opgeven!
+mainmenutitle:
+  msg: Armorstand Aanpassen
+xaxis:
+  msg: X As
+  description:
+    msg: Draai lichaam delen langs de X As
+yaxis:
+  msg: Y As
+  description:
+    msg: Draai lichaam delen langs de Y As
+zaxis:
+  msg: Z As
+  description:
+    msg: Draai lichaam delen langs de Z As
+coarseadj:
+  msg: Grove Aanpassing
+  description:
+    msg: Maak grote aanpassingen
+fineadj:
+  msg: Fijne Aanpassing
+  description:
+    msg: Maak kleine aanpassingen
+head:
+  msg: Hoofd Positie
+  description:
+    msg: Draai het hoofd
+body:
+  msg: Lichaam Positie
+  description:
+    msg: Draai het lichaam
+leftleg:
+  msg: Linkerbeen Positie
+  description:
+    msg: Draai het linkerbeen
+rightleg:
+  msg: Rechterbeen Positie
+  description:
+    msg: Draai het rechterbeen
+leftarm:
+  msg: Linkerarm Positie
+  description:
+    msg: Draai het linkerarm
+rightarm:
+  msg: Rechterarm Positie
+  description:
+    msg: Draai het rechterarm
+equipment:
+  msg: Uitrusting
+  description:
+    msg: Pas de uitrusting aan
+showarms:
+  msg: Toon Armen
+  description:
+    msg: Zet armen aan/uit
+invisible:
+  msg: Zichtbaarheid
+  description:
+    msg: Zet zichtbaarheid aan/uit
+size:
+  msg: Grootte
+  description:
+    msg: Kies tussen groot/klein
+disableslots:
+  msg: Slots uitschakelen
+  description:
+    msg: In en uit schakelen van uitrusting
+gravity:
+  msg: Zwaartekracht
+  description:
+    msg: Zet zwaartekracht aan/uit
+baseplate:
+  msg: Bodemplaat
+  description:
+    msg: Zet bodemplaat aan/uit
+placement:
+  msg: Plaatsing
+  description:
+    msg: Verplaats de hele armorstand
+rotate:
+  msg: Draaien
+  description:
+    msg: Draai de hele armorstand
+target:
+  msg: Doel
+  description:
+    msg: Zet een specifieke armorstand als doel
+copy:
+  msg: Kopiëren
+  description:
+    msg: Kopieer de armorstand's instellingen
+paste:
+  msg: Plakken
+  description:
+    msg: Plak de armorstand's instellingen
+copyslot:
+  msg: Kopieer Slot <x>
+  description:
+    msg: Selecteer een slot om instellingen op te slaan
+equiptitle:
+  msg: Armorstand Uitrusting
+disabled:
+  msg: Uitgeschakeld
+equipslot:
+  msg: <x> Slot
+  description:
+    msg: Sleep je <x> in het slot hier beneden
+    helm: Helm
+    chest: Borstplaat
+    pants: Broek
+    boots: Laarzen
+    rhand: R-hand item
+    lhand: L-hand item
+  helm: Helm
+  chest: Borstplaat
+  pants: Broek
+  boots: Laarzen
+  rhand: Rechterhand
+  lhand: Linkerhand
