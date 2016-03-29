@@ -5,6 +5,7 @@ import io.github.rypofalem.armorstandeditor.protection.ClaimsProtection;
 import io.github.rypofalem.armorstandeditor.protection.GPProtection;
 import io.github.rypofalem.armorstandeditor.protection.PlotSqProtection;
 import io.github.rypofalem.armorstandeditor.protection.Protection;
+import io.github.rypofalem.armorstandeditor.protection.TownyProtection;
 import io.github.rypofalem.armorstandeditor.protection.WGProtection;
 
 import java.io.BufferedWriter;
@@ -29,6 +30,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.palmergames.bukkit.towny.Towny;
 import com.plotsquared.bukkit.BukkitMain;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.winthier.claims.bukkit.BukkitClaimsPlugin;
@@ -81,12 +83,17 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			Plugin bcp = getServer().getPluginManager().getPlugin("Claims");
 			if(bcp instanceof BukkitClaimsPlugin) addProtection(new ClaimsProtection((BukkitClaimsPlugin) bcp));
 		}
+		
+		if(isPluginEnabled("Towny")){
+			Plugin towny = getServer().getPluginManager().getPlugin("Towny");
+			if(towny instanceof Towny) addProtection(new TownyProtection((Towny)towny));
+		}
 	}
 
 	//add missing configuration values
 	private void updateConfig(String folder, String config) {
-		YamlConfiguration defaultConfig = new YamlConfiguration();
-		YamlConfiguration currentConfig = new YamlConfiguration();
+		YamlConfiguration defaultConfig;
+		YamlConfiguration currentConfig;
 		try {
 			InputStream input;
 			if(folder == "" || folder == null){
@@ -96,9 +103,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 				config = folder + File.separator + config;
 			}
 			Reader defaultConfigStream = new InputStreamReader(input, "UTF8");
-			if(defaultConfigStream != null){
-				defaultConfig = YamlConfiguration.loadConfiguration(defaultConfigStream);
-			}
+			defaultConfig = YamlConfiguration.loadConfiguration(defaultConfigStream);
 			currentConfig = YamlConfiguration.loadConfiguration(new File(getDataFolder(), config));
 			if(currentConfig == null || defaultConfig == null){
 				log("Either the current or default configuration could not me loaded.");
@@ -111,7 +116,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 				}
 			}
 			currentConfig.save(new File(getDataFolder(), config));
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			log("Failed to update configuration: " + config);
 			return;
