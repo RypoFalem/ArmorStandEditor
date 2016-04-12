@@ -111,7 +111,7 @@ public class PlayerEditor {
 			break;
 			case EQUIPMENT: openEquipment(armorStand);
 			break;
-			case TARGET:;
+			case TARGET: setTarget(armorStand);
 			break;
 			case NONE: sendMessage("nomode", null); break;
 			}

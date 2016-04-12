@@ -155,7 +155,7 @@ rotate:
 target: 
   msg: Target
   description:
-    msg: Target a specific armorstand
+    msg: Coming soon!
 copy: 
   msg: Copy
   description:
