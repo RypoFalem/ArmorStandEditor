@@ -4,26 +4,25 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 
 import com.intellectualcrafters.plot.PS;
-import com.intellectualcrafters.plot.api.PlotAPI;
 import com.intellectualcrafters.plot.object.Plot;
 import com.plotsquared.bukkit.BukkitMain;
+import com.plotsquared.bukkit.util.BukkitUtil;
 
-public class PlotSqProtection implements Protection{
+public class PlotSqProtection implements ASEProtection{
 
 	private BukkitMain plotSqPlugin;
-	private PlotAPI plotAPI;
 
-	@SuppressWarnings("deprecation")
 	public PlotSqProtection(BukkitMain plotSPlugin) {
 		this.plotSqPlugin = plotSPlugin;
-		plotAPI = new PlotAPI();
+		
 	}
-
+	
 	@Override
 	public boolean canEdit(Player player, ArmorStand armorstand) {
-		if(plotSqPlugin == null || plotAPI ==null || !plotSqPlugin.isEnabled()) return true; 
+		if(plotSqPlugin == null || !plotSqPlugin.isEnabled()) return true; 
 		if(!PS.get().hasPlotArea(player.getWorld().getName())) return true; //if the world isn't a plot world
-		Plot plot = plotAPI.getPlot(armorstand.getLocation());
+		com.intellectualcrafters.plot.object.Location location = BukkitUtil.getLocation(armorstand.getLocation());
+		Plot plot = Plot.getPlot(location);
 		if(plot == null) return false;
 		if(plot.isDenied(player.getUniqueId())) return false;
 		if(plot.isOwner(player.getUniqueId()) || plot.isAdded(player.getUniqueId())) return true;

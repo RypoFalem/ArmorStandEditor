@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 import com.winthier.claims.Claims;
 import com.winthier.claims.bukkit.BukkitClaimsPlugin;
 
-public class ClaimsProtection implements Protection {
+public class ClaimsProtection implements ASEProtection {
 	Claims claims;
 	BukkitClaimsPlugin plugin;
 	

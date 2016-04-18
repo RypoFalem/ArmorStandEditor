@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
-public class WGProtection implements Protection {
+public class WGProtection implements ASEProtection {
 	private WorldGuardPlugin wgPlugin;
 	
 	public WGProtection(WorldGuardPlugin wgplugin){

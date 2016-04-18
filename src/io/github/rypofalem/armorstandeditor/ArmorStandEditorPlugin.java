@@ -4,7 +4,7 @@ import io.github.rypofalem.armorstandeditor.language.Language;
 import io.github.rypofalem.armorstandeditor.protection.ClaimsProtection;
 import io.github.rypofalem.armorstandeditor.protection.GPProtection;
 import io.github.rypofalem.armorstandeditor.protection.PlotSqProtection;
-import io.github.rypofalem.armorstandeditor.protection.Protection;
+import io.github.rypofalem.armorstandeditor.protection.ASEProtection;
 import io.github.rypofalem.armorstandeditor.protection.TownyProtection;
 import io.github.rypofalem.armorstandeditor.protection.WGProtection;
 
@@ -43,7 +43,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	boolean debug = false; //weather or not to broadcast messages via print(String message)
 	double coarseRot;
 	double fineRot;
-	private ArrayList<Protection> protections;
+	private ArrayList<ASEProtection> protections;
 
 	public void onEnable(){
 		saveDefaultConfig();
@@ -63,7 +63,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		getCommand("ase").setExecutor(execute);
 		getServer().getPluginManager().registerEvents(editorManager, this);
 
-		protections = new ArrayList<Protection>();
+		protections = new ArrayList<ASEProtection>();
 		if(isPluginEnabled("WorldGuard")){
 			WorldGuardPlugin wgPlugin = (WorldGuardPlugin) getServer().getPluginManager().getPlugin("WorldGuard");
 			addProtection(new WGProtection(wgPlugin));
@@ -162,11 +162,11 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		return getServer().getPluginManager().isPluginEnabled(plugin);
 	}
 
-	public void addProtection (Protection protection){
+	public void addProtection (ASEProtection protection){
 		protections.add(protection);
 	}
 
-	public ArrayList<Protection> getProtections(){
+	public ArrayList<ASEProtection> getProtections(){
 		return protections;
 	}
 

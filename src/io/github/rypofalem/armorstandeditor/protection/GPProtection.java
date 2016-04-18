@@ -7,7 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 
-public class GPProtection implements Protection{
+public class GPProtection implements ASEProtection{
 	private GriefPrevention gpPlugin;
 	
 	public GPProtection(GriefPrevention gpPlugin) {

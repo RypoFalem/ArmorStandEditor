@@ -7,7 +7,7 @@ import io.github.rypofalem.armorstandeditor.modes.ArmorStandData;
 import io.github.rypofalem.armorstandeditor.modes.Axis;
 import io.github.rypofalem.armorstandeditor.modes.CopySlots;
 import io.github.rypofalem.armorstandeditor.modes.EditMode;
-import io.github.rypofalem.armorstandeditor.protection.Protection;
+import io.github.rypofalem.armorstandeditor.protection.ASEProtection;
 
 import java.util.UUID;
 
@@ -312,7 +312,7 @@ public class PlayerEditor {
 	}
 
 	boolean canBuild(ArmorStand armorstand) {
-		for(Protection prot : plugin.getProtections()){
+		for(ASEProtection prot : plugin.getProtections()){
 			if(!prot.canEdit(getPlayer(), armorstand)) return false;
 		}
 		return true;

@@ -8,7 +8,7 @@ import com.palmergames.bukkit.towny.Towny;
 import com.palmergames.bukkit.towny.object.TownyPermission;
 import com.palmergames.bukkit.towny.utils.PlayerCacheUtil;
 
-public class TownyProtection implements Protection {
+public class TownyProtection implements ASEProtection {
 	Towny towny;
 	
 	public TownyProtection(Towny towny){
