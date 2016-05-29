@@ -4,6 +4,7 @@ import io.github.rypofalem.armorstandeditor.language.Language;
 import io.github.rypofalem.armorstandeditor.protection.ClaimsProtection;
 import io.github.rypofalem.armorstandeditor.protection.GPProtection;
 import io.github.rypofalem.armorstandeditor.protection.PlotSqProtection;
+import io.github.rypofalem.armorstandeditor.protection.ResidenceProtection;
 import io.github.rypofalem.armorstandeditor.protection.ASEProtection;
 import io.github.rypofalem.armorstandeditor.protection.TownyProtection;
 import io.github.rypofalem.armorstandeditor.protection.WGProtection;
@@ -30,6 +31,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.bekvon.bukkit.residence.Residence;
 import com.palmergames.bukkit.towny.Towny;
 import com.plotsquared.bukkit.BukkitMain;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
@@ -87,6 +89,11 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		if(isPluginEnabled("Towny")){
 			Plugin towny = getServer().getPluginManager().getPlugin("Towny");
 			if(towny instanceof Towny) addProtection(new TownyProtection((Towny)towny));
+		}
+		
+		if(isPluginEnabled("Residence")){
+			Plugin res = getServer().getPluginManager().getPlugin("Residence");
+			if(res instanceof Residence) addProtection(new ResidenceProtection((Residence)res));
 		}
 	}
 

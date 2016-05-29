@@ -46,7 +46,7 @@ public class PlayerEditorManager implements Listener{
 	}
 
 	//Stop players from damaging armorstands with tool in their hands and then tries to edit it.
-	@EventHandler (priority = EventPriority.NORMAL, ignoreCancelled=false)
+	@EventHandler (priority = EventPriority.LOWEST, ignoreCancelled=false)
 	void onArmorStandLeftClick(EntityDamageByEntityEvent e){
 		try{
 			if(e.getEntity() instanceof ArmorStand){
@@ -68,7 +68,7 @@ public class PlayerEditorManager implements Listener{
 		}
 	}
 
-	@EventHandler (priority = EventPriority.NORMAL, ignoreCancelled=false)
+	@EventHandler (priority = EventPriority.LOWEST, ignoreCancelled=false)
 	void onArmorStandRightClick(PlayerInteractAtEntityEvent e){
 		try {
 			Player player =  e.getPlayer();
@@ -113,7 +113,7 @@ public class PlayerEditorManager implements Listener{
 		}
 	}
 
-	@EventHandler (priority = EventPriority.NORMAL, ignoreCancelled=false)
+	@EventHandler (priority = EventPriority.LOWEST, ignoreCancelled=false)
 	void onRightClickTool(PlayerInteractEvent e){
 		try {
 			if(e.getAction() == Action.LEFT_CLICK_AIR 
@@ -157,7 +157,7 @@ public class PlayerEditorManager implements Listener{
 		}
 	}
 
-	@EventHandler (priority = EventPriority.LOW, ignoreCancelled=false)
+	@EventHandler (priority = EventPriority.LOWEST, ignoreCancelled=false)
 	void onPlayerMenuSelect(InventoryClickEvent e){
 		try {
 			if(e.getInventory() == null) return;
