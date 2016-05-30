@@ -1,6 +1,6 @@
 name: ArmorStandEditor
 main: io.github.rypofalem.armorstandeditor.ArmorStandEditorPlugin
-version: 1.9.4-0.1.10
+version: 1.9.4-0.1.11
 website: rypofalem.github.io
 author: RypoFalem
 description: Allows players to edit certain NBT tags of armorstands without any commands.
@@ -11,26 +11,6 @@ commands:
     usage: /<command> ? - list subcommands
     permission: asedit.basic
 permissions:
-    asedit.all:
-      description: Permit ALL the things!
-      default: op
-      children:
-        asedit.basic: true
-        asedit.copy: true
-        asedit.showarms: true
-        asedit.invisible: true
-        asedit.size: true
-        asedit.baseplate: true
-        asedit.gravity: true
-        asedit.head: true
-        asedit.body: true
-        asedit.rightarm: true
-        asedit.leftarm: true
-        asedit.rightleg: true
-        asedit.leftleg: true
-        asedit.placement: true
-        asedit.equipment: true
-        asedit.rotate: true
     asedit.basic:
       desciption: Allow use armorstand edit functions. If set to false it will override all other functions.
       default: true
