@@ -27,9 +27,10 @@ public class Menu {
 
 	private void fillInventory() {
 		menuInv.clear();
+		@SuppressWarnings("unused")
 		ItemStack xAxis= null, yAxis= null, zAxis= null, coarseAdj= null, fineAdj= null, rotate = null, place = null,
 				headPos= null, target = null,
-				rightArmPos= null, bodyPos= null, leftArmPos= null, showArms= null, visibility= null, size= null,
+				rightArmPos= null, bodyPos= null, leftArmPos= null, reset = null, showArms= null, visibility= null, size= null,
 				rightLegPos= null, equipment = null, leftLegPos= null, disableSlots = null, gravity= null, plate= null, copy= null, paste= null,
 				slot1= null, slot2= null, slot3= null, slot4= null, slot5= null, slot6= null, slot7= null, slot8= null, slot9 = null;
 
@@ -54,6 +55,16 @@ public class Menu {
 
 			fineAdj = createIcon( new ItemStack(Material.SANDSTONE),
 					"fineadj", "adj fine");
+		}
+		
+		if(pe.getPlayer().hasPermission("asedit.head") &&
+				pe.getPlayer().hasPermission("asedit.body") &&
+				pe.getPlayer().hasPermission("asedit.leftarm") &&
+				pe.getPlayer().hasPermission("asedit.rightarm") &&
+				pe.getPlayer().hasPermission("asedit.leftleg") &&
+				pe.getPlayer().hasPermission("asedit.rightleg")){
+			reset = createIcon( new ItemStack(Material.LEVER),
+					"reset", "mode reset");
 		}
 
 		if(pe.getPlayer().hasPermission("asedit.head")){
@@ -176,7 +187,7 @@ public class Menu {
 		ItemStack[] items = 
 			{xAxis, yAxis, zAxis, null, coarseAdj, fineAdj, null, rotate, place,
 					null, headPos, null, null, null, null, null, null, target,
-					rightArmPos, bodyPos, leftArmPos, null, null, null, showArms, visibility, size,
+					rightArmPos, bodyPos, leftArmPos, reset, null, null, showArms, visibility, size,
 					rightLegPos, equipment, leftLegPos, null, null, null, null, gravity, plate,
 					null, null, null, null, copy, paste, null, null, null,
 					slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9

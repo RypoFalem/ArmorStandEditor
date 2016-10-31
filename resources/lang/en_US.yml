@@ -32,6 +32,7 @@ setmode:
   target: Target
   copy: Copy
   paste: Paste
+  reset: Reset Pose
 setaxis: 
   msg: Setting axis to <x>.
   x: X
@@ -168,7 +169,10 @@ copyslot:
   msg: Copy Slot <x>
   description:
     msg: Select a slot to store settings
-
+reset:
+  msg: Reset Pose
+  description:
+    msg: Reset bodypart position to default
 #Equipment Menu
 equiptitle: 
   msg: ArmorStand Equipment

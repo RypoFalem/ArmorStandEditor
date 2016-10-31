@@ -113,11 +113,22 @@ public class PlayerEditor {
 			break;
 			case TARGET: setTarget(armorStand);
 			break;
+			case RESET: resetPosition(armorStand);
+			break;
 			case NONE: sendMessage("nomode", null); break;
 			}
 		}else{
 			cannotBuildMessage();
 		}
+	}
+
+	private void resetPosition(ArmorStand armorStand) {
+		armorStand.setHeadPose(new EulerAngle(0,0,0));
+		armorStand.setBodyPose(new EulerAngle(0,0,0));
+		armorStand.setLeftArmPose(new EulerAngle(0,0,0));
+		armorStand.setRightArmPose(new EulerAngle(0,0,0));
+		armorStand.setLeftLegPose(new EulerAngle(0,0,0));
+		armorStand.setRightLegPose(new EulerAngle(0,0,0));
 	}
 
 	private void openEquipment(ArmorStand armorStand) {
