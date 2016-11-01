@@ -45,7 +45,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	boolean debug = false; //weather or not to broadcast messages via print(String message)
 	double coarseRot;
 	double fineRot;
-	private ArrayList<ASEProtection> protections;
+//	private ArrayList<ASEProtection> protections;
 
 	public void onEnable(){
 		saveDefaultConfig();
@@ -65,36 +65,36 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		getCommand("ase").setExecutor(execute);
 		getServer().getPluginManager().registerEvents(editorManager, this);
 
-		protections = new ArrayList<ASEProtection>();
-		if(isPluginEnabled("WorldGuard")){
-			WorldGuardPlugin wgPlugin = (WorldGuardPlugin) getServer().getPluginManager().getPlugin("WorldGuard");
-			addProtection(new WGProtection(wgPlugin));
-		}
-
-		if(isPluginEnabled("GriefPrevention")){
-			Plugin gpPlugin =  getServer().getPluginManager().getPlugin("GriefPrevention");
-			if(gpPlugin instanceof GriefPrevention) addProtection(new GPProtection( (GriefPrevention)gpPlugin));
-		}
-
-		if(isPluginEnabled("PlotSquared")){
-			Plugin plotSqPlugin = getServer().getPluginManager().getPlugin("PlotSquared");
-			if(plotSqPlugin instanceof BukkitMain) addProtection(new PlotSqProtection((BukkitMain) plotSqPlugin));
-		}
-
-		if(isPluginEnabled("Claims")){
-			Plugin bcp = getServer().getPluginManager().getPlugin("Claims");
-			if(bcp instanceof BukkitClaimsPlugin) addProtection(new ClaimsProtection((BukkitClaimsPlugin) bcp));
-		}
-		
-		if(isPluginEnabled("Towny")){
-			Plugin towny = getServer().getPluginManager().getPlugin("Towny");
-			if(towny instanceof Towny) addProtection(new TownyProtection((Towny)towny));
-		}
-		
-		if(isPluginEnabled("Residence")){
-			Plugin res = getServer().getPluginManager().getPlugin("Residence");
-			if(res instanceof Residence) addProtection(new ResidenceProtection((Residence)res));
-		}
+//		protections = new ArrayList<ASEProtection>();
+//		if(isPluginEnabled("WorldGuard")){
+//			WorldGuardPlugin wgPlugin = (WorldGuardPlugin) getServer().getPluginManager().getPlugin("WorldGuard");
+//			addProtection(new WGProtection(wgPlugin));
+//		}
+//
+//		if(isPluginEnabled("GriefPrevention")){
+//			Plugin gpPlugin =  getServer().getPluginManager().getPlugin("GriefPrevention");
+//			if(gpPlugin instanceof GriefPrevention) addProtection(new GPProtection( (GriefPrevention)gpPlugin));
+//		}
+//
+//		if(isPluginEnabled("PlotSquared")){
+//			Plugin plotSqPlugin = getServer().getPluginManager().getPlugin("PlotSquared");
+//			if(plotSqPlugin instanceof BukkitMain) addProtection(new PlotSqProtection((BukkitMain) plotSqPlugin));
+//		}
+//
+//		if(isPluginEnabled("Claims")){
+//			Plugin bcp = getServer().getPluginManager().getPlugin("Claims");
+//			if(bcp instanceof BukkitClaimsPlugin) addProtection(new ClaimsProtection((BukkitClaimsPlugin) bcp));
+//		}
+//		
+//		if(isPluginEnabled("Towny")){
+//			Plugin towny = getServer().getPluginManager().getPlugin("Towny");
+//			if(towny instanceof Towny) addProtection(new TownyProtection((Towny)towny));
+//		}
+//		
+//		if(isPluginEnabled("Residence")){
+//			Plugin res = getServer().getPluginManager().getPlugin("Residence");
+//			if(res instanceof Residence) addProtection(new ResidenceProtection((Residence)res));
+//		}
 	}
 
 	//add missing configuration values
@@ -124,8 +124,8 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			}
 			currentConfig.save(new File(getDataFolder(), config));
 		} catch (Exception e) {
-			e.printStackTrace();
 			log("Failed to update configuration: " + config);
+			e.printStackTrace();
 			return;
 		}
 	}
@@ -169,13 +169,13 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		return getServer().getPluginManager().isPluginEnabled(plugin);
 	}
 
-	public void addProtection (ASEProtection protection){
-		protections.add(protection);
-	}
-
-	public ArrayList<ASEProtection> getProtections(){
-		return protections;
-	}
+//	public void addProtection (ASEProtection protection){
+//		protections.add(protection);
+//	}
+//
+//	public ArrayList<ASEProtection> getProtections(){
+//		return protections;
+//	}
 
 	public void log(String message){
 		this.getServer().getLogger().info("ArmorStandEditor: " + message);

@@ -7,7 +7,6 @@ import io.github.rypofalem.armorstandeditor.modes.ArmorStandData;
 import io.github.rypofalem.armorstandeditor.modes.Axis;
 import io.github.rypofalem.armorstandeditor.modes.CopySlots;
 import io.github.rypofalem.armorstandeditor.modes.EditMode;
-import io.github.rypofalem.armorstandeditor.protection.ASEProtection;
 
 import java.util.UUID;
 
@@ -75,50 +74,46 @@ public class PlayerEditor {
 	}
 
 	public void editArmorStand(ArmorStand armorStand) {
-		if(canBuild(armorStand)){
-			switch(eMode){
-			case LEFTARM: armorStand.setLeftArmPose(subEulerAngle(armorStand.getLeftArmPose()));
-			break;
-			case RIGHTARM: armorStand.setRightArmPose(subEulerAngle(armorStand.getRightArmPose()));
-			break;
-			case BODY: armorStand.setBodyPose(subEulerAngle(armorStand.getBodyPose()));
-			break;
-			case HEAD: armorStand.setHeadPose(subEulerAngle(armorStand.getHeadPose()));
-			break;
-			case LEFTLEG: armorStand.setLeftLegPose(subEulerAngle(armorStand.getLeftLegPose()));
-			break;
-			case RIGHTLEG: armorStand.setRightLegPose(subEulerAngle(armorStand.getRightLegPose()));
-			break;
-			case SHOWARMS: toggleArms(armorStand);
-			break;
-			case SIZE: toggleSize(armorStand);
-			break;
-			case INVISIBLE: toggleVisible(armorStand);
-			break;
-			case BASEPLATE: togglePlate(armorStand);
-			break;
-			case GRAVITY: toggleGravity(armorStand);
-			break;
-			case COPY: copy(armorStand);
-			break;
-			case PASTE: paste(armorStand);
-			break;
-			case PLACEMENT: move(armorStand);
-			break;
-			case ROTATE: rotate(armorStand);
-			break;
-			case DISABLESLOTS: toggleDisableSlots(armorStand);
-			break;
-			case EQUIPMENT: openEquipment(armorStand);
-			break;
-			case TARGET: setTarget(armorStand);
-			break;
-			case RESET: resetPosition(armorStand);
-			break;
-			case NONE: sendMessage("nomode", null); break;
-			}
-		}else{
-			cannotBuildMessage();
+		switch(eMode){
+		case LEFTARM: armorStand.setLeftArmPose(subEulerAngle(armorStand.getLeftArmPose()));
+		break;
+		case RIGHTARM: armorStand.setRightArmPose(subEulerAngle(armorStand.getRightArmPose()));
+		break;
+		case BODY: armorStand.setBodyPose(subEulerAngle(armorStand.getBodyPose()));
+		break;
+		case HEAD: armorStand.setHeadPose(subEulerAngle(armorStand.getHeadPose()));
+		break;
+		case LEFTLEG: armorStand.setLeftLegPose(subEulerAngle(armorStand.getLeftLegPose()));
+		break;
+		case RIGHTLEG: armorStand.setRightLegPose(subEulerAngle(armorStand.getRightLegPose()));
+		break;
+		case SHOWARMS: toggleArms(armorStand);
+		break;
+		case SIZE: toggleSize(armorStand);
+		break;
+		case INVISIBLE: toggleVisible(armorStand);
+		break;
+		case BASEPLATE: togglePlate(armorStand);
+		break;
+		case GRAVITY: toggleGravity(armorStand);
+		break;
+		case COPY: copy(armorStand);
+		break;
+		case PASTE: paste(armorStand);
+		break;
+		case PLACEMENT: move(armorStand);
+		break;
+		case ROTATE: rotate(armorStand);
+		break;
+		case DISABLESLOTS: toggleDisableSlots(armorStand);
+		break;
+		case EQUIPMENT: openEquipment(armorStand);
+		break;
+		case TARGET: setTarget(armorStand);
+		break;
+		case RESET: resetPosition(armorStand);
+		break;
+		case NONE: sendMessage("nomode", null); break;
 		}
 	}
 
@@ -137,28 +132,24 @@ public class PlayerEditor {
 	}
 
 	public void reverseEditArmorStand(ArmorStand armorStand){
-		if(canBuild(armorStand)){
-			switch(eMode){
-			case LEFTARM: armorStand.setLeftArmPose(addEulerAngle(armorStand.getLeftArmPose()));
-			break;
-			case RIGHTARM: armorStand.setRightArmPose(addEulerAngle(armorStand.getRightArmPose()));
-			break;
-			case BODY: armorStand.setBodyPose(addEulerAngle(armorStand.getBodyPose()));
-			break;
-			case HEAD: armorStand.setHeadPose(addEulerAngle(armorStand.getHeadPose()));
-			break;
-			case LEFTLEG: armorStand.setLeftLegPose(addEulerAngle(armorStand.getLeftLegPose()));
-			break;
-			case RIGHTLEG: armorStand.setRightLegPose(addEulerAngle(armorStand.getRightLegPose()));
-			break;
-			case PLACEMENT: reverseMove(armorStand);
-			break;
-			case ROTATE: reverseRotate(armorStand);
-			break;
-			default: editArmorStand(armorStand);	
-			}
-		}else{
-			cannotBuildMessage();
+		switch(eMode){
+		case LEFTARM: armorStand.setLeftArmPose(addEulerAngle(armorStand.getLeftArmPose()));
+		break;
+		case RIGHTARM: armorStand.setRightArmPose(addEulerAngle(armorStand.getRightArmPose()));
+		break;
+		case BODY: armorStand.setBodyPose(addEulerAngle(armorStand.getBodyPose()));
+		break;
+		case HEAD: armorStand.setHeadPose(addEulerAngle(armorStand.getHeadPose()));
+		break;
+		case LEFTLEG: armorStand.setLeftLegPose(addEulerAngle(armorStand.getLeftLegPose()));
+		break;
+		case RIGHTLEG: armorStand.setRightLegPose(addEulerAngle(armorStand.getRightLegPose()));
+		break;
+		case PLACEMENT: reverseMove(armorStand);
+		break;
+		case ROTATE: reverseRotate(armorStand);
+		break;
+		default: editArmorStand(armorStand);	
 		}
 	}
 
@@ -203,42 +194,38 @@ public class PlayerEditor {
 	}
 
 	private void copy(ArmorStand armorStand) {
-			copySlots.copyDataToSlot(armorStand);
-			sendMessage("copied" , "" + (copySlots.currentSlot + 1));
-			setMode(EditMode.PASTE);
+		copySlots.copyDataToSlot(armorStand);
+		sendMessage("copied" , "" + (copySlots.currentSlot + 1));
+		setMode(EditMode.PASTE);
 	}
 
 	private void paste(ArmorStand armorStand){
-		if(canBuild(armorStand)){
-			ArmorStandData data = copySlots.getDataToPaste();
-			if(data == null ) return;
-			armorStand.setHeadPose(data.headPos);
-			armorStand.setBodyPose(data.bodyPos);
-			armorStand.setLeftArmPose(data.leftArmPos);
-			armorStand.setRightArmPose(data.rightArmPos);
-			armorStand.setLeftLegPose(data.leftLegPos);
-			armorStand.setRightLegPose(data.rightLegPos);
-			armorStand.setSmall(data.size);
-			armorStand.setGravity(data.gravity);
-			armorStand.setBasePlate(data.basePlate);
-			armorStand.setArms(data.showArms);
-			armorStand.setVisible(data.visible);
-			if(this.getPlayer().getGameMode() == GameMode.CREATIVE){
-				armorStand.setHelmet(data.head);
-				armorStand.setChestplate(data.body);
-				armorStand.setLeggings(data.legs);
-				armorStand.setBoots(data.feetsies);
-				armorStand.setItemInHand(data.rightHand);
-				armorStand.getEquipment().setItemInOffHand(data.leftHand);
-			}
-			sendMessage("pasted", ""+ (copySlots.currentSlot + 1));
-		}else{
-			cannotBuildMessage();
+		ArmorStandData data = copySlots.getDataToPaste();
+		if(data == null ) return;
+		armorStand.setHeadPose(data.headPos);
+		armorStand.setBodyPose(data.bodyPos);
+		armorStand.setLeftArmPose(data.leftArmPos);
+		armorStand.setRightArmPose(data.rightArmPos);
+		armorStand.setLeftLegPose(data.leftLegPos);
+		armorStand.setRightLegPose(data.rightLegPos);
+		armorStand.setSmall(data.size);
+		armorStand.setGravity(data.gravity);
+		armorStand.setBasePlate(data.basePlate);
+		armorStand.setArms(data.showArms);
+		armorStand.setVisible(data.visible);
+		if(this.getPlayer().getGameMode() == GameMode.CREATIVE){
+			armorStand.setHelmet(data.head);
+			armorStand.setChestplate(data.body);
+			armorStand.setLeggings(data.legs);
+			armorStand.setBoots(data.feetsies);
+			armorStand.setItemInHand(data.rightHand);
+			armorStand.getEquipment().setItemInOffHand(data.leftHand);
 		}
+		sendMessage("pasted", ""+ (copySlots.currentSlot + 1));
 	}
 
 	private void toggleDisableSlots(ArmorStand armorStand) {
-
+		//TODO
 	}
 
 	private void toggleGravity(ArmorStand armorStand) {
@@ -322,16 +309,16 @@ public class PlayerEditor {
 		return uuid;
 	}
 
-	boolean canBuild(ArmorStand armorstand) {
-		for(ASEProtection prot : plugin.getProtections()){
-			if(!prot.canEdit(getPlayer(), armorstand)) return false;
-		}
-		return true;
-	}
+	//	boolean canBuild(ArmorStand armorstand) {
+	//		for(ASEProtection prot : plugin.getProtections()){
+	//			if(!prot.canEdit(getPlayer(), armorstand)) return false;
+	//		}
+	//		return true;
+	//	}
 
-	private void cannotBuildMessage(){
-		getPlayer().sendMessage(plugin.getLang().getMessage("cantedit", "warn"));
-	}
+//	private void cannotBuildMessage(){
+//		getPlayer().sendMessage(plugin.getLang().getMessage("cantedit", "warn"));
+//	}
 
 	public void openMenu() {
 		plugin.getServer().getScheduler().runTaskLater(plugin, new OpenMenuTask(), 1);
