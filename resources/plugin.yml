@@ -1,10 +1,9 @@
 name: ArmorStandEditor
 main: io.github.rypofalem.armorstandeditor.ArmorStandEditorPlugin
-version: 1.10.2-0.1.12
+version: 1.10.2-0.1.13
 website: rypofalem.github.io
 author: RypoFalem
 description: Allows players to edit data of armorstands without any commands.
-softdepend: [WorldGuard,PlotSquared,GriefPrevention,Claims,Residence]
 commands:
   ase:
     description: Changes the function of the armorstand edit tool.

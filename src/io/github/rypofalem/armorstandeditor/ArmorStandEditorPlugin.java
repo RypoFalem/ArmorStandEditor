@@ -1,13 +1,6 @@
 package io.github.rypofalem.armorstandeditor;
 
 import io.github.rypofalem.armorstandeditor.language.Language;
-import io.github.rypofalem.armorstandeditor.protection.ClaimsProtection;
-import io.github.rypofalem.armorstandeditor.protection.GPProtection;
-import io.github.rypofalem.armorstandeditor.protection.PlotSqProtection;
-import io.github.rypofalem.armorstandeditor.protection.ResidenceProtection;
-import io.github.rypofalem.armorstandeditor.protection.ASEProtection;
-import io.github.rypofalem.armorstandeditor.protection.TownyProtection;
-import io.github.rypofalem.armorstandeditor.protection.WGProtection;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -18,10 +11,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
-import java.util.ArrayList;
 import java.util.Date;
-
-import me.ryanhamshire.GriefPrevention.GriefPrevention;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -31,21 +21,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.bekvon.bukkit.residence.Residence;
-import com.palmergames.bukkit.towny.Towny;
-import com.plotsquared.bukkit.BukkitMain;
-import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-import com.winthier.claims.bukkit.BukkitClaimsPlugin;
-
 public class ArmorStandEditorPlugin extends JavaPlugin{
 	CommandEx execute;
 	Language lang;
 	public PlayerEditorManager editorManager;
 	public Material editTool;
-	boolean debug = true; //weather or not to broadcast messages via print(String message)
+	boolean debug = false; //weather or not to broadcast messages via print(String message)
 	double coarseRot;
 	double fineRot;
-//	private ArrayList<ASEProtection> protections;
 
 	public void onEnable(){
 		saveDefaultConfig();
@@ -64,37 +47,6 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		execute = new CommandEx(this);
 		getCommand("ase").setExecutor(execute);
 		getServer().getPluginManager().registerEvents(editorManager, this);
-
-//		protections = new ArrayList<ASEProtection>();
-//		if(isPluginEnabled("WorldGuard")){
-//			WorldGuardPlugin wgPlugin = (WorldGuardPlugin) getServer().getPluginManager().getPlugin("WorldGuard");
-//			addProtection(new WGProtection(wgPlugin));
-//		}
-//
-//		if(isPluginEnabled("GriefPrevention")){
-//			Plugin gpPlugin =  getServer().getPluginManager().getPlugin("GriefPrevention");
-//			if(gpPlugin instanceof GriefPrevention) addProtection(new GPProtection( (GriefPrevention)gpPlugin));
-//		}
-//
-//		if(isPluginEnabled("PlotSquared")){
-//			Plugin plotSqPlugin = getServer().getPluginManager().getPlugin("PlotSquared");
-//			if(plotSqPlugin instanceof BukkitMain) addProtection(new PlotSqProtection((BukkitMain) plotSqPlugin));
-//		}
-//
-//		if(isPluginEnabled("Claims")){
-//			Plugin bcp = getServer().getPluginManager().getPlugin("Claims");
-//			if(bcp instanceof BukkitClaimsPlugin) addProtection(new ClaimsProtection((BukkitClaimsPlugin) bcp));
-//		}
-//		
-//		if(isPluginEnabled("Towny")){
-//			Plugin towny = getServer().getPluginManager().getPlugin("Towny");
-//			if(towny instanceof Towny) addProtection(new TownyProtection((Towny)towny));
-//		}
-//		
-//		if(isPluginEnabled("Residence")){
-//			Plugin res = getServer().getPluginManager().getPlugin("Residence");
-//			if(res instanceof Residence) addProtection(new ResidenceProtection((Residence)res));
-//		}
 	}
 
 	//add missing configuration values
@@ -169,14 +121,6 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		return getServer().getPluginManager().isPluginEnabled(plugin);
 	}
 
-//	public void addProtection (ASEProtection protection){
-//		protections.add(protection);
-//	}
-//
-//	public ArrayList<ASEProtection> getProtections(){
-//		return protections;
-//	}
-
 	public void log(String message){
 		this.getServer().getLogger().info("ArmorStandEditor: " + message);
 	}
@@ -205,6 +149,5 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 //todo: 
 //Access to "DisabledSlots" data (probably simplified just a toggle enable/disable)
 //Access to the "Marker" switch (so you can make the hitbox super small)
-//API so that developers can add their own means of having editing respect protected regions
 //Target a specific armorstand to edit, so solve the issue of editing armorstands close to each other and to make the Marker switch a viable option.
 //Ability for users to set a per-user amount for coarse/fine adjustment
