@@ -42,7 +42,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	Language lang;
 	public PlayerEditorManager editorManager;
 	public Material editTool;
-	boolean debug = false; //weather or not to broadcast messages via print(String message)
+	boolean debug = true; //weather or not to broadcast messages via print(String message)
 	double coarseRot;
 	double fineRot;
 //	private ArrayList<ASEProtection> protections;

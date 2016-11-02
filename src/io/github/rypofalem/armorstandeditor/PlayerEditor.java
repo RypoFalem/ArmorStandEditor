@@ -27,10 +27,11 @@ public class PlayerEditor {
 	double degreeAngleChange;
 	double movChange;
 	Menu chestMenu;
-	boolean cancelMenuOpen = false;
 	int uncancelTaskID =0;
 	ArmorStand target;
 	EquipmentMenu equipMenu;
+	boolean queueCancel = false;
+	long lastCancelled = 0;
 
 	public PlayerEditor(UUID uuid, ArmorStandEditorPlugin plugin){
 		this.uuid =uuid;
@@ -321,33 +322,26 @@ public class PlayerEditor {
 //	}
 
 	public void openMenu() {
-		plugin.getServer().getScheduler().runTaskLater(plugin, new OpenMenuTask(), 1);
+		if(!isMenuCancelled()){
+			plugin.getServer().getScheduler().runTaskLater(plugin, new OpenMenuTask(), 1).getTaskId();
+		}
 	}
 
 	public void cancelOpenMenu() {
-		if(cancelMenuOpen){
-			plugin.getServer().getScheduler().cancelTask(uncancelTaskID);
-		}else{
-			cancelMenuOpen = true;
-		}
-		uncancelTaskID = plugin.getServer().getScheduler().runTaskLater(plugin, new MenuUncancelTask(), 3).getTaskId();
+		lastCancelled = getManager().getTime();
+	}
+	
+	boolean isMenuCancelled(){
+		return getManager().getTime() - lastCancelled < 2;
 	}
 
 	class OpenMenuTask implements Runnable{
-
+		boolean hasRun = false;
+		
 		@Override
 		public void run() {
-			if(!cancelMenuOpen){
-				chestMenu.openMenu();
-			}
-		}
-	}
-
-	class MenuUncancelTask implements Runnable {
-
-		@Override
-		public void run() {
-			cancelMenuOpen = false;
+			if(isMenuCancelled()) return;
+			chestMenu.openMenu();
 		}
 	}
 }

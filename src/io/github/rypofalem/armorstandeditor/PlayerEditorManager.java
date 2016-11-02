@@ -4,6 +4,7 @@ import io.github.rypofalem.armorstandeditor.menu.ASEHolder;
 import io.github.rypofalem.armorstandeditor.menu.EquipmentMenu;
 import io.github.rypofalem.armorstandeditor.menu.Menu;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -14,6 +15,8 @@ import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Cancellable;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -21,7 +24,9 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -38,6 +43,8 @@ public class PlayerEditorManager implements Listener{
 	double coarseMov;
 	double fineMov;
 	boolean ignoreNextInteract = false;
+	TickCounter counter;
+	
 
 	public PlayerEditorManager(ArmorStandEditorPlugin plugin){
 		this.plugin = plugin;
@@ -46,9 +53,11 @@ public class PlayerEditorManager implements Listener{
 		fineAdj = Util.FULLCIRCLE / plugin.fineRot;
 		coarseMov = 1;
 		fineMov = .03125; // 1/32
+		counter = new TickCounter();
+		Bukkit.getServer().getScheduler().runTaskTimer(plugin, counter, 0, 1);
 	}
 
-	@EventHandler (priority = EventPriority.NORMAL, ignoreCancelled=false)
+	@EventHandler (priority = EventPriority.LOWEST, ignoreCancelled=false)
 	void onArmorStandDamage(EntityDamageByEntityEvent event){
 		if(!(event.getEntity() instanceof ArmorStand)) return;
 		if(!(event.getDamager() instanceof Player))return;
@@ -57,36 +66,38 @@ public class PlayerEditorManager implements Listener{
 		if(player.getInventory().getItemInMainHand().getType() != plugin.editTool) return;
 		getPlayerEditor(player.getUniqueId()).cancelOpenMenu();
 		event.setCancelled(true);
-		ignoreNextInteract = true;
-		PlayerInteractAtEntityEvent interactEvent = new PlayerInteractAtEntityEvent(player, as, as.getLocation().toVector());
-		Bukkit.getServer().getPluginManager().callEvent(interactEvent);
-		ignoreNextInteract = false;
-		if(!interactEvent.isCancelled()) applyLeftTool(player, as);
+		if(canEdit(player, as)) applyLeftTool(player, as);
 	}
 
-	@EventHandler (priority = EventPriority.NORMAL, ignoreCancelled=true)
-	void onArmorStandInteract(PlayerInteractAtEntityEvent e){
+
+
+	@EventHandler (priority = EventPriority.LOWEST, ignoreCancelled=false)
+	void onArmorStandInteract(PlayerInteractAtEntityEvent event){
 		if(ignoreNextInteract) return;
-		if(e.getHand() != EquipmentSlot.HAND) return;
-		Player player =  e.getPlayer();
-		if(!(e.getRightClicked() instanceof ArmorStand)) return;
+		if(event.getHand() != EquipmentSlot.HAND) return;
+		Player player =  event.getPlayer();
+		if(!(event.getRightClicked() instanceof ArmorStand)) return;
 		if(player.getInventory().getItemInMainHand() == null) return;
+		ArmorStand as = (ArmorStand)event.getRightClicked();
+
+		if(!canEdit(player, as)) return;
 		if(player.getInventory().getItemInMainHand().getType() == plugin.editTool){
-			e.setCancelled(true);
-			applyRightTool(player, (ArmorStand)e.getRightClicked());
+			getPlayerEditor(player.getUniqueId()).cancelOpenMenu();
+			event.setCancelled(true);
+			applyRightTool(player, as);
 			return;
 		}
 
-		//Nametag stuff
+		//Attempt rename
 		if(player.getInventory().getItemInMainHand().getType() == Material.NAME_TAG){
 			ItemStack nameTag = player.getInventory().getItemInMainHand(); 
 			if(nameTag.hasItemMeta() && nameTag.getItemMeta().hasDisplayName()){
-				ArmorStand as = (ArmorStand)e.getRightClicked();
+				as = (ArmorStand)event.getRightClicked();
 				String name = nameTag.getItemMeta().getDisplayName();
 				name = name.replace('&', ChatColor.COLOR_CHAR);
 				if((as.getCustomName() != null && !as.getCustomName().equals(name)) // armorstand has name and that name is not the same as the nametag
 						|| (as.getCustomName() == null && (!name.equals(""))) ){ // armorstand doesn't have name and nametag is not blank
-					e.setCancelled(true); //nametag NOT given to armorstand
+					event.setCancelled(true);
 					as.setCustomName(name);
 					as.setCustomNameVisible(true);
 
@@ -99,7 +110,31 @@ public class PlayerEditorManager implements Listener{
 					player.getInventory().setItemInMainHand(nameTag);
 				}
 			}
-		} //end Nametag stuff
+		}
+	}
+
+	boolean canEdit(Player player, ArmorStand as){
+		ignoreNextInteract = true;
+		ArrayList<Event> events = new ArrayList<Event>();
+		events.add(new PlayerInteractEntityEvent(player, as, EquipmentSlot.HAND));
+		events.add(new PlayerInteractAtEntityEvent(player, as, as.getLocation().toVector(), EquipmentSlot.HAND));
+		//events.add(new PlayerArmorStandManipulateEvent(player, as, player.getEquipment().getItemInMainHand(), as.getItemInHand(), EquipmentSlot.HAND));
+		for(Event event : events){
+			if(!(event instanceof Cancellable)) continue;
+			try{
+				plugin.getServer().getPluginManager().callEvent(event);
+			} catch(IllegalStateException ise){
+				ise.printStackTrace(); 
+				ignoreNextInteract = false;
+				return false; //Something went wrong, don't allow edit just in case
+			}
+			if(((Cancellable)event).isCancelled()){
+				ignoreNextInteract = false;
+				return false;
+			}
+		}
+		ignoreNextInteract = false;
+		return true;
 	}
 
 	void applyLeftTool(Player player, ArmorStand as){
@@ -179,7 +214,6 @@ public class PlayerEditorManager implements Listener{
 		}
 	}
 
-	//Stop tracking player when he leaves
 	@EventHandler (priority = EventPriority.MONITOR)
 	void onPlayerLogOut(PlayerQuitEvent e){
 		removePlayerEditor(e.getPlayer().getUniqueId());
@@ -201,5 +235,16 @@ public class PlayerEditorManager implements Listener{
 
 	public ASEHolder getPluginHolder() {
 		return pluginHolder;
+	}
+	
+	public long getTime(){
+		return counter.ticks;
+	}
+	
+	class TickCounter implements Runnable{
+		long ticks = 0; //I am optimistic
+		@Override
+		public void run() {ticks++;}
+		public long getTime() {return ticks;}
 	}
 }
