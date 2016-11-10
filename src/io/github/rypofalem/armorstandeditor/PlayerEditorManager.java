@@ -58,17 +58,19 @@ public class PlayerEditorManager implements Listener{
 
 	@EventHandler (priority = EventPriority.LOWEST, ignoreCancelled=false)
 	void onArmorStandDamage(EntityDamageByEntityEvent event){
-		if(!(event.getEntity() instanceof ArmorStand)) return;
 		if(!(event.getDamager() instanceof Player))return;
-		ArmorStand as = (ArmorStand)event.getEntity();
 		Player player = (Player) event.getDamager();
-		if(player.getInventory().getItemInMainHand().getType() != plugin.editTool) return;
+		if(!plugin.isEditTool(player.getInventory().getItemInMainHand())) return;
+		if(!(event.getEntity() instanceof ArmorStand)){
+			event.setCancelled(true);
+			getPlayerEditor(player.getUniqueId()).openMenu();
+			return;
+		}
+		ArmorStand as = (ArmorStand)event.getEntity();
 		getPlayerEditor(player.getUniqueId()).cancelOpenMenu();
 		event.setCancelled(true);
 		if(canEdit(player, as)) applyLeftTool(player, as);
 	}
-
-
 
 	@EventHandler (priority = EventPriority.LOWEST, ignoreCancelled=false)
 	void onArmorStandInteract(PlayerInteractAtEntityEvent event){
@@ -80,7 +82,7 @@ public class PlayerEditorManager implements Listener{
 		ArmorStand as = (ArmorStand)event.getRightClicked();
 
 		if(!canEdit(player, as)) return;
-		if(player.getInventory().getItemInMainHand().getType() == plugin.editTool){
+		if(plugin.isEditTool(player.getInventory().getItemInMainHand())){
 			getPlayerEditor(player.getUniqueId()).cancelOpenMenu();
 			event.setCancelled(true);
 			applyRightTool(player, as);
@@ -109,7 +111,7 @@ public class PlayerEditorManager implements Listener{
 					player.getInventory().setItemInMainHand(nameTag);
 				}
 			}
-		}
+		}// end rename
 	}
 
 	boolean canEdit(Player player, ArmorStand as){
@@ -154,7 +156,7 @@ public class PlayerEditorManager implements Listener{
 				|| e.getAction() == Action.RIGHT_CLICK_BLOCK)) return;
 		Player player = e.getPlayer();
 		if(player.getInventory().getItemInMainHand() == null)  return;
-		if(player.getInventory().getItemInMainHand().getType() != plugin.editTool) return;
+		if(!plugin.isEditTool(player.getInventory().getItemInMainHand())) return;
 		e.setCancelled(true);
 		getPlayerEditor(player.getUniqueId()).openMenu();
 	}
@@ -163,8 +165,7 @@ public class PlayerEditorManager implements Listener{
 	void onScrollNCrouch(PlayerItemHeldEvent e){
 		Player player = e.getPlayer();
 		if(!player.isSneaking()) return;
-		if(!(player.getInventory().getItem(e.getPreviousSlot()) != null 
-				&& player.getInventory().getItem(e.getPreviousSlot()).getType() == plugin.editTool)) return;
+		if(!plugin.isEditTool(player.getInventory().getItem(e.getPreviousSlot()))) return;
 
 		e.setCancelled(true);
 		if(e.getNewSlot() == e.getPreviousSlot() +1 || (e.getNewSlot() == 0 && e.getPreviousSlot() == 8)){

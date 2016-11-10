@@ -5,7 +5,7 @@
 #formatting
 #A section symbol will be inserted between each character in this section
 #http://minecraft.gamepedia.com/Formatting_codes
-iconname: bn
+iconname: bn5
 icondescription: b
 info: b
 warn: b
@@ -13,7 +13,7 @@ menutitle: b
 
 #info
 setmode: 
-  msg: Setting mode to <x>.
+  msg: Setting §3mode to <x>.
   head: Head Position
   body: Body Position
   leftleg: Left Leg Position

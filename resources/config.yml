@@ -7,5 +7,13 @@ fine: 120
 #Name of the edit tool's item Material. You can find a full list at https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
 tool: FLINT
 
+#(Optional) data that the plugin looks for to identify the edit tool, such as the damage value of a sword or the pattern of sandstone.
+requireToolData: false
+toolData: 0
+
+#(Optional) The first "Lore" entry that the plugin looks for to identify the edit tool.
+requireToolLore: false
+toolLore: Let's get dangerous
+
 #Name of the language file you wish to use
 lang: en_US.yml

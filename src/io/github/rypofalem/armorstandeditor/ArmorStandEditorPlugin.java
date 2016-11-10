@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.bukkit.Bukkit;
@@ -18,6 +19,8 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -25,7 +28,11 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	CommandEx execute;
 	Language lang;
 	public PlayerEditorManager editorManager;
-	public Material editTool;
+	public Material editTool = Material.FLINT;
+	boolean requireToolData = false;
+	int editToolData = Integer.MIN_VALUE;
+	boolean requireToolLore = false;
+	String editToolLore = null;
 	boolean debug = false; //weather or not to broadcast messages via print(String message)
 	double coarseRot;
 	double fineRot;
@@ -40,13 +47,30 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
 		coarseRot = getConfig().getDouble("coarse");
 		fineRot = getConfig().getDouble("fine");
-		String tool = getConfig().getString("tool");
-		editTool = Material.getMaterial(tool);
+		String toolType = getConfig().getString("tool");
+		editTool = Material.getMaterial(toolType);
+		requireToolData = getConfig().getBoolean("requireToolData");
+		if(requireToolData) editToolData = getConfig().getInt("toolData");
+		requireToolLore = getConfig().getBoolean("requireToolLore");
+		if(requireToolLore) editToolLore= getConfig().getString("toolLore");
 
 		editorManager = new PlayerEditorManager(this);
 		execute = new CommandEx(this);
 		getCommand("ase").setExecutor(execute);
 		getServer().getPluginManager().registerEvents(editorManager, this);
+		
+		if(debug){
+			for(Player player : getServer().getOnlinePlayers()){
+				ItemStack tool = player.getEquipment().getItemInMainHand();
+				tool.setType(editTool);
+				tool.setDurability((short)editToolData);
+				ArrayList<String> lore = new ArrayList<String>();
+				lore.add(editToolLore);
+				ItemMeta meta = tool.getItemMeta();
+				meta.setLore(lore);
+				tool.setItemMeta(meta);
+			}
+		}
 	}
 
 	//add missing configuration values
@@ -65,7 +89,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			defaultConfig = YamlConfiguration.loadConfiguration(defaultConfigStream);
 			currentConfig = YamlConfiguration.loadConfiguration(new File(getDataFolder(), config));
 			if(currentConfig == null || defaultConfig == null){
-				log("Either the current or default configuration could not me loaded.");
+				log("Either the current or default configuration could not be loaded.");
 				return;
 			}
 			for(String key : defaultConfig.getKeys(true)){
@@ -83,37 +107,9 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	}
 
 	public void onDisable(){
-	}
-
-	void logError(Throwable throwable){
-		for(World world : getServer().getWorlds()){
-			for(Player player : world.getPlayers()){
-				player.closeInventory();
-			}
-		}
-		Writer writer = null;
-		try {
-			File logFileDir = new File("plugins/ArmorStandEditor/");
-			logFileDir.mkdirs();
-			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("plugins/ArmorStandEditor/log.txt"), true)));
-			writer.append("********"+ new Date(System.currentTimeMillis()).toString() + "********\n\n");
-			writer.append(Bukkit.getServer().getVersion() + "\n");
-			writer.append("Plugins: " + listPlugins() + "\n\n\n");
-			writer.append(throwable.getClass().getName() + "\n");
-			for(StackTraceElement ste: throwable.getStackTrace()){
-				writer.append(ste.toString());
-				writer.append("\n");
-			}
-			writer.append("\n\n");
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		} finally {
-			try {writer.close();} catch (Exception ex) {}
-			getLogger().info(
-					"\n***********************\n***********************\n***********************\n"
-							+ "ArmorStandEditor Encountered an error! Check plugins/ArmorStandEditor/log.txt"
-							+"\nYou should send this file to the developer."
-							+ "\n***********************\n***********************\n***********************");
+		for(Player player : Bukkit.getServer().getOnlinePlayers()){
+			if(player.getOpenInventory() == null) continue;
+			if(player.getOpenInventory().getTopInventory().getHolder() == editorManager.getPluginHolder()) player.closeInventory();
 		}
 	}
 
@@ -144,6 +140,20 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
 	public Language getLang(){
 		return lang;
+	}
+	
+	public boolean isEditTool(ItemStack item){
+		if(editTool != item.getType()) return false;
+		if(requireToolData && item.getDurability() != (short)editToolData) return false;
+		if(requireToolLore && editToolLore != null){
+			if(!item.hasItemMeta()) return false;
+			if(!item.getItemMeta().hasLore()) return false;
+			print("has Lore");
+			if(item.getItemMeta().getLore().isEmpty()) return false;
+			print("lore not empty");
+			if(!item.getItemMeta().getLore().get(0).equals(editToolLore)) return false;
+		}
+		return true;
 	}
 }
 //todo: 
