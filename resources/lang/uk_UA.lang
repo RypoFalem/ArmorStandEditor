@@ -1,0 +1,186 @@
+#Translated by Cool_boy
+
+
+
+
+
+
+iconname: 2n
+icondescription: 5
+info: 2
+warn: c
+menutitle: 8
+
+#info
+setmode:
+  msg: Встановлено режим редагування <x>.
+  head: Позиція голови
+  body: Позиція тіла
+  leftleg: Позиція лівої ноги
+  rightleg: Позиція правої ноги
+  leftarm: Позиція лівої руки
+  rightarm: Позиція правої руки
+  equipment: Інвертар
+  showarms: Перемкнути показ рук
+  invisible: Перемкнути видимість
+  size: Перемкнути розмір
+  disableslots: Перемкнути вимкнені слоти
+  gravity: Перемкнути гравітацію
+  baseplate: Перемкнути плиту
+  placement: Розташування
+  rotate: Поворот
+  target: Ціль
+  copy: Копіювати
+  paste: Вставити
+  reset: Зкинути позу
+setaxis:
+  msg: Встановленно вісь <x>.
+  x: X
+  y: Y
+  z: Z
+setslot:
+  msg: Копіюємо у слот <x>.
+setadj:
+  msg: Встановлюєм чутливість на <x>.
+  coarse: Грубу
+  fine: Делікатну
+setgravity:
+  msg: Гравітація <x>.
+  'true': увімкнена
+  'false': вимкнена
+nomode:
+  msg: Натисни інструментом редагування поза стендом щоб обрати режим!
+copied:
+  msg: Стенд скопійовано в слот <x>.
+pasted:
+  msg: Стенд вставлено з слоту <x>.
+cantedit:
+  msg: Ти не можеш змінювати стенди тут!
+noperm:
+  msg: У тебе нема прав!
+noslotnumcom:
+  msg: Уточніть слот!
+noadjcom:
+  msg: Оберіть чутливість!
+noaxiscom:
+  msg: Оберіть вісь!
+nomodecom:
+  msg: Оберіть режим!
+mainmenutitle:
+  msg: Меню редагування стенду
+xaxis:
+  msg: Вісь X
+  description:
+    msg: Поворот частини тіла вздовж осі X
+yaxis:
+  msg: Вісь Y
+  description:
+    msg: Поворот частини тіла вздовж осі Y
+zaxis:
+  msg: Вісь Z
+  description:
+    msg: Поворот частини тіла вздовж осі Z
+coarseadj:
+  msg: Груба чутливість
+  description:
+    msg: Робить великі коригування
+fineadj:
+  msg: Делікатна чутливість
+  description:
+    msg: Робить невеличкі коригування
+head:
+  msg: Позиція голови
+  description:
+    msg: Крутити голову
+body:
+  msg: Позиція тіла
+  description:
+    msg: Крутити the body
+leftleg:
+  msg: Позиція лівої ноги
+  description:
+    msg: Крутити ліву ногу
+rightleg:
+  msg: Позиція правої ноги
+  description:
+    msg: Крутити праву ногу
+leftarm:
+  msg: Позиція лівої руки
+  description:
+    msg: Крутити ліву руку
+rightarm:
+  msg: Позиція правої руки
+  description:
+    msg: Крутити праву руку
+equipment:
+  msg: Інвертар
+  description:
+    msg: Редагувати інвертар
+showarms:
+  msg: Показати руки
+  description:
+    msg: Перемкнути видимість рук
+invisible:
+  msg: Видимість
+  description:
+    msg: Зробити стенд невидимим або видимим
+size:
+  msg: Розмір
+  description:
+    msg: Змінити розмір стенду
+disableslots:
+  msg: Вимкнути слоти
+  description:
+    msg: Заборонити зміну деяких слотів
+gravity:
+  msg: Гравітація
+  description:
+    msg: Зробити стенд невагомим
+baseplate:
+  msg: Базова плита
+  description:
+    msg: Увімкни чи вимкни базову плиту
+placement:
+  msg: Розташуваня
+  description:
+    msg: Переміщуй стенд
+rotate:
+  msg: Обернути
+  description:
+    msg: Обертай стенд
+target:
+  msg: Ціль
+  description:
+    msg: СКОРО!
+copy:
+  msg: Копія
+  description:
+    msg: Зкопіюй налаштування стенду
+paste:
+  msg: Вставити
+  description:
+    msg: Встав налаштування стенду
+copyslot:
+  msg: Копіюєм в слот <x>
+  description:
+    msg: Оберіть слот щоб зберегти налаштування
+equiptitle:
+  msg: Інвертар стенду
+disabled:
+  msg: Вимкнено
+equipslot:
+  msg: <x> слот
+  description:
+    msg: Перетягни <x> у слот нижче
+    helm: Шолом
+    chest: Нагрудник
+    pants: Наголінники
+    boots: Черевики
+    rhand: Річ правої руки
+    lhand: Річ лівої руки
+  helm: Шолом
+  chest: Нагрудник
+  pants: Штани
+  boots: Черевики
+  rhand: Права рука
+  lhand: Ліва рука
