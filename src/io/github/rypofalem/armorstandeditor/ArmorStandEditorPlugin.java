@@ -43,6 +43,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		updateConfig("lang", "en_US.yml");
 		updateConfig("lang", "test_NA.yml");
 		updateConfig("lang", "nl_NL.yml");
+		updateConfig("lang", "uk_UA.yml");
 		lang = new Language(getConfig().getString("lang"), this);
 
 		coarseRot = getConfig().getDouble("coarse");
