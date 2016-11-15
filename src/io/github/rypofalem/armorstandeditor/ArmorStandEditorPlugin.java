@@ -143,6 +143,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	}
 	
 	public boolean isEditTool(ItemStack item){
+		if(item == null) return false;
 		if(editTool != item.getType()) return false;
 		if(requireToolData && item.getDurability() != (short)editToolData) return false;
 		if(requireToolLore && editToolLore != null){
