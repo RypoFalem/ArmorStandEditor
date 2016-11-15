@@ -81,7 +81,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			InputStream input;
 			if(folder == "" || folder == null){
 				input = getResource(config);
-			} else{
+			} else {
 				input = getResource(folder + "/" + config); //getResource doesn't accept File.seperator on windows, need to hardcode unix seperator "/" instead
 				config = folder + File.separator + config;
 			}
