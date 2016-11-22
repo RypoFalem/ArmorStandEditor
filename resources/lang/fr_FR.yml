@@ -26,7 +26,7 @@ setmode:
   rotate: Rotation
   target: Cible
   copy: Copie
-  paste: Colle
+  paste: Collage
   reset: Réinitialisation de la pose
 setaxis: 
   msg: Axe <x> sélectionné.
