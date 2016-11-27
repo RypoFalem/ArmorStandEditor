@@ -70,3 +70,6 @@ permissions:
     asedit.rightleg:
       description: Adjust right leg position
       default: true
+    asedit.reset:
+      description: Reset all body angles to zero
+      default: true

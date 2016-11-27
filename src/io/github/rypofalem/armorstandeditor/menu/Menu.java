@@ -57,12 +57,7 @@ public class Menu {
 					"fineadj", "adj fine");
 		}
 		
-		if(pe.getPlayer().hasPermission("asedit.head") &&
-				pe.getPlayer().hasPermission("asedit.body") &&
-				pe.getPlayer().hasPermission("asedit.leftarm") &&
-				pe.getPlayer().hasPermission("asedit.rightarm") &&
-				pe.getPlayer().hasPermission("asedit.leftleg") &&
-				pe.getPlayer().hasPermission("asedit.rightleg")){
+		if(pe.getPlayer().hasPermission("asedit.reset")){
 			reset = createIcon( new ItemStack(Material.LEVER),
 					"reset", "mode reset");
 		}
