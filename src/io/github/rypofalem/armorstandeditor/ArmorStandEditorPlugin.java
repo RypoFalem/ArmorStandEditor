@@ -2,31 +2,17 @@ package io.github.rypofalem.armorstandeditor;
 
 import io.github.rypofalem.armorstandeditor.language.Language;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Date;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.World;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ArmorStandEditorPlugin extends JavaPlugin{
-	CommandEx execute;
-	Language lang;
+	private static ArmorStandEditorPlugin instance;
+	private CommandEx execute;
+	private Language lang;
 	public PlayerEditorManager editorManager;
 	public Material editTool = Material.FLINT;
 	boolean requireToolData = false;
@@ -38,12 +24,14 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	double fineRot;
 
 	public void onEnable(){
-		saveDefaultConfig();
+		instance = this;
+		//saveResource doesn't accept File.seperator on windows, need to hardcode unix seperator "/" instead
 		updateConfig("", "config.yml");
-		updateConfig("lang", "en_US.yml");
-		updateConfig("lang", "test_NA.yml");
-		updateConfig("lang", "nl_NL.yml");
-		updateConfig("lang", "uk_UA.yml");
+		updateConfig("lang/", "en_US.yml");
+		updateConfig("lang/", "test_NA.yml");
+		updateConfig("lang/", "nl_NL.yml");
+		updateConfig("lang/", "uk_UA.yml");
+		updateConfig("lang/", "zh.yml");
 		lang = new Language(getConfig().getString("lang"), this);
 
 		coarseRot = getConfig().getDouble("coarse");
@@ -59,52 +47,11 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		execute = new CommandEx(this);
 		getCommand("ase").setExecutor(execute);
 		getServer().getPluginManager().registerEvents(editorManager, this);
-		
-		if(debug){
-			for(Player player : getServer().getOnlinePlayers()){
-				ItemStack tool = player.getEquipment().getItemInMainHand();
-				tool.setType(editTool);
-				tool.setDurability((short)editToolData);
-				ArrayList<String> lore = new ArrayList<String>();
-				lore.add(editToolLore);
-				ItemMeta meta = tool.getItemMeta();
-				meta.setLore(lore);
-				tool.setItemMeta(meta);
-			}
-		}
 	}
 
-	//add missing configuration values
+
 	private void updateConfig(String folder, String config) {
-		YamlConfiguration defaultConfig;
-		YamlConfiguration currentConfig;
-		try {
-			InputStream input;
-			if(folder == "" || folder == null){
-				input = getResource(config);
-			} else {
-				input = getResource(folder + "/" + config); //getResource doesn't accept File.seperator on windows, need to hardcode unix seperator "/" instead
-				config = folder + File.separator + config;
-			}
-			Reader defaultConfigStream = new InputStreamReader(input, "UTF8");
-			defaultConfig = YamlConfiguration.loadConfiguration(defaultConfigStream);
-			currentConfig = YamlConfiguration.loadConfiguration(new File(getDataFolder(), config));
-			if(currentConfig == null || defaultConfig == null){
-				log("Either the current or default configuration could not be loaded.");
-				return;
-			}
-			for(String key : defaultConfig.getKeys(true)){
-				if(!currentConfig.contains(key)){
-					currentConfig.set(key, defaultConfig.get(key));
-					print(String.format("key not found %s. Setting value", key));
-				}
-			}
-			currentConfig.save(new File(getDataFolder(), config));
-		} catch (Exception e) {
-			log("Failed to update configuration: " + config);
-			e.printStackTrace();
-			return;
-		}
+		saveResource(folder  + config, false);
 	}
 
 	public void onDisable(){
@@ -112,10 +59,6 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			if(player.getOpenInventory() == null) continue;
 			if(player.getOpenInventory().getTopInventory().getHolder() == editorManager.getPluginHolder()) player.closeInventory();
 		}
-	}
-
-	public boolean isPluginEnabled(String plugin){
-		return getServer().getPluginManager().isPluginEnabled(plugin);
 	}
 
 	public void log(String message){
@@ -137,6 +80,10 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			}
 		}
 		return list;
+	}
+
+	public static ArmorStandEditorPlugin instance(){
+		return instance;
 	}
 
 	public Language getLang(){

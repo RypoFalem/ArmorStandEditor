@@ -52,26 +52,18 @@ public abstract class Util {
 	//clamps angle to 0 if it exceeds 2PI rad (360 degrees), is closer to 0 than angleChange value, or is closer to 2PI rad than 2PI rad - angleChange value.
 	private static double fixAngle(double angle, double angleChange){
 		if(angle > FULLCIRCLE){
-			return angle = 0;
+			return 0;
 		}
 		if(angle > 0 && angle < angleChange){
 			if(angle < angleChange/2){
-				return angle = 0;
+				return 0;
 			}
 		}
 		if(angle > FULLCIRCLE-angle){
 			if(angle > FULLCIRCLE - (angleChange/2)){
-				return angle = 0;
+				return 0;
 			}
 		}
 		return angle;
-	}
-	
-	static boolean toggleFlag(boolean flag){
-		if(flag){
-			return false;
-		}else{
-			return true;
-		}
 	}
 }

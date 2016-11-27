@@ -27,10 +27,8 @@ public class PlayerEditor {
 	double degreeAngleChange;
 	double movChange;
 	Menu chestMenu;
-	int uncancelTaskID =0;
 	ArmorStand target;
 	EquipmentMenu equipMenu;
-	boolean queueCancel = false;
 	long lastCancelled = 0;
 
 	public PlayerEditor(UUID uuid, ArmorStandEditorPlugin plugin){
@@ -230,25 +228,25 @@ public class PlayerEditor {
 	}
 
 	private void toggleGravity(ArmorStand armorStand) {
-		armorStand.setGravity(Util.toggleFlag(armorStand.hasGravity()));
+		armorStand.setGravity(!armorStand.hasGravity());
 		String state = armorStand.hasGravity() ? "on" : "off";
 		sendMessage("setgravity", state);
 	}
 
 	void togglePlate(ArmorStand armorStand) {
-		armorStand.setBasePlate(Util.toggleFlag(armorStand.hasBasePlate()));
+		armorStand.setBasePlate(!armorStand.hasBasePlate());
 	}
 
 	void toggleArms(ArmorStand armorStand){
-		armorStand.setArms(Util.toggleFlag(armorStand.hasArms()));
+		armorStand.setArms(!armorStand.hasArms());
 	}
 
 	void toggleVisible(ArmorStand armorStand){
-		armorStand.setVisible(Util.toggleFlag(armorStand.isVisible()));
+		armorStand.setVisible(!armorStand.isVisible());
 	}
 
 	void toggleSize(ArmorStand armorStand){
-		armorStand.setSmall(Util.toggleFlag(armorStand.isSmall()));
+		armorStand.setSmall(!armorStand.isSmall());
 	}
 
 	void cycleAxis(int i) {
