@@ -108,8 +108,6 @@ public class PlayerEditor {
 		break;
 		case EQUIPMENT: openEquipment(armorStand);
 		break;
-		case TARGET: setTarget(armorStand);
-		break;
 		case RESET: resetPosition(armorStand);
 		break;
 		case NONE: sendMessage("nomode", null); break;

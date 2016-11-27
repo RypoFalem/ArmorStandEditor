@@ -29,7 +29,7 @@ public class Menu {
 		menuInv.clear();
 		@SuppressWarnings("unused")
 		ItemStack xAxis= null, yAxis= null, zAxis= null, coarseAdj= null, fineAdj= null, rotate = null, place = null,
-				headPos= null, target = null,
+				headPos= null,
 				rightArmPos= null, bodyPos= null, leftArmPos= null, reset = null, showArms= null, visibility= null, size= null,
 				rightLegPos= null, equipment = null, leftLegPos= null, disableSlots = null, gravity= null, plate= null, copy= null, paste= null,
 				slot1= null, slot2= null, slot3= null, slot4= null, slot5= null, slot6= null, slot7= null, slot8= null, slot9 = null;
@@ -137,9 +137,6 @@ public class Menu {
 					"rotate", "mode rotate");
 		}
 
-		target = createIcon(new ItemStack(Material.END_CRYSTAL, 1),
-				"target", "mode target");
-
 		if(pe.getPlayer().hasPermission("asedit.equipment")){
 			equipment = createIcon(new ItemStack(Material.CHEST, 1),
 					"equipment", "mode equipment");
@@ -181,7 +178,7 @@ public class Menu {
 		}
 		ItemStack[] items = 
 			{xAxis, yAxis, zAxis, null, coarseAdj, fineAdj, null, rotate, place,
-					null, headPos, null, null, null, null, null, null, target,
+					null, headPos, null, null, null, null, null, null,
 					rightArmPos, bodyPos, leftArmPos, reset, null, null, showArms, visibility, size,
 					rightLegPos, equipment, leftLegPos, null, null, null, null, gravity, plate,
 					null, null, null, null, copy, paste, null, null, null,
