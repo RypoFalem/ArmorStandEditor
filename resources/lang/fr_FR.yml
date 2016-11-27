@@ -1,0 +1,192 @@
+# Translation by Amaury Carrade
+
+iconname: 2n
+icondescription: 5
+info: 2
+warn: c
+menutitle: 8
+
+#info
+setmode: 
+  msg: Mode « <x> » sélectionné.
+  head: Position de la tête
+  body: Position du corps
+  leftleg: Position de la jambe gauche
+  rightleg: Position de la jambe droite
+  leftarm: Position du bras gauche
+  rightarm: Position du bras droit
+  equipment: Équipment
+  showarms: Afficher ou masquer les bras
+  invisible: Inversion de la visibilité
+  size: Inversion de la taille
+  disableslots: Activation ou désactivation des slots
+  gravity: Inversion de la gravité
+  baseplate: Affichage ou retrait de la plaque de base
+  placement: Position
+  rotate: Rotation
+  target: Cible
+  copy: Copie
+  paste: Collage
+  reset: Réinitialisation de la pose
+setaxis: 
+  msg: Axe <x> sélectionné.
+  x: X
+  y: Y
+  z: Z
+setslot: 
+  msg: Emplacement de copie <x> sélectionné.
+setadj:
+  msg: Ajustement <x> sélectionné.
+  coarse: grossier
+  fine: fin
+setgravity: 
+  msg: Gravité <x>.
+  on: activée
+  off: désactivée
+nomode: 
+  msg: Cliquez d'abord avec cet outil hors d'un valet pour sélectionner un mode d'édition.
+copied: 
+  msg: État du valet copié dans l'emplacement <x>.
+pasted: 
+  msg: État du valet collé depuis l'emplacement <x>.
+
+#warn
+cantedit:
+  msg: Désolé, vous ne pouvez modifier des valets ici !
+noperm: 
+  msg: Vous n'avez pas la permission d'utiliser ceci !
+noslotnumcom: 
+  msg: Vous devez spécifier un numéro d'emplacement de copie !
+noadjcom:
+  msg: Vous devez préciser si l'ajustement doit être fin ou grossier !
+noaxiscom:
+  msg: Vous devez préciser un axe !
+nomodecom:
+  msg: Vous devez préciser un mode !
+
+#main menu
+mainmenutitle:
+  msg: Menu d'Armor Stand Editor
+#icons
+xaxis:
+  msg: Axe X
+  description: 
+    msg: Tourne les membres du corps le long de l'axe X
+yaxis: 
+  msg: Axe Y
+  description: 
+    msg: Tourne les membres du corps le long de l'axe Y
+zaxis: 
+  msg: Axe Z
+  description: 
+    msg: Tourne les membres du corps le long de l'axe Z
+coarseadj: 
+  msg: Ajustement grossier
+  description: 
+    msg: Ajuste les positions avec un grand intervalle
+fineadj: 
+  msg: Ajustement fin
+  description: 
+    msg: Ajuste les positions avec un petit intervalle
+head: 
+  msg: Position de la tête
+  description: 
+    msg: Tourne la tête
+body: 
+  msg: Position du corps
+  description: 
+    msg: Tourne le corps
+leftleg: 
+  msg: Position de la jambe de gauche
+  description: 
+    msg: Tourne la jambe de gauche
+rightleg: 
+  msg: Position de la jambe de droite
+  description: 
+    msg: Tourne la jambe de droite
+leftarm: 
+  msg: Position du bras de gauche
+  description: 
+    msg: Tourne le bras de gauche
+rightarm: 
+  msg: Position du bras de droite
+  description: 
+    msg: Tourne le bras de droite
+equipment: 
+  msg: Équipement
+  description: 
+    msg: Modifie l'équipement
+showarms: 
+  msg: Affichage des bras
+  description: 
+    msg: Active ou désactive les bras
+invisible: 
+  msg: Visibilité
+  description: 
+    msg: Rend visible ou invisible
+size: 
+  msg: Taille
+  description: 
+    msg: Rend grand ou petit
+disableslots: 
+  msg: Désactive les slots
+  description: 
+    msg: Verrouille ou déverrouille les emplacements de l'inventaire
+gravity: 
+  msg: Gravité
+  description: 
+    msg: Active ou désactive la gravité
+baseplate: 
+  msg: Dalle de pierre
+  description: 
+    msg: Affiche ou masque la dalle de pierre
+placement: 
+  msg: Position
+  description: 
+    msg: Déplace le valet dans son ensemble
+rotate: 
+  msg: Rotation
+  description:
+    msg: Fait tourner l'ensemble du valet sur lui-même
+target: 
+  msg: Cible
+  description:
+    msg: Prochainement !
+copy: 
+  msg: Copie
+  description:
+    msg: Copie les propriétés du valet
+paste: 
+  msg: Collage
+  description:  
+    msg: Applique les propriétés préalablement copiées sur un valet
+copyslot: 
+  msg: Emplacement de copie <x>
+  description:
+    msg: Sélectionne un emplacement pour copier les propriétés
+reset:
+  msg: Réinitialisation de la pose
+  description:
+    msg: Réinitialise la position des membrs du corps aux valeurs par défaut
+#Equipment Menu
+equiptitle: 
+  msg: Équipement du valet
+#icons
+disabled: 
+  msg: Désactivé
+equipslot: 
+  msg: Emplacement des <x>
+  description: 
+    msg: Déposez votre <x> dans l'emplacement ci-dessous
+    helm: casque
+    chest: plastron
+    pants: pantalon
+    boots: paire de bottes
+    rhand: élément dans la main droite
+    lhand: élément dans la main gauche
+  helm: casques
+  chest: plastrons
+  pants: pantalons
+  boots: bottes
+  rhand: éléments dans la main droite
+  lhand: éléments dans la main gauche
