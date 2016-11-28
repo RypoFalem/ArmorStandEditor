@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
@@ -188,14 +189,7 @@ public class Menu {
 	}
 
 	private ItemStack createIcon(ItemStack icon, String path, String command){
-		ItemMeta meta = icon.getItemMeta();
-		meta.setDisplayName(getIconName(path));
-		ArrayList<String> loreList = new ArrayList<String>();
-		loreList.add(Util.encodeHiddenLore("ase " + command));
-		loreList.add(getIconDescription(path));
-		meta.setLore(loreList);
-		icon.setItemMeta(meta);
-		return icon;
+		return createIcon(icon, path, command, null);
 	}
 
 	private ItemStack createIcon(ItemStack icon, String path, String command, String option){
@@ -205,6 +199,8 @@ public class Menu {
 		loreList.add(Util.encodeHiddenLore("ase " + command));
 		loreList.add(getIconDescription(path, option));
 		meta.setLore(loreList);
+		meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+		meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 		icon.setItemMeta(meta);
 		return icon;
 	}

@@ -319,7 +319,6 @@ public class PlayerEditor {
 				sendMessage("target", null);
 			}
 		}
-		plugin.print(targetIndex + "");
 		target = targetList.get(targetIndex);
 		glow(target);
 	}
