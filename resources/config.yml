@@ -17,3 +17,6 @@ toolLore: Let's get dangerous
 
 #Name of the language file you wish to use
 lang: en_US.yml
+
+#Don't set to true unless you want players to see random messages or other undesirable behavior
+debug: false

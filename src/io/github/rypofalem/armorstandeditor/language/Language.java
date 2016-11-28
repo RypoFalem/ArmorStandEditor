@@ -21,7 +21,6 @@ public class Language {
     ArmorStandEditorPlugin plugin;
 
     public Language(String langFileName, ArmorStandEditorPlugin plugin) {
-        if (langFileName == null) langFileName = DEFAULTLANG;
         this.plugin = plugin;
         reloadLang(langFileName);
     }

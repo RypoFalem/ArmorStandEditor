@@ -29,7 +29,6 @@ setmode:
   baseplate: Toggle BasePlate
   placement: Placement
   rotate: Rotate
-  target: Target
   copy: Copy
   paste: Paste
   reset: Reset Pose
@@ -54,6 +53,10 @@ copied:
   msg: ArmorStand state copied to slot <x>.
 pasted: 
   msg: ArmorStand state pasted from slot <x>.
+target:
+  msg: ArmorStand target locked.
+notarget:
+  msg: ArmorStand target unlocked.
 
 #warn
 cantedit:
@@ -153,8 +156,6 @@ rotate:
   msg: Rotate
   description:
     msg: Rotate the entire armorstand
-target: 
-  msg: Target
   description:
     msg: Coming soon!
 copy: 

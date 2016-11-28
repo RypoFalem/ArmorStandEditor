@@ -178,7 +178,7 @@ public class Menu {
 		}
 		ItemStack[] items = 
 			{xAxis, yAxis, zAxis, null, coarseAdj, fineAdj, null, rotate, place,
-					null, headPos, null, null, null, null, null, null,
+					null, headPos, null, null, null, null, null, null, null,
 					rightArmPos, bodyPos, leftArmPos, reset, null, null, showArms, visibility, size,
 					rightLegPos, equipment, leftLegPos, null, null, null, null, gravity, plate,
 					null, null, null, null, copy, paste, null, null, null,

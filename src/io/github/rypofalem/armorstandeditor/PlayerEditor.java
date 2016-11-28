@@ -8,12 +8,15 @@ import io.github.rypofalem.armorstandeditor.modes.Axis;
 import io.github.rypofalem.armorstandeditor.modes.CopySlots;
 import io.github.rypofalem.armorstandeditor.modes.EditMode;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.EulerAngle;
 
 public class PlayerEditor {
@@ -28,6 +31,8 @@ public class PlayerEditor {
 	double movChange;
 	Menu chestMenu;
 	ArmorStand target;
+	ArrayList<ArmorStand> targetList = null;
+	int targetIndex = 0;
 	EquipmentMenu equipMenu;
 	long lastCancelled = 0;
 
@@ -73,6 +78,7 @@ public class PlayerEditor {
 	}
 
 	public void editArmorStand(ArmorStand armorStand) {
+		armorStand = attemptTarget(armorStand);
 		switch(eMode){
 		case LEFTARM: armorStand.setLeftArmPose(subEulerAngle(armorStand.getLeftArmPose()));
 		break;
@@ -129,6 +135,7 @@ public class PlayerEditor {
 	}
 
 	public void reverseEditArmorStand(ArmorStand armorStand){
+		armorStand = attemptTarget(armorStand);
 		switch(eMode){
 		case LEFTARM: armorStand.setLeftArmPose(addEulerAngle(armorStand.getLeftArmPose()));
 		break;
@@ -285,13 +292,55 @@ public class PlayerEditor {
 		return angle;
 	}
 
-	public void setTarget(ArmorStand armorstand){
-		this.target = armorstand;
+	public void setTarget(ArrayList<ArmorStand> armorStands){
+		if(armorStands == null || armorStands.isEmpty()){
+			target = null;
+			targetList = null;
+			sendMessage("notarget", null);
+			return;
+		}
+
+		if(targetList == null){
+			targetList = armorStands;
+			targetIndex = 0;
+			sendMessage("target", null);
+		} else{
+			boolean same = targetList.size() == armorStands.size();
+			if(same) for(ArmorStand as : armorStands){
+				same = targetList.contains(as);
+				if(!same) break;
+			}
+
+			if(same){
+				targetIndex = ++targetIndex % targetList.size();
+			}else{
+				targetList = armorStands;
+				targetIndex = 0;
+				sendMessage("target", null);
+			}
+		}
+		plugin.print(targetIndex + "");
+		target = targetList.get(targetIndex);
+		glow(target);
+	}
+
+	ArmorStand attemptTarget(ArmorStand armorStand){
+		if(target == null) return armorStand;
+		if(target.getWorld() != getPlayer().getWorld()) return armorStand;
+		if(target.getLocation().distanceSquared(getPlayer().getLocation()) > 100) return armorStand;
+		armorStand = target;
+		glow(armorStand);
+		return armorStand;
 	}
 
 	void sendMessage(String path, String option){
 		String message = plugin.getLang().getMessage(path, "info", option);
 		plugin.getServer().getPlayer(getUUID()).sendMessage(message);
+	}
+
+	private void glow(ArmorStand armorStand){
+		armorStand.removePotionEffect(PotionEffectType.GLOWING);
+		armorStand.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 15, 1, false, false));
 	}
 
 	public PlayerEditorManager getManager(){
@@ -305,17 +354,6 @@ public class PlayerEditor {
 	public UUID getUUID() {
 		return uuid;
 	}
-
-	//	boolean canBuild(ArmorStand armorstand) {
-	//		for(ASEProtection prot : plugin.getProtections()){
-	//			if(!prot.canEdit(getPlayer(), armorstand)) return false;
-	//		}
-	//		return true;
-	//	}
-
-//	private void cannotBuildMessage(){
-//		getPlayer().sendMessage(plugin.getLang().getMessage("cantedit", "warn"));
-//	}
 
 	public void openMenu() {
 		if(!isMenuCancelled()){

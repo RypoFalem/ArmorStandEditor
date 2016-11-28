@@ -43,6 +43,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		if(requireToolData) editToolData = getConfig().getInt("toolData");
 		requireToolLore = getConfig().getBoolean("requireToolLore");
 		if(requireToolLore) editToolLore= getConfig().getString("toolLore");
+		debug = getConfig().getBoolean("debug");
 
 		editorManager = new PlayerEditorManager(this);
 		execute = new CommandEx(this);
