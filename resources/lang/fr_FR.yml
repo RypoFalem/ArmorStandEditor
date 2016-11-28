@@ -24,7 +24,6 @@ setmode:
   baseplate: Affichage ou retrait de la plaque de base
   placement: Position
   rotate: Rotation
-  target: Cible
   copy: Copie
   paste: Collage
   reset: Réinitialisation de la pose
@@ -49,6 +48,10 @@ copied:
   msg: État du valet copié dans l'emplacement <x>.
 pasted: 
   msg: État du valet collé depuis l'emplacement <x>.
+target:
+  msg: Cible du valet verrouillée.
+notarget:
+  msg: Cible du valet déverrouillée.
 
 #warn
 cantedit:
@@ -148,10 +151,6 @@ rotate:
   msg: Rotation
   description:
     msg: Fait tourner l'ensemble du valet sur lui-même
-target: 
-  msg: Cible
-  description:
-    msg: Prochainement !
 copy: 
   msg: Copie
   description:
