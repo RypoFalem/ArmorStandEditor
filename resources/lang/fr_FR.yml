@@ -49,9 +49,9 @@ copied:
 pasted: 
   msg: État du valet collé depuis l'emplacement <x>.
 target:
-  msg: Cible du valet verrouillée.
+  msg: Valet cible verrouillé.
 notarget:
-  msg: Cible du valet déverrouillée.
+  msg: Valet cible déverrouillé.
 
 #warn
 cantedit:
