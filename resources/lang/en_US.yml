@@ -156,8 +156,6 @@ rotate:
   msg: Rotate
   description:
     msg: Rotate the entire armorstand
-  description:
-    msg: Coming soon!
 copy: 
   msg: Copy
   description:

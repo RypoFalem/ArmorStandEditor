@@ -55,7 +55,8 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
 
 	private void updateConfig(String folder, String config) {
-		if(!new File(folder + config).exists()){
+	    print(getDataFolder() + File.separator + folder + config);
+		if(!new File(getDataFolder() + File.separator + folder + config).exists()){
 			saveResource(folder  + config, false);
 		}
 
