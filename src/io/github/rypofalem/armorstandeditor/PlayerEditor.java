@@ -320,7 +320,7 @@ public class PlayerEditor {
 			}
 		}
 		target = targetList.get(targetIndex);
-		glow(target);
+		highlight(target);
 	}
 
 	ArmorStand attemptTarget(ArmorStand armorStand){
@@ -328,7 +328,7 @@ public class PlayerEditor {
 		if(target.getWorld() != getPlayer().getWorld()) return armorStand;
 		if(target.getLocation().distanceSquared(getPlayer().getLocation()) > 100) return armorStand;
 		armorStand = target;
-		glow(armorStand);
+		highlight(armorStand);
 		return armorStand;
 	}
 
@@ -337,7 +337,7 @@ public class PlayerEditor {
 		plugin.getServer().getPlayer(getUUID()).sendMessage(message);
 	}
 
-	private void glow(ArmorStand armorStand){
+	private void highlight(ArmorStand armorStand){
 		armorStand.removePotionEffect(PotionEffectType.GLOWING);
 		armorStand.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 15, 1, false, false));
 	}

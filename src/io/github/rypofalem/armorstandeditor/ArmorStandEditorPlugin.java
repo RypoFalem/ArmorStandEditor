@@ -9,6 +9,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+
 public class ArmorStandEditorPlugin extends JavaPlugin{
 	private static ArmorStandEditorPlugin instance;
 	private CommandEx execute;
@@ -53,7 +55,10 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
 
 	private void updateConfig(String folder, String config) {
-		saveResource(folder  + config, false);
+		if(!new File(folder + config).exists()){
+			saveResource(folder  + config, false);
+		}
+
 	}
 
 	public void onDisable(){
