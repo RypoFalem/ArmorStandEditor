@@ -29,7 +29,6 @@ setmode:
   baseplate: Перемкнути плиту
   placement: Розташування
   rotate: Поворот
-  target: Ціль
   copy: Копіювати
   paste: Вставити
   reset: Зкинути позу
@@ -54,6 +53,12 @@ copied:
   msg: Стенд скопійовано в слот <x>.
 pasted:
   msg: Стенд вставлено з слоту <x>.
+target:
+  msg: Ціль стенду заблоковано.
+notarget:
+  msg: Ціль стенду розблоковано.
+  
+#warn  
 cantedit:
   msg: Ти не можеш змінювати стенди тут!
 noperm:
@@ -66,8 +71,11 @@ noaxiscom:
   msg: Оберіть вісь!
 nomodecom:
   msg: Оберіть режим!
+  
+#main menu
 mainmenutitle:
   msg: Меню редагування стенду
+#icons
 xaxis:
   msg: Вісь X
   description:
@@ -164,8 +172,10 @@ copyslot:
   msg: Копіюєм в слот <x>
   description:
     msg: Оберіть слот щоб зберегти налаштування
+#Equipment Menu
 equiptitle:
   msg: Інвертар стенду
+#icons
 disabled:
   msg: Вимкнено
 equipslot:
