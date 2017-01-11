@@ -50,6 +50,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.util.Vector;
 
 //Manages PlayerEditors and Player Events related to editing armorstands
@@ -63,7 +64,7 @@ public class PlayerEditorManager implements Listener{
 	double fineMov;
 	boolean ignoreNextInteract = false;
 	TickCounter counter;
-	
+
 
 	public PlayerEditorManager(ArmorStandEditorPlugin plugin){
 		this.plugin = plugin;
@@ -99,7 +100,7 @@ public class PlayerEditorManager implements Listener{
 		Player player =  event.getPlayer();
 		if(!(event.getRightClicked() instanceof ArmorStand)) return;
 		if(player.getInventory().getItemInMainHand() == null) return;
-		ArmorStand as = (ArmorStand)event.getRightClicked();
+		final ArmorStand as = (ArmorStand)event.getRightClicked();
 
 		if(!canEdit(player, as)) return;
 		if(plugin.isEditTool(player.getInventory().getItemInMainHand())){
@@ -111,18 +112,23 @@ public class PlayerEditorManager implements Listener{
 
 		//Attempt rename
 		if(player.getInventory().getItemInMainHand().getType() == Material.NAME_TAG){
-			ItemStack nameTag = player.getInventory().getItemInMainHand(); 
-			if(nameTag.hasItemMeta() && nameTag.getItemMeta().hasDisplayName()){
-				as = (ArmorStand)event.getRightClicked();
-				String name = nameTag.getItemMeta().getDisplayName();
-				name = name.replace('&', ChatColor.COLOR_CHAR);
-				if((as.getCustomName() != null && !as.getCustomName().equals(name)) // armorstand has name and that name is not the same as the nametag
-						|| (as.getCustomName() == null && (!name.equals(""))) ){ // armorstand doesn't have name and nametag is not blank
-					event.setCancelled(true);
-					as.setCustomName(name);
-					as.setCustomNameVisible(true);
+			ItemStack nameTag = player.getInventory().getItemInMainHand();
+			final String name;
+			if(nameTag.getItemMeta().hasDisplayName()){
+				name = nameTag.getItemMeta().getDisplayName().replace('&', ChatColor.COLOR_CHAR);
+			} else {
+				name = null;
+			}
 
-					if((player.getGameMode() == GameMode.CREATIVE)) return;
+			if(name == null){
+				as.setCustomName(null);
+				as.setCustomNameVisible(false);
+				plugin.print("null");
+			} else if((as.getCustomName() != null && !as.getCustomName().equals(name)) // armorstand has name and that name is not the same as the nametag
+					|| (as.getCustomName() == null && (!name.equals(""))) ){ // armorstand doesn't have name and nametag is not blank
+				event.setCancelled(true);
+
+				if((player.getGameMode() != GameMode.CREATIVE)){
 					if(nameTag.getAmount() > 1){
 						nameTag.setAmount(nameTag.getAmount() - 1);
 					}else{
@@ -130,8 +136,20 @@ public class PlayerEditorManager implements Listener{
 					}
 					player.getInventory().setItemInMainHand(nameTag);
 				}
+
+				plugin.print("Preparing to change " + as.getUniqueId().toString());
+				//minecraft will set the name after this event even if the event is cancelled.
+				//change it 1 tick later to apply formatting without it being overwritten
+				Bukkit.getScheduler().runTaskLater(plugin, new Runnable(){
+					public void run(){
+						as.setCustomName(name);
+						plugin.print(as.getUniqueId().toString() + "\nChanged name to " + name);
+						as.setCustomNameVisible(true);
+						plugin.print("Set name visible");
+					}
+				}, 1);
 			}
-		}// end rename
+		}
 	}
 
 	@EventHandler (priority = EventPriority.LOW, ignoreCancelled=true)
@@ -157,22 +175,20 @@ public class PlayerEditorManager implements Listener{
 		for(double i = 0; i<RANGE; i+= STEPSIZE){
 			List<Entity> nearby = (List<Entity>) player.getWorld().getNearbyEntities(eyeLaser, LASERRADIUS, LASERRADIUS, LASERRADIUS);
 			if(!nearby.isEmpty()){
-				boolean endLoop = false;
+				boolean endLaser = false;
 				for(Entity e : nearby){
 					if(e instanceof ArmorStand){
 						if(canEdit(player, (ArmorStand)e)){
 							armorStands.add((ArmorStand)e);
-							endLoop = true;
+							endLaser = true;
 						}
 					}
 				}
-				if(endLoop) break;
-
+				if(endLaser) break;
 			}
 			if(eyeLaser.getBlock().getType().isSolid()) break;
 			eyeLaser.add(STEP);
 		}
-
 		return armorStands;
 	}
 
@@ -187,7 +203,7 @@ public class PlayerEditorManager implements Listener{
 			try{
 				plugin.getServer().getPluginManager().callEvent(event);
 			} catch(IllegalStateException ise){
-				ise.printStackTrace(); 
+				ise.printStackTrace();
 				ignoreNextInteract = false;
 				return false; //Something went wrong, don't allow edit just in case
 			}
@@ -212,7 +228,7 @@ public class PlayerEditorManager implements Listener{
 
 	@EventHandler (priority = EventPriority.LOWEST, ignoreCancelled=false)
 	void onRightClickTool(PlayerInteractEvent e){
-		if( !(e.getAction() == Action.LEFT_CLICK_AIR 
+		if( !(e.getAction() == Action.LEFT_CLICK_AIR
 				|| e.getAction() == Action.RIGHT_CLICK_AIR
 				|| e.getAction() == Action.LEFT_CLICK_BLOCK
 				|| e.getAction() == Action.RIGHT_CLICK_BLOCK)) return;
@@ -246,7 +262,7 @@ public class PlayerEditorManager implements Listener{
 			e.setCancelled(true);
 			ItemStack item = e.getCurrentItem();
 			if(item!= null && item.hasItemMeta() && item.getItemMeta().hasLore()
-					&& !item.getItemMeta().getLore().isEmpty() 
+					&& !item.getItemMeta().getLore().isEmpty()
 					&& item.getItemMeta().getLore().get(0).startsWith(Util.encodeHiddenLore("ase"))){
 				Player player = (Player) e.getWhoClicked();
 				String command = Util.decodeHiddenLore(item.getItemMeta().getLore().get(0));
@@ -298,11 +314,11 @@ public class PlayerEditorManager implements Listener{
 	public ASEHolder getPluginHolder() {
 		return pluginHolder;
 	}
-	
+
 	public long getTime(){
 		return counter.ticks;
 	}
-	
+
 	class TickCounter implements Runnable{
 		long ticks = 0; //I am optimistic
 		@Override
