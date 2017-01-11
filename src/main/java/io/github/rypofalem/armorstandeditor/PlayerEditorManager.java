@@ -123,7 +123,6 @@ public class PlayerEditorManager implements Listener{
 			if(name == null){
 				as.setCustomName(null);
 				as.setCustomNameVisible(false);
-				plugin.print("null");
 			} else if((as.getCustomName() != null && !as.getCustomName().equals(name)) // armorstand has name and that name is not the same as the nametag
 					|| (as.getCustomName() == null && (!name.equals(""))) ){ // armorstand doesn't have name and nametag is not blank
 				event.setCancelled(true);
@@ -143,9 +142,7 @@ public class PlayerEditorManager implements Listener{
 				Bukkit.getScheduler().runTaskLater(plugin, new Runnable(){
 					public void run(){
 						as.setCustomName(name);
-						plugin.print(as.getUniqueId().toString() + "\nChanged name to " + name);
 						as.setCustomNameVisible(true);
-						plugin.print("Set name visible");
 					}
 				}, 1);
 			}
