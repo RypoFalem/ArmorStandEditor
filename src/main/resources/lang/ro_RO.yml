@@ -1,0 +1,192 @@
+#Translation by nicuch
+
+
+iconname: 2n
+icondescription: 5
+info: 2
+warn: c
+menutitle: 8
+
+#info
+setmode: 
+  msg: Mod de setare pentru <x>.
+  head: Pozitia Capului
+  body: Pozitia Corpului
+  leftleg: Pozitia Piciorului Stang
+  rightleg: Pozitia Piciorului Drept
+  leftarm: Pozitia Bratului Stang
+  rightarm: Pozitia Bratului Drept
+  equipment: Echipament
+  showarms: Schimba Vizibilitatea Bratelor
+  invisible: Schimba Vizibilitatea
+  size: Schimba Marimea
+  disableslots: Schimba Sloturile Dezactivate
+  gravity: Schimba Gravitatia
+  baseplate: Schimba BasePlate-ul
+  placement: Plaseaza
+  rotate: Roteste
+  copy: Copiaza
+  paste: Lipeste
+  reset: Reseteaza Pozitia
+setaxis: 
+  msg: Seteaza axa pentru <x>.
+  x: X
+  y: Y
+  z: Z
+setslot: 
+  msg: Seteaza slotul de copiere pentru <x>.
+setadj:
+  msg: Seteaza ajustarile pentru <x>.
+  coarse: Aspru
+  fine: Fin
+setgravity: 
+  msg: Gravitatie <x>.
+  on: pornita
+  off: oprita
+nomode: 
+  msg: Click cu unealta de editare departe de un armorstand pentru a selecta mai intai modul de editare!
+copied: 
+  msg: Starea ArmorStand-ului copiata in slotul <x>.
+pasted: 
+  msg: Starea ArmorStand-ului lipita din slotul <x>.
+target:
+  msg: Tinta ArmorStand-ului blocata.
+notarget:
+  msg: Tinta ArmorStand-ului deblocata.
+
+#warn
+cantedit:
+  msg: Nu poti edita armorstand-ul aici!
+noperm: 
+  msg: Nu ai permisiunea sa folosesti asta!
+noslotnumcom: 
+  msg: Trebuie sa specifici numarul unui slot.
+noadjcom:
+  msg: Trebuie sa specifici ajustarile!
+noaxiscom:
+  msg: Trebuie sa specifici o axa!
+nomodecom:
+  msg: Trebuie sa specifici un mod!
+
+#main menu
+mainmenutitle:
+  msg: Armor Stand Editor Menu
+#icons
+xaxis:
+  msg: Axa X
+  description: 
+    msg: Roteste parti de corp pe axa X
+yaxis: 
+  msg: Axa Y
+  description: 
+    msg: Roteste parti de corp pe axa Y
+zaxis: 
+  msg: Axa Z
+  description: 
+    msg: Roteste parti de corp pe axa Z
+coarseadj: 
+  msg: Ajustare Aspra
+  description: 
+    msg: Creeaza ajustari largi
+fineadj: 
+  msg: Ajustare Fina
+  description: 
+    msg: Creeaza ajustari fine
+head: 
+  msg: Pozitia Capului
+  description: 
+    msg: Roteste capul
+body: 
+  msg: Pozitia Corpului
+  description: 
+    msg: Roteste corpul
+leftleg: 
+  msg: Pozitia Piciorului Stang
+  description: 
+    msg: Roteste piciorul stang
+rightleg: 
+  msg: Pozitia Piciorului Drept
+  description: 
+    msg: Roteste piciorul drept
+leftarm: 
+  msg: Pozitia Bratului Stang
+  description: 
+    msg: Roteste bratul stang
+rightarm: 
+  msg: Pozitia Bratului Drept
+  description: 
+    msg: Roteste bratul drept
+equipment: 
+  msg: Echipament
+  description: 
+    msg: Editeaza echipamentul
+showarms: 
+  msg: Arata Bratele
+  description: 
+    msg: Porneste sau opreste vizibilitatea bratelor
+invisible: 
+  msg: Vizibilitate
+  description: 
+    msg: Fa-l vizibil sau invizibil.
+size: 
+  msg: Marime
+  description: 
+    msg: Fa-l mare sau mic.
+disableslots: 
+  msg: Dezactiveaza Sloturile
+  description: 
+    msg: Activeaza sau dezactiveaza echipamentul
+gravity: 
+  msg: Gravitatie
+  description: 
+    msg: Activeaza sau dezactiveaza gravitatia
+baseplate: 
+  msg: BasePlate
+  description: 
+    msg: Activeaza sau dezactiveaza baseplate-ul
+placement: 
+  msg: Plasare
+  description: 
+    msg: Muta intregul armorstand
+rotate: 
+  msg: Rotatie
+  description:
+    msg: Roteste intregul armorstand
+copy: 
+  msg: Copiaza
+  description:
+    msg: Copiaza intregul armorstand
+paste: 
+  msg: Lipeste
+  description:  
+    msg: Lipeste intregul armorstand
+copyslot: 
+  msg: Slot de Copiere <x>
+  description:
+    msg: Selecteaza un slot pentru salvarea setarilor
+reset:
+  msg: Reseteaza Pozitia
+  description:
+    msg: Reseteaza pozitia partilor de corp la normal
+#Equipment Menu
+equiptitle: 
+  msg: Echipament ArmorStand
+#icons
+disabled: 
+  msg: Dezactivat
+equipslot: 
+  msg: Slot <x>
+  description: 
+    msg: Muta <x> in sloturile de mai jos
+    helm: Casca
+    chest: Armura
+    pants: Pantaloni
+    boots: Cizme
+    rhand: Obiect Mana Dreapta
+    lhand: Obiect Mana Stanga
+  helm: Casca
+  chest: Armura
+  pants: Pantaloni
+  boots: Cizme
+  rhand: Mana Dreapta
+  lhand: Mana Stanga
