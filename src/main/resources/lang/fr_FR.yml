@@ -1,5 +1,8 @@
 # Translation by Amaury Carrade
 
+#formatting
+#A section symbol will be inserted between each character in this section
+#http://minecraft.gamepedia.com/Formatting_codes
 iconname: 2n
 icondescription: 5
 info: 2
@@ -67,9 +70,12 @@ noaxiscom:
 nomodecom:
   msg: Vous devez préciser un mode !
 
-#main menu
+#menutitle
 mainmenutitle:
   msg: Menu d'Armor Stand Editor
+equiptitle:
+  msg: Équipement du valet
+
 #icons
 xaxis:
   msg: Axe X
@@ -167,10 +173,8 @@ reset:
   msg: Réinitialisation de la pose
   description:
     msg: Réinitialise la position des membrs du corps aux valeurs par défaut
-#Equipment Menu
-equiptitle: 
-  msg: Équipement du valet
-#icons
+
+#icons (equipment menu)
 disabled: 
   msg: Désactivé
 equipslot: 

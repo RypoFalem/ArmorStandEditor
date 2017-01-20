@@ -68,9 +68,13 @@ noaxiscom:
 nomodecom:
   msg: Trebuie sa specifici un mod!
 
-#main menu
+#menutitle
 mainmenutitle:
   msg: Armor Stand Editor Menu
+equiptitle:
+  msg: Echipament ArmorStand
+
+
 #icons
 xaxis:
   msg: Axa X
@@ -168,10 +172,8 @@ reset:
   msg: Reseteaza Pozitia
   description:
     msg: Reseteaza pozitia partilor de corp la normal
-#Equipment Menu
-equiptitle: 
-  msg: Echipament ArmorStand
-#icons
+
+#icons (equipment)
 disabled: 
   msg: Dezactivat
 equipslot: 

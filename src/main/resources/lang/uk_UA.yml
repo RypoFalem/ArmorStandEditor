@@ -1,10 +1,4 @@
 #Translated by Cool_boy
-
-
-
-
-
-
 iconname: 2n
 icondescription: 5
 info: 2
@@ -72,9 +66,12 @@ noaxiscom:
 nomodecom:
   msg: Оберіть режим!
   
-#main menu
+#menutitle
 mainmenutitle:
   msg: Меню редагування стенду
+equiptitle:
+  msg: Інвертар стенду
+
 #icons
 xaxis:
   msg: Вісь X
@@ -172,10 +169,8 @@ copyslot:
   msg: Копіюєм в слот <x>
   description:
     msg: Оберіть слот щоб зберегти налаштування
-#Equipment Menu
-equiptitle:
-  msg: Інвертар стенду
-#icons
+
+#icons (equipment)
 disabled:
   msg: Вимкнено
 equipslot:

@@ -64,9 +64,12 @@ noaxiscom:
 nomodecom:
   msg: You must specify a Mode!
 
-#main menu
+#menutitle
 mainmenutitle:
   msg: Armor Stand Editor Menu
+equiptitle:
+  msg: ArmorStand Equipment
+
 #icons
 xaxis:
   msg: X Axis
@@ -165,10 +168,7 @@ copyslot:
   description:
     msg: Select a slot to store settings
 
-#Equipment Menu
-equiptitle: 
-  msg: ArmorStand Equipment
-#icons
+#icons (equipment)
 disabled: 
   msg: Disabled
 equipslot: 

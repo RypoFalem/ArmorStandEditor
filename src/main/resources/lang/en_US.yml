@@ -72,9 +72,12 @@ noaxiscom:
 nomodecom:
   msg: You must specify a Mode!
 
-#main menu
+#menutitle
 mainmenutitle:
   msg: Armor Stand Editor Menu
+equiptitle:
+  msg: ArmorStand Equipment
+
 #icons
 xaxis:
   msg: X Axis
@@ -172,10 +175,8 @@ reset:
   msg: Reset Pose
   description:
     msg: Reset bodypart position to default
-#Equipment Menu
-equiptitle: 
-  msg: ArmorStand Equipment
-#icons
+
+#icons (equipment menu)
 disabled: 
   msg: Disabled
 equipslot: 

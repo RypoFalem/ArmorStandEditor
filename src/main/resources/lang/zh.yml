@@ -67,9 +67,12 @@ noaxiscom:
 nomodecom:
   msg: 你必须选择一个部位!
 
-#main menu
+#menutitle
 mainmenutitle:
   msg: 盔甲架编辑器
+equiptitle:
+  msg: 盔甲架装备
+
 #icons
 xaxis:
   msg: X 轴
@@ -171,10 +174,8 @@ reset:
   msg: 重设角度
   description:
     msg: 重设各个部件的角度
-#Equipment Menu
-equiptitle:
-  msg: 盔甲架装备
-#icons
+
+#icons (equipment)
 disabled:
   msg: 关闭
 equipslot:

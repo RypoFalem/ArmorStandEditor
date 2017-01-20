@@ -1,9 +1,15 @@
 #Translation by Sikatsu1997
+
+#formatting
+#A section symbol will be inserted between each character in this section
+#http://minecraft.gamepedia.com/Formatting_codes
 iconname: 2n
 icondescription: 5
 info: 2
 warn: c
 menutitle: 8
+
+#info
 setmode:
   msg: Modus gezet op <x>.
   head: Hoofd Positie
@@ -22,7 +28,7 @@ setmode:
   placement: Plaatsing
   rotate: Draaien
   target: Doel
-  copy: Kopiëren
+  copy: Kopiï¿½ren
   paste: Plakken
 setaxis:
   msg: As gezet op <x>.
@@ -45,6 +51,8 @@ copied:
   msg: Armorstand status gekopieerd naar slot <x>.
 pasted:
   msg: Armorstand status geplakt vanuit slot <x>.
+
+#warn
 cantedit:
   msg: Sorry, je kunt hier geen armorstands aanpassen!
 noperm:
@@ -57,8 +65,14 @@ noaxiscom:
   msg: Je moet een as opgeven!
 nomodecom:
   msg: Je moet een modus opgeven!
+
+#menutitle
 mainmenutitle:
   msg: Armorstand Aanpassen
+equiptitle:
+  msg: Armorstand Uitrusting
+
+#icons
 xaxis:
   msg: X As
   description:
@@ -144,7 +158,7 @@ target:
   description:
     msg: Zet een specifieke armorstand als doel
 copy:
-  msg: Kopiëren
+  msg: Kopiï¿½ren
   description:
     msg: Kopieer de armorstand's instellingen
 paste:
@@ -155,8 +169,8 @@ copyslot:
   msg: Kopieer Slot <x>
   description:
     msg: Selecteer een slot om instellingen op te slaan
-equiptitle:
-  msg: Armorstand Uitrusting
+
+#icons (equipment menu)
 disabled:
   msg: Uitgeschakeld
 equipslot:
