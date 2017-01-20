@@ -121,6 +121,7 @@ public class PlayerEditorManager implements Listener{
 			if(name == null){
 				as.setCustomName(null);
 				as.setCustomNameVisible(false);
+				event.setCancelled(true);
 			} else if((as.getCustomName() != null && !as.getCustomName().equals(name)) // armorstand has name and that name is not the same as the nametag
 					|| (as.getCustomName() == null && (!name.equals(""))) ){ // armorstand doesn't have name and nametag is not blank
 				event.setCancelled(true);
