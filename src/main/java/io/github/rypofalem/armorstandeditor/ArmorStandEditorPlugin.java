@@ -48,6 +48,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		instance = this;
 	}
 
+	@Override
 	public void onEnable(){
 		//saveResource doesn't accept File.seperator on windows, need to hardcode unix seperator "/" instead
 		updateConfig("", "config.yml");
@@ -83,6 +84,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		}
 	}
 
+	@Override
 	public void onDisable(){
 		for(Player player : Bukkit.getServer().getOnlinePlayers()){
 			if(player.getOpenInventory() == null) continue;
