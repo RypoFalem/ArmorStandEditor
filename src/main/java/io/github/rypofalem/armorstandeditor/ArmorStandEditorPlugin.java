@@ -44,7 +44,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	double coarseRot;
 	double fineRot;
 
-	ArmorStandEditorPlugin(){
+	public ArmorStandEditorPlugin(){
 		instance = this;
 	}
 

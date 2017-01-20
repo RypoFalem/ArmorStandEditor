@@ -186,7 +186,7 @@ public class Menu {
 					null, headPos, null, null, null, null, null, null, null,
 					rightArmPos, bodyPos, leftArmPos, reset, null, null, showArms, visibility, size,
 					rightLegPos, equipment, leftLegPos, null, null, null, null, gravity, plate,
-					null, null, null, null, copy, paste, null, null, null,
+					null, copy, paste, null, null, null, null,
 					slot1, slot2, slot3, slot4, null, null, null, null, null
 			};
 		menuInv.setContents(items);
