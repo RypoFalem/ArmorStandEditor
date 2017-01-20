@@ -44,16 +44,21 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	double coarseRot;
 	double fineRot;
 
-	public void onEnable(){
+	ArmorStandEditorPlugin(){
 		instance = this;
+	}
+
+	public void onEnable(){
 		//saveResource doesn't accept File.seperator on windows, need to hardcode unix seperator "/" instead
 		updateConfig("", "config.yml");
-		updateConfig("lang/", "en_US.yml");
 		updateConfig("lang/", "test_NA.yml");
 		updateConfig("lang/", "nl_NL.yml");
 		updateConfig("lang/", "uk_UA.yml");
 		updateConfig("lang/", "zh.yml");
 		updateConfig("lang/", "fr_FR.yml");
+		updateConfig("lang/", "ro_RO.yml");
+		//English is the default language and needs to be unaltered to so that the plugin always has a backup
+		saveResource("lang/en_US.yml", true);
 		lang = new Language(getConfig().getString("lang"), this);
 
 		coarseRot = getConfig().getDouble("coarse");
@@ -77,7 +82,6 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		if(!new File(getDataFolder() + File.separator + folder + config).exists()){
 			saveResource(folder  + config, false);
 		}
-
 	}
 
 	public void onDisable(){
@@ -134,5 +138,3 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 //todo: 
 //Access to "DisabledSlots" data (probably simplified just a toggle enable/disable)
 //Access to the "Marker" switch (so you can make the hitbox super small)
-//Target a specific armorstand to edit, so solve the issue of editing armorstands close to each other and to make the Marker switch a viable option.
-//Ability for users to set a per-user amount for coarse/fine adjustment
