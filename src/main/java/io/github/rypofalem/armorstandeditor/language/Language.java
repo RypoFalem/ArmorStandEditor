@@ -68,13 +68,16 @@ public class Language {
         }
     }
 
+    //path: yml path to message in language file
+    //format: yml path to format in language file
+    //option: path-specific variable that may be used
     public String getMessage(String path, String format, String option) {
         if (langConfig == null) reloadLang(langFile.getName());
         if (path == null) return "";
-        if (format == null) format = "info";
         if (option == null) option = "";
 
         format = getString(format);
+        if (format == null) format = "";
         for (int i = 0; i < format.length(); i += 2) { //place formatting symbol before each character
             format = format.substring(0, i) + ChatColor.COLOR_CHAR + format.substring(i);
         }

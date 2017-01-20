@@ -24,6 +24,7 @@ import io.github.rypofalem.armorstandeditor.modes.Axis;
 import io.github.rypofalem.armorstandeditor.modes.EditMode;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -35,6 +36,7 @@ public class CommandEx implements CommandExecutor{
 	final String LISTAXIS = ChatColor.GREEN + "/ase axis <" + Util.getEnumList(Axis.class) + ">";
 	final String LISTADJUSTMENT = ChatColor.GREEN + "/ase adj <" + Util.getEnumList(AdjustmentMode.class) + ">";
 	final String LISTSLOT =  ChatColor.GREEN + "/ase slot <1-9>";
+	final String HELP = ChatColor.GREEN + "/ase help";
 
 	public CommandEx(ArmorStandEditorPlugin armorStandEditorPlugin) {
 		this.plugin = armorStandEditorPlugin;
@@ -42,33 +44,42 @@ public class CommandEx implements CommandExecutor{
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		if(sender instanceof Player && checkPermission((Player)sender,"basic",true)){
-			if(args.length == 0){
-				sender.sendMessage(LISTMODE);
-				sender.sendMessage(LISTAXIS);
-				sender.sendMessage(LISTSLOT);
-				sender.sendMessage(LISTADJUSTMENT);
-				return true;
-			}
+		if(!(sender instanceof Player
+				&& checkPermission((Player)sender,"basic",true))){
+			sender.sendMessage(plugin.getLang().getMessage("noperm", "warn"));
+			return true;
+		}
 
-			if(args.length > 0){
-				switch(args[0].toLowerCase()){
-				case "mode": commandMode( ( (Player) sender), args);
-				break;
-				case "axis": commandAxis( ( (Player) sender), args);
-				break;
-				case "adj": commandAdj( ( (Player) sender), args);
-				break;
-				case "slot": commandSlot( ( (Player) sender), args);
-				break;
+		Player player = (Player) sender;
+		if(args.length == 0){
+			player.sendMessage(LISTMODE);
+			player.sendMessage(LISTAXIS);
+			player.sendMessage(LISTSLOT);
+			player.sendMessage(LISTADJUSTMENT);
+			return true;
+		}
+
+		if(args.length > 0){
+			switch(args[0].toLowerCase()){
+				case "mode": commandMode(player, args);
+					break;
+				case "axis": commandAxis(player, args);
+					break;
+				case "adj": commandAdj(player, args);
+					break;
+				case "slot": commandSlot(player, args);
+					break;
+				case "help":
+				case "?": commandHelp(player);
+					break;
 				default:
 					sender.sendMessage(LISTMODE);
 					sender.sendMessage(LISTAXIS);
 					sender.sendMessage(LISTSLOT);
 					sender.sendMessage(LISTADJUSTMENT);
-				}
-				return true;
+					sender.sendMessage(HELP);
 			}
+			return true;
 		}
 		return true;
 	}
@@ -143,6 +154,16 @@ public class CommandEx implements CommandExecutor{
 				}
 			}
 		}
+	}
+
+	private void commandHelp(Player player){
+		player.closeInventory();
+		player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
+		player.sendMessage(plugin.getLang().getMessage("help", "info", plugin.editTool.name()));
+		player.sendMessage("");
+		player.sendMessage(plugin.getLang().getMessage("helptips", "info"));
+		player.sendMessage("");
+		player.sendRawMessage(plugin.getLang().getMessage("helpurl", ""));
 	}
 
 	private boolean checkPermission(Player player, String permName, boolean sendMessageOnInvalidation){

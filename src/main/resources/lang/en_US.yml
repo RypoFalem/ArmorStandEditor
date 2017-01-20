@@ -57,6 +57,26 @@ target:
   msg: ArmorStand target locked.
 notarget:
   msg: ArmorStand target unlocked.
+help:
+  msg: "1. Hold the editing tool(<x>) in your main hand
+
+      2. Left or right click away from an armor stand to open menu.
+
+      3. Select the labeled menu options.
+
+      4. Left click the armor stand with the edit tool in hand to apply those options.
+
+      5. Right click instead to edit in reverse!"
+helptips:
+  msg: "Tips:
+
+  1. Press the \"Swap Item in Hands\" key (default F) while holding the edit tool to target a specific armor stand, if other armor stands are in the way.
+
+  2. You can apply NameTags to armor stands. You may use the & symbol to make colored names.
+
+  3. You can use crouch + scroll wheel while holding the edit tool to change Axis without opening the menu"
+helpurl:
+  msg: "More info: https://github.com/RypoFalem/ArmorStandEditor/wiki"
 
 #warn
 cantedit:
@@ -175,6 +195,10 @@ reset:
   msg: Reset Pose
   description:
     msg: Reset bodypart position to default
+helpgui:
+  msg: Help!
+  description:
+    msg: Click here to get help!
 
 #icons (equipment menu)
 disabled: 

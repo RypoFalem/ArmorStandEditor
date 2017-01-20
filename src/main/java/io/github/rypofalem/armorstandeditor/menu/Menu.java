@@ -25,11 +25,13 @@ import io.github.rypofalem.armorstandeditor.Util;
 import java.util.ArrayList;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.block.Skull;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -47,12 +49,11 @@ public class Menu {
 
 	private void fillInventory() {
 		menuInv.clear();
-		@SuppressWarnings("unused")
-		ItemStack xAxis= null, yAxis= null, zAxis= null, coarseAdj= null, fineAdj= null, rotate = null, place = null,
-				headPos= null,
+
+		ItemStack xAxis= null, yAxis= null, zAxis= null, coarseAdj= null, fineAdj= null, rotate = null, place = null, headPos= null,
 				rightArmPos= null, bodyPos= null, leftArmPos= null, reset = null, showArms= null, visibility= null, size= null,
 				rightLegPos= null, equipment = null, leftLegPos= null, disableSlots = null, gravity= null, plate= null, copy= null, paste= null,
-				slot1= null, slot2= null, slot3= null, slot4= null, slot5= null, slot6= null, slot7= null, slot8= null, slot9 = null;
+				slot1= null, slot2= null, slot3= null, slot4= null, help= null;
 
 		if(pe.getPlayer().hasPermission("asedit.head") ||
 				pe.getPlayer().hasPermission("asedit.body") ||
@@ -181,13 +182,17 @@ public class Menu {
 			slot4 = createIcon( new ItemStack(Material.DOUBLE_PLANT, 4, (short) 5),
 					"copyslot","slot 4", "4");
 		}
+
+		help = createIcon(new ItemStack(Material.NETHER_STAR), "helpgui", "help");
+
 		ItemStack[] items = 
-			{xAxis, yAxis, zAxis, null, coarseAdj, fineAdj, null, rotate, place,
+			{
+					xAxis, yAxis, zAxis, null, coarseAdj, fineAdj, null, rotate, place,
 					null, headPos, null, null, null, null, null, null, null,
 					rightArmPos, bodyPos, leftArmPos, reset, null, null, showArms, visibility, size,
 					rightLegPos, equipment, leftLegPos, null, null, null, null, gravity, plate,
 					null, copy, paste, null, null, null, null, null, null,
-					slot1, slot2, slot3, slot4, null, null, null, null, null
+					slot1, slot2, slot3, slot4, null, null, null, null, help
 			};
 		menuInv.setContents(items);
 	}
