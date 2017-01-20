@@ -57,7 +57,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		updateConfig("lang/", "zh.yml");
 		updateConfig("lang/", "fr_FR.yml");
 		updateConfig("lang/", "ro_RO.yml");
-		//English is the default language and needs to be unaltered to so that the plugin always has a backup
+		//English is the default language and needs to be unaltered to so that there is always a backup message string
 		saveResource("lang/en_US.yml", true);
 		lang = new Language(getConfig().getString("lang"), this);
 
@@ -76,7 +76,6 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		getCommand("ase").setExecutor(execute);
 		getServer().getPluginManager().registerEvents(editorManager, this);
 	}
-
 
 	private void updateConfig(String folder, String config) {
 		if(!new File(getDataFolder() + File.separator + folder + config).exists()){
