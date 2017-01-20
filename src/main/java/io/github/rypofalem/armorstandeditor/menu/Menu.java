@@ -180,21 +180,6 @@ public class Menu {
 
 			slot4 = createIcon( new ItemStack(Material.DOUBLE_PLANT, 4, (short) 5),
 					"copyslot","slot 4", "4");
-
-			slot5 = createIcon( new ItemStack(Material.RED_ROSE, 5, (short) 4),
-					"copyslot","slot 5", "5");
-
-			slot6 = createIcon( new ItemStack(Material.RED_ROSE, 6, (short) 2),
-					"copyslot","slot 6", "6");
-
-			slot7 = createIcon(new ItemStack(Material.RED_ROSE, 7, (short) 1),
-					"copyslot","slot 7", "7");
-
-			slot8 = createIcon( new ItemStack(Material.RED_ROSE, 8, (short) 8),
-					"copyslot","slot 8", "8");
-
-			slot9 = createIcon( new ItemStack(Material.DOUBLE_PLANT, 9, (short) 1),
-					"copyslot","slot 9", "9");
 		}
 		ItemStack[] items = 
 			{xAxis, yAxis, zAxis, null, coarseAdj, fineAdj, null, rotate, place,
@@ -202,7 +187,7 @@ public class Menu {
 					rightArmPos, bodyPos, leftArmPos, reset, null, null, showArms, visibility, size,
 					rightLegPos, equipment, leftLegPos, null, null, null, null, gravity, plate,
 					null, null, null, null, copy, paste, null, null, null,
-					slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9
+					slot1, slot2, slot3, slot4, null, null, null, null, null
 			};
 		menuInv.setContents(items);
 	}
