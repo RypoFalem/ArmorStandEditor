@@ -37,6 +37,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	public PlayerEditorManager editorManager;
 	public Material editTool = Material.FLINT;
 	boolean requireToolData = false;
+	boolean sendToActionBar = true;
 	int editToolData = Integer.MIN_VALUE;
 	boolean requireToolLore = false;
 	String editToolLore = null;
@@ -58,19 +59,21 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		updateConfig("lang/", "zh.yml");
 		updateConfig("lang/", "fr_FR.yml");
 		updateConfig("lang/", "ro_RO.yml");
+		updateConfig("lang/", "ja_JP.yml");
 		//English is the default language and needs to be unaltered to so that there is always a backup message string
 		saveResource("lang/en_US.yml", true);
 		lang = new Language(getConfig().getString("lang"), this);
 
 		coarseRot = getConfig().getDouble("coarse");
 		fineRot = getConfig().getDouble("fine");
-		String toolType = getConfig().getString("tool");
+		String toolType = getConfig().getString("tool", "FLINT");
 		editTool = Material.getMaterial(toolType);
-		requireToolData = getConfig().getBoolean("requireToolData");
-		if(requireToolData) editToolData = getConfig().getInt("toolData");
-		requireToolLore = getConfig().getBoolean("requireToolLore");
-		if(requireToolLore) editToolLore= getConfig().getString("toolLore");
-		debug = getConfig().getBoolean("debug");
+		requireToolData = getConfig().getBoolean("requireToolData", false);
+		if(requireToolData) editToolData = getConfig().getInt("toolData", Integer.MIN_VALUE);
+		requireToolLore = getConfig().getBoolean("requireToolLore", false);
+		if(requireToolLore) editToolLore= getConfig().getString("toolLore", null);
+		debug = getConfig().getBoolean("debug", true);
+		sendToActionBar = getConfig().getBoolean("sendMessagesToActionBar", true);
 
 		editorManager = new PlayerEditorManager(this);
 		execute = new CommandEx(this);

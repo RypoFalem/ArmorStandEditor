@@ -76,8 +76,7 @@ public class Language {
         if (path == null) return "";
         if (option == null) option = "";
 
-        format = getString(format);
-        if (format == null) format = "";
+        format = getFormat(format);
         for (int i = 0; i < format.length(); i += 2) { //place formatting symbol before each character
             format = format.substring(0, i) + ChatColor.COLOR_CHAR + format.substring(i);
         }
@@ -94,6 +93,41 @@ public class Language {
 
     public String getMessage(String path) {
         return getMessage(path, "info");
+    }
+
+    public String getRawMessage(String path, String format, String option){
+        String message = ChatColor.stripColor(getMessage(path, format, option));
+        format = getFormat(format);
+        ChatColor color = ChatColor.WHITE;
+        String bold = "" , italic = "" , underlined = "" , obfuscated = "" , strikethrough = "";
+        for(int i = 0; i < format.length(); i++){
+            ChatColor code = ChatColor.getByChar(format.charAt(i));
+            switch(code) {
+                case MAGIC:
+                    obfuscated = ", \"obfuscated\": true";
+                    break;
+                case BOLD:
+                    bold = ", \"bold\": true";
+                    break;
+                case STRIKETHROUGH:
+                    strikethrough = ", \"strikethrough\": true";
+                    break;
+                case UNDERLINE:
+                    underlined = ", \"underlined\": true";
+                    break;
+                case ITALIC:
+                    italic = ", \"italic\": true";
+                    break;
+                default: color = (code == null || !code.isColor()) ? color : code;
+            }
+        }
+        return String.format("{\"text\":\"%s\", \"color\":\"%s\"%s%s%s%s%s}", message, color.name().toLowerCase(),
+            obfuscated, bold, strikethrough, underlined, italic);
+    }
+
+    private String getFormat(String format){
+        format = getString(format);
+        return format == null ? "" : format;
     }
 
     private String getString(String path) {

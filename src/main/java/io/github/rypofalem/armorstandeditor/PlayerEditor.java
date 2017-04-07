@@ -30,8 +30,10 @@ import io.github.rypofalem.armorstandeditor.modes.EditMode;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -351,9 +353,19 @@ public class PlayerEditor {
 		return armorStand;
 	}
 
+	void sendMessage(String path, String format, String option){
+		if(plugin.sendToActionBar){
+			String rawText = plugin.getLang().getRawMessage(path, format, option);
+			String command = String.format("title %s actionbar %s", plugin.getServer().getPlayer(getUUID()).getName(), rawText);
+			Bukkit.dispatchCommand(Bukkit.getConsoleSender() ,command);
+		} else{
+			String message = plugin.getLang().getMessage(path, format, option);
+			plugin.getServer().getPlayer(getUUID()).sendMessage(message);
+		}
+	}
+
 	void sendMessage(String path, String option){
-		String message = plugin.getLang().getMessage(path, "info", option);
-		plugin.getServer().getPlayer(getUUID()).sendMessage(message);
+		sendMessage(path, "info", option);
 	}
 
 	private void highlight(ArmorStand armorStand){
