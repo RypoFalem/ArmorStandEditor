@@ -1,0 +1,219 @@
+#Translation by kotarobo
+
+#formatting
+#A section symbol will be inserted between each character in this section
+#http://minecraft.gamepedia.com/Formatting_codes
+iconname: 2n
+icondescription: 5
+info: 2
+warn: c
+menutitle: 8
+
+#info
+setmode:
+  msg: 設定を <x> に変更しました。
+  head: 頭の位置
+  body: 体の位置
+  leftleg: 左足の位置
+  rightleg: 右足の位置
+  leftarm: 左腕の位置
+  rightarm: 右腕の位置
+  equipment: 装備
+  showarms: 腕の表示切り替え
+  invisible: 透明化切り替え
+  size: サイズ切り替え
+  disableslots: 装備スロット無効化の切り替え
+  gravity: 自由落下の切り替え
+  baseplate: 土台表示の切り替え
+  placement: 本体の配置
+  rotate: 本体の回転
+  copy: コピー
+  paste: 貼り付け
+  reset: 体勢の初期化
+setaxis:
+  msg: 軸方向の設定を <x> に変更しました。
+  x: X
+  y: Y
+  z: Z
+setslot:
+  msg: コピースロットを <x> に変更しました。
+setadj:
+  msg: 調整の精度を <x> に変更しました。
+  coarse: 粗い
+  fine: 細かい
+setgravity:
+  msg: 自由落下を <x> に変更しました。
+  on: ON
+  off: OFF
+nomode:
+  msg: 編集ツールをアーマスタンドから目を逸らした方向でクリックをして、最初の編集モードを選択してください！
+copied:
+  msg: <x>スロットにアーマースタンドの状態をコピーしました。
+pasted:
+  msg: <x>スロットの状態をアーマースタンドに張り付けました。
+target:
+  msg: アーマースタンドの編集対象を保持しました。
+notarget:
+  msg: アーマースタンドの編集対象を保持していません。
+help:
+  msg: "1. 編集ツール(<x>)を手に持ちます。
+
+      2. 右か左クリックをしてアーマースタンドのメニューを開きます。
+
+      3. メニューから目的の設定を選択します。
+
+      4. 手元にある編集ツールを使い、アーマースタンドを左クリックをして設定を適応します。
+
+      5. 右クリックは逆の設定として編集できます！"
+helptips:
+  msg: "Tips:
+
+  1. 他のアーマースタンドで編集が困難な場合は編集ツールを持ちながら「手持ちのアイテムを交換する」キー(デフォルトはF)を押すと特定のアーマスタンドの編集を保持します。
+
+  2. アーマースタンドにネームタグを使うことができます。＆記号を使用して色付きの名前を付けることができます。
+
+  3. 編集ツールを手に持ち、メニューを開かずにしゃがみ+ホイールスクロールで軸方向を切り替えれます。"
+helpurl:
+  msg: "More info: https://github.com/RypoFalem/ArmorStandEditor/wiki"
+
+#warn
+cantedit:
+  msg: 申し訳ありません、ここでアーマースタンドを編集することができません！
+noperm:
+  msg: 使用する権限がありません！
+noslotnumcom:
+  msg: スロット番号を指定する必要があります！
+noadjcom:
+  msg: 微調整か粗調整を選択する必要があります！
+noaxiscom:
+  msg: 軸方向を指定する必要があります！
+nomodecom:
+  msg: 目的の設定を指定する必要があります！
+
+#menutitle
+mainmenutitle:
+  msg: アーマースタンドエディタメニュー
+equiptitle:
+  msg: アーマースタンドの装備
+
+#icons
+xaxis:
+  msg: X 軸
+  description:
+    msg: 体のパーツをX軸に沿って回転させる
+yaxis:
+  msg: Y 軸
+  description:
+    msg: 体のパーツをY軸に沿って回転させる
+zaxis:
+  msg: Z 軸
+  description:
+    msg: 体のパーツをZ軸に沿って回転させる
+coarseadj:
+  msg: 粗く調整
+  description:
+    msg: 大きな調整を与える
+fineadj:
+  msg: 細かく調整
+  description:
+    msg: 小さく調整を与える
+head:
+  msg: 頭の位置
+  description:
+    msg: 頭を回転させます
+body:
+  msg: 体の位置
+  description:
+    msg: 体を回転させます
+leftleg:
+  msg: 左足の位置
+  description:
+    msg: 左足を回転させます
+rightleg:
+  msg: 右足の位置
+  description:
+    msg: 右足を回転させます
+leftarm:
+  msg: 左腕の位置
+  description:
+    msg: 左腕を回転させます
+rightarm:
+  msg: 右腕の位置
+  description:
+    msg: 右腕を回転させます
+equipment:
+  msg: 装備
+  description:
+    msg: 装備を編集します
+showarms:
+  msg: 腕の表示
+  description:
+    msg: 腕をON/OFFする
+invisible:
+  msg: 透明化
+  description:
+    msg: 見えるようにするか見えないようにする
+size:
+  msg: サイズ
+  description:
+    msg: 大きくか小さくする
+disableslots:
+  msg: 装備スロット無効化
+  description:
+    msg: 装備ロックを有効または無効にする
+gravity:
+  msg: 自由落下
+  description:
+    msg: 自由落下をON/OFFする
+baseplate:
+  msg: 土台
+  description:
+    msg: 土台の表示をON/OFFする
+placement:
+  msg: 本体の配置
+  description:
+    msg: アーマースタンド全体を移動させる
+rotate:
+  msg: 本体の回転
+  description:
+    msg: アーマースタンド全体を回転させる
+copy:
+  msg: コピー
+  description:
+    msg: アーマースタンドの設定をコピーする
+paste:
+  msg: 貼り付け
+  description:
+    msg: アーマースタンドの設定を貼り付けする
+copyslot:
+  msg: コピースロット <x>
+  description:
+    msg: 設定を保存するスロットを選択する
+reset:
+  msg: 体勢初期化
+  description:
+    msg: 体のパーツをデフォルトにリセットする。
+helpgui:
+  msg: ヘルプ
+  description:
+    msg: ここをクリックするとヘルプが確認できます！
+
+#icons (equipment menu)
+disabled:
+  msg: 無効
+equipslot:
+  msg: <x> スロット
+  description:
+    msg: <x>に装備させたい物を下のスロットに入れます
+    helm: 頭
+    chest: 体
+    pants: ズボン
+    boots: 靴
+    rhand: 右手
+    lhand: 左手
+  helm: ヘルメット
+  chest: チェストプレート
+  pants: レギンス
+  boots: ブーツ
+  rhand: 右手
+  lhand: 左手
