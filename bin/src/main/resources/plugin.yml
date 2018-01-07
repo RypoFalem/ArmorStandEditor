@@ -1,0 +1,75 @@
+name: ArmorStandEditor
+main: io.github.rypofalem.armorstandeditor.ArmorStandEditorPlugin
+version: 1.11.2-19
+website: rypofalem.github.io
+author: RypoFalem
+description: Allows players to edit data of armorstands without any commands.
+commands:
+  ase:
+    description: Changes the function of the armorstand edit tool.
+    usage: /<command> ? - list subcommands
+    permission: asedit.basic
+permissions:
+    asedit.basic:
+      desciption: Allow use armorstand edit functions. If set to false it will override all other functions.
+      default: true
+    asedit.copy:
+      description: Allows use of the copy/paste settings fuction.
+      default: true
+    asedit.showarms:
+      description: Toggle arms on/off.
+      default: true
+    asedit.invisible:
+      description: Toggle armorstand visible/invisible.
+      default: true
+    asedit.size:
+      description: Toggle armorstand size normal/small.
+      default: true
+    asedit.baseplate:
+      description: Toggle baseplate visible/invisible.
+      default: true
+    asedit.gravity: 
+      description: Toggle falling/floating armorstand.
+      default: true
+    asedit.placement:
+      description: Adjust armorstand's location.
+      default: true
+    asedit.equipment:
+      description: Equip and unequip via menu
+      default: true
+    asedit.rotate:
+      description: Rotate the armorstand
+      default: true
+    asedit.head:
+      description: Adjust head position.
+      default: true
+    asedit.body:
+      description: Adjust body position.
+      default: true
+    asedit.positionarms:
+      description: Adjust arm position.
+      default: true
+      children:
+      asedit.leftarm: true
+      asedit.rightarm: true
+    asedit.positionlegs:
+      description: Adjust leg position.
+      default: true
+      children:
+      asedit.leftleg: true
+      asedit.rightleg: true
+    asedit.leftarm:
+      description: Adjust left arm position
+      default: true
+    asedit.rightarm:
+      description: Adjust right arm position
+      default: true
+    asedit.leftleg: 
+      description: Adjust left leg position
+      default: true
+    asedit.rightleg:
+      description: Adjust right leg position
+      default: true
+    asedit.reset:
+      description: Reset all body angles to zero
+      default: true
