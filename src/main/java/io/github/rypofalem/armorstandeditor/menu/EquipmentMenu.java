@@ -70,7 +70,7 @@ public class EquipmentMenu {
 		ItemStack chestIcon = createIcon(Material.LEATHER_CHESTPLATE, "chest");
 		ItemStack pantsIcon = createIcon(Material.LEATHER_LEGGINGS, "pants");
 		ItemStack feetsiesIcon = createIcon(Material.LEATHER_BOOTS, "boots");
-		ItemStack rightHandIcon = createIcon(Material.WOOD_SWORD, "rhand");
+		ItemStack rightHandIcon = createIcon(Material.WOODEN_SWORD, "rhand");
 		ItemStack leftHandIcon = createIcon(Material.SHIELD, "lhand");
 		ItemStack[] items = 
 			{ helmetIcon, chestIcon, pantsIcon, feetsiesIcon, rightHandIcon, leftHandIcon, disabledIcon, disabledIcon, disabledIcon,
