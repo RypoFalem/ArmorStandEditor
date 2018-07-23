@@ -170,7 +170,7 @@ public class Menu {
 			paste = createIcon(new ItemStack(Material.ENCHANTED_BOOK),
 					"paste","mode paste");
 
-			slot1 = createIcon(new ItemStack(Material.DANDELION_YELLOW),
+			slot1 = createIcon(new ItemStack(Material.DANDELION),
 					"copyslot","slot 1", "1");
 
 			slot2 = createIcon(new ItemStack(Material.AZURE_BLUET, 2),
@@ -179,7 +179,7 @@ public class Menu {
 			slot3 = createIcon(new ItemStack(Material.BLUE_ORCHID, 3),
 					"copyslot","slot 3", "3");
 
-			slot4 = createIcon( new ItemStack(Material.LILAC, 4),
+			slot4 = createIcon( new ItemStack(Material.PEONY, 4),
 					"copyslot","slot 4", "4");
 		}
 
