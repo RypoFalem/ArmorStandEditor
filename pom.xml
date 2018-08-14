@@ -4,7 +4,7 @@
   <groupId>io.github.rypofalem.armorstandeditor</groupId>
   <artifactId>armorstandeditor</artifactId>
   <packaging>jar</packaging>
-  <version>1.13-20</version>
+  <version>1.13-21</version>
   <name>armorstandeditor</name>
   <url>http://maven.apache.org</url>
 
@@ -20,7 +20,7 @@
     <dependency>
       <groupId>org.bukkit</groupId>
       <artifactId>bukkit</artifactId>
-      <version>1.13-pre7-R0.1-SNAPSHOT</version>
+      <version>1.13-R0.1-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
