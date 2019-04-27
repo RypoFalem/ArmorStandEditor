@@ -25,25 +25,23 @@ import io.github.rypofalem.armorstandeditor.Util;
 import java.util.ArrayList;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.block.Skull;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class Menu {
-	Inventory menuInv;
+	private Inventory menuInv;
 	private PlayerEditor pe;
-	static String name = "Armor Stand Editor Menu";
+	private static String name = "Armor Stand Editor Menu";
 
 	public Menu(PlayerEditor pe){
 		this.pe = pe;
 		name = pe.plugin.getLang().getMessage("mainmenutitle", "menutitle");
-		menuInv = Bukkit.createInventory(pe.getManager().getPluginHolder(), 54, name);
+		menuInv = Bukkit.createInventory(pe.getManager().getMenuHolder(), 54, name);
 		fillInventory();
 	}
 

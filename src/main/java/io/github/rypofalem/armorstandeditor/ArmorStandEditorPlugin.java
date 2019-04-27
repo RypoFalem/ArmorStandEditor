@@ -91,7 +91,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	public void onDisable(){
 		for(Player player : Bukkit.getServer().getOnlinePlayers()){
 			if(player.getOpenInventory() == null) continue;
-			if(player.getOpenInventory().getTopInventory().getHolder() == editorManager.getPluginHolder()) player.closeInventory();
+			if(player.getOpenInventory().getTopInventory().getHolder() == editorManager.getMenuHolder()) player.closeInventory();
 		}
 	}
 
