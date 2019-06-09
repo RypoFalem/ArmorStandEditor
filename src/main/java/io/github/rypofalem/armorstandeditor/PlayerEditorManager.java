@@ -271,6 +271,9 @@ public class PlayerEditorManager implements Listener{
 
 	@EventHandler (priority = EventPriority.MONITOR, ignoreCancelled=true)
 	void onPlayerMenuClose(InventoryCloseEvent e){
+		// spigot bug: this event is called when detroying a lectern that you just opened and closed
+		// Unfortunately, Inventory.getHolder() of a destroyed Lectern is not a Lectern and it errors out
+		if(e.getInventory().getClass().getName().equals("CraftInventoryLectern")) return;
 		if(e.getInventory().getHolder() == null) return;
 		if(!(e.getInventory().getHolder() instanceof ASEHolder)) return;
 		if(e.getInventory().getHolder() == equipmentHolder){
