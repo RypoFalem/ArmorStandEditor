@@ -345,9 +345,11 @@ public class PlayerEditor {
 	}
 
 	ArmorStand attemptTarget(ArmorStand armorStand){
-		if(target == null) return armorStand;
-		if(target.getWorld() != getPlayer().getWorld()) return armorStand;
-		if(target.getLocation().distanceSquared(getPlayer().getLocation()) > 100) return armorStand;
+		if(target == null
+				|| !target.isValid()
+				|| target.getWorld() != getPlayer().getWorld()
+				|| target.getLocation().distanceSquared(getPlayer().getLocation()) > 100)
+			return armorStand;
 		armorStand = target;
 		highlight(armorStand);
 		return armorStand;
