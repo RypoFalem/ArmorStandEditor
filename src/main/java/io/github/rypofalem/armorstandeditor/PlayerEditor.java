@@ -19,6 +19,7 @@
 
 package io.github.rypofalem.armorstandeditor;
 
+import com.mojang.brigadier.StringReader;
 import io.github.rypofalem.armorstandeditor.menu.EquipmentMenu;
 import io.github.rypofalem.armorstandeditor.menu.Menu;
 import io.github.rypofalem.armorstandeditor.modes.AdjustmentMode;
@@ -27,13 +28,16 @@ import io.github.rypofalem.armorstandeditor.modes.Axis;
 import io.github.rypofalem.armorstandeditor.modes.CopySlots;
 import io.github.rypofalem.armorstandeditor.modes.EditMode;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -41,6 +45,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.EulerAngle;
 
 public class PlayerEditor {
+
 	public ArmorStandEditorPlugin plugin;
 	private UUID uuid;
 	EditMode eMode;
@@ -56,6 +61,41 @@ public class PlayerEditor {
 	int targetIndex = 0;
 	EquipmentMenu equipMenu;
 	long lastCancelled = 0;
+
+	private static boolean useConventional = false;
+	private static final String version;
+	private static Object argumentChatComponentInstance;
+	private static Method parse;
+	private static Constructor<?> packetPlayOutTitleConst;
+	private static Object enumTitleActionActionBar;
+	private static Method sendPacket;
+	private static Class<?> craftPlayer;
+	private static Method getHandle;
+	private static Field playerConnection;
+
+	static {
+		String pkg = Bukkit.getServer().getClass().getPackage().getName();
+		version = pkg.substring(pkg.lastIndexOf('.') + 1);
+		try {
+			Class<?> argumentChatComponent = Class.forName("net.minecraft.server." + version + ".ArgumentChatComponent");
+			Constructor<?> con = argumentChatComponent.getDeclaredConstructor();
+			con.setAccessible(true);
+			argumentChatComponentInstance = con.newInstance();
+			parse = argumentChatComponent.getDeclaredMethod("parse", StringReader.class);
+			Class<?> packetPlayOutTitle = Class.forName("net.minecraft.server."  + version + ".PacketPlayOutTitle");
+			Class<?> enumTitleAction = Class.forName("net.minecraft.server." + version + ".PacketPlayOutTitle$EnumTitleAction");
+			packetPlayOutTitleConst = packetPlayOutTitle.getConstructor(enumTitleAction, Class.forName("net.minecraft.server." + version + ".IChatBaseComponent"));
+			enumTitleActionActionBar = ((Enum<?>[]) enumTitleAction.getDeclaredMethod("values").invoke(null))[2];
+			sendPacket = Class.forName("net.minecraft.server." + version + ".PlayerConnection").getDeclaredMethod("sendPacket", Class.forName("net.minecraft.server." + version + ".Packet"));
+			craftPlayer = Class.forName("org.bukkit.craftbukkit." + version + ".entity.CraftPlayer");
+			getHandle = craftPlayer.getDeclaredMethod("getHandle");
+			playerConnection = getHandle.getReturnType().getDeclaredField("playerConnection");
+		} catch (Exception e) {
+			ArmorStandEditorPlugin.instance().getLogger().warning("Error setting up actionbar requisites, actionbar messages will use the conventional, annoying method instead.");
+			useConventional = true;
+			e.printStackTrace();
+		}
+	}
 
 	public PlayerEditor(UUID uuid, ArmorStandEditorPlugin plugin){
 		this.uuid =uuid;
@@ -354,13 +394,24 @@ public class PlayerEditor {
 		highlight(armorStand);
 		return armorStand;
 	}
-
-	void sendMessage(String path, String format, String option){
+	
+	void sendMessage(String path, String format, String option) {
 		if(plugin.sendToActionBar){
 			String rawText = plugin.getLang().getRawMessage(path, format, option);
-			String command = String.format("title %s actionbar %s", plugin.getServer().getPlayer(getUUID()).getName(), rawText);
-			Bukkit.dispatchCommand(Bukkit.getConsoleSender() ,command);
-		} else{
+			if (useConventional) {
+				String command = String.format("title %s actionbar %s", plugin.getServer().getPlayer(getUUID()).getName(), rawText);
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+			} else {
+				try {
+					sendPacket.invoke(playerConnection.get(getHandle.invoke(getPlayer())), packetPlayOutTitleConst.newInstance(enumTitleActionActionBar, parse.invoke(argumentChatComponentInstance, new StringReader(rawText))));
+				} catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {
+					plugin.getLogger().warning("Could not use reflective method of sending actionbar message, future messages will be sent via the conventional method.");
+					useConventional = true;
+					e.printStackTrace();
+					sendMessage(path, format, option);
+				}
+			}
+		} else {
 			String message = plugin.getLang().getMessage(path, format, option);
 			plugin.getServer().getPlayer(getUUID()).sendMessage(message);
 		}
