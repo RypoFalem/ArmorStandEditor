@@ -64,32 +64,25 @@ public class PlayerEditor {
 
 	private static boolean useConventional = false;
 	private static final String version;
-	private static Object argumentChatComponentInstance;
-	private static Method parse;
 	private static Constructor<?> packetPlayOutTitleConst;
 	private static Object enumTitleActionActionBar;
 	private static Method sendPacket;
-	private static Class<?> craftPlayer;
 	private static Method getHandle;
 	private static Field playerConnection;
+	private static Method chatDeserialize;
 
 	static {
 		String pkg = Bukkit.getServer().getClass().getPackage().getName();
 		version = pkg.substring(pkg.lastIndexOf('.') + 1);
 		try {
-			Class<?> argumentChatComponent = Class.forName("net.minecraft.server." + version + ".ArgumentChatComponent");
-			Constructor<?> con = argumentChatComponent.getDeclaredConstructor();
-			con.setAccessible(true);
-			argumentChatComponentInstance = con.newInstance();
-			parse = argumentChatComponent.getDeclaredMethod("parse", StringReader.class);
 			Class<?> packetPlayOutTitle = Class.forName("net.minecraft.server."  + version + ".PacketPlayOutTitle");
 			Class<?> enumTitleAction = Class.forName("net.minecraft.server." + version + ".PacketPlayOutTitle$EnumTitleAction");
 			packetPlayOutTitleConst = packetPlayOutTitle.getConstructor(enumTitleAction, Class.forName("net.minecraft.server." + version + ".IChatBaseComponent"));
 			enumTitleActionActionBar = ((Enum<?>[]) enumTitleAction.getDeclaredMethod("values").invoke(null))[2];
 			sendPacket = Class.forName("net.minecraft.server." + version + ".PlayerConnection").getDeclaredMethod("sendPacket", Class.forName("net.minecraft.server." + version + ".Packet"));
-			craftPlayer = Class.forName("org.bukkit.craftbukkit." + version + ".entity.CraftPlayer");
-			getHandle = craftPlayer.getDeclaredMethod("getHandle");
+			getHandle = Class.forName("org.bukkit.craftbukkit." + version + ".entity.CraftPlayer").getDeclaredMethod("getHandle");
 			playerConnection = getHandle.getReturnType().getDeclaredField("playerConnection");
+			chatDeserialize = Class.forName("net.minecraft.server." + version + ".IChatBaseComponent$ChatSerializer").getDeclaredMethod("a", String.class);
 		} catch (Exception e) {
 			ArmorStandEditorPlugin.instance().getLogger().warning("Error setting up actionbar requisites, actionbar messages will use the conventional, annoying method instead.");
 			useConventional = true;
@@ -394,7 +387,7 @@ public class PlayerEditor {
 		highlight(armorStand);
 		return armorStand;
 	}
-	
+
 	void sendMessage(String path, String format, String option) {
 		if(plugin.sendToActionBar){
 			String rawText = plugin.getLang().getRawMessage(path, format, option);
@@ -403,7 +396,7 @@ public class PlayerEditor {
 				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
 			} else {
 				try {
-					sendPacket.invoke(playerConnection.get(getHandle.invoke(getPlayer())), packetPlayOutTitleConst.newInstance(enumTitleActionActionBar, parse.invoke(argumentChatComponentInstance, new StringReader(rawText))));
+					sendPacket.invoke(playerConnection.get(getHandle.invoke(getPlayer())), packetPlayOutTitleConst.newInstance(enumTitleActionActionBar, chatDeserialize.invoke(null, rawText)));
 				} catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {
 					plugin.getLogger().warning("Could not use reflective method of sending actionbar message, future messages will be sent via the conventional method.");
 					useConventional = true;
