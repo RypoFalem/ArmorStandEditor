@@ -25,6 +25,7 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -34,16 +35,19 @@ import java.util.logging.Level;
 public class ArmorStandEditorPlugin extends JavaPlugin{
 	private NamespacedKey iconKey;
 	private static ArmorStandEditorPlugin instance;
+	public final PersistentDataType<Byte,Byte> editToolKeyType = PersistentDataType.BYTE;
+	public final NamespacedKey editToolKey = new NamespacedKey(this, "ASE");
 	private CommandEx execute;
 	private Language lang;
 	public boolean hasSpigot;
 	public PlayerEditorManager editorManager;
 	public Material editTool = Material.FLINT;
-	boolean requireToolData = false;
-	boolean sendToActionBar = true;
-	int editToolData = Integer.MIN_VALUE;
-	boolean requireToolLore = false;
-	String editToolLore = null;
+	public boolean requireToolData = false;
+	public boolean sendToActionBar = true;
+	public int editToolData = Integer.MIN_VALUE;
+	public boolean requireToolLore = false;
+	public String editToolLore = null;
+	public boolean requireToolKey = false; // Not configurable through config, since it's up to plugin to hook into
 	boolean debug = false; //weather or not to broadcast messages via print(String message)
 	double coarseRot;
 	double fineRot;
@@ -76,7 +80,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		if(requireToolData) editToolData = getConfig().getInt("toolData", Integer.MIN_VALUE);
 		requireToolLore = getConfig().getBoolean("requireToolLore", false);
 		if(requireToolLore) editToolLore= getConfig().getString("toolLore", null);
-		debug = getConfig().getBoolean("debug", true);
+		debug = getConfig().getBoolean("debug", false);
 		sendToActionBar = getConfig().getBoolean("sendMessagesToActionBar", true);
 
 		editorManager = new PlayerEditorManager(this);
@@ -144,6 +148,10 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			if(!item.getItemMeta().hasLore()) return false;
 			if(item.getItemMeta().getLore().isEmpty()) return false;
 			if(!item.getItemMeta().getLore().get(0).equals(editToolLore)) return false;
+		}
+		if(requireToolKey) {
+			if(!item.hasItemMeta()) return false;
+			if(item.getItemMeta().getPersistentDataContainer().get(editToolKey, editToolKeyType) == null) return false;
 		}
 		return true;
 	}
