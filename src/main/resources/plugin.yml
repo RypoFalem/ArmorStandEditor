@@ -51,14 +51,14 @@ permissions:
       description: Adjust arm position.
       default: true
       children:
-      asedit.leftarm: true
-      asedit.rightarm: true
+        asedit.leftarm: true
+        asedit.rightarm: true
     asedit.positionlegs:
       description: Adjust leg position.
       default: true
       children:
-      asedit.leftleg: true
-      asedit.rightleg: true
+        asedit.leftleg: true
+        asedit.rightleg: true
     asedit.leftarm:
       description: Adjust left arm position
       default: true
