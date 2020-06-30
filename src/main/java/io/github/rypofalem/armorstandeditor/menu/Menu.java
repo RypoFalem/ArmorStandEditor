@@ -19,17 +19,20 @@
 
 package io.github.rypofalem.armorstandeditor.menu;
 
+import io.github.rypofalem.armorstandeditor.ArmorStandEditorPlugin;
 import io.github.rypofalem.armorstandeditor.PlayerEditor;
 import io.github.rypofalem.armorstandeditor.Util;
 
 import java.util.ArrayList;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -201,9 +204,9 @@ public class Menu {
 
 	private ItemStack createIcon(ItemStack icon, String path, String command, String option){
 		ItemMeta meta = icon.getItemMeta();
+		meta.getPersistentDataContainer().set(ArmorStandEditorPlugin.instance().getIconKey(), PersistentDataType.STRING, "ase " + command);
 		meta.setDisplayName(getIconName(path, option));
-		ArrayList<String> loreList = new ArrayList<String>();
-		loreList.add(Util.encodeHiddenLore("ase " + command));
+		ArrayList<String> loreList = new ArrayList<>();
 		loreList.add(getIconDescription(path, option));
 		meta.setLore(loreList);
 		meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);

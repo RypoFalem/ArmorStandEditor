@@ -32,6 +32,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import io.github.rypofalem.armorstandeditor.PlayerEditor;
 import io.github.rypofalem.armorstandeditor.Util;
+import org.bukkit.persistence.PersistentDataType;
 
 public class EquipmentMenu {
 	Inventory menuInv;
@@ -61,9 +62,7 @@ public class EquipmentMenu {
 		ItemStack disabledIcon = new ItemStack(Material.BARRIER);
 		ItemMeta meta = disabledIcon.getItemMeta();
 		meta.setDisplayName(pe.plugin.getLang().getMessage("disabled", "warn")); //equipslot.msg <option>
-		ArrayList<String> loreList = new ArrayList<String>();
-		loreList.add(Util.encodeHiddenLore("ase icon"));
-		meta.setLore(loreList);
+		meta.getPersistentDataContainer().set(pe.plugin.getIconKey(), PersistentDataType.STRING, "ase icon"); // mark as icon
 		disabledIcon.setItemMeta(meta);
 		
 		ItemStack helmetIcon = createIcon(Material.LEATHER_HELMET, "helm");
@@ -82,10 +81,10 @@ public class EquipmentMenu {
 	private ItemStack createIcon(Material mat, String slot){
 		ItemStack icon = new ItemStack(mat);
 		ItemMeta meta = icon.getItemMeta();
+		meta.getPersistentDataContainer().set(pe.plugin.getIconKey(), PersistentDataType.STRING, "ase icon");
 		meta.setDisplayName(pe.plugin.getLang().getMessage("equipslot", "iconname", slot)); //equipslot.msg <option>
 		ArrayList<String> loreList = new ArrayList<String>();
 		loreList.add(pe.plugin.getLang().getMessage("equipslot.description", "icondescription", slot)); //equioslot.description.msg <option>
-		loreList.add(Util.encodeHiddenLore("ase icon"));
 		meta.setLore(loreList);
 		meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 		meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);

@@ -30,6 +30,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class CommandEx implements CommandExecutor{
 	ArmorStandEditorPlugin plugin;
 	final String LISTMODE = ChatColor.GREEN + "/ase mode <" + Util.getEnumList(EditMode.class) + ">";
@@ -58,28 +61,24 @@ public class CommandEx implements CommandExecutor{
 			player.sendMessage(LISTADJUSTMENT);
 			return true;
 		}
-
-		if(args.length > 0){
-			switch(args[0].toLowerCase()){
-				case "mode": commandMode(player, args);
-					break;
-				case "axis": commandAxis(player, args);
-					break;
-				case "adj": commandAdj(player, args);
-					break;
-				case "slot": commandSlot(player, args);
-					break;
-				case "help":
-				case "?": commandHelp(player);
-					break;
-				default:
-					sender.sendMessage(LISTMODE);
-					sender.sendMessage(LISTAXIS);
-					sender.sendMessage(LISTSLOT);
-					sender.sendMessage(LISTADJUSTMENT);
-					sender.sendMessage(HELP);
-			}
-			return true;
+		switch(args[0].toLowerCase()){
+			case "mode": commandMode(player, args);
+				break;
+			case "axis": commandAxis(player, args);
+				break;
+			case "adj": commandAdj(player, args);
+				break;
+			case "slot": commandSlot(player, args);
+				break;
+			case "help":
+			case "?": commandHelp(player);
+				break;
+			default:
+				sender.sendMessage(LISTMODE);
+				sender.sendMessage(LISTAXIS);
+				sender.sendMessage(LISTSLOT);
+				sender.sendMessage(LISTADJUSTMENT);
+				sender.sendMessage(HELP);
 		}
 		return true;
 	}
