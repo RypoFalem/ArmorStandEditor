@@ -19,8 +19,7 @@
 
 package io.github.rypofalem.armorstandeditor.menu;
 
-import java.util.ArrayList;
-
+import io.github.rypofalem.armorstandeditor.PlayerEditor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
@@ -29,10 +28,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import io.github.rypofalem.armorstandeditor.PlayerEditor;
-import io.github.rypofalem.armorstandeditor.Util;
 import org.bukkit.persistence.PersistentDataType;
+
+import java.util.ArrayList;
 
 public class EquipmentMenu {
 	Inventory menuInv;

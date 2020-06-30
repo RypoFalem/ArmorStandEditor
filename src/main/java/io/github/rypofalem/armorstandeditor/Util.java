@@ -19,8 +19,6 @@
 
 package io.github.rypofalem.armorstandeditor;
 
-import org.bukkit.ChatColor;
-
 public abstract class Util {
 	
 	public static final double FULLCIRCLE = Math.PI*2;
