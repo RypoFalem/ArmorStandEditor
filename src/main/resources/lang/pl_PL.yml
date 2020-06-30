@@ -1,0 +1,218 @@
+#
+# Polish translation by Patbox
+#
+
+iconname: 2n
+icondescription: 5
+info: 6
+warn: c
+menutitle: 8
+
+#info
+setmode: 
+  msg: Tryb edycji <x>.
+  head: Głowa
+  body: Tułów 
+  leftleg: Lewa Noga
+  rightleg: Prawa Noga
+  leftarm: Lewa Ręka
+  rightarm: Prawa Ręka
+  equipment: Przedmioty
+  showarms: Zmień widok rąk
+  invisible: Zmień widoczność
+  size: Zmień rozmiar
+  disableslots: Zmień zablokowane sloty
+  gravity: Zmień grawitację
+  baseplate: Zmień podstawę
+  placement: Położenie
+  rotate: Obrót
+  copy: Kopiuj
+  paste: Wklej
+  reset: Zresetuj pozę
+setaxis: 
+  msg: Ustawienie osi na <x>.
+  x: X
+  y: Y
+  z: Z
+setslot: 
+  msg: Skopiowano ustawienia do <x>.
+setadj:
+  msg: Ustawiono wielkość zmian <x>.
+  coarse: Duże
+  fine: Małe
+setgravity: 
+  msg: Grawitacja została <x>.
+  on: włączona
+  off: wyłączona
+nomode: 
+  msg: Kliknij narzędziem z dala od stojaka na zbroję, aby najpierw wybrać tryb edycji!
+copied: 
+  msg: Skopiowano stoja do slotu <x>.
+pasted: 
+  msg: Wklejono ustawienia z slotu <x>.
+target:
+  msg: Zablokowano cel.
+notarget:
+  msg: Odblokowano cel.
+help:
+  msg: "1. Trzymaj narzędzie edycji (<x>).
+
+      2. Kliknij zdala od stojaka, aby otworzyć menu.
+
+      3. Wybierz opcję.
+
+      4. Kliknij lewym przyciskim myszy na armorstand'a, aby to wykonać.
+
+      5. Kliknij prawym, aby odwrócić akcję."
+helptips:
+  msg: "Porady:
+
+  1. Naciśnij klawisz (Przenoszenie przedmiotu do lewej ręki) (domyślnie F), przytrzymując edytor, celując w stojak, jeśli coś stoi przed nim.
+
+  2. Możesz zastosować NameTagi do stojaka. Możesz użyć symbolu &, aby utworzyć kolorowe nazwy.
+
+  3. Możesz użyć shift + kółko do przewijania, przytrzymując narzędzie, aby zmienić Oś bez otwierania menu"
+helpurl:
+  msg: "Więcej informacji - https://patbox.ml/t/boxcraft"
+
+#warn
+cantedit:
+  msg: Nie możesz tego zrobić
+noperm: 
+  msg: Nie posiadasz wymaganych uprawnień
+noslotnumcom: 
+  msg: Musisz wybrać slot!
+noadjcom:
+  msg: Musisz wybrać wielkość edycji.
+noaxiscom:
+  msg: Musisz wybrać oś.
+nomodecom:
+  msg: Musisz wybrać tryb.
+
+#menutitle
+mainmenutitle:
+  msg: Edytor
+equiptitle:
+  msg: Przedmioty na stojaku na zbroję
+
+#icons
+xaxis:
+  msg: Oś X
+  description: 
+    msg: Obracaj części armorstand'a wzdłuż osi X
+yaxis: 
+  msg: Oś Y
+  description: 
+    msg: Obracaj części armorstand'a wzdłuż osi Y
+zaxis: 
+  msg: Oś Z
+  description: 
+    msg: Obracaj części armorstand'a wzdłuż osi Z
+coarseadj: 
+  msg: Duże przesunięcie
+  description: 
+    msg: Zmień pozycję w dużym stopniu.
+fineadj: 
+  msg: Małe przesunięcie
+  description: 
+    msg: Zmień pozycję w małym stopniu.
+head: 
+  msg: Głowa
+  description: 
+    msg: Obracaj głową
+body: 
+  msg: Tułów
+  description: 
+    msg: Obracaj tułowiem
+leftleg: 
+  msg: Lewa noga
+  description: 
+    msg: Obracaj lewą nogą
+rightleg: 
+  msg: Prawa noga
+  description: 
+    msg: Obracaj prawą nogą
+leftarm: 
+  msg: Lewa ręka
+  description: 
+    msg: Obracaj lewą ręką
+rightarm: 
+  msg: Prawa ręka
+  description: 
+    msg: Obracaj prawą ręką
+equipment: 
+  msg: Przedmioty
+  description: 
+    msg: Zmień przedmioty.
+showarms: 
+  msg: Pokaż ręce
+  description: 
+    msg: Pojawia/ukrywa ręce
+invisible: 
+  msg: Widoczność
+  description: 
+    msg: Zmiania widzialność
+size: 
+  msg: Rozmiar
+  description: 
+    msg: Zmiania rozmiar
+disableslots: 
+  msg: Wyłącz sloty
+  description: 
+    msg: Włącza lub wyłącza możliwość ingeręcji w sloty
+gravity: 
+  msg: Grawitacja
+  description: 
+    msg: Włącz/wyłącz grawitację
+baseplate: 
+  msg: Podstawa
+  description: 
+    msg: Ukryj/Pokaż podstawę
+placement: 
+  msg: Położenie
+  description: 
+    msg: Przemieść stojak na zbroję
+rotate: 
+  msg: Obróć
+  description:
+    msg: Obraca stojak w miejscu
+copy: 
+  msg: Kopiuj
+  description:
+    msg: Kopiuje ustawienia stojaka
+paste: 
+  msg: Wklej
+  description:
+    msg: Wkleja ustawiania stojaka
+copyslot: 
+  msg: Skopiuj slot <x>
+  description:
+    msg: Wybierz slot do przechowywania ustawień
+reset:
+  msg: Zresetuj pozę
+  description:
+    msg: Resetuje pozę do domyślnej
+helpgui:
+  msg: Pomocy!
+  description:
+    msg: Kliknij tutaj, aby dostać pomoc!
+
+#icons (equipment menu)
+disabled: 
+  msg: Wyłączony
+equipslot: 
+  msg: Slot <x>
+  description: 
+    msg: Pezenieś <x> w slot poniżej
+    helm: Hełm
+    chest: Napierśnik
+    pants: Spodnie
+    boots: Buty
+    rhand: Przedmiot w prawej ręce
+    lhand: Przedmiot w lewej ręce
+  helm: Hełm
+  chest: Napierśnik
+  pants: Spodnie
+  boots: Buty
+  rhand: Prawa ręka
+  lhand: Lewa ręka
