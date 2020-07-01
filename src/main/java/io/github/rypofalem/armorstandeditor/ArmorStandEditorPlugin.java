@@ -23,6 +23,7 @@ import io.github.rypofalem.armorstandeditor.language.Language;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
@@ -31,6 +32,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 
 public class ArmorStandEditorPlugin extends JavaPlugin{
+	private NamespacedKey iconKey;
 	private static ArmorStandEditorPlugin instance;
 	private CommandEx execute;
 	private Language lang;
@@ -137,6 +139,11 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			if(!item.getItemMeta().getLore().get(0).equals(editToolLore)) return false;
 		}
 		return true;
+	}
+
+	public NamespacedKey getIconKey() {
+		if(iconKey == null) iconKey = new NamespacedKey(this, "command_icon");
+		return iconKey;
 	}
 }
 //todo: 

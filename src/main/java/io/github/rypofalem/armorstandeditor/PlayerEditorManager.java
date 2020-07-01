@@ -45,6 +45,7 @@ import org.bukkit.event.player.*;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.Vector;
 
 //Manages PlayerEditors and Player Events related to editing armorstands
@@ -249,13 +250,13 @@ public class PlayerEditorManager implements Listener{
 		if(e.getInventory().getHolder() == menuHolder){
 			e.setCancelled(true);
 			ItemStack item = e.getCurrentItem();
-			if(item!= null && item.hasItemMeta() && item.getItemMeta().hasLore()
-					&& !item.getItemMeta().getLore().isEmpty()
-					&& item.getItemMeta().getLore().get(0).startsWith(Util.encodeHiddenLore("ase"))){
+			if(item!= null && item.hasItemMeta()){
 				Player player = (Player) e.getWhoClicked();
-				String command = Util.decodeHiddenLore(item.getItemMeta().getLore().get(0));
-				player.performCommand(command);
-				return;
+				String command = item.getItemMeta().getPersistentDataContainer().get(plugin.getIconKey(), PersistentDataType.STRING);
+				if(command != null){
+					player.performCommand(command);
+					return;
+				}
 			}
 		}
 		if(e.getInventory().getHolder() == equipmentHolder){
@@ -263,7 +264,7 @@ public class PlayerEditorManager implements Listener{
 			if(item == null) return;
 			if(item.getItemMeta() == null ) return;
 			if(item.getItemMeta().getLore() == null) return;
-			if(item.getItemMeta().getLore().contains(Util.encodeHiddenLore("ase icon"))){
+			if(item.getItemMeta().getPersistentDataContainer().has(plugin.getIconKey(), PersistentDataType.STRING)){
 				e.setCancelled(true);
 			}
 		}
