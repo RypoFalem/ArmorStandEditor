@@ -70,7 +70,7 @@ public class Menu {
 			zAxis = createIcon(new ItemStack(Material.BLUE_WOOL, 1),
 					"zaxis", "axis z");
 
-			coarseAdj = createIcon(new ItemStack(Material.DIRT, 1, (short)1),
+			coarseAdj = createIcon(new ItemStack(Material.DIRT, 1),
 					"coarseadj", "adj coarse");
 
 			fineAdj = createIcon( new ItemStack(Material.SANDSTONE),
@@ -123,8 +123,7 @@ public class Menu {
 			PotionEffect eff1 = new PotionEffect(PotionEffectType.INVISIBILITY, 1, 0);
 			potionMeta.addCustomEffect(eff1, true);
 			visibility.setItemMeta(potionMeta);
-			visibility = createIcon( visibility,
-					"invisible", "mode invisible");
+			visibility = createIcon( visibility, "invisible", "mode invisible");
 		}
 
 		if(pe.getPlayer().hasPermission("asedit.size")){
@@ -133,13 +132,11 @@ public class Menu {
 		}
 
 		if(pe.getPlayer().hasPermission("asedit.disableslots")){
-			disableSlots = createIcon(new ItemStack(Material.BARRIER),
-					"disableslots", "mode disableslots");
+			disableSlots = createIcon(new ItemStack(Material.BARRIER), "disableslots", "mode disableslots");
 		}
 
 		if(pe.getPlayer().hasPermission("asedit.gravity")){
-			gravity = createIcon( new ItemStack(Material.SAND),
-					"gravity", "mode gravity");
+			gravity = createIcon( new ItemStack(Material.SAND), "gravity", "mode gravity");
 		}
 
 		if(pe.getPlayer().hasPermission("asedit.baseplate")){

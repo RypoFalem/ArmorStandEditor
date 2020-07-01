@@ -25,6 +25,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.*;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 public class Language {
     final String DEFAULTLANG = "en_US.yml";
@@ -44,22 +45,20 @@ public class Language {
         langFile = new File(langFolder, langFileName);
 
         InputStream input = plugin.getResource("lang" + "/" + DEFAULTLANG); //getResource doesn't accept File.seperator on windows, need to hardcode unix seperator "/" instead
-        Reader defaultLangStream = new InputStreamReader(input, Charset.forName("UTF-8"));
-        if (defaultLangStream != null) {
-            defConfig = YamlConfiguration.loadConfiguration(defaultLangStream);
-        }
+        assert input != null;
+        Reader defaultLangStream = new InputStreamReader(input, StandardCharsets.UTF_8);
+        defConfig = YamlConfiguration.loadConfiguration(defaultLangStream);
 
         input = null;
         try {
             input = new FileInputStream(langFile);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            return;
         }
 
-        Reader langStream = new InputStreamReader(input, Charset.forName("UTF-8"));
-        if (langStream != null) {
-            langConfig = YamlConfiguration.loadConfiguration(langStream);
-        }
+        Reader langStream = new InputStreamReader(input, StandardCharsets.UTF_8);
+        langConfig = YamlConfiguration.loadConfiguration(langStream);
     }
 
     //path: yml path to message in language file
@@ -112,7 +111,7 @@ public class Language {
                 case ITALIC:
                     italic = ", \"italic\": true";
                     break;
-                default: color = (code == null || !code.isColor()) ? color : code;
+                default: color = !code.isColor() ? color : code;
             }
         }
         return String.format("{\"text\":\"%s\", \"color\":\"%s\"%s%s%s%s%s}", message, color.name().toLowerCase(),

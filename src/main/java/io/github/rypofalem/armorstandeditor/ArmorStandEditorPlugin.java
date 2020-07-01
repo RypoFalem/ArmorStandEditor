@@ -61,6 +61,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		updateConfig("lang/", "fr_FR.yml");
 		updateConfig("lang/", "ro_RO.yml");
 		updateConfig("lang/", "ja_JP.yml");
+		updateConfig("lang/", "de_DE.yml");
 		//English is the default language and needs to be unaltered to so that there is always a backup message string
 		saveResource("lang/en_US.yml", true);
 		lang = new Language(getConfig().getString("lang"), this);
@@ -91,7 +92,6 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	@Override
 	public void onDisable(){
 		for(Player player : Bukkit.getServer().getOnlinePlayers()){
-			if(player.getOpenInventory() == null) continue;
 			if(player.getOpenInventory().getTopInventory().getHolder() == editorManager.getMenuHolder()) player.closeInventory();
 		}
 	}
@@ -108,13 +108,13 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
 	public String listPlugins(){
 		Plugin[] plugins = getServer().getPluginManager().getPlugins();
-		String list = "";
+		StringBuilder list = new StringBuilder();
 		for(Plugin p : plugins){
 			if(p!=null){
-				list = list +" :" + p.getName() + " " + p.getDescription().getVersion() + ": ";
+				list.append(" :").append(p.getName()).append(" ").append(p.getDescription().getVersion()).append(": ");
 			}
 		}
-		return list;
+		return list.toString();
 	}
 
 	public static ArmorStandEditorPlugin instance(){
@@ -132,9 +132,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		if(requireToolLore && editToolLore != null){
 			if(!item.hasItemMeta()) return false;
 			if(!item.getItemMeta().hasLore()) return false;
-			print("has Lore");
 			if(item.getItemMeta().getLore().isEmpty()) return false;
-			print("lore not empty");
 			if(!item.getItemMeta().getLore().get(0).equals(editToolLore)) return false;
 		}
 		return true;

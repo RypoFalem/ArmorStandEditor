@@ -233,11 +233,11 @@ public class PlayerEditor {
 		armorStand.setArms(data.showArms);
 		armorStand.setVisible(data.visible);
 		if(this.getPlayer().getGameMode() == GameMode.CREATIVE){
-			armorStand.setHelmet(data.head);
-			armorStand.setChestplate(data.body);
-			armorStand.setLeggings(data.legs);
-			armorStand.setBoots(data.feetsies);
-			armorStand.setItemInHand(data.rightHand);
+			armorStand.getEquipment().setHelmet(data.head);
+			armorStand.getEquipment().setChestplate(data.body);
+			armorStand.getEquipment().setLeggings(data.legs);
+			armorStand.getEquipment().setBoots(data.feetsies);
+			armorStand.getEquipment().setItemInMainHand(data.rightHand);
 			armorStand.getEquipment().setItemInOffHand(data.leftHand);
 		}
 		sendMessage("pasted", ""+ (copySlots.currentSlot + 1));

@@ -49,6 +49,7 @@ public class EquipmentMenu {
 	private void fillInventory(){
 		menuInv.clear();
 		EntityEquipment equipment = armorstand.getEquipment();
+		assert equipment != null;
 		ItemStack helmet = equipment.getHelmet();
 		ItemStack chest = equipment.getChestplate();
 		ItemStack pants = equipment.getLeggings();
@@ -81,7 +82,7 @@ public class EquipmentMenu {
 		ItemMeta meta = icon.getItemMeta();
 		meta.getPersistentDataContainer().set(pe.plugin.getIconKey(), PersistentDataType.STRING, "ase icon");
 		meta.setDisplayName(pe.plugin.getLang().getMessage("equipslot", "iconname", slot)); //equipslot.msg <option>
-		ArrayList<String> loreList = new ArrayList<String>();
+		ArrayList<String> loreList = new ArrayList<>();
 		loreList.add(pe.plugin.getLang().getMessage("equipslot.description", "icondescription", slot)); //equioslot.description.msg <option>
 		meta.setLore(loreList);
 		meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
@@ -102,10 +103,10 @@ public class EquipmentMenu {
 		feetsies = menuInv.getItem(12);
 		rightHand = menuInv.getItem(13);
 		leftHand = menuInv.getItem(14);
-		armorstand.setHelmet(helmet);
-		armorstand.setChestplate(chest);
-		armorstand.setLeggings(pants);
-		armorstand.setBoots(feetsies);
+		armorstand.getEquipment().setHelmet(helmet);
+		armorstand.getEquipment().setChestplate(chest);
+		armorstand.getEquipment().setLeggings(pants);
+		armorstand.getEquipment().setBoots(feetsies);
 		armorstand.getEquipment().setItemInMainHand(rightHand);
 		armorstand.getEquipment().setItemInOffHand(leftHand);
 	}
