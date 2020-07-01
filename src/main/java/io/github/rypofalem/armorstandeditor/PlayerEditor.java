@@ -32,6 +32,7 @@ import java.util.UUID;
 
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
@@ -358,7 +359,13 @@ public class PlayerEditor {
 	void sendMessage(String path, String format, String option){
 		String message = plugin.getLang().getMessage(path, format, option);
 		if(plugin.sendToActionBar){
-			plugin.getServer().getPlayer(getUUID()).spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(message));
+			if(ArmorStandEditorPlugin.instance().hasSpigot){
+				plugin.getServer().getPlayer(getUUID()).spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(message));
+			} else{
+				String rawText = plugin.getLang().getRawMessage(path, format, option);
+				String command = String.format("title %s actionbar %s", plugin.getServer().getPlayer(getUUID()).getName(), rawText);
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+			}
 		} else{
 			plugin.getServer().getPlayer(getUUID()).sendMessage(message);
 		}
