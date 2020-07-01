@@ -98,8 +98,7 @@ public class PlayerEditorManager implements Listener{
 		}
 
 		//Attempt rename
-		if(player.getInventory().getItemInMainHand().getType() == Material.NAME_TAG
-				&& player.hasPermission("asedit.rename")){
+		if(player.getInventory().getItemInMainHand().getType() == Material.NAME_TAG && player.hasPermission("asedit.rename")){
 			ItemStack nameTag = player.getInventory().getItemInMainHand();
 			final String name;
 			if(nameTag.getItemMeta() != null && nameTag.getItemMeta().hasDisplayName()){

@@ -54,68 +54,47 @@ public class Menu {
 				rightLegPos= null, equipment = null, leftLegPos= null, disableSlots = null, gravity= null, plate= null, copy= null, paste= null,
 				slot1= null, slot2= null, slot3= null, slot4= null, help= null;
 
-		if(pe.getPlayer().hasPermission("asedit.head") ||
-				pe.getPlayer().hasPermission("asedit.body") ||
-				pe.getPlayer().hasPermission("asedit.leftarm") ||
-				pe.getPlayer().hasPermission("asedit.rightarm") ||
-				pe.getPlayer().hasPermission("asedit.leftleg") ||
-				pe.getPlayer().hasPermission("asedit.rightleg") ||
-				pe.getPlayer().hasPermission("asedit.placement")){
-			xAxis = createIcon(new ItemStack(Material.RED_WOOL, 1),
-					"xaxis", "axis x");
+		xAxis = createIcon(new ItemStack(Material.RED_WOOL, 1),
+				"xaxis", "axis x");
 
-			yAxis = createIcon(new ItemStack(Material.GREEN_WOOL, 1),
-					"yaxis", "axis y");
+		yAxis = createIcon(new ItemStack(Material.GREEN_WOOL, 1),
+				"yaxis", "axis y");
 
-			zAxis = createIcon(new ItemStack(Material.BLUE_WOOL, 1),
-					"zaxis", "axis z");
+		zAxis = createIcon(new ItemStack(Material.BLUE_WOOL, 1),
+				"zaxis", "axis z");
 
-			coarseAdj = createIcon(new ItemStack(Material.DIRT, 1),
-					"coarseadj", "adj coarse");
+		coarseAdj = createIcon(new ItemStack(Material.DIRT, 1),
+				"coarseadj", "adj coarse");
 
-			fineAdj = createIcon( new ItemStack(Material.SANDSTONE),
-					"fineadj", "adj fine");
-		}
-		
-		if(pe.getPlayer().hasPermission("asedit.reset")){
-			reset = createIcon( new ItemStack(Material.LEVER),
-					"reset", "mode reset");
-		}
+		fineAdj = createIcon( new ItemStack(Material.SANDSTONE),
+				"fineadj", "adj fine");
 
-		if(pe.getPlayer().hasPermission("asedit.head")){
-			headPos = createIcon( new ItemStack(Material.LEATHER_HELMET),
-					"head", "mode head");
-		}
 
-		if(pe.getPlayer().hasPermission("asedit.body")){
-			bodyPos = createIcon( new ItemStack(Material.LEATHER_CHESTPLATE),
-					"body", "mode body");
-		}
 
-		if(pe.getPlayer().hasPermission("asedit.leftleg")){
-			leftLegPos = createIcon( new ItemStack(Material.LEATHER_LEGGINGS),
-					"leftleg", "mode leftleg");
-		}
+		reset = createIcon( new ItemStack(Material.LEVER),
+				"reset", "mode reset");
 
-		if(pe.getPlayer().hasPermission("asedit.rightleg")){
-			rightLegPos = createIcon( new ItemStack(Material.LEATHER_LEGGINGS),
-					"rightleg", "mode rightleg");
-		}
 
-		if(pe.getPlayer().hasPermission("asedit.leftarm")){
-			leftArmPos = createIcon( new ItemStack(Material.STICK),
-					"leftarm", "mode leftarm");
-		}
+		headPos = createIcon( new ItemStack(Material.LEATHER_HELMET),
+				"head", "mode head");
 
-		if(pe.getPlayer().hasPermission("asedit.rightarm")){
-			rightArmPos = createIcon( new ItemStack(Material.STICK),
-					"rightarm", "mode rightarm");
-		}
+		bodyPos = createIcon( new ItemStack(Material.LEATHER_CHESTPLATE),
+				"body", "mode body");
 
-		if(pe.getPlayer().hasPermission("asedit.showarms")){
-			showArms = createIcon( new ItemStack(Material.STICK),
-					"showarms", "mode showarms");
-		}
+		leftLegPos = createIcon( new ItemStack(Material.LEATHER_LEGGINGS),
+				"leftleg", "mode leftleg");
+
+		rightLegPos = createIcon( new ItemStack(Material.LEATHER_LEGGINGS),
+				"rightleg", "mode rightleg");
+
+		leftArmPos = createIcon( new ItemStack(Material.STICK),
+				"leftarm", "mode leftarm");
+
+		rightArmPos = createIcon( new ItemStack(Material.STICK),
+				"rightarm", "mode rightarm");
+
+		showArms = createIcon( new ItemStack(Material.STICK),
+				"showarms", "mode showarms");
 
 		if(pe.getPlayer().hasPermission("asedit.invisible")){
 			visibility = new ItemStack(Material.POTION, 1);
@@ -126,70 +105,56 @@ public class Menu {
 			visibility = createIcon( visibility, "invisible", "mode invisible");
 		}
 
-		if(pe.getPlayer().hasPermission("asedit.size")){
-			size = createIcon( new ItemStack(Material.PUFFERFISH, 1),
-					"size", "mode size");
-		}
+		size = createIcon( new ItemStack(Material.PUFFERFISH, 1),
+				"size", "mode size");
 
 		if(pe.getPlayer().hasPermission("asedit.disableslots")){
 			disableSlots = createIcon(new ItemStack(Material.BARRIER), "disableslots", "mode disableslots");
 		}
 
-		if(pe.getPlayer().hasPermission("asedit.gravity")){
-			gravity = createIcon( new ItemStack(Material.SAND), "gravity", "mode gravity");
-		}
+		gravity = createIcon( new ItemStack(Material.SAND), "gravity", "mode gravity");
 
-		if(pe.getPlayer().hasPermission("asedit.baseplate")){
-			plate = createIcon( new ItemStack(Material.STONE_SLAB, 1),
-					"baseplate", "mode baseplate");
-		}
+		plate = createIcon( new ItemStack(Material.STONE_SLAB, 1),
+				"baseplate", "mode baseplate");
 
-		if(pe.getPlayer().hasPermission("asedit.placement")){
-			place = createIcon( new ItemStack(Material.MINECART, 1),
-					"placement", "mode placement");
-		}
+		place = createIcon( new ItemStack(Material.MINECART, 1),
+				"placement", "mode placement");
 
-		if(pe.getPlayer().hasPermission("asedit.rotate")){
-			rotate = createIcon( new ItemStack(Material.COMPASS, 1),
-					"rotate", "mode rotate");
-		}
+		rotate = createIcon( new ItemStack(Material.COMPASS, 1),
+				"rotate", "mode rotate");
 
-		if(pe.getPlayer().hasPermission("asedit.equipment")){
-			equipment = createIcon(new ItemStack(Material.CHEST, 1),
-					"equipment", "mode equipment");
-		}
+		equipment = createIcon(new ItemStack(Material.CHEST, 1),
+				"equipment", "mode equipment");
 
-		if(pe.getPlayer().hasPermission("asedit.copy")){
-			copy = createIcon(new ItemStack(Material.WRITABLE_BOOK),
-					"copy","mode copy");
+		copy = createIcon(new ItemStack(Material.WRITABLE_BOOK),
+				"copy","mode copy");
 
-			paste = createIcon(new ItemStack(Material.ENCHANTED_BOOK),
-					"paste","mode paste");
+		paste = createIcon(new ItemStack(Material.ENCHANTED_BOOK),
+				"paste","mode paste");
 
-			slot1 = createIcon(new ItemStack(Material.DANDELION),
-					"copyslot","slot 1", "1");
+		slot1 = createIcon(new ItemStack(Material.DANDELION),
+				"copyslot","slot 1", "1");
 
-			slot2 = createIcon(new ItemStack(Material.AZURE_BLUET, 2),
-					"copyslot", "slot 2", "2");
+		slot2 = createIcon(new ItemStack(Material.AZURE_BLUET, 2),
+				"copyslot", "slot 2", "2");
 
-			slot3 = createIcon(new ItemStack(Material.BLUE_ORCHID, 3),
-					"copyslot","slot 3", "3");
+		slot3 = createIcon(new ItemStack(Material.BLUE_ORCHID, 3),
+				"copyslot","slot 3", "3");
 
-			slot4 = createIcon( new ItemStack(Material.PEONY, 4),
-					"copyslot","slot 4", "4");
-		}
+		slot4 = createIcon( new ItemStack(Material.PEONY, 4),
+				"copyslot","slot 4", "4");
 
 		help = createIcon(new ItemStack(Material.NETHER_STAR), "helpgui", "help");
 
-		ItemStack[] items = 
-			{
-					xAxis, yAxis, zAxis, null, coarseAdj, fineAdj, null, rotate, place,
-					null, headPos, null, null, null, null, null, null, null,
-					rightArmPos, bodyPos, leftArmPos, reset, null, null, showArms, visibility, size,
-					rightLegPos, equipment, leftLegPos, null, null, null, null, gravity, plate,
-					null, copy, paste, null, null, null, null, null, null,
-					slot1, slot2, slot3, slot4, null, null, null, null, help
-			};
+		ItemStack[] items =
+				{
+						xAxis, yAxis, zAxis, null, coarseAdj, fineAdj, null, rotate, place,
+						null, headPos, null, null, null, null, null, null, null,
+						rightArmPos, bodyPos, leftArmPos, reset, null, null, showArms, visibility, size,
+						rightLegPos, equipment, leftLegPos, null, null, null, null, gravity, plate,
+						null, copy, paste, null, null, null, null, null, null,
+						slot1, slot2, slot3, slot4, null, null, null, null, help
+				};
 		menuInv.setContents(items);
 	}
 
