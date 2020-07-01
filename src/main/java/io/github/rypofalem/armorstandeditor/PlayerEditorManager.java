@@ -98,7 +98,8 @@ public class PlayerEditorManager implements Listener{
 		}
 
 		//Attempt rename
-		if(player.getInventory().getItemInMainHand().getType() == Material.NAME_TAG){
+		if(player.getInventory().getItemInMainHand().getType() == Material.NAME_TAG
+				&& player.hasPermission("asedit.rename")){
 			ItemStack nameTag = player.getInventory().getItemInMainHand();
 			final String name;
 			if(nameTag.getItemMeta() != null && nameTag.getItemMeta().hasDisplayName()){
@@ -124,7 +125,6 @@ public class PlayerEditorManager implements Listener{
 					player.getInventory().setItemInMainHand(nameTag);
 				}
 
-				plugin.print("Preparing to change " + as.getUniqueId().toString());
 				//minecraft will set the name after this event even if the event is cancelled.
 				//change it 1 tick later to apply formatting without it being overwritten
 				Bukkit.getScheduler().runTaskLater(plugin, () -> {

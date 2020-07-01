@@ -74,3 +74,6 @@ permissions:
     asedit.reset:
       description: Reset all body angles to zero
       default: true
+    asedit.rename:
+      description: Rename armorstands
+      default: true
