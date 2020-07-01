@@ -12,7 +12,7 @@ commands:
     permission: asedit.basic
 permissions:
     asedit.basic:
-      desciption: Allow use armorstand edit functions. If set to false it will override all other functions.
+      description: Allow use armorstand edit functions. If set to false it will override all other functions.
       default: true
     asedit.invisible:
       description: Toggle armorstand visible/invisible.
