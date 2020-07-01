@@ -29,6 +29,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.logging.Level;
 
 public class ArmorStandEditorPlugin extends JavaPlugin{
 	private NamespacedKey iconKey;
@@ -84,8 +85,11 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		getServer().getPluginManager().registerEvents(editorManager, this);
 
 		hasSpigot = true;
-		try {Class.forName("org.bukkit.entity.Player.Spigot");}
-		catch (ClassNotFoundException e) {hasSpigot = false;}
+		try {
+			Class.forName("org.spigotmc.package-info", false, this.getClassLoader());
+		} catch (ClassNotFoundException e) {
+			hasSpigot = false;
+		}
 	}
 
 	private void updateConfig(String folder, String config) {
@@ -108,6 +112,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	public void print(String message){
 		if(debug){
 			this.getServer().broadcastMessage(message);
+			log(message);
 		}
 	}
 
