@@ -19,7 +19,6 @@ toolLore: Let's get dangerous
 lang: en_US.yml
 
 #If false plugin notifications will be sent to the chat box. If true messages will be sent to the action bar.
-#Set to false if you hate the OP notifications that minecraft does when executing actionbar commands
 sendMessagesToActionBar: true
 
 #Don't set to true unless you want players to see random messages or other undesirable behavior
