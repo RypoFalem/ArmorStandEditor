@@ -253,7 +253,6 @@ public class PlayerEditorManager implements Listener{
 			ItemStack item = e.getCurrentItem();
 			if(item == null) return;
 			if(item.getItemMeta() == null ) return;
-			if(item.getItemMeta().getLore() == null) return;
 			if(item.getItemMeta().getPersistentDataContainer().has(plugin.getIconKey(), PersistentDataType.STRING)){
 				e.setCancelled(true);
 			}
