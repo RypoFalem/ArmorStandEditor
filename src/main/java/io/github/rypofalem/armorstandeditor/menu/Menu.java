@@ -123,8 +123,10 @@ public class Menu {
 		rotate = createIcon( new ItemStack(Material.COMPASS, 1),
 				"rotate", "mode rotate");
 
-		equipment = createIcon(new ItemStack(Material.CHEST, 1),
-				"equipment", "mode equipment");
+		if(pe.getPlayer().hasPermission("asedit.equipment")) {
+			equipment = createIcon(new ItemStack(Material.CHEST, 1),
+					"equipment", "mode equipment");
+		}
 
 		copy = createIcon(new ItemStack(Material.WRITABLE_BOOK),
 				"copy","mode copy");
