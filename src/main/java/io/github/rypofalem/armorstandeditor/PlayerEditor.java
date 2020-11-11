@@ -153,6 +153,7 @@ public class PlayerEditor {
 	}
 
 	private void openEquipment(ArmorStand armorStand) {
+		if(!getPlayer().hasPermission("asedit.equipment")) return;
 		equipMenu = new EquipmentMenu(this, armorStand);
 		equipMenu.open();
 	}

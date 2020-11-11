@@ -1,6 +1,6 @@
 name: ArmorStandEditor
 main: io.github.rypofalem.armorstandeditor.ArmorStandEditorPlugin
-version: 1.16-24
+version: 1.16-26
 api-version: "1.13"
 website: rypofalem.github.io
 author: RypoFalem
@@ -19,4 +19,7 @@ permissions:
       default: true
     asedit.rename:
       description: Rename armorstands
+      default: true
+    asedit.equipment:
+      description: Access armorstand equipment GUI
       default: true
