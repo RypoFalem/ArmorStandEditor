@@ -152,7 +152,7 @@ showarms:
 invisible:
   msg: 显隐
   description: 
-  msg: 是否显示盔甲架
+    msg: 是否显示盔甲架
 size:
   msg: 大小
   description:
