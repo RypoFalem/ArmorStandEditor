@@ -39,6 +39,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.plugin.Plugin;
 
 //Manages PlayerEditors and Player Events related to editing armorstands
 public class PlayerEditorManager implements Listener{
@@ -106,7 +108,18 @@ public class PlayerEditorManager implements Listener{
 			} else {
 				name = null;
 			}
-
+                        
+                        if (isLocked(as)) {
+                            event.setCancelled(true);
+                            String asName = as.getCustomName();
+                            boolean asNameVisible = as.isCustomNameVisible();
+                            Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                            as.setCustomName(asName);
+                            as.setCustomNameVisible(asNameVisible);
+                            }, 1);
+                            return;
+                        }
+                        
 			if(name == null){
 				as.setCustomName(null);
 				as.setCustomNameVisible(false);
@@ -196,6 +209,12 @@ public class PlayerEditorManager implements Listener{
 		ignoreNextInteract = false;
 		return true;
 	}
+        
+        boolean isLocked(ArmorStand armorStand) {
+                NamespacedKey key = new NamespacedKey(plugin, "locked");
+                PersistentDataContainer container = armorStand.getPersistentDataContainer();
+                return container.has(key, PersistentDataType.BYTE);
+        }
 
 	void applyLeftTool(Player player, ArmorStand as){
 		getPlayerEditor(player.getUniqueId()).cancelOpenMenu();
