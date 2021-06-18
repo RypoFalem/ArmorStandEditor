@@ -52,7 +52,7 @@ public class Menu {
 		ItemStack xAxis= null, yAxis= null, zAxis= null, coarseAdj= null, fineAdj= null, rotate = null, place = null, headPos= null,
 				rightArmPos= null, bodyPos= null, leftArmPos= null, reset = null, showArms= null, visibility= null, size= null,
 				rightLegPos= null, equipment = null, leftLegPos= null, disableSlots = null, gravity= null, plate= null, copy= null, paste= null,
-				slot1= null, slot2= null, slot3= null, slot4= null, help= null;
+				slot1= null, slot2= null, slot3= null, slot4= null, help= null, lock = null;
 
 		xAxis = createIcon(new ItemStack(Material.RED_WOOL, 1),
 				"xaxis", "axis x");
@@ -112,6 +112,8 @@ public class Menu {
 			disableSlots = createIcon(new ItemStack(Material.BARRIER), "disableslots", "mode disableslots");
 		}
 
+		lock = createIcon( new ItemStack(Material.TRIPWIRE_HOOK), "lock", "mode lock");
+                
 		gravity = createIcon( new ItemStack(Material.SAND), "gravity", "mode gravity");
 
 		plate = createIcon( new ItemStack(Material.STONE_SLAB, 1),
@@ -151,7 +153,7 @@ public class Menu {
 						xAxis, yAxis, zAxis, null, coarseAdj, fineAdj, null, rotate, place,
 						null, headPos, null, null, null, null, null, null, null,
 						rightArmPos, bodyPos, leftArmPos, reset, null, null, showArms, visibility, size,
-						rightLegPos, equipment, leftLegPos, null, null, null, null, gravity, plate,
+						rightLegPos, equipment, leftLegPos, null, null, null, lock, gravity, plate,
 						null, copy, paste, null, null, null, null, null, null,
 						slot1, slot2, slot3, slot4, null, null, null, null, help
 				};

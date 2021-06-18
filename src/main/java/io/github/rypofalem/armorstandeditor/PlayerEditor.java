@@ -28,15 +28,21 @@ import io.github.rypofalem.armorstandeditor.modes.CopySlots;
 import io.github.rypofalem.armorstandeditor.modes.EditMode;
 
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.UUID;
+import static jdk.nashorn.internal.objects.NativeObject.keys;
 
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.NamespacedKey;
+import org.bukkit.Sound;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.EulerAngle;
@@ -102,6 +108,18 @@ public class PlayerEditor {
 	public void editArmorStand(ArmorStand armorStand) {
 		if(!getPlayer().hasPermission("asedit.basic")) return;
 		armorStand = attemptTarget(armorStand);
+                
+                if (eMode == EditMode.LOCK) {
+                    toggleLock(armorStand);
+                    return;
+                }
+                
+                if (isLocked(armorStand)) {
+                    sendMessage("locked", null);
+                    getPlayer().playSound(getPlayer().getLocation(), Sound.BLOCK_CHEST_LOCKED, 1, 1);
+                    return;
+                }
+                
 		switch(eMode){
 			case LEFTARM: armorStand.setLeftArmPose(subEulerAngle(armorStand.getLeftArmPose()));
 				break;
@@ -160,6 +178,18 @@ public class PlayerEditor {
 	public void reverseEditArmorStand(ArmorStand armorStand){
 		if(!getPlayer().hasPermission("asedit.basic")) return;
 		armorStand = attemptTarget(armorStand);
+                
+                if (eMode == EditMode.LOCK) {
+                    toggleLock(armorStand);
+                    return;
+                }
+                
+                if (isLocked(armorStand)) {
+                    sendMessage("locked", null);
+                    getPlayer().playSound(getPlayer().getLocation(), Sound.BLOCK_CHEST_LOCKED, 1, 1);
+                    return;
+                }
+                
 		switch(eMode){
 			case LEFTARM: armorStand.setLeftArmPose(addEulerAngle(armorStand.getLeftArmPose()));
 				break;
@@ -288,6 +318,27 @@ public class PlayerEditor {
 		}
 		setAxis(Axis.values()[index]);
 	}
+
+	void toggleLock(ArmorStand armorStand){
+            NamespacedKey key = new NamespacedKey(plugin, "locked");
+            PersistentDataContainer container = armorStand.getPersistentDataContainer();
+            if (container.has(key, PersistentDataType.BYTE)) {
+                container.remove(key);
+                sendMessage("setlock", "unlocked");
+                getPlayer().playSound(getPlayer().getLocation(), Sound.BLOCK_CHEST_OPEN, 1, 1);
+            }
+            else {
+                container.set(key, PersistentDataType.BYTE, (byte)1);
+                sendMessage("setlock", "locked");
+                getPlayer().playSound(getPlayer().getLocation(), Sound.BLOCK_CHEST_CLOSE, 1, 1);
+            }
+	}
+        
+        boolean isLocked(ArmorStand armorStand) {
+                NamespacedKey key = new NamespacedKey(plugin, "locked");
+                PersistentDataContainer container = armorStand.getPersistentDataContainer();
+                return container.has(key, PersistentDataType.BYTE);
+        }
 
 	private EulerAngle addEulerAngle(EulerAngle angle) {
 		switch(axis){
