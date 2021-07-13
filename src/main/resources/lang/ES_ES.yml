@@ -64,15 +64,15 @@ help:
 
       5. Haz click derecho para revertirlos"
 helptips:
-  msg: "Tips:
+  msg: " Tips:
 
   1. Presiona F mientras mantienes la herramienta de edicion para apuntar a un soporte especifico, si hay mas soportes en el camino.
 
   2. Puede aplicar etiquetas a los soportes. Tambien puedes usar el simbolo & para darles nombres coloridos.
 
-  3. Puedes usar Shift + rueda del raton mientras usas la herramienta de edición para cambiar el eje sin abrir el menu.
+  3. Puedes usar Shift + rueda del raton mientras usas la herramienta de edición para cambiar el eje sin abrir el menu. "
 helpurl:
-  msg: "More info: https://github.com/RypoFalem/ArmorStandEditor/wiki"
+  msg: " More info: https://github.com/RypoFalem/ArmorStandEditor/wiki "
 
 #warn
 cantedit:
