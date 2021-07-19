@@ -28,20 +28,16 @@ import io.github.rypofalem.armorstandeditor.modes.CopySlots;
 import io.github.rypofalem.armorstandeditor.modes.EditMode;
 
 import java.util.ArrayList;
-import java.util.Set;
 import java.util.UUID;
-import static jdk.nashorn.internal.objects.NativeObject.keys;
 
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
-import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -109,14 +105,15 @@ public class PlayerEditor {
 		if(!getPlayer().hasPermission("asedit.basic")) return;
 		armorStand = attemptTarget(armorStand);
                 
-                if (eMode == EditMode.LOCK) {
-                    toggleLock(armorStand);
-                    return;
+                switch(eMode){
+                        case LOCK: toggleLock(armorStand);
+				return;
+                        case COPY: copy(armorStand);
+				return;
                 }
                 
-                if (isLocked(armorStand)) {
-                    sendMessage("locked", null);
-                    getPlayer().playSound(getPlayer().getLocation(), Sound.BLOCK_CHEST_LOCKED, 1, 1);
+                if (plugin.isLocked(armorStand)) {
+                    sendLockedMessage(getPlayer(), armorStand);
                     return;
                 }
                 
@@ -142,8 +139,6 @@ public class PlayerEditor {
 			case BASEPLATE: togglePlate(armorStand);
 				break;
 			case GRAVITY: toggleGravity(armorStand);
-				break;
-			case COPY: copy(armorStand);
 				break;
 			case PASTE: paste(armorStand);
 				break;
@@ -179,14 +174,15 @@ public class PlayerEditor {
 		if(!getPlayer().hasPermission("asedit.basic")) return;
 		armorStand = attemptTarget(armorStand);
                 
-                if (eMode == EditMode.LOCK) {
-                    toggleLock(armorStand);
-                    return;
+                switch(eMode){
+                        case LOCK: toggleLock(armorStand);
+				return;
+                        case COPY: copy(armorStand);
+				return;
                 }
                 
-                if (isLocked(armorStand)) {
-                    sendMessage("locked", null);
-                    getPlayer().playSound(getPlayer().getLocation(), Sound.BLOCK_CHEST_LOCKED, 1, 1);
+                if (plugin.isLocked(armorStand)) {
+                    sendLockedMessage(getPlayer(), armorStand);
                     return;
                 }
                 
@@ -320,25 +316,17 @@ public class PlayerEditor {
 	}
 
 	void toggleLock(ArmorStand armorStand){
-            NamespacedKey key = new NamespacedKey(plugin, "locked");
-            PersistentDataContainer container = armorStand.getPersistentDataContainer();
-            if (container.has(key, PersistentDataType.BYTE)) {
-                container.remove(key);
-                sendMessage("setlock", "unlocked");
-                getPlayer().playSound(getPlayer().getLocation(), Sound.BLOCK_CHEST_OPEN, 1, 1);
-            }
-            else {
-                container.set(key, PersistentDataType.BYTE, (byte)1);
-                sendMessage("setlock", "locked");
-                getPlayer().playSound(getPlayer().getLocation(), Sound.BLOCK_CHEST_CLOSE, 1, 1);
-            }
+                if (plugin.isLocked(armorStand)) {
+                    armorStand.getPersistentDataContainer().remove(plugin.getLockedKey());
+                    sendMessage("setlock", "unlocked");
+                    getPlayer().playSound(armorStand.getLocation(), Sound.BLOCK_CHEST_OPEN, 1, 1);
+                }
+                else {
+                    armorStand.getPersistentDataContainer().set(plugin.getLockedKey(), PersistentDataType.BYTE, (byte)1);
+                    sendMessage("setlock", "locked");
+                    getPlayer().playSound(armorStand.getLocation(), Sound.BLOCK_CHEST_CLOSE, 1, 1);
+                }
 	}
-        
-        boolean isLocked(ArmorStand armorStand) {
-                NamespacedKey key = new NamespacedKey(plugin, "locked");
-                PersistentDataContainer container = armorStand.getPersistentDataContainer();
-                return container.has(key, PersistentDataType.BYTE);
-        }
 
 	private EulerAngle addEulerAngle(EulerAngle angle) {
 		switch(axis){
@@ -428,6 +416,11 @@ public class PlayerEditor {
 	void sendMessage(String path, String option){
 		sendMessage(path, "info", option);
 	}
+        
+        void sendLockedMessage (Player player, ArmorStand armorStand) {
+                sendMessage("locked", null);
+                getPlayer().playSound(armorStand.getLocation(), Sound.BLOCK_CHEST_LOCKED, 1, 1);
+        }
 
 	private void highlight(ArmorStand armorStand){
 		armorStand.removePotionEffect(PotionEffectType.GLOWING);
