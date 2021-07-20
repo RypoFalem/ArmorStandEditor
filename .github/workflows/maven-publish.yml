@@ -62,5 +62,5 @@ jobs:
         uses: actions/upload-artifact@v2.1.4
         with:
           name: artifact
-          path: ${{ runner.os }}/ArmorStandEditor/ArmorStandEditor/target/armorstandeditor-*-*.jar
+          path: /home/runner/work/ArmorStandEditor/ArmorStandEditor/target/armorstandeditor-*-*.jar
           if-no-files-found: error
