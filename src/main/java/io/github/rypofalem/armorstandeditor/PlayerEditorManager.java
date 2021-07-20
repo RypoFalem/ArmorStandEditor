@@ -334,6 +334,7 @@ public class PlayerEditorManager implements Listener {
 				|| e.getAction() == Action.RIGHT_CLICK_BLOCK)) return;
 		 Player player = e.getPlayer();
 		if (!plugin.isEditTool(player.getInventory().getItemInMainHand())) return;
+		if(!player.hasPermission("asedit.basic")) return;
 		e.setCancelled(true);
 		getPlayerEditor(player.getUniqueId()).openMenu();
 	}
