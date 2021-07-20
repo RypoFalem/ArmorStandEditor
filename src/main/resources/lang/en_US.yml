@@ -12,7 +12,7 @@ warn: c
 menutitle: 8
 
 #info
-setmode: 
+setmode:
   msg: Setting mode to <x>.
   head: Head Position
   body: Body Position
@@ -32,31 +32,38 @@ setmode:
   copy: Copy
   paste: Paste
   reset: Reset Pose
-setaxis: 
+  itemframe: Toggle Itemframe Visibility
+setaxis:
   msg: Setting axis to <x>.
   x: X
   y: Y
   z: Z
-setslot: 
+setslot:
   msg: Setting copy slot to <x>.
 setadj:
   msg: Setting adjustment to <x>.
   coarse: Coarse
   fine: Fine
-setgravity: 
+setgravity:
   msg: Gravity turned <x>.
   on: on
   off: off
-nomode: 
+nomode:
   msg: Click with the edit tool away from an armorstand to select an editing mode first!
-copied: 
+copied:
   msg: ArmorStand state copied to slot <x>.
-pasted: 
+pasted:
   msg: ArmorStand state pasted from slot <x>.
+disabledslots:
+  msg: Toggled Equipment locks
 target:
   msg: ArmorStand target locked.
 notarget:
   msg: ArmorStand target unlocked.
+frametarget:
+  msg: Itemframe target locked
+noframetarget:
+  msg: Itemframe target unlocked.
 help:
   msg: "1. Hold the editing tool(<x>) in your main hand
 
@@ -81,9 +88,9 @@ helpurl:
 #warn
 cantedit:
   msg: Sorry, you cannot edit armor stands here!
-noperm: 
+noperm:
   msg: You don't have permission to use this!
-noslotnumcom: 
+noslotnumcom:
   msg: You must specify a slot number!
 noadjcom:
   msg: You must specify Coarse or Fine adjustment!
@@ -101,93 +108,93 @@ equiptitle:
 #icons
 xaxis:
   msg: X Axis
-  description: 
+  description:
     msg: Rotate body parts along the X Axis
-yaxis: 
+yaxis:
   msg: Y Axis
-  description: 
+  description:
     msg: Rotate body parts along the Y Axis
-zaxis: 
+zaxis:
   msg: Z Axis
-  description: 
+  description:
     msg: Rotate body parts along the Z Axis
-coarseadj: 
+coarseadj:
   msg: Coarse Adjustment
-  description: 
+  description:
     msg: Make large adjustments
-fineadj: 
+fineadj:
   msg: Fine Adjustment
-  description: 
+  description:
     msg: Make tiny adjustments
-head: 
+head:
   msg: Head Position
-  description: 
+  description:
     msg: Rotate the head
-body: 
+body:
   msg: Body Position
-  description: 
+  description:
     msg: Rotate the body
-leftleg: 
+leftleg:
   msg: Left Leg Position
-  description: 
+  description:
     msg: Rotate the left leg
-rightleg: 
+rightleg:
   msg: Right Leg Position
-  description: 
+  description:
     msg: Rotate the right leg
-leftarm: 
+leftarm:
   msg: Left Arm Position
-  description: 
+  description:
     msg: Rotate the left arm
-rightarm: 
+rightarm:
   msg: Right Arm Position
-  description: 
+  description:
     msg: Rotate the right arm
-equipment: 
+equipment:
   msg: Equipment
-  description: 
+  description:
     msg: Edit equipment
-showarms: 
+showarms:
   msg: Show Arms
-  description: 
+  description:
     msg: Turn arms on and off
-invisible: 
+invisible:
   msg: Visibility
-  description: 
+  description:
     msg: Make it visibile or invisible
-size: 
+size:
   msg: Size
-  description: 
+  description:
     msg: Make it big or small
-disableslots: 
+disableslots:
   msg: Disable Slots
-  description: 
+  description:
     msg: Enable and disable equipment lock
-gravity: 
+gravity:
   msg: Gravity
-  description: 
+  description:
     msg: Turn gravity on or off
-baseplate: 
+baseplate:
   msg: BasePlate
-  description: 
+  description:
     msg: Turn baseplate on or off
-placement: 
+placement:
   msg: Placement
-  description: 
+  description:
     msg: Move the entire armorstand
-rotate: 
+rotate:
   msg: Rotate
   description:
     msg: Rotate the entire armorstand
-copy: 
+copy:
   msg: Copy
   description:
     msg: Copy the armorstand's settings
-paste: 
+paste:
   msg: Paste
-  description:  
+  description:
     msg: Paste the armorstand's settings
-copyslot: 
+copyslot:
   msg: Copy Slot <x>
   description:
     msg: Select a slot to store settings
@@ -199,13 +206,17 @@ helpgui:
   msg: Help!
   description:
     msg: Click here to get help!
+itemframevisible:
+  msg: Itemframe Visibility
+  description:
+    msg: Toggles an itemframes visibility
 
 #icons (equipment menu)
-disabled: 
+disabled:
   msg: Disabled
-equipslot: 
+equipslot:
   msg: <x> Slot
-  description: 
+  description:
     msg: Drag your <x> into the slot below
     helm: Helmet
     chest: Chestplate
@@ -219,3 +230,4 @@ equipslot:
   boots: Feetsies
   rhand: Right Hand
   lhand: Left Hand
+  {"mode":"full","isActive":false}

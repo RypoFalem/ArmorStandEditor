@@ -31,11 +31,11 @@ import org.bukkit.entity.Player;
 
 public class CommandEx implements CommandExecutor {
 	ArmorStandEditorPlugin plugin;
-	final String LISTMODE = ChatColor.GREEN + "/ase mode <" + Util.getEnumList(EditMode.class) + ">";
-	final String LISTAXIS = ChatColor.GREEN + "/ase axis <" + Util.getEnumList(Axis.class) + ">";
-	final String LISTADJUSTMENT = ChatColor.GREEN + "/ase adj <" + Util.getEnumList(AdjustmentMode.class) + ">";
-	final String LISTSLOT = ChatColor.GREEN + "/ase slot <1-9>";
-	final String HELP = ChatColor.GREEN + "/ase help";
+	final String LISTMODE = ChatColor.YELLOW + "/ase mode <" + Util.getEnumList(EditMode.class) + ">";
+	final String LISTAXIS = ChatColor.YELLOW + "/ase axis <" + Util.getEnumList(Axis.class) + ">";
+	final String LISTADJUSTMENT = ChatColor.YELLOW + "/ase adj <" + Util.getEnumList(AdjustmentMode.class) + ">";
+	final String LISTSLOT = ChatColor.YELLOW + "/ase slot <1-9>";
+	final String HELP = ChatColor.YELLOW + "/ase help";
 
 	public CommandEx( ArmorStandEditorPlugin armorStandEditorPlugin) {
 		this.plugin = armorStandEditorPlugin;
