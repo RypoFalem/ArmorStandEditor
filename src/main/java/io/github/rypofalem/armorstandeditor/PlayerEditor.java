@@ -154,7 +154,7 @@ public class PlayerEditor {
 		itemFrame = (ItemFrame) attemptTarget((ArmorStand) itemFrame);
 		switch (eMode) {
 			case ITEMFRAME:
-				toggleVisible((ArmorStand) itemFrame);
+				itemFrame.setVisible(false); //FIX for java.lang.ClassCastException: class org.bukkit.craftbukkit.v1_17_R1.entity.CraftGlowItemFrame cannot be cast to class org.bukkit.entity.ArmorStand
 				break;
 			case RESET:
 				itemFrame.setVisible(true);
