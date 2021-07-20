@@ -26,3 +26,7 @@ jobs:
 
     - name: Build and test project with Maven
       run: mvn -B package --file pom.xml
+      
+    - name: action-maven-publish
+      uses: samuelmeuli/action-maven-publish@v1.4.0
+
