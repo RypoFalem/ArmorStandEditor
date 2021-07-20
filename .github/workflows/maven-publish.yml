@@ -50,6 +50,9 @@ jobs:
       - name: Build via Maven
         run: mvn verify -B --file pom.xml
 
+      - name: Clean package
+        run: mvn clean package
+
       #5 Upload Artifacts
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.1.4
