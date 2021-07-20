@@ -27,6 +27,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.io.File;
 
@@ -46,6 +48,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	boolean debug = false; //weather or not to broadcast messages via print(String message)
 	double coarseRot;
 	double fineRot;
+        private NamespacedKey lockedKey;
 
 	public ArmorStandEditorPlugin(){
 		instance = this;
@@ -146,11 +149,21 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		}
 		return true;
 	}
+        
+        public boolean isLocked(ArmorStand armorStand) {
+            return armorStand.getPersistentDataContainer().has(this.getLockedKey(), PersistentDataType.BYTE);
+        }
 
 	public NamespacedKey getIconKey() {
 		if(iconKey == null) iconKey = new NamespacedKey(this, "command_icon");
 		return iconKey;
 	}
+        
+        public NamespacedKey getLockedKey() {
+                if (lockedKey == null) lockedKey = new NamespacedKey(this, "locked");
+                return lockedKey;
+        }
+        
 }
 //todo: 
 //Access to "DisabledSlots" data (probably simplified just a toggle enable/disable)

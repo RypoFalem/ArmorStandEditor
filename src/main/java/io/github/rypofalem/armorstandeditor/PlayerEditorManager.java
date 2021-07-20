@@ -106,7 +106,18 @@ public class PlayerEditorManager implements Listener{
 			} else {
 				name = null;
 			}
-
+                        
+                        if (plugin.isLocked(as)) {
+                            event.setCancelled(true);
+                            String asName = as.getCustomName();
+                            boolean asNameVisible = as.isCustomNameVisible();
+                            Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                            as.setCustomName(asName);
+                            as.setCustomNameVisible(asNameVisible);
+                            }, 1);
+                            return;
+                        }
+                        
 			if(name == null){
 				as.setCustomName(null);
 				as.setCustomNameVisible(false);
