@@ -36,6 +36,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -150,17 +151,19 @@ public class PlayerEditor {
 	}
 
 	public void editItemFrame(ItemFrame itemFrame) {
-		if (!getPlayer().hasPermission("asedit.basic")) return;
-		itemFrame = (ItemFrame) attemptTarget((ArmorStand) itemFrame);
+		if(!getPlayer().hasPermission("asedit.basic")) return;
 		switch (eMode) {
 			case ITEMFRAME:
-				itemFrame.setVisible(false); //FIX for java.lang.ClassCastException: class org.bukkit.craftbukkit.v1_17_R1.entity.CraftGlowItemFrame cannot be cast to class org.bukkit.entity.ArmorStand
+				itemFrame.setVisible(false);
 				break;
 			case RESET:
 				itemFrame.setVisible(true);
 			case NONE:
 				sendMessage("nomode", null);
 				break;
+		}
+
+
 		}
 	}
 
