@@ -36,6 +36,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -54,7 +55,12 @@ public class PlayerEditor {
 	Menu chestMenu;
 	ArmorStand target;
 	ArrayList<ArmorStand> targetList = null;
+
+	//NEW: ItemFrame Stuff
+	ItemFrame frameTarget;
+	ArrayList<ItemFrame> frameTargetList = null;
 	int targetIndex = 0;
+	int frameTargetIndex = 0;
 	EquipmentMenu equipMenu;
 	long lastCancelled = 0;
 
@@ -140,6 +146,21 @@ public class PlayerEditor {
 			case RESET: resetPosition(armorStand);
 				break;
 			case NONE: sendMessage("nomode", null); break;
+		}
+	}
+
+	public void editItemFrame(ItemFrame itemFrame) {
+		if (!getPlayer().hasPermission("asedit.basic")) return;
+		itemFrame = (ItemFrame) attemptTarget((ArmorStand) itemFrame);
+		switch (eMode) {
+			case ITEMFRAME:
+				toggleVisible((ArmorStand) itemFrame);
+				break;
+			case RESET:
+				itemFrame.setVisible(true);
+			case NONE:
+				sendMessage("nomode", null);
+				break;
 		}
 	}
 
@@ -347,6 +368,37 @@ public class PlayerEditor {
 		target = targetList.get(targetIndex);
 		highlight(target);
 	}
+
+	public void setFrameTarget(final ArrayList<ItemFrame> itemFrames) {
+		if (itemFrames == null || itemFrames.isEmpty()) {
+			frameTarget = null;
+			frameTargetList = null;
+			sendMessage("noframetarget", null);
+			return;
+		}
+
+		if (frameTargetList == null) {
+			frameTargetList = itemFrames;
+			frameTargetIndex = 0;
+			sendMessage("target", null);
+		} else {
+			boolean same = frameTargetList.size() == itemFrames.size();
+			if (same) for (final ItemFrame itemf : itemFrames) {
+				same = frameTargetList.contains(itemf);
+				if (!same) break;
+			}
+
+			if (same) {
+				frameTargetIndex = ++frameTargetIndex % frameTargetList.size();
+			} else {
+				frameTargetList = itemFrames;
+				frameTargetIndex = 0;
+				sendMessage("frametarget", null);
+			}
+			frameTarget = frameTargetList.get(frameTargetIndex);
+		}
+	}
+
 
 	ArmorStand attemptTarget(ArmorStand armorStand){
 		if(target == null

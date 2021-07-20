@@ -40,11 +40,13 @@ public class ArmorStandData {
 		this.gravity = as.hasGravity();
 		this.showArms = as.hasArms();
 		this.visible = as.isVisible();
-		this.head = as.getHelmet();
-		this.body = as.getChestplate();
-		this.legs = as.getLeggings();
-		this.feetsies = as.getBoots();
-		this.rightHand = as.getItemInHand();
+
+		//Fix for Depreciate Armor Stand STuff
+		this.head = as.getEquipment().getHelmet();
+		this.body = as.getEquipment().getChestplate();
+		this.legs = as.getEquipment().getLeggings();
+		this.feetsies = as.getEquipment().getBoots();
+		this.rightHand = as.getEquipment().getItemInMainHand();
 		this.leftHand = as.getEquipment().getItemInOffHand();
 	}
 }

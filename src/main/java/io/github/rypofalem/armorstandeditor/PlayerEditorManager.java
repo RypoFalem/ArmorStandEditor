@@ -21,9 +21,8 @@ package io.github.rypofalem.armorstandeditor;
 
 import io.github.rypofalem.armorstandeditor.menu.ASEHolder;
 import org.bukkit.*;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
+import org.bukkit.block.BlockFace;
+import org.bukkit.entity.*;
 import org.bukkit.event.*;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -41,20 +40,20 @@ import java.util.List;
 import java.util.UUID;
 
 //Manages PlayerEditors and Player Events related to editing armorstands
-public class PlayerEditorManager implements Listener{
-	private ArmorStandEditorPlugin plugin;
-	private HashMap<UUID, PlayerEditor> players;
-	private ASEHolder menuHolder = new ASEHolder(); //Inventory holder that owns the main ase menu inventories for the plugin
-	private ASEHolder equipmentHolder = new ASEHolder(); //Inventory holder that owns the equipment menu
+public class PlayerEditorManager implements Listener {
+	private  ArmorStandEditorPlugin plugin;
+	private  HashMap<UUID, PlayerEditor> players;
+	private  ASEHolder menuHolder = new ASEHolder(); //Inventory holder that owns the main ase menu inventories for the plugin
+	private  ASEHolder equipmentHolder = new ASEHolder(); //Inventory holder that owns the equipment menu
 	double coarseAdj;
 	double fineAdj;
 	double coarseMov;
 	double fineMov;
 	private boolean ignoreNextInteract = false;
-	private TickCounter counter;
+	private  TickCounter counter;
 
 
-	PlayerEditorManager(ArmorStandEditorPlugin plugin){
+	PlayerEditorManager( ArmorStandEditorPlugin plugin) {
 		this.plugin = plugin;
 		players = new HashMap<>();
 		coarseAdj = Util.FULLCIRCLE / plugin.coarseRot;
@@ -65,130 +64,216 @@ public class PlayerEditorManager implements Listener{
 		Bukkit.getServer().getScheduler().runTaskTimer(plugin, counter, 0, 1);
 	}
 
-	@EventHandler (priority = EventPriority.LOWEST, ignoreCancelled=false)
-	void onArmorStandDamage(EntityDamageByEntityEvent event){
-		if(!(event.getDamager() instanceof Player))return;
-		Player player = (Player) event.getDamager();
-		if(!plugin.isEditTool(player.getInventory().getItemInMainHand())) return;
-		if(!(event.getEntity() instanceof ArmorStand)){
+	@EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = false)
+	void onArmorStandDamage( EntityDamageByEntityEvent event) {
+		if (!(event.getDamager() instanceof Player)) return;
+		 Player player = (Player) event.getDamager();
+		if (!plugin.isEditTool(player.getInventory().getItemInMainHand())) return;
+		if (!((event.getEntity() instanceof ArmorStand) || event.getEntity() instanceof ItemFrame)) {
 			event.setCancelled(true);
 			getPlayerEditor(player.getUniqueId()).openMenu();
 			return;
 		}
-		ArmorStand as = (ArmorStand)event.getEntity();
-		getPlayerEditor(player.getUniqueId()).cancelOpenMenu();
-		event.setCancelled(true);
-		if(canEdit(player, as)) applyLeftTool(player, as);
-	}
-
-	@EventHandler (priority = EventPriority.LOWEST, ignoreCancelled=false)
-	void onArmorStandInteract(PlayerInteractAtEntityEvent event){
-		if(ignoreNextInteract) return;
-		if(event.getHand() != EquipmentSlot.HAND) return;
-		Player player =  event.getPlayer();
-		if(!(event.getRightClicked() instanceof ArmorStand)) return;
-		final ArmorStand as = (ArmorStand)event.getRightClicked();
-
-		if(!canEdit(player, as)) return;
-		if(plugin.isEditTool(player.getInventory().getItemInMainHand())){
+		if (event.getEntity() instanceof ArmorStand) {
+			 ArmorStand as = (ArmorStand) event.getEntity();
 			getPlayerEditor(player.getUniqueId()).cancelOpenMenu();
 			event.setCancelled(true);
-			applyRightTool(player, as);
-			return;
+			if (canEdit(player, as)) applyLeftTool(player, as);
+		} else if (event.getEntity() instanceof ItemFrame) {
+			 ItemFrame itemf = (ItemFrame) event.getEntity();
+			getPlayerEditor(player.getUniqueId()).cancelOpenMenu();
+			event.setCancelled(true);
+			if (canEdit(player, itemf)) applyLeftTool(player, itemf);
 		}
+	}
 
-		//Attempt rename
-		if(player.getInventory().getItemInMainHand().getType() == Material.NAME_TAG && player.hasPermission("asedit.rename")){
-			ItemStack nameTag = player.getInventory().getItemInMainHand();
-			final String name;
-			if(nameTag.getItemMeta() != null && nameTag.getItemMeta().hasDisplayName()){
-				name = nameTag.getItemMeta().getDisplayName().replace('&', ChatColor.COLOR_CHAR);
-			} else {
-				name = null;
+	@EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = false)
+	void onArmorStandInteract( PlayerInteractAtEntityEvent event) {
+		if (ignoreNextInteract) return;
+		if (event.getHand() != EquipmentSlot.HAND) return;
+		 Player player = event.getPlayer();
+		if (!((event.getRightClicked() instanceof ArmorStand) || event.getRightClicked() instanceof ItemFrame)) return;
+
+		if (event.getRightClicked() instanceof ArmorStand) {
+			 ArmorStand as = (ArmorStand) event.getRightClicked();
+
+			if (!canEdit(player, as)) return;
+			if (plugin.isEditTool(player.getInventory().getItemInMainHand())) {
+				getPlayerEditor(player.getUniqueId()).cancelOpenMenu();
+				event.setCancelled(true);
+				applyRightTool(player, as);
+				return;
 			}
 
-			if(name == null){
-				as.setCustomName(null);
-				as.setCustomNameVisible(false);
-				event.setCancelled(true);
-			} else if(!name.equals("")){ // nametag is not blank
-				event.setCancelled(true);
 
-				if((player.getGameMode() != GameMode.CREATIVE)){
-					if(nameTag.getAmount() > 1){
-						nameTag.setAmount(nameTag.getAmount() - 1);
-					}else{
-						nameTag = new ItemStack(Material.AIR);
-					}
-					player.getInventory().setItemInMainHand(nameTag);
+			//Attempt rename
+			if (player.getInventory().getItemInMainHand().getType() == Material.NAME_TAG && player.hasPermission("asedit.rename")) {
+				ItemStack nameTag = player.getInventory().getItemInMainHand();
+				 String name;
+				if (nameTag.getItemMeta() != null && nameTag.getItemMeta().hasDisplayName()) {
+					name = nameTag.getItemMeta().getDisplayName().replace('&', ChatColor.COLOR_CHAR);
+				} else {
+					name = null;
 				}
 
-				//minecraft will set the name after this event even if the event is cancelled.
-				//change it 1 tick later to apply formatting without it being overwritten
-				Bukkit.getScheduler().runTaskLater(plugin, () -> {
-                    as.setCustomName(name);
-                    as.setCustomNameVisible(true);
-                }, 1);
+				if (name == null) {
+					as.setCustomName(null);
+					as.setCustomNameVisible(false);
+					event.setCancelled(true);
+				} else if (!name.equals("")) { // nametag is not blank
+					event.setCancelled(true);
+
+					if ((player.getGameMode() != GameMode.CREATIVE)) {
+						if (nameTag.getAmount() > 1) {
+							nameTag.setAmount(nameTag.getAmount() - 1);
+						} else {
+							nameTag = new ItemStack(Material.AIR);
+						}
+						player.getInventory().setItemInMainHand(nameTag);
+					}
+
+					//minecraft will set the name after this event even if the event is cancelled.
+					//change it 1 tick later to apply formatting without it being overwritten
+					Bukkit.getScheduler().runTaskLater(plugin, () -> {
+						as.setCustomName(name);
+						as.setCustomNameVisible(true);
+					}, 1);
+				}
+			}
+		} else if (event.getRightClicked() instanceof ItemFrame) {
+			 ItemFrame itemFrame = (ItemFrame) event.getRightClicked();
+
+			if (!canEdit(player, itemFrame)) return;
+			if (plugin.isEditTool(player.getInventory().getItemInMainHand())) {
+				getPlayerEditor(player.getUniqueId()).cancelOpenMenu();
+				if (!itemFrame.getItem().getType().equals(Material.AIR)) {
+					event.setCancelled(true);
+				}
+				applyRightTool(player, itemFrame);
+				return;
+			}
+
+			if (player.getInventory().getItemInMainHand().getType().equals(Material.GLOW_INK_SAC) //attempt glowing
+					&& player.hasPermission("asedit.itemframeglow")
+					&& plugin.glowItemFrames && player.isSneaking()) {
+				ItemStack glowSacs = player.getInventory().getItemInMainHand();
+				ItemStack contents = null;
+				Rotation rotation = null;
+				if (itemFrame.getItem().getType() != Material.AIR) {
+					contents = itemFrame.getItem(); //save item
+					rotation = itemFrame.getRotation(); // save item rotation
+				}
+				 Location itemFrameLocation = itemFrame.getLocation();
+				 BlockFace facing = itemFrame.getFacing();
+
+				if (player.getGameMode() != GameMode.CREATIVE) {
+					if (glowSacs.getAmount() > 1) {
+						glowSacs.setAmount(glowSacs.getAmount() - 1);
+					} else glowSacs = new ItemStack(Material.AIR);
+				}
+
+				itemFrame.remove();
+				 GlowItemFrame glowFrame = (GlowItemFrame) player.getWorld().spawnEntity(itemFrameLocation, EntityType.GLOW_ITEM_FRAME);
+				glowFrame.setFacingDirection(facing);
+				if (contents != null) {
+					glowFrame.setItem(contents);
+					glowFrame.setRotation(rotation);
+				}
+
 			}
 		}
 	}
 
-	@EventHandler (priority = EventPriority.LOW, ignoreCancelled=true)
-	public void onSwitchHands(PlayerSwapHandItemsEvent event){
-		if(!plugin.isEditTool(event.getOffHandItem())) return; //event assumes they are already switched
+	@EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
+	public void onSwitchHands( PlayerSwapHandItemsEvent event) {
+		if (!plugin.isEditTool(event.getOffHandItem())) return; //event assumes they are already switched
 		event.setCancelled(true);
-		Player player = event.getPlayer();
+		 Player player = event.getPlayer();
 		getPlayerEditor(event.getPlayer().getUniqueId()).setTarget(getTargets(player));
+		getPlayerEditor(event.getPlayer().getUniqueId()).setFrameTarget(getFrameTargets(player));
 	}
 
-	private ArrayList<ArmorStand> getTargets(Player player){
-		Location eyeLaser = player.getEyeLocation();
-		Vector direction = player.getLocation().getDirection();
-		ArrayList<ArmorStand> armorStands = new ArrayList<>();
+	private ArrayList<ArmorStand> getTargets( Player player) {
+		 Location eyeLaser = player.getEyeLocation();
+		 Vector direction = player.getLocation().getDirection();
+		 ArrayList<ArmorStand> armorStands = new ArrayList<>();
 
-		final double STEPSIZE = .5;
-		final Vector STEP = direction.multiply(STEPSIZE);
-		final double RANGE = 10;
-		final double LASERRADIUS = .3;
-		List<Entity> nearbyEntities = player.getNearbyEntities(RANGE, RANGE, RANGE);
-		if(nearbyEntities.isEmpty()) return null;
+		 double STEPSIZE = .5;
+		 Vector STEP = direction.multiply(STEPSIZE);
+		 double RANGE = 10;
+		 double LASERRADIUS = .3;
+		 List<Entity> nearbyEntities = player.getNearbyEntities(RANGE, RANGE, RANGE);
+		if (nearbyEntities.isEmpty()) return null;
 
-		for(double i = 0; i<RANGE; i+= STEPSIZE){
-			List<Entity> nearby = (List<Entity>) player.getWorld().getNearbyEntities(eyeLaser, LASERRADIUS, LASERRADIUS, LASERRADIUS);
-			if(!nearby.isEmpty()){
+		for (double i = 0; i < RANGE; i += STEPSIZE) {
+			 List<Entity> nearby = (List<Entity>) player.getWorld().getNearbyEntities(eyeLaser, LASERRADIUS, LASERRADIUS, LASERRADIUS);
+			if (!nearby.isEmpty()) {
 				boolean endLaser = false;
-				for(Entity e : nearby){
-					if(e instanceof ArmorStand){
-						if(canEdit(player, (ArmorStand)e)){
-							armorStands.add((ArmorStand)e);
+				for ( Entity e : nearby) {
+					if (e instanceof ArmorStand) {
+						if (canEdit(player, (ArmorStand) e)) {
+							armorStands.add((ArmorStand) e);
 							endLaser = true;
 						}
 					}
 				}
-				if(endLaser) break;
+				if (endLaser) break;
 			}
-			if(eyeLaser.getBlock().getType().isSolid()) break;
+			if (eyeLaser.getBlock().getType().isSolid()) break;
 			eyeLaser.add(STEP);
 		}
 		return armorStands;
 	}
 
-	boolean canEdit(Player player, ArmorStand as){
+	private ArrayList<ItemFrame> getFrameTargets( Player player) {
+		 Location eyeLaser = player.getEyeLocation();
+		 Vector direction = player.getLocation().getDirection();
+		 ArrayList<ItemFrame> itemFrames = new ArrayList<>();
+
+		 double STEPSIZE = .5;
+		 Vector STEP = direction.multiply(STEPSIZE);
+		 double RANGE = 10;
+		 double LASERRADIUS = .3;
+		 List<Entity> nearbyEntities = player.getNearbyEntities(RANGE, RANGE, RANGE);
+		if (nearbyEntities.isEmpty()) return null;
+
+		for (double i = 0; i < RANGE; i += STEPSIZE) {
+			 List<Entity> nearby = (List<Entity>) player.getWorld().getNearbyEntities(eyeLaser, LASERRADIUS, LASERRADIUS, LASERRADIUS);
+			if (!nearby.isEmpty()) {
+				boolean endLaser = false;
+				for ( Entity e : nearby) {
+					if (e instanceof ItemFrame) {
+						if (canEdit(player, (ItemFrame) e)) {
+							itemFrames.add((ItemFrame) e);
+							endLaser = true;
+						}
+					}
+				}
+				if (endLaser) break;
+			}
+			if (eyeLaser.getBlock().getType().isSolid()) break;
+			eyeLaser.add(STEP);
+		}
+
+		return itemFrames;
+	}
+
+	boolean canEdit( Player player,  ArmorStand as) {
 		ignoreNextInteract = true;
-		ArrayList<Event> events = new ArrayList<>();
+		 ArrayList<Event> events = new ArrayList<>();
 		events.add(new PlayerInteractEntityEvent(player, as, EquipmentSlot.HAND));
 		events.add(new PlayerInteractAtEntityEvent(player, as, as.getLocation().toVector(), EquipmentSlot.HAND));
 		//events.add(new PlayerArmorStandManipulateEvent(player, as, player.getEquipment().getItemInMainHand(), as.getItemInHand(), EquipmentSlot.HAND));
-		for(Event event : events){
-			if(!(event instanceof Cancellable)) continue;
-			try{
+		for ( Event event : events) {
+			if (!(event instanceof Cancellable)) continue;
+			try {
 				plugin.getServer().getPluginManager().callEvent(event);
-			} catch(IllegalStateException ise){
+			} catch ( IllegalStateException ise) {
 				ise.printStackTrace();
 				ignoreNextInteract = false;
 				return false; //Something went wrong, don't allow edit just in case
 			}
-			if(((Cancellable)event).isCancelled()){
+			if (((Cancellable) event).isCancelled()) {
 				ignoreNextInteract = false;
 				return false;
 			}
@@ -197,94 +282,128 @@ public class PlayerEditorManager implements Listener{
 		return true;
 	}
 
-	void applyLeftTool(Player player, ArmorStand as){
+	boolean canEdit( Player player,  ItemFrame itemf) {
+		ignoreNextInteract = true;
+		 ArrayList<Event> events = new ArrayList<>();
+		events.add(new PlayerInteractEntityEvent(player, itemf, EquipmentSlot.HAND));
+		events.add(new PlayerInteractAtEntityEvent(player, itemf, itemf.getLocation().toVector(), EquipmentSlot.HAND));
+		//events.add(new PlayerArmorStandManipulateEvent(player, as, player.getEquipment().getItemInMainHand(), as.getItemInHand(), EquipmentSlot.HAND));
+		for ( Event event : events) {
+			if (!(event instanceof Cancellable)) continue;
+			try {
+				plugin.getServer().getPluginManager().callEvent(event);
+			} catch ( IllegalStateException ise) {
+				ise.printStackTrace();
+				ignoreNextInteract = false;
+				return false; //Something went wrong, don't allow edit just in case
+			}
+			if (((Cancellable) event).isCancelled()) {
+				ignoreNextInteract = false;
+				return false;
+			}
+		}
+		ignoreNextInteract = false;
+		return true;
+	}
+
+	void applyLeftTool( Player player,  ArmorStand as) {
 		getPlayerEditor(player.getUniqueId()).cancelOpenMenu();
 		getPlayerEditor(player.getUniqueId()).editArmorStand(as);
 	}
 
-	void applyRightTool(Player player, ArmorStand as){
+	void applyLeftTool( Player player,  ItemFrame itemf) {
+		getPlayerEditor(player.getUniqueId()).cancelOpenMenu();
+		getPlayerEditor(player.getUniqueId()).editItemFrame(itemf);
+	}
+
+	void applyRightTool( Player player,  ItemFrame itemf) {
+		getPlayerEditor(player.getUniqueId()).cancelOpenMenu();
+		getPlayerEditor(player.getUniqueId()).editItemFrame(itemf);
+	}
+
+	void applyRightTool( Player player,  ArmorStand as) {
 		getPlayerEditor(player.getUniqueId()).cancelOpenMenu();
 		getPlayerEditor(player.getUniqueId()).reverseEditArmorStand(as);
 	}
 
-	@EventHandler (priority = EventPriority.LOWEST, ignoreCancelled=false)
-	void onRightClickTool(PlayerInteractEvent e){
-		if( !(e.getAction() == Action.LEFT_CLICK_AIR
+	@EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = false)
+	void onRightClickTool( PlayerInteractEvent e) {
+		if (!(e.getAction() == Action.LEFT_CLICK_AIR
 				|| e.getAction() == Action.RIGHT_CLICK_AIR
 				|| e.getAction() == Action.LEFT_CLICK_BLOCK
 				|| e.getAction() == Action.RIGHT_CLICK_BLOCK)) return;
-		Player player = e.getPlayer();
-		if(!plugin.isEditTool(player.getInventory().getItemInMainHand())) return;
+		 Player player = e.getPlayer();
+		if (!plugin.isEditTool(player.getInventory().getItemInMainHand())) return;
 		e.setCancelled(true);
 		getPlayerEditor(player.getUniqueId()).openMenu();
 	}
 
-	@EventHandler (priority = EventPriority.NORMAL, ignoreCancelled=true)
-	void onScrollNCrouch(PlayerItemHeldEvent e){
-		Player player = e.getPlayer();
-		if(!player.isSneaking()) return;
-		if(!plugin.isEditTool(player.getInventory().getItem(e.getPreviousSlot()))) return;
+	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
+	void onScrollNCrouch( PlayerItemHeldEvent e) {
+		 Player player = e.getPlayer();
+		if (!player.isSneaking()) return;
+		if (!plugin.isEditTool(player.getInventory().getItem(e.getPreviousSlot()))) return;
 
 		e.setCancelled(true);
-		if(e.getNewSlot() == e.getPreviousSlot() +1 || (e.getNewSlot() == 0 && e.getPreviousSlot() == 8)){
+		if (e.getNewSlot() == e.getPreviousSlot() + 1 || (e.getNewSlot() == 0 && e.getPreviousSlot() == 8)) {
 			getPlayerEditor(player.getUniqueId()).cycleAxis(1);
-		}else if(e.getNewSlot() == e.getPreviousSlot() - 1 || (e.getNewSlot() == 8 && e.getPreviousSlot() == 0)){
+		} else if (e.getNewSlot() == e.getPreviousSlot() - 1 || (e.getNewSlot() == 8 && e.getPreviousSlot() == 0)) {
 			getPlayerEditor(player.getUniqueId()).cycleAxis(-1);
 		}
 	}
 
-	@EventHandler (priority = EventPriority.LOWEST, ignoreCancelled=false)
-	void onPlayerMenuSelect(InventoryClickEvent e){
-		if(e.getInventory().getHolder() == null) return;
-		if(!(e.getInventory().getHolder() instanceof ASEHolder)) return;
-		if(e.getInventory().getHolder() == menuHolder){
+	@EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = false)
+	void onPlayerMenuSelect( InventoryClickEvent e) {
+		if (e.getInventory().getHolder() == null) return;
+		if (!(e.getInventory().getHolder() instanceof ASEHolder)) return;
+		if (e.getInventory().getHolder() == menuHolder) {
 			e.setCancelled(true);
-			ItemStack item = e.getCurrentItem();
-			if(item!= null && item.hasItemMeta()){
-				Player player = (Player) e.getWhoClicked();
-				String command = item.getItemMeta().getPersistentDataContainer().get(plugin.getIconKey(), PersistentDataType.STRING);
-				if(command != null){
+			 ItemStack item = e.getCurrentItem();
+			if (item != null && item.hasItemMeta()) {
+				 Player player = (Player) e.getWhoClicked();
+				 String command = item.getItemMeta().getPersistentDataContainer().get(plugin.getIconKey(), PersistentDataType.STRING);
+				if (command != null) {
 					player.performCommand(command);
 					return;
 				}
 			}
 		}
-		if(e.getInventory().getHolder() == equipmentHolder){
-			ItemStack item = e.getCurrentItem();
-			if(item == null) return;
-			if(item.getItemMeta() == null ) return;
-			if(item.getItemMeta().getPersistentDataContainer().has(plugin.getIconKey(), PersistentDataType.STRING)){
+		if (e.getInventory().getHolder() == equipmentHolder) {
+			 ItemStack item = e.getCurrentItem();
+			if (item == null) return;
+			if (item.getItemMeta() == null) return;
+			if (item.getItemMeta().getPersistentDataContainer().has(plugin.getIconKey(), PersistentDataType.STRING)) {
 				e.setCancelled(true);
 			}
 		}
 	}
 
-	@EventHandler (priority = EventPriority.MONITOR, ignoreCancelled=true)
-	void onPlayerMenuClose(InventoryCloseEvent e){
-		if(e.getInventory().getHolder() == null) return;
-		if(!(e.getInventory().getHolder() instanceof ASEHolder)) return;
-		if(e.getInventory().getHolder() == equipmentHolder){
-			PlayerEditor pe = players.get(e.getPlayer().getUniqueId());
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	void onPlayerMenuClose( InventoryCloseEvent e) {
+		if (e.getInventory().getHolder() == null) return;
+		if (!(e.getInventory().getHolder() instanceof ASEHolder)) return;
+		if (e.getInventory().getHolder() == equipmentHolder) {
+			 PlayerEditor pe = players.get(e.getPlayer().getUniqueId());
 			pe.equipMenu.equipArmorstand();
 		}
 	}
 
-	@EventHandler (priority = EventPriority.MONITOR)
-	void onPlayerLogOut(PlayerQuitEvent e){
+	@EventHandler(priority = EventPriority.MONITOR)
+	void onPlayerLogOut( PlayerQuitEvent e) {
 		removePlayerEditor(e.getPlayer().getUniqueId());
 	}
 
-	public PlayerEditor getPlayerEditor(UUID uuid){
+	public PlayerEditor getPlayerEditor( UUID uuid) {
 		return players.containsKey(uuid) ? players.get(uuid) : addPlayerEditor(uuid);
 	}
 
-	PlayerEditor addPlayerEditor(UUID uuid){
-		PlayerEditor pe = new PlayerEditor(uuid, plugin);
+	PlayerEditor addPlayerEditor( UUID uuid) {
+		 PlayerEditor pe = new PlayerEditor(uuid, plugin);
 		players.put(uuid, pe);
 		return pe;
 	}
 
-	private void removePlayerEditor(UUID uuid){
+	private void removePlayerEditor( UUID uuid) {
 		players.remove(uuid);
 	}
 

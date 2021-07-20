@@ -25,10 +25,12 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.List;
 
 public class ArmorStandEditorPlugin extends JavaPlugin{
 	private NamespacedKey iconKey;
@@ -46,6 +48,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	boolean debug = false; //weather or not to broadcast messages via print(String message)
 	double coarseRot;
 	double fineRot;
+	public boolean glowItemFrames;
 
 	public ArmorStandEditorPlugin(){
 		instance = this;
@@ -77,6 +80,9 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		if(requireToolLore) editToolLore= getConfig().getString("toolLore", null);
 		debug = getConfig().getBoolean("debug", true);
 		sendToActionBar = getConfig().getBoolean("sendMessagesToActionBar", true);
+
+		//NEW: Glowing Item Frame Support
+		glowItemFrames = getConfig().getBoolean("glowingItemFrame", true);
 
 		editorManager = new PlayerEditorManager(this);
 		execute = new CommandEx(this);
@@ -115,17 +121,6 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		}
 	}
 
-	public String listPlugins(){
-		Plugin[] plugins = getServer().getPluginManager().getPlugins();
-		StringBuilder list = new StringBuilder();
-		for(Plugin p : plugins){
-			if(p!=null){
-				list.append(" :").append(p.getName()).append(" ").append(p.getDescription().getVersion()).append(": ");
-			}
-		}
-		return list.toString();
-	}
-
 	public static ArmorStandEditorPlugin instance(){
 		return instance;
 	}
@@ -133,19 +128,41 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	public Language getLang(){
 		return lang;
 	}
-	
-	public boolean isEditTool(ItemStack item){
-		if(item == null) return false;
-		if(editTool != item.getType()) return false;
-		if(requireToolData && item.getDurability() != (short)editToolData) return false;
-		if(requireToolLore && editToolLore != null){
-			if(!item.hasItemMeta()) return false;
-			if(!item.getItemMeta().hasLore()) return false;
-			if(item.getItemMeta().getLore().isEmpty()) return false;
-			if(!item.getItemMeta().getLore().get(0).equals(editToolLore)) return false;
+
+	public boolean isEditTool(ItemStack itemStk){
+		if (itemStk == null) { return false; }
+		if (editTool != itemStk.getType()) { return false; }
+
+		//FIX: Depreciated Stack for getDurability
+		//		if(requireToolData && item.getDurability() != (short)editToolData) return false;
+		if (requireToolData){
+			Damageable d1 = (Damageable) itemStk.getItemMeta(); //Get the Damageable Options for itemStk
+			if (d1 != null) { //We do this to prevent NullPointers
+				if (d1.getDamage() != (short) editToolData) { return false; }
+			}
 		}
+
+		if(requireToolLore && editToolLore != null){
+
+			//If the ItemStack does not have Meta Data then we return false
+			if(!itemStk.hasItemMeta()) { return false; }
+
+			//Get the lore of the Item and if it is null - Return False
+			List<String> itemLore = itemStk.getItemMeta().getLore(); //TODO: Fix NullPointerException on Method getLore
+			if (itemLore == null){ return false; }
+
+			//If the Item does not have Lore - Return False
+			boolean hasTheItemLore = itemStk.getItemMeta().hasLore();
+			if (!hasTheItemLore)  { return false; }
+
+			//Item the first thing in the ItemLore List does not Equal the Config Value "editToolLore" - return false
+			if (!itemLore.get(0).equals(editToolLore))  { return false; } //Does not need simplified - IntelliJ likes to complain here
+
+		}
+
 		return true;
 	}
+
 
 	public NamespacedKey getIconKey() {
 		if(iconKey == null) iconKey = new NamespacedKey(this, "command_icon");
@@ -153,5 +170,6 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	}
 }
 //todo: 
+
 //Access to "DisabledSlots" data (probably simplified just a toggle enable/disable)
 //Access to the "Marker" switch (so you can make the hitbox super small)
