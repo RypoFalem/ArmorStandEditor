@@ -64,7 +64,7 @@ public class PlayerEditorManager implements Listener {
 		Bukkit.getServer().getScheduler().runTaskTimer(plugin, counter, 0, 1);
 	}
 
-	@EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = false)
+	@EventHandler(priority = EventPriority.LOWEST)
 	void onArmorStandDamage( EntityDamageByEntityEvent event) {
 		if (!(event.getDamager() instanceof Player)) return;
 		 Player player = (Player) event.getDamager();
@@ -87,7 +87,7 @@ public class PlayerEditorManager implements Listener {
 		}
 	}
 
-	@EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = false)
+	@EventHandler(priority = EventPriority.LOWEST)
 	void onArmorStandInteract( PlayerInteractAtEntityEvent event) {
 		if (ignoreNextInteract) return;
 		if (event.getHand() != EquipmentSlot.HAND) return;
@@ -154,7 +154,7 @@ public class PlayerEditorManager implements Listener {
 			}
 
 			if (player.getInventory().getItemInMainHand().getType().equals(Material.GLOW_INK_SAC) //attempt glowing
-					&& player.hasPermission("asedit.itemframeglow")
+					&& player.hasPermission("asedit.basic")
 					&& plugin.glowItemFrames && player.isSneaking()) {
 				ItemStack glowSacs = player.getInventory().getItemInMainHand();
 				ItemStack contents = null;
@@ -260,9 +260,9 @@ public class PlayerEditorManager implements Listener {
 
 	boolean canEdit( Player player,  ArmorStand as) {
 		ignoreNextInteract = true;
-		 ArrayList<Event> events = new ArrayList<>();
-		events.add(new PlayerInteractEntityEvent(player, as, EquipmentSlot.HAND));
-		events.add(new PlayerInteractAtEntityEvent(player, as, as.getLocation().toVector(), EquipmentSlot.HAND));
+		ArrayList<Event> events = new ArrayList<>();
+		//events.add(new PlayerInteractEntityEvent(player, as, EquipmentSlot.HAND));
+		events.add(new PlayerInteractAtEntityEvent(player, as, as.getLocation().toVector(), EquipmentSlot.HAND)); //FIX for Issue RypoFalem/ArmorStandEditor #48: PlayerInteractAtEntityEvent
 		//events.add(new PlayerArmorStandManipulateEvent(player, as, player.getEquipment().getItemInMainHand(), as.getItemInHand(), EquipmentSlot.HAND));
 		for ( Event event : events) {
 			if (!(event instanceof Cancellable)) continue;
@@ -326,7 +326,7 @@ public class PlayerEditorManager implements Listener {
 		getPlayerEditor(player.getUniqueId()).reverseEditArmorStand(as);
 	}
 
-	@EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = false)
+	@EventHandler(priority = EventPriority.LOWEST)
 	void onRightClickTool( PlayerInteractEvent e) {
 		if (!(e.getAction() == Action.LEFT_CLICK_AIR
 				|| e.getAction() == Action.RIGHT_CLICK_AIR
@@ -338,7 +338,7 @@ public class PlayerEditorManager implements Listener {
 		getPlayerEditor(player.getUniqueId()).openMenu();
 	}
 
-	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.NORMAL)
 	void onScrollNCrouch( PlayerItemHeldEvent e) {
 		 Player player = e.getPlayer();
 		if (!player.isSneaking()) return;
@@ -352,7 +352,7 @@ public class PlayerEditorManager implements Listener {
 		}
 	}
 
-	@EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = false)
+	@EventHandler(priority = EventPriority.LOWEST)
 	void onPlayerMenuSelect( InventoryClickEvent e) {
 		if (e.getInventory().getHolder() == null) return;
 		if (!(e.getInventory().getHolder() instanceof ASEHolder)) return;
