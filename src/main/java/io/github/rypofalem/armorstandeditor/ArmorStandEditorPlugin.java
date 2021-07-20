@@ -66,6 +66,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		updateConfig("lang/", "ro_RO.yml");
 		updateConfig("lang/", "ja_JP.yml");
 		updateConfig("lang/", "de_DE.yml");
+		updateConfig("lang/", "es_ES.yml");
 		//English is the default language and needs to be unaltered to so that there is always a backup message string
 		saveResource("lang/en_US.yml", true);
 		lang = new Language(getConfig().getString("lang"), this);
