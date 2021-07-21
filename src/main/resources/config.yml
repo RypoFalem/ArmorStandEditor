@@ -21,7 +21,8 @@ lang: en_US.yml
 #If false plugin notifications will be sent to the chat box. If true messages will be sent to the action bar.
 sendMessagesToActionBar: true
 
-#(Optional) Glowing Item Frames Supportfor Item Frames in 1.17
+#(Optional) Glowing Item Frames Support for Item Frames in 1.17 and Higher - WILL NOT WORK IN 1.16 OR LOWER
+#If true, players can make itemFrames glow by right clicking with a Glow Ink Sac
 glowingItemFrame: true
 
 #Don't set to true unless you want players to see random messages or other undesirable behavior

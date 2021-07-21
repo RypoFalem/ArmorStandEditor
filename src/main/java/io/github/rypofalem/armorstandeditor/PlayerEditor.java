@@ -32,13 +32,12 @@ import java.util.UUID;
 
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
+import org.bukkit.*;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.EulerAngle;
@@ -309,7 +308,20 @@ public class PlayerEditor {
 	}
 
 	private void toggleDisableSlots(ArmorStand armorStand) {
-		//TODO
+		if (armorStand.hasEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.REMOVING_OR_CHANGING)) { //Adds a lock to every slot or removes it
+			for (final EquipmentSlot slot : EquipmentSlot.values()) {
+				armorStand.removeEquipmentLock(slot, ArmorStand.LockType.REMOVING_OR_CHANGING);
+				armorStand.removeEquipmentLock(slot, ArmorStand.LockType.ADDING);
+				getPlayer().playSound(getPlayer().getLocation(), Sound.ENTITY_ITEM_BREAK, SoundCategory.PLAYERS, 1.0f, 1.0f);
+			}
+		} else {
+			for (final EquipmentSlot slot : EquipmentSlot.values()) {
+				armorStand.addEquipmentLock(slot, ArmorStand.LockType.REMOVING_OR_CHANGING);
+				armorStand.addEquipmentLock(slot, ArmorStand.LockType.ADDING);
+			}
+			getPlayer().playSound(getPlayer().getLocation(), Sound.ITEM_ARMOR_EQUIP_IRON, SoundCategory.PLAYERS, 1.0f, 1.0f);
+		}
+		sendMessage("disabledslots", null);
 	}
 
 	private void toggleGravity(ArmorStand armorStand) {
