@@ -193,6 +193,7 @@ public class PlayerEditor {
 	}
 
 	private void openEquipment(ArmorStand armorStand) {
+		if(!getPlayer().hasPermission("assedit.equipment")) return;
 		equipMenu = new EquipmentMenu(this, armorStand);
 		equipMenu.open();
 	}
@@ -308,6 +309,7 @@ public class PlayerEditor {
 	}
 
 	private void toggleDisableSlots(ArmorStand armorStand) {
+		if(!getPlayer().hasPermission("ase.basic")) return;
 		if (armorStand.hasEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.REMOVING_OR_CHANGING)) { //Adds a lock to every slot or removes it
 			for (final EquipmentSlot slot : EquipmentSlot.values()) {
 				armorStand.removeEquipmentLock(slot, ArmorStand.LockType.REMOVING_OR_CHANGING);

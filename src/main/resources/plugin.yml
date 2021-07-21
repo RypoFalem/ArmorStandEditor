@@ -23,3 +23,6 @@ permissions:
     asedit.rename:
       description: Rename armorstands
       default: true
+    asedit.equipment:
+      description: Access armorstand equipment GUI
+      default: true
