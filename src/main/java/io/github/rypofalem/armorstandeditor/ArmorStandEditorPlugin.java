@@ -61,7 +61,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		updateConfig("lang/", "test_NA.yml");
 		updateConfig("lang/", "nl_NL.yml");
 		updateConfig("lang/", "uk_UA.yml");
-		updateConfig("lang/", "zh.yml");
+		updateConfig("lang/", "zh_CN.yml");
 		updateConfig("lang/", "fr_FR.yml");
 		updateConfig("lang/", "ro_RO.yml");
 		updateConfig("lang/", "ja_JP.yml");
