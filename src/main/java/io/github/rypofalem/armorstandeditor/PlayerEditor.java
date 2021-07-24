@@ -177,7 +177,6 @@ public class PlayerEditor {
 				break;
 			case RESET:
 				itemFrame.setVisible(true);
-				break;
 			case NONE:
 				sendMessage("nomode", null);
 				break;
