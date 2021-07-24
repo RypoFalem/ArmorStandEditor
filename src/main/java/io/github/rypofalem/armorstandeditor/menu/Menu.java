@@ -123,8 +123,8 @@ public class Menu {
 
 		if (pe.getPlayer().hasPermission("asedit.invisible")) {
 			visibility = new ItemStack(Material.POTION, 1);
-			 PotionMeta potionMeta = (PotionMeta) visibility.getItemMeta();
-			 PotionEffect eff1 = new PotionEffect(PotionEffectType.INVISIBILITY, 1, 0);
+			PotionMeta potionMeta = (PotionMeta) visibility.getItemMeta();
+			PotionEffect eff1 = new PotionEffect(PotionEffectType.INVISIBILITY, 1, 0);
 			potionMeta.addCustomEffect(eff1, true);
 			visibility.setItemMeta(potionMeta);
 			visibility = createIcon(visibility, "invisible", "mode invisible");
