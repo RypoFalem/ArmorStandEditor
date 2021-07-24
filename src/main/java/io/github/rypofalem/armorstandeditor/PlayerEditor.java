@@ -345,7 +345,7 @@ public class PlayerEditor {
 		armorStand.setVisible(!armorStand.isVisible());
 	}
 	void toggleItemFrameVisible(ItemFrame itemFrame) {
-		if (!getPlayer().hasPermission("asedit.basic")) return;
+		if (!getPlayer().hasPermission("asedit.invisible")) return;
 		itemFrame.setVisible(!itemFrame.isVisible());
 	}
 

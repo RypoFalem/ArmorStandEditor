@@ -49,7 +49,7 @@ public class CommandEx implements CommandExecutor {
 			return true;
 		}
 
-		 Player player = (Player) sender;
+		Player player = (Player) sender;
 		if (args.length == 0) {
 			player.sendMessage(LISTMODE);
 			player.sendMessage(LISTAXIS);
@@ -146,7 +146,7 @@ public class CommandEx implements CommandExecutor {
 			for ( EditMode mode : EditMode.values()) {
 				if (mode.toString().toLowerCase().contentEquals(args[1].toLowerCase())) {
 					if (args[1].equals("invisible") && !checkPermission(player, "invisible", true)) return;
-					if (args[1].equals("itemframe") && !checkPermission(player, "itemframe", true)) return;
+					if (args[1].equals("itemframe") && !checkPermission(player, "basic", true)) return;
 					plugin.editorManager.getPlayerEditor(player.getUniqueId()).setMode(mode);
 					return;
 				}
