@@ -171,9 +171,10 @@ public class PlayerEditor {
 
 	public void editItemFrame(ItemFrame itemFrame) {
 		if (!getPlayer().hasPermission("asedit.basic")) return;
+		itemFrame = attemptTarget(itemFrame);
 		switch (eMode) {
 			case ITEMFRAME:
-				itemFrame.setVisible(false);
+				toggleVisible(itemFrame);
 				break;
 			case RESET:
 				itemFrame.setVisible(true);
@@ -182,7 +183,7 @@ public class PlayerEditor {
 				break;
 		}
 	}
-
+	
 	private void resetPosition(ArmorStand armorStand) {
 		armorStand.setHeadPose(new EulerAngle(0, 0, 0));
 		armorStand.setBodyPose(new EulerAngle(0, 0, 0));
@@ -343,6 +344,10 @@ public class PlayerEditor {
 	void toggleVisible(ArmorStand armorStand) {
 		if (!getPlayer().hasPermission("asedit.invisible")) return;
 		armorStand.setVisible(!armorStand.isVisible());
+	}
+	void toggleVisible(ItemFrame itemFrame) {
+		if (!getPlayer().hasPermission("asedit.basic")) return;
+		itemFrame.setVisible(!itemFrame.isVisible());
 	}
 
 	void toggleSize(ArmorStand armorStand) {
