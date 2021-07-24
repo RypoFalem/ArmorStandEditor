@@ -326,6 +326,7 @@ public class PlayerEditorManager implements Listener {
 		getPlayerEditor(player.getUniqueId()).reverseEditArmorStand(as);
 	}
 
+	//Unused?
 	@EventHandler(priority = EventPriority.LOWEST)
 	void onRightClickTool( PlayerInteractEvent e) {
 		if (!(e.getAction() == Action.LEFT_CLICK_AIR
