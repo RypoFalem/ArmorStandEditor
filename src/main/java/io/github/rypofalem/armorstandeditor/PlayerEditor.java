@@ -171,13 +171,13 @@ public class PlayerEditor {
 
 	public void editItemFrame(ItemFrame itemFrame) {
 		if (!getPlayer().hasPermission("asedit.basic")) return;
-		itemFrame = attemptTarget(itemFrame);
 		switch (eMode) {
 			case ITEMFRAME:
-				toggleVisible(itemFrame);
+				toggleItemFrameVisible(itemFrame);
 				break;
 			case RESET:
 				itemFrame.setVisible(true);
+				break;
 			case NONE:
 				sendMessage("nomode", null);
 				break;
@@ -345,7 +345,7 @@ public class PlayerEditor {
 		if (!getPlayer().hasPermission("asedit.invisible")) return;
 		armorStand.setVisible(!armorStand.isVisible());
 	}
-	void toggleVisible(ItemFrame itemFrame) {
+	void toggleItemFrameVisible(ItemFrame itemFrame) {
 		if (!getPlayer().hasPermission("asedit.basic")) return;
 		itemFrame.setVisible(!itemFrame.isVisible());
 	}
