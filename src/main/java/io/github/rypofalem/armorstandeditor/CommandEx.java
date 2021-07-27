@@ -22,12 +22,18 @@ package io.github.rypofalem.armorstandeditor;
 import io.github.rypofalem.armorstandeditor.modes.AdjustmentMode;
 import io.github.rypofalem.armorstandeditor.modes.Axis;
 import io.github.rypofalem.armorstandeditor.modes.EditMode;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+
+import java.io.File;
+
 
 public class CommandEx implements CommandExecutor {
 	ArmorStandEditorPlugin plugin;
@@ -35,6 +41,7 @@ public class CommandEx implements CommandExecutor {
 	final String LISTAXIS = ChatColor.YELLOW + "/ase axis <" + Util.getEnumList(Axis.class) + ">";
 	final String LISTADJUSTMENT = ChatColor.YELLOW + "/ase adj <" + Util.getEnumList(AdjustmentMode.class) + ">";
 	final String LISTSLOT = ChatColor.YELLOW + "/ase slot <1-9>";
+	final String RELOAD = ChatColor.YELLOW + "/ase reload";
 	final String HELP = ChatColor.YELLOW + "/ase help";
 
 	public CommandEx( ArmorStandEditorPlugin armorStandEditorPlugin) {
@@ -67,7 +74,7 @@ public class CommandEx implements CommandExecutor {
 				break;
 			case "slot": commandSlot(player, args);
 				break;
-			case "reload": commandReload();
+			case "reload": commandReload(player);
 			    break;
 			case "help":
 			case "?": commandHelp(player);
@@ -77,13 +84,16 @@ public class CommandEx implements CommandExecutor {
 				sender.sendMessage(LISTAXIS);
 				sender.sendMessage(LISTSLOT);
 				sender.sendMessage(LISTADJUSTMENT);
+				sender.sendMessage(RELOAD);
 				sender.sendMessage(HELP);
 		}
 		return true;
 	}
 
-	private void commandReload(){
-		//TODO: Reload Command
+	private void commandReload(Player player){
+		if(!(checkPermission(player, "reload", true))) return; //Basic sanity Check for Reload Permission!
+		//TODO: Hook this into Main Plugin File
+
 	}
 
 	private void commandSlot(Player player, String[] args) {

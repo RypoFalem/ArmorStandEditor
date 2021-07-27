@@ -20,15 +20,19 @@
 package io.github.rypofalem.armorstandeditor;
 
 import io.github.rypofalem.armorstandeditor.language.Language;
+import org.apache.commons.lang.ObjectUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import javax.print.DocFlavor;
 import java.io.File;
 import java.util.List;
 
@@ -39,7 +43,8 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	private Language lang;
 	public boolean hasSpigot;
 	public PlayerEditorManager editorManager;
-	public Material editTool = Material.FLINT;
+
+	Material editTool = Material.FLINT;
 	boolean requireToolData = false;
 	boolean sendToActionBar = true;
 	int editToolData = Integer.MIN_VALUE;
@@ -48,7 +53,12 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	boolean debug = false; //weather or not to broadcast messages via print(String message)
 	double coarseRot;
 	double fineRot;
-	public boolean glowItemFrames;
+	boolean glowItemFrames;
+	String toolType = null;
+
+
+	private static ArmorStandEditorPlugin plugin;
+
 
 	public ArmorStandEditorPlugin(){
 		instance = this;
@@ -73,7 +83,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
 		coarseRot = getConfig().getDouble("coarse");
 		fineRot = getConfig().getDouble("fine");
-		String toolType = getConfig().getString("tool", "FLINT");
+		toolType = getConfig().getString("tool", "FLINT");
 		editTool = Material.getMaterial(toolType);
 		requireToolData = getConfig().getBoolean("requireToolData", false);
 		if(requireToolData) editToolData = getConfig().getInt("toolData", Integer.MIN_VALUE);
@@ -81,7 +91,6 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		if(requireToolLore) editToolLore= getConfig().getString("toolLore", null);
 		debug = getConfig().getBoolean("debug", true);
 		sendToActionBar = getConfig().getBoolean("sendMessagesToActionBar", true);
-
 		//NEW: Glowing Item Frame Support
 		glowItemFrames = getConfig().getBoolean("glowingItemFrame", true);
 
@@ -128,6 +137,13 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
 	public Language getLang(){
 		return lang;
+	}
+
+	public void reload(){
+		//TODO: Get Everything already set in Plugin File
+		//TODO: Rehook into things if required
+		//TODO: Display Reload Complete Message
+		//SEE https://github.com/IntellectualSites/PlotSquared/blob/v6/Core/src/main/java/com/plotsquared/core/command/Reload.java as EXAMPLE!
 	}
 
 	public boolean isEditTool(ItemStack itemStk){

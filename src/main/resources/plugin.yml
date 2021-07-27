@@ -26,3 +26,6 @@ permissions:
     asedit.equipment:
       description: Access armorstand equipment GUI
       default: true
+    asedit.reload:
+      description: Reload Configs for ArmorStandEditor
+      default: false
