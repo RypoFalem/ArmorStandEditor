@@ -67,6 +67,8 @@ public class CommandEx implements CommandExecutor {
 				break;
 			case "slot": commandSlot(player, args);
 				break;
+			case "reload": commandReload();
+			    break;
 			case "help":
 			case "?": commandHelp(player);
 				break;
@@ -78,6 +80,10 @@ public class CommandEx implements CommandExecutor {
 				sender.sendMessage(HELP);
 		}
 		return true;
+	}
+
+	private void commandReload(){
+		//TODO: Reload Command
 	}
 
 	private void commandSlot(Player player, String[] args) {
