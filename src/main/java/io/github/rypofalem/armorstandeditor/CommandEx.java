@@ -93,12 +93,12 @@ public class CommandEx implements CommandExecutor {
 
 	//Simple Reload Command - Might be expanded upon later.
 	private void commandReload(Player player, String[] args){
-		if(!(checkPermission(player, "reload", true))) return; //Basic sanity Check for Reload Permission!
 		if(args.length > 0 ){
 			player.sendMessage(plugin.getLang().getMessage("noreload", "warn"));
 			player.sendMessage(RELOAD);
-		} else {
+		}
 
+		if (args.length == 0 && checkPermission(player, "reload", true)){
 			PluginDescriptionFile pdfFile = plugin.getDescription();
 			if (checkPermission(player, "reload", true)) {
 				plugin.reloadConfig();
