@@ -102,6 +102,7 @@ public class CommandEx implements CommandExecutor {
 			PluginDescriptionFile pdfFile = plugin.getDescription();
 			if (checkPermission(player, "reload", true)) {
 				plugin.reloadConfig();
+				//plugin.saveConfig(); Determine If We need this
 				player.sendMessage(plugin.getLang().getMessage("reloaded", "info"));
 				plugin.log("Configuration File ("+ pdfFile.getFullName() + ") Reloaded by " + player.getName() + "");
 			}
