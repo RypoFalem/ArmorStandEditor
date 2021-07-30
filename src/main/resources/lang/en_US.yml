@@ -64,6 +64,8 @@ frametarget:
   msg: Itemframe target locked
 noframetarget:
   msg: Itemframe target unlocked.
+reloaded:
+  msg: Configuration File has been reloaded.
 help:
   msg: "1. Hold the editing tool(<x>) in your main hand
 
@@ -98,6 +100,8 @@ noaxiscom:
   msg: You must specify an Axis!
 nomodecom:
   msg: You must specify a Mode!
+noreload:
+  msg: You don't have permission to use the reload command!
 
 #menutitle
 mainmenutitle:

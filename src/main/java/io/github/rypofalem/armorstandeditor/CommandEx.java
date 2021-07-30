@@ -31,6 +31,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginDescriptionFile;
 
 import java.io.File;
 
@@ -74,7 +75,7 @@ public class CommandEx implements CommandExecutor {
 				break;
 			case "slot": commandSlot(player, args);
 				break;
-			case "reload": commandReload(player);
+			case "reload": commandReload(player, args);
 			    break;
 			case "help":
 			case "?": commandHelp(player);
@@ -90,11 +91,25 @@ public class CommandEx implements CommandExecutor {
 		return true;
 	}
 
-	private void commandReload(Player player){
+	//Simple Reload Command - Might be expanded upon later.
+	private void commandReload(Player player, String[] args){
 		if(!(checkPermission(player, "reload", true))) return; //Basic sanity Check for Reload Permission!
-		//TODO: Hook this into Main Plugin File
+		if(args.length > 0 ){
+			player.sendMessage(plugin.getLang().getMessage("noreload", "warn"));
+			player.sendMessage(RELOAD);
+		} else {
 
+			PluginDescriptionFile pdfFile = plugin.getDescription();
+			if (checkPermission(player, "reload", true)) {
+				plugin.reloadConfig();
+				player.sendMessage(plugin.getLang().getMessage("reloaded", "info"));
+				Bukkit.getServer().getLogger().info("[ArmorStandEditor] Configuration File (" + pdfFile.getFullName() + ") Reloaded by" + player.getName() + ".");
+			} else {
+				return;
+			}
+		}
 	}
+
 
 	private void commandSlot(Player player, String[] args) {
 

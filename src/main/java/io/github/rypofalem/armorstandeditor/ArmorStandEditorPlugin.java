@@ -139,13 +139,6 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		return lang;
 	}
 
-	public void reload(){
-		//TODO: Get Everything already set in Plugin File
-		//TODO: Rehook into things if required
-		//TODO: Display Reload Complete Message
-		//SEE https://github.com/IntellectualSites/PlotSquared/blob/v6/Core/src/main/java/com/plotsquared/core/command/Reload.java as EXAMPLE!
-	}
-
 	public boolean isEditTool(ItemStack itemStk){
 		if (itemStk == null) { return false; }
 		if (editTool != itemStk.getType()) { return false; }
