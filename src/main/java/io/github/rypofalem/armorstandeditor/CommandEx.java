@@ -103,9 +103,7 @@ public class CommandEx implements CommandExecutor {
 			if (checkPermission(player, "reload", true)) {
 				plugin.reloadConfig();
 				player.sendMessage(plugin.getLang().getMessage("reloaded", "info"));
-				Bukkit.getServer().getLogger().info("[ArmorStandEditor] Configuration File (" + pdfFile.getFullName() + ") Reloaded by" + player.getName() + ".");
-			} else {
-				return;
+				plugin.log("Configuration File ("+ pdfFile.getFullName() + ") Reloaded by " + player.getName() + "");
 			}
 		}
 	}
