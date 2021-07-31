@@ -104,7 +104,8 @@ public class CommandEx implements CommandExecutor {
 		if (args.length == 1) {
 			if (checkPermission(player, "reload", true)) {
 				try {
-
+					//DOES NOT YET TAKE INTO ACCOUNT FILE CHANGES
+					//TODO: MAKE IT TAKE FILE CHANGES INTO ACCOUNT
 					plugin.reloadConfig();
 					plugin.saveConfig();
 					player.sendMessage(plugin.getLang().getMessage("reloaded", "info"));
