@@ -63,6 +63,8 @@ public class CommandEx implements CommandExecutor {
 			player.sendMessage(LISTAXIS);
 			player.sendMessage(LISTSLOT);
 			player.sendMessage(LISTADJUSTMENT);
+			player.sendMessage(RELOAD);
+			player.sendMessage(HELP);
 			return true;
 		}
 		switch (args[0].toLowerCase()) {
@@ -93,20 +95,20 @@ public class CommandEx implements CommandExecutor {
 
 	//Simple Reload Command - Might be expanded upon later.
 	private void commandReload(Player player, String[] args){
-		if(args.length > 0 ){
-			player.sendMessage(plugin.getLang().getMessage("noreload", "warn"));
-			player.sendMessage(RELOAD);
+		try{
+			if (args[0].equalsIgnoreCase("reload")){
+				if (checkPermission(player, "reload", true)){
+					plugin.reloadConfig();
+					player.sendMessage(plugin.getLang().getMessage("reloaded", "info"));
+				}
+			} else {
+				player.sendMessage(plugin.getLang().getMessage("noperm", "warn"));
+				player.sendMessage(RELOAD);
+			}
+		} catch ( Exception e ) {
+			e.printStackTrace();
 		}
 
-		if (args.length == 0 && checkPermission(player, "reload", true)){
-			PluginDescriptionFile pdfFile = plugin.getDescription();
-			if (checkPermission(player, "reload", true)) {
-				plugin.reloadConfig();
-				//plugin.saveConfig(); Determine If We need this
-				player.sendMessage(plugin.getLang().getMessage("reloaded", "info"));
-				plugin.log("Configuration File ("+ pdfFile.getFullName() + ") Reloaded by " + player.getName() + "");
-			}
-		}
 	}
 
 
