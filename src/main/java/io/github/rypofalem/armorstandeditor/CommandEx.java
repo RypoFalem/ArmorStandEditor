@@ -95,19 +95,25 @@ public class CommandEx implements CommandExecutor {
 
 	//Simple Reload Command - Might be expanded upon later.
 	private void commandReload(Player player, String[] args){
-		try{
-			if (args[0].equalsIgnoreCase("reload") && checkPermission(player, "reload", true)){
+
+		if (args.length > 0){
+			player.sendMessage(plugin.getLang().getMessage("noperm", "warn"));
+			player.sendMessage(RELOAD);
+		}
+
+		if (args.length == 0) {
+			if (checkPermission(player, "reload", true)) {
+				try {
+
 					plugin.reloadConfig();
 					plugin.saveConfig();
 					player.sendMessage(plugin.getLang().getMessage("reloaded", "info"));
-			} else {
-				player.sendMessage(plugin.getLang().getMessage("noperm", "warn"));
-				player.sendMessage(RELOAD);
-			}
-		} catch ( Exception e ) {
-			e.printStackTrace();
-		}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 
+			}
+		}
 	}
 
 
