@@ -108,10 +108,17 @@ public class CommandEx implements CommandExecutor {
 					plugin.reloadConfig();
 					plugin.saveConfig();
 					player.sendMessage(plugin.getLang().getMessage("reloaded", "info"));
+
 				} catch (Exception e) {
+
+					player.sendMessage(plugin.getLang().getMessage("noperm", "warn"));
 					e.printStackTrace();
+
 				}
 
+			}else{
+				player.sendMessage(plugin.getLang().getMessage("noperm", "warn"));
+				player.sendMessage(RELOAD);
 			}
 		}
 	}
