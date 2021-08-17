@@ -1,5 +1,6 @@
 # ArmorStandEditor
 [![Build Status](https://github.com/Wolfst0rm/ArmorStandEditor/actions/workflows/maven-publish.yml/badge.svg)](https://github.com/Wolfst0rm/ArmorStandEditor/actions/workflows/maven-publish.yml)
+[![wakatime](https://wakatime.com/badge/github/Wolfst0rm/ArmorStandEditor.svg)](https://wakatime.com/badge/github/Wolfst0rm/ArmorStandEditor) 
 
 Bukkit plugin to allow players to edit armorstands without commands.
 
