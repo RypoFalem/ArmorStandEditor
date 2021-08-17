@@ -14,7 +14,7 @@ on:
   pull_request:
     branches: [ master ]
     paths:
-      - 'src/**'
+      - 'src/*'
       - 'pom.xml'
       
 jobs:
@@ -25,11 +25,11 @@ jobs:
     steps:
 
       # 1. Check out the current working tree
-      - name: Checkout repository
+      - name: Checkout ArmorStandEditor Repository
         uses: actions/checkout@v2
 
       # 2. Setup Java 16 JDK
-      - name: Set up JDK 16
+      - name: Set up JDK 16 Environment
         uses: actions/setup-java@v2
         with:
           java-version: '16'
@@ -44,7 +44,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       # 4. Build via Maven
-      - name: Build via Maven
+      - name: Build Project based on Maven File
         run: mvn verify -B --file pom.xml
 
       #5: Create a Clean Package - and Verify it
@@ -54,9 +54,9 @@ jobs:
       - name: Clean Verify
         run: mvn -B clean verify
 
-      #6 Upload Artifacts
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v2.2.4
+      #6 Upload Artifacts (Debug Purposes
+      - name: Upload Artifact for Debugging
+        uses: actions/upload-artifact@v2.1.4
         with:
           name: artifact
           path: /home/runner/work/ArmorStandEditor/ArmorStandEditor/target/armorstandeditor-*-*.jar
