@@ -107,7 +107,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			getLogger().warning("ArmorStandEditor will still work, but please update to the latest Version of " + nmsVersionNotLatest + ". Loading continuing.");
 			setEnabled(true);
 		} else {
-			getLogger().info("Minecraft Version: " + nmsVersion + "is supported. Loading continuing.");
+			getLogger().info("Minecraft Version: " + nmsVersion + " is supported. Loading continuing.");
 			setEnabled(true);
 		}
 		getLogger().info("================================");
