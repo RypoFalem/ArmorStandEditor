@@ -28,14 +28,8 @@ import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
-import org.yaml.snakeyaml.Yaml;
-
-import java.io.File;
 
 
 public class CommandEx implements CommandExecutor {
@@ -47,7 +41,7 @@ public class CommandEx implements CommandExecutor {
 	final String RELOAD = ChatColor.YELLOW + "/ase reload";
 	final String HELP = ChatColor.YELLOW + "/ase help";
 
-	//Reload STuff
+	//Reload Stuff
 	Material editTool;
 	boolean requireToolData = false;
 	boolean sendToActionBar = true;
@@ -58,7 +52,7 @@ public class CommandEx implements CommandExecutor {
 	double coarseRot;
 	double fineRot;
 	boolean glowItemFrames;
-	String toolType;
+	String toolType = null;
 
 	public CommandEx( ArmorStandEditorPlugin armorStandEditorPlugin) {
 		this.plugin = armorStandEditorPlugin;
