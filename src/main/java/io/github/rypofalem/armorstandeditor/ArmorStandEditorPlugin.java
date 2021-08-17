@@ -39,8 +39,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	private Language lang;
 
 	//Server Version Detection: Paper or Spigot and Invalid NMS Version
-	private boolean hasSpigot = false;
-	private boolean hasPaper = false;
+	public boolean hasSpigot = false;
 	private String nmsVersion = null;
 	private String nmsVersionNotLatest = "";
 
@@ -75,16 +74,6 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		//Load Messages in Console
 		getLogger().info("======= ArmorStandEditor =======");
 		getLogger().info("Plugin Version: " + plugin.getDescription().getVersion());
-
-		//Paper Check
-		try {
-			Class.forName("com.destroystokyo.paper.PaperConfig");
-			hasPaper = true;
-			nmsVersionNotLatest = "Paper ASAP. Load Continuing";
-		} catch (ClassNotFoundException e){
-			hasPaper = false;
-		}
-		getLogger().info("Paper: " + hasPaper);
 
 		//Spigot Check
 		try {
