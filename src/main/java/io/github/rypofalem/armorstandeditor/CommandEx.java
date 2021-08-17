@@ -31,6 +31,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class CommandEx implements CommandExecutor {
 	ArmorStandEditorPlugin plugin;
@@ -53,6 +56,7 @@ public class CommandEx implements CommandExecutor {
 	double fineRot;
 	boolean glowItemFrames;
 	String toolType = null;
+	LocalDateTime now = LocalDateTime.now();
 
 	public CommandEx( ArmorStandEditorPlugin armorStandEditorPlugin) {
 		this.plugin = armorStandEditorPlugin;
@@ -100,26 +104,29 @@ public class CommandEx implements CommandExecutor {
 		return true;
 	}
 
-	//Simple Reload Command - Expand Upon this.
+	//Reload Command Now Expanded Upon.
 	private void commandReload(Player player, String[] args){
 		if(!(checkPermission(player, "reload", true))) return; //Basic sanity Check for Reload Permission!
 		if(args.length > 0 ){
+			// Check the Length of Args. If > 0 then pass noReload
 			player.sendMessage(plugin.getLang().getMessage("noreload", "warn"));
 			player.sendMessage(RELOAD);
 		} else {
+			// else if = 0 then get do one final check on the permission
 
-			PluginDescriptionFile pdfFile = plugin.getDescription();
+			DateTimeFormatter format = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy HH:mm:ss.aa");
 
 			if (checkPermission(player, "reload", true)) {
+				// if permission true then run Reload and Load all the Values, Message that it has been reloaded successfully. Log to Console, Reload on DateTime by Player
 				plugin.reloadConfig();
 				this.loadConfig();
 				player.sendMessage(plugin.getLang().getMessage("reloaded", "info"));
-				plugin.log("Configuration File ("+ pdfFile.getFullName() + ") Reloaded by " + player.getName() + "");
+				plugin.log("Configuration File has reloaded on "+ now.format(format) +  " by " + player.getName() + "");
 			}
 		}
 	}
 
-	//Potential to add Validation In Here SOMEHOW?
+	//Potential to add Validation In Here SOMEHOW? TO Validate that the file is good in that regard.
 	private void loadConfig(){
 		//Get all the Changes
 		coarseRot = plugin.getConfig().getDouble("coarse");

@@ -20,21 +20,17 @@
 package io.github.rypofalem.armorstandeditor;
 
 import io.github.rypofalem.armorstandeditor.language.Language;
-import org.apache.commons.lang.ObjectUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import javax.print.DocFlavor;
 import java.io.File;
 import java.util.List;
+
 
 public class ArmorStandEditorPlugin extends JavaPlugin{
 	private NamespacedKey iconKey;
@@ -87,7 +83,8 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
 		//Set Tool to be used in game
 		toolType = getConfig().getString("tool");
-		editTool = Material.getMaterial(toolType);
+
+		editTool = Material.getMaterial(toolType); //Ignore Warning
 
 		//Is there NBT Required for the tool
 		requireToolData = getConfig().getBoolean("requireToolData", false);
@@ -102,7 +99,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
 		editorManager = new PlayerEditorManager(this);
 		execute = new CommandEx(this);
-		getCommand("ase").setExecutor(execute);
+    	getCommand("ase").setExecutor(execute);
 		getServer().getPluginManager().registerEvents(editorManager, this);
 
 		hasSpigot = true;
@@ -164,7 +161,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			if(!itemStk.hasItemMeta()) { return false; }
 
 			//Get the lore of the Item and if it is null - Return False
-			List<String> itemLore = itemStk.getItemMeta().getLore(); //TODO: Fix NullPointerException on Method getLore
+			List<String> itemLore = itemStk.getItemMeta().getLore(); //Ignore warnings this gives. getItemMeta is noted as NULLABLE
 			if (itemLore == null){ return false; }
 
 			//If the Item does not have Lore - Return False
@@ -185,7 +182,5 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		return iconKey;
 	}
 }
-//todo: 
-
-//Access to "DisabledSlots" data (probably simplified just a toggle enable/disable)
+//todo:
 //Access to the "Marker" switch (so you can make the hitbox super small)
