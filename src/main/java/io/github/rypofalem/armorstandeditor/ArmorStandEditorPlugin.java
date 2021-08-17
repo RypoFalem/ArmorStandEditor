@@ -37,7 +37,13 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	private static ArmorStandEditorPlugin instance;
 	private CommandEx execute;
 	private Language lang;
-	public boolean hasSpigot;
+
+	//Server Version Detection: Paper or Spigot and Invalid NMS Version
+	private boolean hasSpigot = false;
+	private boolean hasPaper = false;
+	private String nmsVersion = null;
+	private String nmsVersionNotLatest = "";
+
 	public PlayerEditorManager editorManager;
 
 	Material editTool;
@@ -52,7 +58,6 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	double fineRot;
 	boolean glowItemFrames;
 
-
 	private static ArmorStandEditorPlugin plugin;
 
 
@@ -60,9 +65,63 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		instance = this;
 	}
 
+
 	@Override
 	public void onEnable(){
-		//saveResource doesn't accept File.seperator on windows, need to hardcode unix seperator "/" instead
+
+		//Get NMS Version
+		nmsVersion = getServer().getClass().getPackage().getName().replace(".",",").split(",")[3];
+
+		//Load Messages in Console
+		getLogger().info("======= ArmorStandEditor =======");
+		getLogger().info("Plugin Version: " + plugin.getDescription().getVersion());
+
+		//Paper Check
+		try {
+			Class.forName("com.destroystokyo.paper.PaperConfig");
+			hasPaper = true;
+			nmsVersionNotLatest = "Paper ASAP. Load Continuing";
+		} catch (ClassNotFoundException e){
+			hasPaper = false;
+		}
+		getLogger().info("Paper: " + hasPaper);
+
+		//Spigot Check
+		try {
+			Class.forName("org.spigotmc.SpigotConfig");
+			hasSpigot = true;
+			nmsVersionNotLatest = "SpigotMC ASAP. Load Continuing";
+		} catch (ClassNotFoundException e){
+			hasSpigot = false;
+		}
+		getLogger().info("SpigotMC: " + hasSpigot);
+
+		//Minimum Version Check - No Lower than 1.13. Will be tuned out in the future
+		if (    nmsVersion.startsWith("v1_8")  ||
+				nmsVersion.startsWith("v1_9")  ||
+				nmsVersion.startsWith("v1_10") ||
+				nmsVersion.startsWith("v1_11") ||
+				nmsVersion.startsWith("v1_12")){
+			getLogger().warning("Minecraft Version: " + nmsVersion + " is not supported. Loading Plugin Failed.");
+			setEnabled(false);
+			return;
+		}
+
+		//Also Warn People to Update if using nmsVersion lower than latest
+		if (    nmsVersion.startsWith("v1_13") ||
+				nmsVersion.startsWith("v1_14") ||
+				nmsVersion.startsWith("v1_15") ||
+				nmsVersion.startsWith("v1_16")){
+			getLogger().warning("Minecraft Version: " + nmsVersion + " is supported, but not latest.");
+			getLogger().warning("ArmorStandEditor will still work, but please update to the latest Version of " + nmsVersionNotLatest + ". Loading continuing.");
+			setEnabled(true);
+		} else {
+			getLogger().info("Minecraft Version: " + nmsVersion + "is supported. Loading continuing.");
+			setEnabled(true);
+		}
+		getLogger().info("================================");
+
+		//saveResource doesn't accept File.separator on windows, need to hardcode unix separator "/" instead
 		updateConfig("", "config.yml");
 		updateConfig("lang/", "test_NA.yml");
 		updateConfig("lang/", "nl_NL.yml");
@@ -99,15 +158,8 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
 		editorManager = new PlayerEditorManager(this);
 		execute = new CommandEx(this);
-    	getCommand("ase").setExecutor(execute);
+		getCommand("ase").setExecutor(execute);
 		getServer().getPluginManager().registerEvents(editorManager, this);
-
-		hasSpigot = true;
-		try {
-			Class.forName("org.spigotmc.SpigotConfig", false, this.getClassLoader());
-		} catch (ClassNotFoundException e) {
-			hasSpigot = false;
-		}
 	}
 
 	private void updateConfig(String folder, String config) {
