@@ -26,6 +26,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -42,6 +43,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	public boolean hasSpigot = false;
 	private String nmsVersion = null;
 	private String nmsVersionNotLatest = "";
+	PluginDescriptionFile pdfFile = this.getDescription();
 
 	public PlayerEditorManager editorManager;
 
@@ -73,7 +75,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
 		//Load Messages in Console
 		getLogger().info("======= ArmorStandEditor =======");
-		getLogger().info("Plugin Version: " + plugin.getDescription().getVersion());
+		getLogger().info("Plugin Version: " + pdfFile.getVersion());
 
 		//Spigot Check
 		try {
