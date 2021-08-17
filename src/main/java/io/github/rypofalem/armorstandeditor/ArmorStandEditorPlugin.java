@@ -44,7 +44,8 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	public boolean hasSpigot;
 	public PlayerEditorManager editorManager;
 
-	Material editTool = Material.FLINT;
+	Material editTool;
+	String toolType;
 	boolean requireToolData = false;
 	boolean sendToActionBar = true;
 	int editToolData = Integer.MIN_VALUE;
@@ -54,7 +55,6 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	double coarseRot;
 	double fineRot;
 	boolean glowItemFrames;
-	String toolType = null;
 
 
 	private static ArmorStandEditorPlugin plugin;
@@ -81,17 +81,23 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		saveResource("lang/en_US.yml", true);
 		lang = new Language(getConfig().getString("lang"), this);
 
+		//Rotation
 		coarseRot = getConfig().getDouble("coarse");
 		fineRot = getConfig().getDouble("fine");
-		toolType = getConfig().getString("tool", "FLINT");
+
+		//Set Tool to be used in game
+		toolType = getConfig().getString("tool");
 		editTool = Material.getMaterial(toolType);
+
+		//Is there NBT Required for the tool
 		requireToolData = getConfig().getBoolean("requireToolData", false);
 		if(requireToolData) editToolData = getConfig().getInt("toolData", Integer.MIN_VALUE);
 		requireToolLore = getConfig().getBoolean("requireToolLore", false);
 		if(requireToolLore) editToolLore= getConfig().getString("toolLore", null);
+
+		//Optional Information
 		debug = getConfig().getBoolean("debug", true);
 		sendToActionBar = getConfig().getBoolean("sendMessagesToActionBar", true);
-		//NEW: Glowing Item Frame Support
 		glowItemFrames = getConfig().getBoolean("glowingItemFrame", true);
 
 		editorManager = new PlayerEditorManager(this);

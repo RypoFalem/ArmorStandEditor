@@ -22,16 +22,18 @@ package io.github.rypofalem.armorstandeditor;
 import io.github.rypofalem.armorstandeditor.modes.AdjustmentMode;
 import io.github.rypofalem.armorstandeditor.modes.Axis;
 import io.github.rypofalem.armorstandeditor.modes.EditMode;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
+import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
 
@@ -44,6 +46,19 @@ public class CommandEx implements CommandExecutor {
 	final String LISTSLOT = ChatColor.YELLOW + "/ase slot <1-9>";
 	final String RELOAD = ChatColor.YELLOW + "/ase reload";
 	final String HELP = ChatColor.YELLOW + "/ase help";
+
+	//Reload STuff
+	Material editTool;
+	boolean requireToolData = false;
+	boolean sendToActionBar = true;
+	int editToolData = Integer.MIN_VALUE;
+	boolean requireToolLore = false;
+	String editToolLore = null;
+	boolean debug = false; //weather or not to broadcast messages via print(String message)
+	double coarseRot;
+	double fineRot;
+	boolean glowItemFrames;
+	String toolType;
 
 	public CommandEx( ArmorStandEditorPlugin armorStandEditorPlugin) {
 		this.plugin = armorStandEditorPlugin;
@@ -63,8 +78,6 @@ public class CommandEx implements CommandExecutor {
 			player.sendMessage(LISTAXIS);
 			player.sendMessage(LISTSLOT);
 			player.sendMessage(LISTADJUSTMENT);
-			player.sendMessage(RELOAD);
-			player.sendMessage(HELP);
 			return true;
 		}
 		switch (args[0].toLowerCase()) {
@@ -93,35 +106,42 @@ public class CommandEx implements CommandExecutor {
 		return true;
 	}
 
-	//Simple Reload Command - Might be expanded upon later.
+	//Simple Reload Command - Expand Upon this.
 	private void commandReload(Player player, String[] args){
-
-		if (args.length < 1){
-			player.sendMessage(plugin.getLang().getMessage("noperm", "warn"));
+		if(!(checkPermission(player, "reload", true))) return; //Basic sanity Check for Reload Permission!
+		if(args.length > 0 ){
+			player.sendMessage(plugin.getLang().getMessage("noreload", "warn"));
 			player.sendMessage(RELOAD);
-		}
+		} else {
 
-		if (args.length == 1) {
+			PluginDescriptionFile pdfFile = plugin.getDescription();
+
 			if (checkPermission(player, "reload", true)) {
-				try {
-					//DOES NOT YET TAKE INTO ACCOUNT FILE CHANGES
-					//TODO: MAKE IT TAKE FILE CHANGES INTO ACCOUNT
-					plugin.reloadConfig();
-					plugin.saveConfig();
-					player.sendMessage(plugin.getLang().getMessage("reloaded", "info"));
-
-				} catch (Exception e) {
-
-					player.sendMessage(plugin.getLang().getMessage("noperm", "warn"));
-					e.printStackTrace();
-
-				}
-
-			}else{
-				player.sendMessage(plugin.getLang().getMessage("noperm", "warn"));
-				player.sendMessage(RELOAD);
+				plugin.reloadConfig();
+				this.loadConfig();
+				player.sendMessage(plugin.getLang().getMessage("reloaded", "info"));
+				plugin.log("Configuration File ("+ pdfFile.getFullName() + ") Reloaded by " + player.getName() + "");
 			}
 		}
+	}
+
+	//Potential to add Validation In Here SOMEHOW?
+	private void loadConfig(){
+		//Get all the Changes
+		coarseRot = plugin.getConfig().getDouble("coarse");
+		fineRot = plugin.getConfig().getDouble("fine");
+
+		toolType = plugin.getConfig().getString("tool");
+		editTool = Material.getMaterial(toolType);
+
+		requireToolData = plugin.getConfig().getBoolean("requireToolData", false);
+		if(requireToolData) editToolData = plugin.getConfig().getInt("toolData", Integer.MIN_VALUE);
+		requireToolLore = plugin.getConfig().getBoolean("requireToolLore", false);
+		if(requireToolLore) editToolLore= plugin.getConfig().getString("toolLore", null);
+
+		debug = plugin.getConfig().getBoolean("debug", true);
+		sendToActionBar = plugin.getConfig().getBoolean("sendMessagesToActionBar", true);
+		glowItemFrames = plugin.getConfig().getBoolean("glowingItemFrame", true);
 	}
 
 
