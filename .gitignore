@@ -4,3 +4,4 @@ target/
 /bin/
 /.project
 /.classpath
+/src/main/java/META-INF/

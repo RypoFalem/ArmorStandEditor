@@ -109,7 +109,7 @@ public class CommandEx implements CommandExecutor {
 		if(!(checkPermission(player, "reload", true))) return; //Basic sanity Check for Reload Permission!
 		if(args.length > 0 ){
 			// Check the Length of Args. If > 0 then pass noReload
-			player.sendMessage(plugin.getLang().getMessage("noreload", "warn"));
+			player.sendMessage(plugin.getLang().getMessage("noreloadcom", "warn"));
 			player.sendMessage(RELOAD);
 		} else {
 			// else if = 0 then get do one final check on the permission
