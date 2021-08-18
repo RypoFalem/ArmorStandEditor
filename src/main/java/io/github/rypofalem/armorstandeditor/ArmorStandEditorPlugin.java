@@ -82,7 +82,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		try {
 			Class.forName("org.spigotmc.SpigotConfig");
 			hasSpigot = true;
-			nmsVersionNotLatest = "SpigotMC ASAP. Load Continuing";
+			nmsVersionNotLatest = "SpigotMC ASAP";
 		} catch (ClassNotFoundException e){
 			hasSpigot = false;
 		}
@@ -92,13 +92,13 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		try{
 			Class.forName("com.destroystokyo.paper.PaperConfig");
 			hasPaper = true;
-			nmsVersionNotLatest = "Paper ASAP. Load Continuing";
+			nmsVersionNotLatest = "Paper ASAP";
 		} catch (ClassNotFoundException e){
 			hasPaper = false;
 		}
 		getLogger().info("PaperMC: " + hasPaper);
 
-		//If Paper and Spigot are both FALSE
+		//If Paper and Spigot are both FALSE - Disable the plugin
 		if (!hasPaper && !hasSpigot){
 			getLogger().severe("This plugin requires either Paper, Spigot or one of its forks to run");
 			getServer().getPluginManager().disablePlugin(this);
@@ -123,11 +123,10 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 				nmsVersion.startsWith("v1_16")){
 			getLogger().warning("Minecraft Version: " + nmsVersion + " is supported, but not latest.");
 			getLogger().warning("ArmorStandEditor will still work, but please update to the latest Version of " + nmsVersionNotLatest + ". Loading continuing.");
-			getServer().getPluginManager().enablePlugin(this);
 		} else {
 			getLogger().info("Minecraft Version: " + nmsVersion + " is supported. Loading continuing.");
-			getServer().getPluginManager().enablePlugin(this);
 		}
+		getServer().getPluginManager().enablePlugin(this);
 		getLogger().info("================================");
 
 		//saveResource doesn't accept File.separator on windows, need to hardcode unix separator "/" instead
