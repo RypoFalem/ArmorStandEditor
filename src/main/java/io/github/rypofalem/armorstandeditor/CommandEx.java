@@ -107,19 +107,20 @@ public class CommandEx implements CommandExecutor {
 	//Reload Command Now Expanded Upon.
 	private void commandReload(Player player, String[] args){
 		if(!(checkPermission(player, "reload", true))) return; //Basic sanity Check for Reload Permission!
-		if(args.length > 0 ){
+		if(args.length < 1 ){
 			// Check the Length of Args. If > 0 then pass noReload
 			player.sendMessage(plugin.getLang().getMessage("noreloadcom", "warn"));
 			player.sendMessage(RELOAD);
 		} else {
 			// else if = 0 then get do one final check on the permission
 
-			DateTimeFormatter format = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy HH:mm:ss.aa");
+			DateTimeFormatter format = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy HH:mm:ss");
 
 			if (checkPermission(player, "reload", true)) {
 				// if permission true then run Reload and Load all the Values, Message that it has been reloaded successfully. Log to Console, Reload on DateTime by Player
-				plugin.reloadConfig();
 				this.loadConfig();
+				plugin.saveConfig();
+				plugin.reloadConfig();
 				player.sendMessage(plugin.getLang().getMessage("reloaded", "info"));
 				plugin.log("Configuration File has reloaded on "+ now.format(format) +  " by " + player.getName() + "");
 			}
@@ -128,12 +129,19 @@ public class CommandEx implements CommandExecutor {
 
 	//Potential to add Validation In Here SOMEHOW? TO Validate that the file is good in that regard.
 	private void loadConfig(){
-		//Get all the Changes
+		//Get all the Changes - Not accepting changes without a FULL RELOAD
 		coarseRot = plugin.getConfig().getDouble("coarse");
 		fineRot = plugin.getConfig().getDouble("fine");
 
+		//Set Tool to be used in game
 		toolType = plugin.getConfig().getString("tool");
-		editTool = Material.getMaterial(toolType);
+		if (toolType != null) {
+			editTool = Material.getMaterial(toolType); //Ignore Warning
+		} else {
+			plugin.getLogger().severe("Unable to get Tool for Use with Plugin. Unable to continue!");
+			plugin.getServer().getPluginManager().disablePlugin(plugin);
+			return;
+		}
 
 		requireToolData = plugin.getConfig().getBoolean("requireToolData", false);
 		if(requireToolData) editToolData = plugin.getConfig().getInt("toolData", Integer.MIN_VALUE);
@@ -143,6 +151,7 @@ public class CommandEx implements CommandExecutor {
 		debug = plugin.getConfig().getBoolean("debug", true);
 		sendToActionBar = plugin.getConfig().getBoolean("sendMessagesToActionBar", true);
 		glowItemFrames = plugin.getConfig().getBoolean("glowingItemFrame", true);
+
 	}
 
 
