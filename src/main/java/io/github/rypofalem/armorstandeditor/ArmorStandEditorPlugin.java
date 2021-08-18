@@ -41,8 +41,9 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
 	//Server Version Detection: Paper or Spigot and Invalid NMS Version
 	public boolean hasSpigot = false;
+	public boolean hasPaper = false;
 	private String nmsVersion = null;
-	private String nmsVersionNotLatest = "";
+	private String nmsVersionNotLatest = null;
 	PluginDescriptionFile pdfFile = this.getDescription();
 
 	public PlayerEditorManager editorManager;
@@ -87,6 +88,23 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		}
 		getLogger().info("SpigotMC: " + hasSpigot);
 
+		//Paper Check
+		try{
+			Class.forName("com.destroystokyo.paper.PaperConfig");
+			hasPaper = true;
+			nmsVersionNotLatest = "Paper ASAP. Load Continuing";
+		} catch (ClassNotFoundException e){
+			hasPaper = false;
+		}
+		getLogger().info("PaperMC: " + hasPaper);
+
+		//If Paper and Spigot are both FALSE
+		if (!hasPaper && !hasSpigot){
+			getLogger().severe("This plugin requires either Paper, Spigot or one of its forks to run");
+			getServer().getPluginManager().disablePlugin(this);
+			return;
+		}
+
 		//Minimum Version Check - No Lower than 1.13. Will be tuned out in the future
 		if (    nmsVersion.startsWith("v1_8")  ||
 				nmsVersion.startsWith("v1_9")  ||
@@ -94,7 +112,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 				nmsVersion.startsWith("v1_11") ||
 				nmsVersion.startsWith("v1_12")){
 			getLogger().warning("Minecraft Version: " + nmsVersion + " is not supported. Loading Plugin Failed.");
-			setEnabled(false);
+			getServer().getPluginManager().disablePlugin(this);
 			return;
 		}
 
@@ -105,10 +123,10 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 				nmsVersion.startsWith("v1_16")){
 			getLogger().warning("Minecraft Version: " + nmsVersion + " is supported, but not latest.");
 			getLogger().warning("ArmorStandEditor will still work, but please update to the latest Version of " + nmsVersionNotLatest + ". Loading continuing.");
-			setEnabled(true);
+			getServer().getPluginManager().enablePlugin(this);
 		} else {
 			getLogger().info("Minecraft Version: " + nmsVersion + " is supported. Loading continuing.");
-			setEnabled(true);
+			getServer().getPluginManager().enablePlugin(this);
 		}
 		getLogger().info("================================");
 
@@ -133,8 +151,13 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
 		//Set Tool to be used in game
 		toolType = getConfig().getString("tool");
-
-		editTool = Material.getMaterial(toolType); //Ignore Warning
+		if (toolType != null) {
+			editTool = Material.getMaterial(toolType); //Ignore Warning
+		} else {
+			 getLogger().severe("Unable to get Tool for Use with Plugin. Unable to continue!");
+			 getServer().getPluginManager().disablePlugin(this);
+			 return;
+		}
 
 		//Is there NBT Required for the tool
 		requireToolData = getConfig().getBoolean("requireToolData", false);
@@ -149,7 +172,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
 		editorManager = new PlayerEditorManager(this);
 		execute = new CommandEx(this);
-		getCommand("ase").setExecutor(execute);
+		getCommand("ase").setExecutor(execute); //Ignore the warning with this. GetCommand is Nullable. Will be fixed in the future
 		getServer().getPluginManager().registerEvents(editorManager, this);
 	}
 
@@ -204,7 +227,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			if(!itemStk.hasItemMeta()) { return false; }
 
 			//Get the lore of the Item and if it is null - Return False
-			List<String> itemLore = itemStk.getItemMeta().getLore(); //Ignore warnings this gives. getItemMeta is noted as NULLABLE
+			List<String> itemLore = itemStk.getItemMeta().getLore(); //Ignore warnings this gives. Will be fixed in the future
 			if (itemLore == null){ return false; }
 
 			//If the Item does not have Lore - Return False
