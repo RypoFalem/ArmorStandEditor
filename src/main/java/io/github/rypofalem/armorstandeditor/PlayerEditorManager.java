@@ -197,14 +197,14 @@ public class PlayerEditorManager implements Listener {
 
 		//Check
 		if(!(as.isEmpty()) && itemF.isEmpty()) {
-			getPlayerEditor(event.getPlayer().getUniqueId()).setTarget(as);
+			getPlayerEditor(player.getUniqueId()).setTarget(as);
 		} else if(!(itemF.isEmpty()) && as.isEmpty()) {
-			getPlayerEditor(event.getPlayer().getUniqueId()).setFrameTarget(itemF);
+			getPlayerEditor(player.getUniqueId()).setFrameTarget(itemF);
 		} else if (!(itemF.isEmpty()) && !(as.isEmpty())) {
-			getPlayerEditor(event.getPlayer().getUniqueId()).sendMessage("doubletarget", "warn");
+			getPlayerEditor(player.getUniqueId()).sendMessage("doubletarget", "warn");
 		} else {
-			getPlayerEditor(event.getPlayer().getUniqueId()).setTarget(null);
-			getPlayerEditor(event.getPlayer().getUniqueId()).setFrameTarget(null);
+			getPlayerEditor(player.getUniqueId()).setTarget(null);
+			getPlayerEditor(player.getUniqueId()).setFrameTarget(null);
 		}
 
 	}
