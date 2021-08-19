@@ -51,6 +51,14 @@ copied:
   msg: Armorstand status gekopieerd naar slot <x>.
 pasted:
   msg: Armorstand status geplakt vanuit slot <x>.
+notarget:
+  msg: ArmorStand target unlocked.
+frametarget:
+  msg: Itemframe target locked
+noframetarget:
+  msg: Itemframe target unlocked.
+doubletarget:
+  msg: Please look at either an ArmorStand or an ItemFrame, not both!
 
 #warn
 cantedit:

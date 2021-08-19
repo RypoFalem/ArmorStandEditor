@@ -64,6 +64,8 @@ frametarget:
   msg: Itemframe target locked
 noframetarget:
   msg: Itemframe target unlocked.
+doubletarget:
+  msg: Please look at either an ArmorStand or an ItemFrame, not both!
 reloaded:
   msg: Configuration File has been reloaded.
 help:

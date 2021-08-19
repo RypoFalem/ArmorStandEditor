@@ -5,3 +5,4 @@ target/
 /.project
 /.classpath
 /src/main/java/META-INF/
+/.settings/

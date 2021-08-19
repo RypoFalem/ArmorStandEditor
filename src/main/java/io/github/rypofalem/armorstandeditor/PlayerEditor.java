@@ -181,7 +181,7 @@ public class PlayerEditor {
 				break;
 		}
 	}
-	
+
 	private void resetPosition(ArmorStand armorStand) {
 		armorStand.setHeadPose(new EulerAngle(0, 0, 0));
 		armorStand.setBodyPose(new EulerAngle(0, 0, 0));
@@ -192,7 +192,7 @@ public class PlayerEditor {
 	}
 
 	private void openEquipment(ArmorStand armorStand) {
-		if(!getPlayer().hasPermission("asedit.equipment")) return;
+		if (!getPlayer().hasPermission("asedit.equipment")) return;
 		equipMenu = new EquipmentMenu(this, armorStand);
 		equipMenu.open();
 	}
@@ -308,7 +308,7 @@ public class PlayerEditor {
 	}
 
 	private void toggleDisableSlots(ArmorStand armorStand) {
-		if(!getPlayer().hasPermission("asedit.equipment")) return;
+		if (!getPlayer().hasPermission("asedit.equipment")) return;
 		if (armorStand.hasEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.REMOVING_OR_CHANGING)) { //Adds a lock to every slot or removes it
 			for (final EquipmentSlot slot : EquipmentSlot.values()) {
 				armorStand.removeEquipmentLock(slot, ArmorStand.LockType.REMOVING_OR_CHANGING);
@@ -343,6 +343,7 @@ public class PlayerEditor {
 		if (!getPlayer().hasPermission("asedit.invisible")) return;
 		armorStand.setVisible(!armorStand.isVisible());
 	}
+
 	void toggleItemFrameVisible(ItemFrame itemFrame) {
 		if (!getPlayer().hasPermission("asedit.basic")) return; //Change to be asedit.invisible?
 		//Potential for OnInteractEvent for ItemFrame to Disable Interaction
@@ -402,61 +403,69 @@ public class PlayerEditor {
 			target = null;
 			targetList = null;
 			sendMessage("notarget", null);
-			return;
-		}
-
-		if (targetList == null) {
-			targetList = armorStands;
-			targetIndex = 0;
-			sendMessage("target", null);
+			//plugin.getServer().getLogger().info("ArmorStand Target Unlocked");
 		} else {
-			boolean same = targetList.size() == armorStands.size();
-			if (same) for (ArmorStand as : armorStands) {
-				same = targetList.contains(as);
-				if (!same) break;
-			}
 
-			if (same) {
-				targetIndex = ++targetIndex % targetList.size();
-			} else {
+			if (targetList == null) {
 				targetList = armorStands;
 				targetIndex = 0;
 				sendMessage("target", null);
+				//plugin.getServer().getLogger().info("ArmorStand Target Locked");
+			} else {
+				boolean same = targetList.size() == armorStands.size();
+				if (same) for (ArmorStand as : armorStands) {
+					same = targetList.contains(as);
+					if (!same) break;
+				}
+
+				if (same) {
+					targetIndex = ++targetIndex % targetList.size();
+				} else {
+					targetList = armorStands;
+					targetIndex = 0;
+					sendMessage("target", null);
+					//plugin.getServer().getLogger().info("ArmorStand Target Locked");
+				}
 			}
+			target = targetList.get(targetIndex);
+			highlight(target);
 		}
-		target = targetList.get(targetIndex);
-		highlight(target);
 	}
 
-	public void setFrameTarget(final ArrayList<ItemFrame> itemFrames) {
+
+	public void setFrameTarget(ArrayList<ItemFrame> itemFrames) {
 		if (itemFrames == null || itemFrames.isEmpty()) {
 			frameTarget = null;
 			frameTargetList = null;
 			sendMessage("noframetarget", null);
-			return;
-		}
-
-		if (frameTargetList == null) {
-			frameTargetList = itemFrames;
-			frameTargetIndex = 0;
-			sendMessage("target", null);
+			//plugin.getServer().getLogger().info("ItemFrame Target Unlocked");
 		} else {
-			boolean same = frameTargetList.size() == itemFrames.size();
-			if (same) for (final ItemFrame itemf : itemFrames) {
-				same = frameTargetList.contains(itemf);
-				if (!same) break;
-			}
 
-			if (same) {
-				frameTargetIndex = ++frameTargetIndex % frameTargetList.size();
-			} else {
+			if (frameTargetList == null) {
 				frameTargetList = itemFrames;
 				frameTargetIndex = 0;
 				sendMessage("frametarget", null);
+				//plugin.getServer().getLogger().info("ItemFrame Target Un;ocked");
+			} else {
+				boolean same = frameTargetList.size() == itemFrames.size();
+				if (same) for (final ItemFrame itemf : itemFrames) {
+					same = frameTargetList.contains(itemf);
+					if (!same) break;
+				}
+
+				if (same) {
+					frameTargetIndex = ++frameTargetIndex % frameTargetList.size();
+				} else {
+					frameTargetList = itemFrames;
+					frameTargetIndex = 0;
+					sendMessage("frametarget", null);
+					//plugin.getServer().getLogger().info("ItemFrame Target Locked");
+				}
+				frameTarget = frameTargetList.get(frameTargetIndex);
 			}
-			frameTarget = frameTargetList.get(frameTargetIndex);
 		}
 	}
+
 
 
 	ArmorStand attemptTarget(ArmorStand armorStand) {

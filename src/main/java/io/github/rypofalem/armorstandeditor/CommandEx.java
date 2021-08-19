@@ -88,8 +88,8 @@ public class CommandEx implements CommandExecutor {
 				break;
 			case "slot": commandSlot(player, args);
 				break;
-			case "reload": commandReload(player, args);
-			    break;
+			/*case "reload": commandReload(player, args);
+			    break;*/
 			case "help":
 			case "?": commandHelp(player);
 				break;
@@ -105,7 +105,7 @@ public class CommandEx implements CommandExecutor {
 	}
 
 	//Reload Command Now Expanded Upon.
-	private void commandReload(Player player, String[] args){
+/*	private void commandReload(Player player, String[] args){
 		if(!(checkPermission(player, "reload", true))) return; //Basic sanity Check for Reload Permission!
 		if(args.length < 1 ){
 			// Check the Length of Args. If > 0 then pass noReload
@@ -152,7 +152,7 @@ public class CommandEx implements CommandExecutor {
 		sendToActionBar = plugin.getConfig().getBoolean("sendMessagesToActionBar", true);
 		glowItemFrames = plugin.getConfig().getBoolean("glowingItemFrame", true);
 
-	}
+	}*/
 
 
 	private void commandSlot(Player player, String[] args) {

@@ -52,6 +52,12 @@ target:
   msg: Soporte de armaduras bloqueado.
 notarget:
   msg: Soporte de armaduras desbloqueado.
+frametarget:
+  msg: Itemframe target locked
+noframetarget:
+  msg: Itemframe target unlocked.
+doubletarget:
+  msg: Please look at either an ArmorStand or an ItemFrame, not both!
 help:
   msg: "1. Manten la herramienta de edición (<x>) en tu mano principal.
 

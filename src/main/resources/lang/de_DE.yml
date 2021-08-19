@@ -55,6 +55,12 @@ target:
   msg: Ziel Ruestungsstaender wurde gesperrt.
 notarget:
   msg: Ziel Ruestungsstaender wurde entsperrt.
+frametarget:
+  msg: Itemframe target locked
+noframetarget:
+  msg: Itemframe target unlocked.
+doubletarget:
+  msg: Please look at either an ArmorStand or an ItemFrame, not both!
 help:
   msg: "1. Halte das Bearbeitungswerkzeug(<x>) in deiner Haupthand.
 

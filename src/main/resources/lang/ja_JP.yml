@@ -55,6 +55,12 @@ target:
   msg: アーマースタンドの編集対象を保持しました。
 notarget:
   msg: アーマースタンドの編集対象を保持していません。
+frametarget:
+  msg: Itemframe target locked
+noframetarget:
+  msg: Itemframe target unlocked.
+doubletarget:
+  msg: Please look at either an ArmorStand or an ItemFrame, not both!
 help:
   msg: "1. 編集ツール(<x>)を手に持ちます。
 

@@ -54,6 +54,12 @@ target:
   msg: Valet cible verrouillé.
 notarget:
   msg: Valet cible déverrouillé.
+frametarget:
+  msg: Itemframe target locked
+noframetarget:
+  msg: Itemframe target unlocked.
+doubletarget:
+  msg: Please look at either an ArmorStand or an ItemFrame, not both!
 help:
   msg: "1. Tenez l'outil d'édition (<x>) dans votre main principale.
   

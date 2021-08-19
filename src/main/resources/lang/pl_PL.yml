@@ -54,6 +54,12 @@ target:
   msg: Zablokowano cel.
 notarget:
   msg: Odblokowano cel.
+frametarget:
+  msg: Itemframe target locked
+noframetarget:
+  msg: Itemframe target unlocked.
+doubletarget:
+  msg: Please look at either an ArmorStand or an ItemFrame, not both!
 help:
   msg: "1. Trzymaj narzędzie edycji (<x>).
 
