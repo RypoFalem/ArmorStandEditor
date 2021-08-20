@@ -16,7 +16,7 @@ permissions:
       description: Allow use armorstand edit functions. If set to false it will override all other functions.
       default: true
     asedit.invisible:
-      description: Toggle armorstand visible/invisible.
+      description: Toggles ArmorStand and ItemFrame visibility.
       default: true
     asedit.rename:
       description: Rename armorstands
@@ -24,6 +24,7 @@ permissions:
     asedit.equipment:
       description: Access armorstand equipment GUI
       default: true
-    asedit.reload:
-      description: Reload Configs for ArmorStandEditor
-      default: false
+#   NOT CURRENTLY IN USE! Coming in a future update
+#    asedit.reload:
+#      description: Reload Configs for ArmorStandEditor
+#      default: false
