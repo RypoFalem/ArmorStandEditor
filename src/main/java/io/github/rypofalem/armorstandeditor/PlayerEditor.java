@@ -345,7 +345,7 @@ public class PlayerEditor {
 	}
 
 	void toggleItemFrameVisible(ItemFrame itemFrame) {
-		if (!getPlayer().hasPermission("asedit.invisble")) return; //Changed to Invisible, better that visibility is all under same permission node
+		if (!getPlayer().hasPermission("asedit.invisible")) return; //Changed to Invisible, better that visibility is all under same permission node
 		//Potential for OnInteractEvent for ItemFrame to Disable Interaction
 		itemFrame.setVisible(!itemFrame.isVisible());
 	}
