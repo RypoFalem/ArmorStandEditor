@@ -497,7 +497,7 @@ public class PlayerEditor {
 				|| target.getLocation().distanceSquared(getPlayer().getLocation()) > 100)
 			return armorStand;
 		armorStand = target;
-		highlight(armorStand);
+		//highlight(armorStand);
 		return armorStand;
 	}
 
