@@ -130,7 +130,7 @@ public class Menu {
 			visibility = createIcon(visibility, "invisible", "mode invisible");
 		}
 
-		if (pe.getPlayer().hasPermission("asedit.basic")) {
+		if (pe.getPlayer().hasPermission("asedit.invisible")) {
 			itemFrameVisible = new ItemStack(Material.ITEM_FRAME, 1);
 			itemFrameVisible = createIcon(itemFrameVisible, "itemframevisible", "mode itemframe");
 		}

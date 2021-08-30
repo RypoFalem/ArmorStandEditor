@@ -308,7 +308,7 @@ public class PlayerEditor {
 	}
 
 	private void toggleDisableSlots(ArmorStand armorStand) {
-		if (!getPlayer().hasPermission("asedit.equipment")) return;
+		if (!getPlayer().hasPermission("asedit.disableSlots")) return;
 		if (armorStand.hasEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.REMOVING_OR_CHANGING)) { //Adds a lock to every slot or removes it
 			for (final EquipmentSlot slot : EquipmentSlot.values()) {
 				armorStand.removeEquipmentLock(slot, ArmorStand.LockType.REMOVING_OR_CHANGING);

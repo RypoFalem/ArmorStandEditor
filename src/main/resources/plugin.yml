@@ -24,6 +24,9 @@ permissions:
     asedit.equipment:
       description: Access armorstand equipment GUI
       default: true
+    asedit.disableslots:
+      description: Lock/Unlock contents of an ArmorStand. Prevents adding, changing and removing of items from ArmorStand.
+      default: true
 #   NOT CURRENTLY IN USE! Coming in a future update
 #    asedit.reload:
 #      description: Reload Configs for ArmorStandEditor
