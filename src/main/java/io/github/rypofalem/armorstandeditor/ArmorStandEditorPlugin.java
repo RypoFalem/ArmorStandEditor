@@ -195,20 +195,17 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		scoreboard.registerNewTeam("ASLocked");
 		scoreboard.getTeam("ASLocked").setColor(ChatColor.RED);
 
-		scoreboard.registerNewTeam("ASTargeted");
-		scoreboard.getTeam("ASTargeted").setColor(ChatColor.WHITE);
 	}
 
 	private void unregisterScoreboards() {
 		getLogger().info("Removing Scoreboards required for Glowing Effects");
 
 		team = scoreboard.getTeam("ASLocked");
-		assert team != null;
-		team.unregister();
-
-		team = scoreboard.getTeam("ASTargeted");
-		assert team != null;
-		team.unregister();
+		try {
+			team.unregister();
+		} catch (Exception e){
+			getLogger().severe("Team Already Appears to be removed. Please do not do this manually!");
+		}
 	}
 
 	private void updateConfig(String folder, String config) {

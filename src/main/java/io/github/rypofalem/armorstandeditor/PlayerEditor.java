@@ -325,7 +325,7 @@ public class PlayerEditor {
 
 			if(team != null) {
 				team.removeEntry(armorStandID.toString());
-				armorStand.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 15, 1, false, false));
+				armorStand.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 60, 1, false, false));
 			}
 
 
@@ -340,6 +340,7 @@ public class PlayerEditor {
 				armorStand.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 60, 1, false, false));
 			}
 		}
+
 		sendMessage("disabledslots", null);
 
 	}
@@ -447,7 +448,8 @@ public class PlayerEditor {
 				}
 			}
 			target = targetList.get(targetIndex);
-			highlight(target);
+			highlight(target); //NOTE: If Targeted and Locked, it displays the TEAM Color Glow: RED
+			                   //      Otherwise, its unlocked and will display WHITE as its not in a team by default
 
 		}
 	}
