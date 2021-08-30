@@ -417,7 +417,7 @@ public class PlayerEditor {
 			sendMessage("notarget", null);
 			//plugin.getServer().getLogger().info("ArmorStand Target Unlocked");
 			armorStandID = target.getUniqueId();
-			team.removeEntry(target.toString());
+			team.removeEntry(armorStandID.toString());
 		} else {
 
 			if (targetList == null) {
@@ -443,8 +443,7 @@ public class PlayerEditor {
 			}
 			target = targetList.get(targetIndex);
 			armorStandID = target.getUniqueId();
-			team.addEntry(target.toString());
-
+			team.addEntry(armorStandID.toString());
 			highlight(target);
 
 		}

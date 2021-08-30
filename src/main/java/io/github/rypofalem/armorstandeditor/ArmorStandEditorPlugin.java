@@ -79,7 +79,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
 	@Override
 	public void onEnable(){
-
+		scoreboard = this.getServer().getScoreboardManager().getMainScoreboard();
 		registerScoreboards();
 
 		//Get NMS Version
@@ -116,13 +116,14 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			return;
 		}
 
-		//Minimum Version Check - No Lower than 1.13. Will be tuned out in the future
+		//Minimum Version Check - No Lower than 1.13-API. Will be tuned out in the future
 		if (    nmsVersion.startsWith("v1_8")  ||
 				nmsVersion.startsWith("v1_9")  ||
 				nmsVersion.startsWith("v1_10") ||
 				nmsVersion.startsWith("v1_11") ||
 				nmsVersion.startsWith("v1_12")){
 			getLogger().warning("Minecraft Version: " + nmsVersion + " is not supported. Loading Plugin Failed.");
+			getLogger().info("================================");
 			getServer().getPluginManager().disablePlugin(this);
 			return;
 		}
@@ -165,6 +166,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			editTool = Material.getMaterial(toolType); //Ignore Warning
 		} else {
 			 getLogger().severe("Unable to get Tool for Use with Plugin. Unable to continue!");
+			 getLogger().info("================================");
 			 getServer().getPluginManager().disablePlugin(this);
 			 return;
 		}
@@ -187,7 +189,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	}
 
 	private void registerScoreboards() {
-		scoreboard = this.getServer().getScoreboardManager().getMainScoreboard();
+		getLogger().info("Registering Scoreboards required for Glowing Effects");
 
 		scoreboard.registerNewTeam("ArmorStandLocked");
 		scoreboard.getTeam("ArmorStandLocked").setColor(ChatColor.GRAY);
@@ -197,14 +199,13 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	}
 
 	private void unregisterScoreboards() {
-		scoreboard = this.getServer().getScoreboardManager().getMainScoreboard();
-		team = scoreboard.getTeam("ArmorStandLocked");
+		getLogger().info("Removing Scoreboards required for Glowing Effects");
 
+		team = scoreboard.getTeam("ArmorStandLocked");
 		assert team != null;
 		team.unregister();
 
 		team = scoreboard.getTeam("ArmorStandTargeted");
-
 		assert team != null;
 		team.unregister();
 	}
@@ -221,6 +222,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			if(player.getOpenInventory().getTopInventory().getHolder() == editorManager.getMenuHolder()) player.closeInventory();
 		}
 
+		scoreboard = this.getServer().getScoreboardManager().getMainScoreboard();
 		unregisterScoreboards();
 	}
 
