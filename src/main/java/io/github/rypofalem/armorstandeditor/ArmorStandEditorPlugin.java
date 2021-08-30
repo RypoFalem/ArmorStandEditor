@@ -201,9 +201,9 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		getLogger().info("Removing Scoreboards required for Glowing Effects");
 
 		team = scoreboard.getTeam("ASLocked");
-		try {
+		if(team != null) { //Basic Sanity Check to ensure that the team is there
 			team.unregister();
-		} catch (Exception e){
+		} else{
 			getLogger().severe("Team Already Appears to be removed. Please do not do this manually!");
 		}
 	}
