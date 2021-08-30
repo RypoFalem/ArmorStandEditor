@@ -191,21 +191,21 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	private void registerScoreboards() {
 		getLogger().info("Registering Scoreboards required for Glowing Effects");
 
-		scoreboard.registerNewTeam("ArmorStandLocked");
-		scoreboard.getTeam("ArmorStandLocked").setColor(ChatColor.GRAY);
+		scoreboard.registerNewTeam("ASLocked");
+		scoreboard.getTeam("ASLocked").setColor(ChatColor.GRAY);
 
-		scoreboard.registerNewTeam("ArmorStandTargeted");
-		scoreboard.getTeam("ArmorStandTargeted").setColor(ChatColor.WHITE);
+		scoreboard.registerNewTeam("ASTargeted");
+		scoreboard.getTeam("ASTargeted").setColor(ChatColor.WHITE);
 	}
 
-	private void unregisterScoreboards() {
+	private void unregisterScoreboards() { //Implemented GlowingEffects for
 		getLogger().info("Removing Scoreboards required for Glowing Effects");
 
-		team = scoreboard.getTeam("ArmorStandLocked");
+		team = scoreboard.getTeam("ASLocked");
 		assert team != null;
 		team.unregister();
 
-		team = scoreboard.getTeam("ArmorStandTargeted");
+		team = scoreboard.getTeam("ASTargeted");
 		assert team != null;
 		team.unregister();
 	}

@@ -315,7 +315,7 @@ public class PlayerEditor {
 		if (!getPlayer().hasPermission("asedit.disableSlots")) return;
 
 		if (armorStand.hasEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.REMOVING_OR_CHANGING)) { //Adds a lock to every slot or removes it
-			team = plugin.scoreboard.getTeam("ArmorStandLocked");
+			team = plugin.scoreboard.getTeam("ASLocked");
 			for (final EquipmentSlot slot : EquipmentSlot.values()) {
 				armorStand.removeEquipmentLock(slot, ArmorStand.LockType.REMOVING_OR_CHANGING);
 				armorStand.removeEquipmentLock(slot, ArmorStand.LockType.ADDING);
@@ -410,7 +410,7 @@ public class PlayerEditor {
 	}
 
 	public void setTarget(ArrayList<ArmorStand> armorStands) {
-		team = plugin.scoreboard.getTeam("ArmorStandTargeted");
+		team = plugin.scoreboard.getTeam("ASTargeted");
 		if (armorStands == null || armorStands.isEmpty()) {
 			target = null;
 			targetList = null;
@@ -439,6 +439,8 @@ public class PlayerEditor {
 					targetIndex = 0;
 					sendMessage("target", null);
 					//plugin.getServer().getLogger().info("ArmorStand Target Locked");
+					armorStandID = target.getUniqueId();
+					team.addEntry(armorStandID.toString());
 				}
 			}
 			target = targetList.get(targetIndex);
