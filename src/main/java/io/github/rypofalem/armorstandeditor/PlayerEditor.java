@@ -39,11 +39,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 import org.bukkit.util.EulerAngle;
 
 public class PlayerEditor {
 	public ArmorStandEditorPlugin plugin;
+	Team team;
 	private UUID uuid;
+	UUID armorStandID;
 	EditMode eMode;
 	AdjustmentMode adjMode;
 	CopySlots copySlots;
@@ -169,7 +173,7 @@ public class PlayerEditor {
 	}
 
 	public void editItemFrame(ItemFrame itemFrame) {
-		if (!getPlayer().hasPermission("asedit.basic")) return; //Change to be asedit.invisible?
+		if (!getPlayer().hasPermission("asedit.invisible")) return; //Change to be asedit.invisible?
 		switch (eMode) {
 			case ITEMFRAME:
 				toggleItemFrameVisible(itemFrame);
@@ -309,20 +313,27 @@ public class PlayerEditor {
 
 	private void toggleDisableSlots(ArmorStand armorStand) {
 		if (!getPlayer().hasPermission("asedit.disableSlots")) return;
+
 		if (armorStand.hasEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.REMOVING_OR_CHANGING)) { //Adds a lock to every slot or removes it
+			team = plugin.scoreboard.getTeam("ArmorStandLocked");
 			for (final EquipmentSlot slot : EquipmentSlot.values()) {
 				armorStand.removeEquipmentLock(slot, ArmorStand.LockType.REMOVING_OR_CHANGING);
 				armorStand.removeEquipmentLock(slot, ArmorStand.LockType.ADDING);
 				getPlayer().playSound(getPlayer().getLocation(), Sound.ENTITY_ITEM_BREAK, SoundCategory.PLAYERS, 1.0f, 1.0f);
 			}
+			armorStandID = armorStand.getUniqueId();
+			team.addEntry(armorStandID.toString());
 		} else {
 			for (final EquipmentSlot slot : EquipmentSlot.values()) {
 				armorStand.addEquipmentLock(slot, ArmorStand.LockType.REMOVING_OR_CHANGING);
 				armorStand.addEquipmentLock(slot, ArmorStand.LockType.ADDING);
 			}
 			getPlayer().playSound(getPlayer().getLocation(), Sound.ITEM_ARMOR_EQUIP_IRON, SoundCategory.PLAYERS, 1.0f, 1.0f);
+			armorStandID = armorStand.getUniqueId();
+			team.removeEntry(armorStandID.toString());
 		}
 		sendMessage("disabledslots", null);
+
 	}
 
 	private void toggleGravity(ArmorStand armorStand) {
@@ -399,11 +410,14 @@ public class PlayerEditor {
 	}
 
 	public void setTarget(ArrayList<ArmorStand> armorStands) {
+		team = plugin.scoreboard.getTeam("ArmorStandTargeted");
 		if (armorStands == null || armorStands.isEmpty()) {
 			target = null;
 			targetList = null;
 			sendMessage("notarget", null);
 			//plugin.getServer().getLogger().info("ArmorStand Target Unlocked");
+			armorStandID = target.getUniqueId();
+			team.removeEntry(target.toString());
 		} else {
 
 			if (targetList == null) {
@@ -428,7 +442,11 @@ public class PlayerEditor {
 				}
 			}
 			target = targetList.get(targetIndex);
+			armorStandID = target.getUniqueId();
+			team.addEntry(target.toString());
+
 			highlight(target);
+
 		}
 	}
 

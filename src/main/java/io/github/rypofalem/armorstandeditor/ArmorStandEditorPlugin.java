@@ -21,6 +21,7 @@ package io.github.rypofalem.armorstandeditor;
 
 import io.github.rypofalem.armorstandeditor.language.Language;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -28,6 +29,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 import java.io.File;
 import java.util.List;
@@ -60,7 +63,13 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	double fineRot;
 	boolean glowItemFrames;
 
+	//Glow Entity Colors
+	public Scoreboard scoreboard;
+	public Team team;
+
 	private static ArmorStandEditorPlugin plugin;
+
+
 
 
 	public ArmorStandEditorPlugin(){
@@ -70,6 +79,8 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
 	@Override
 	public void onEnable(){
+
+		registerScoreboards();
 
 		//Get NMS Version
 		nmsVersion = getServer().getClass().getPackage().getName().replace(".",",").split(",")[3];
@@ -175,6 +186,29 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		getServer().getPluginManager().registerEvents(editorManager, this);
 	}
 
+	private void registerScoreboards() {
+		scoreboard = this.getServer().getScoreboardManager().getMainScoreboard();
+
+		scoreboard.registerNewTeam("ArmorStandLocked");
+		scoreboard.getTeam("ArmorStandLocked").setColor(ChatColor.GRAY);
+
+		scoreboard.registerNewTeam("ArmorStandTargeted");
+		scoreboard.getTeam("ArmorStandTargeted").setColor(ChatColor.WHITE);
+	}
+
+	private void unregisterScoreboards() {
+		scoreboard = this.getServer().getScoreboardManager().getMainScoreboard();
+		team = scoreboard.getTeam("ArmorStandLocked");
+
+		assert team != null;
+		team.unregister();
+
+		team = scoreboard.getTeam("ArmorStandTargeted");
+
+		assert team != null;
+		team.unregister();
+	}
+
 	private void updateConfig(String folder, String config) {
 		if(!new File(getDataFolder() + File.separator + folder + config).exists()){
 			saveResource(folder  + config, false);
@@ -186,6 +220,8 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		for(Player player : Bukkit.getServer().getOnlinePlayers()){
 			if(player.getOpenInventory().getTopInventory().getHolder() == editorManager.getMenuHolder()) player.closeInventory();
 		}
+
+		unregisterScoreboards();
 	}
 
 	public void log(String message){
