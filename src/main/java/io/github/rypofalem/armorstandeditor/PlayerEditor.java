@@ -321,7 +321,7 @@ public class PlayerEditor {
 				getPlayer().playSound(getPlayer().getLocation(), Sound.ENTITY_ITEM_BREAK, SoundCategory.PLAYERS, 1.0f, 1.0f);
 			}
 			armorStandID = armorStand.getUniqueId();
-			team.addEntry(armorStandID.toString());
+			team.removeEntry(armorStandID.toString());
 		} else {
 			for (final EquipmentSlot slot : EquipmentSlot.values()) {
 				armorStand.addEquipmentLock(slot, ArmorStand.LockType.REMOVING_OR_CHANGING);
@@ -329,7 +329,7 @@ public class PlayerEditor {
 			}
 			getPlayer().playSound(getPlayer().getLocation(), Sound.ITEM_ARMOR_EQUIP_IRON, SoundCategory.PLAYERS, 1.0f, 1.0f);
 			armorStandID = armorStand.getUniqueId();
-			team.removeEntry(armorStandID.toString());
+			team.addEntry(armorStandID.toString());
 		}
 		sendMessage("disabledslots", null);
 
