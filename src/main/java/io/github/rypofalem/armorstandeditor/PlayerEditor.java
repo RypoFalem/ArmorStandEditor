@@ -315,21 +315,30 @@ public class PlayerEditor {
 		if (!getPlayer().hasPermission("asedit.disableSlots")) return;
 		if (armorStand.hasEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.REMOVING_OR_CHANGING)) { //Adds a lock to every slot or removes it
 			team = plugin.scoreboard.getTeam("ASLocked");
-			for (final EquipmentSlot slot : EquipmentSlot.values()) {
+			armorStandID = armorStand.getUniqueId();
+
+			for (final EquipmentSlot slot : EquipmentSlot.values()) { // UNLOCKED
 				armorStand.removeEquipmentLock(slot, ArmorStand.LockType.REMOVING_OR_CHANGING);
 				armorStand.removeEquipmentLock(slot, ArmorStand.LockType.ADDING);
-				getPlayer().playSound(getPlayer().getLocation(), Sound.ENTITY_ITEM_BREAK, SoundCategory.PLAYERS, 1.0f, 1.0f);
 			}
-			armorStandID = armorStand.getUniqueId();
-			team.removeEntry(armorStandID.toString());
+			getPlayer().playSound(getPlayer().getLocation(), Sound.ENTITY_ITEM_BREAK, SoundCategory.PLAYERS, 1.0f, 1.0f);
+
+			if(team != null) {
+				team.removeEntry(armorStandID.toString());
+				armorStand.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 15, 1, false, false));
+			}
+
+
 		} else {
-			for (final EquipmentSlot slot : EquipmentSlot.values()) {
+			for (final EquipmentSlot slot : EquipmentSlot.values()) { //LOCKED
 				armorStand.addEquipmentLock(slot, ArmorStand.LockType.REMOVING_OR_CHANGING);
 				armorStand.addEquipmentLock(slot, ArmorStand.LockType.ADDING);
 			}
 			getPlayer().playSound(getPlayer().getLocation(), Sound.ITEM_ARMOR_EQUIP_IRON, SoundCategory.PLAYERS, 1.0f, 1.0f);
-			armorStandID = armorStand.getUniqueId();
-			team.addEntry(armorStandID.toString());
+			if(team != null) {
+				team.addEntry(armorStandID.toString());
+				armorStand.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 60, 1, false, false));
+			}
 		}
 		sendMessage("disabledslots", null);
 
@@ -409,14 +418,11 @@ public class PlayerEditor {
 	}
 
 	public void setTarget(ArrayList<ArmorStand> armorStands) {
-		team = plugin.scoreboard.getTeam("ASTargeted");
 		if (armorStands == null || armorStands.isEmpty()) {
 			target = null;
 			targetList = null;
 			sendMessage("notarget", null);
 			//plugin.getServer().getLogger().info("ArmorStand Target Unlocked");
-			armorStandID = target.getUniqueId();
-			team.removeEntry(armorStandID.toString());
 		} else {
 
 			if (targetList == null) {
@@ -441,8 +447,6 @@ public class PlayerEditor {
 				}
 			}
 			target = targetList.get(targetIndex);
-			armorStandID = target.getUniqueId();
-			team.addEntry(armorStandID.toString());
 			highlight(target);
 
 		}
