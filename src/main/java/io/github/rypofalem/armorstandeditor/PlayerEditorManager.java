@@ -82,7 +82,7 @@ public class PlayerEditorManager implements Listener {
 			event.setCancelled(true);
 			if (canEdit(player, as)) applyLeftTool(player, as);
 		} else if (event.getEntity() instanceof ItemFrame) {
-			 ItemFrame itemf = (ItemFrame) event.getEntity();
+			ItemFrame itemf = (ItemFrame) event.getEntity();
 			getPlayerEditor(player.getUniqueId()).cancelOpenMenu();
 			event.setCancelled(true);
 			if (canEdit(player, itemf)) applyLeftTool(player, itemf);

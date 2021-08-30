@@ -44,7 +44,7 @@ public class CommandEx implements CommandExecutor {
 	final String RELOAD = ChatColor.YELLOW + "/ase reload";
 	final String HELP = ChatColor.YELLOW + "/ase help";
 
-	//Reload Stuff
+	/*//Reload Stuff
 	Material editTool;
 	boolean requireToolData = false;
 	boolean sendToActionBar = true;
@@ -56,7 +56,7 @@ public class CommandEx implements CommandExecutor {
 	double fineRot;
 	boolean glowItemFrames;
 	String toolType = null;
-	LocalDateTime now = LocalDateTime.now();
+	LocalDateTime now = LocalDateTime.now();*/
 
 	public CommandEx( ArmorStandEditorPlugin armorStandEditorPlugin) {
 		this.plugin = armorStandEditorPlugin;

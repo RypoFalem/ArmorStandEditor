@@ -28,7 +28,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 public class Language {
-    final String DEFAULTLANG = "en_US.yml";
+    final String DEFAULT_LANG = "en_US.yml";
     private YamlConfiguration langConfig = null;
     private YamlConfiguration defConfig = null;
     private File langFile = null;
@@ -40,11 +40,11 @@ public class Language {
     }
 
     public void reloadLang(String langFileName) {
-        if (langFileName == null) langFileName = DEFAULTLANG;
+        if (langFileName == null) langFileName = DEFAULT_LANG;
         File langFolder = new File(plugin.getDataFolder().getPath() + File.separator + "lang");
         langFile = new File(langFolder, langFileName);
 
-        InputStream input = plugin.getResource("lang" + "/" + DEFAULTLANG); //getResource doesn't accept File.seperator on windows, need to hardcode unix seperator "/" instead
+        InputStream input = plugin.getResource("lang" + "/" + DEFAULT_LANG); //getResource doesn't accept File.seperator on windows, need to hardcode unix seperator "/" instead
         assert input != null;
         Reader defaultLangStream = new InputStreamReader(input, StandardCharsets.UTF_8);
         defConfig = YamlConfiguration.loadConfiguration(defaultLangStream);
