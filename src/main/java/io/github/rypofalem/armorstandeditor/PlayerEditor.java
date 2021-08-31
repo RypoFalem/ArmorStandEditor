@@ -325,7 +325,7 @@ public class PlayerEditor {
 
 			if(team != null) {
 				team.removeEntry(armorStandID.toString());
-				armorStand.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 300, 1, false, false)); //300 Ticks = 15 seconds
+				armorStand.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 50, 1, false, false)); //300 Ticks = 15 seconds
 			}
 
 
@@ -337,7 +337,7 @@ public class PlayerEditor {
 			getPlayer().playSound(getPlayer().getLocation(), Sound.ITEM_ARMOR_EQUIP_IRON, SoundCategory.PLAYERS, 1.0f, 1.0f);
 			if(team != null) {
 				team.addEntry(armorStandID.toString());
-				armorStand.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 300, 1, false, false)); //300 Ticks = 15 seconds
+				armorStand.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 50, 1, false, false)); //300 Ticks = 15 seconds
 			}
 		}
 
@@ -521,7 +521,7 @@ public class PlayerEditor {
 
 	private void highlight(ArmorStand armorStand) {
 		armorStand.removePotionEffect(PotionEffectType.GLOWING);
-		armorStand.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 300, 1, false, false)); //300 Ticks = 15 seconds
+		armorStand.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 50, 1, false, false)); //300 Ticks = 15 seconds
 	}
 
 	public PlayerEditorManager getManager() {
