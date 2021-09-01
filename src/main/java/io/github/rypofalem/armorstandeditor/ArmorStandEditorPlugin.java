@@ -20,8 +20,7 @@
 package io.github.rypofalem.armorstandeditor;
 
 import io.github.rypofalem.armorstandeditor.language.Language;
-import org.bstats.bukkit.Metrics;
-import org.bstats.charts.SimplePie;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -36,6 +35,9 @@ import org.bukkit.scoreboard.Team;
 
 import java.io.File;
 import java.util.List;
+
+import org.bstats.bukkit.Metrics;
+import org.bstats.charts.SimplePie;
 
 
 public class ArmorStandEditorPlugin extends JavaPlugin{
