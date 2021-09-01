@@ -90,7 +90,15 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		int pluginID = 12668;
 		Metrics metrics = new Metrics(this, pluginID);
 
-		//TODO: Metrics Charts
+		/*TODO: Metrics Charts (Optional but might add some useful stuff)
+		* TODO: Useful to Track Language Usage 		  (config: lang)
+		* TODO: Useful to Track RequireToolData Usage (config: requireToolData)
+		* TODO: Useful to Track RequireToolLore Usage (config: requireToolLore)
+		* TODO: Useful to Track ActionBar Usage 	  (config: sendMessagesToActionBar)
+		* TODO: Useful to Track DebugMode Usage		  (config: debug)
+		* TODO: Useful to Track Java Version		  (java.Version)
+		*
+		*/
 
 		//Get NMS Version
 		nmsVersion = getServer().getClass().getPackage().getName().replace(".",",").split(",")[3];
