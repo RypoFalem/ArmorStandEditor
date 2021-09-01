@@ -367,6 +367,7 @@ public class PlayerEditor {
 	void toggleItemFrameVisible(ItemFrame itemFrame) {
 		if (!getPlayer().hasPermission("asedit.invisible")) return; //Changed to Invisible, better that visibility is all under same permission node
 		//Potential for OnInteractEvent for ItemFrame to Disable Interaction
+		//TODO: Wolfst0rm/ArmorStandEditor-Issues#3 - ItemFrame Invisible Rotate Issue
 		itemFrame.setVisible(!itemFrame.isVisible());
 	}
 
