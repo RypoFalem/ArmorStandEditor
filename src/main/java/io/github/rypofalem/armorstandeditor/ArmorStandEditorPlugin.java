@@ -85,7 +85,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		Metrics metrics = new Metrics(this, pluginID);
 
 		//TODO: Metrics Charts
-		metrics.addCustomChart(new SimplePie("Language_used", () -> {
+		metrics.addCustomChart(new SimplePie("language_used", () -> {
 			return getConfig().getString("lang");
 		}));
 
