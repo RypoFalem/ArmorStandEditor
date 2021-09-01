@@ -4,5 +4,6 @@ target/
 /bin/
 /.project
 /.classpath
-/src/main/java/META-INF/
 /.settings/
+/src/main/java/META-INF/*.MF
+/src/main/java/META-INF/
