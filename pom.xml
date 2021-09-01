@@ -69,7 +69,6 @@
                     <relocations>
                         <relocation>
                             <pattern>org.bstats</pattern>
-                            <!-- Replace this with your package! -->
                             <shadedPattern>io.github.rypofalem.armorstandeditor</shadedPattern>
                         </relocation>
                     </relocations>
