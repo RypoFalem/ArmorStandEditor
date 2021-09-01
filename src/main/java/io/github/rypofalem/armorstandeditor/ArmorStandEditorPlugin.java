@@ -20,6 +20,8 @@
 package io.github.rypofalem.armorstandeditor;
 
 import io.github.rypofalem.armorstandeditor.language.Language;
+import org.bstats.bukkit.Metrics;
+import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -69,18 +71,25 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
 	private static ArmorStandEditorPlugin plugin;
 
-
-
-
 	public ArmorStandEditorPlugin(){
 		instance = this;
 	}
-
 
 	@Override
 	public void onEnable(){
 		scoreboard = this.getServer().getScoreboardManager().getMainScoreboard();
 		registerScoreboards();
+
+		//Metrics/bStats Support
+		int pluginID = 12668;
+		Metrics metrics = new Metrics(this, pluginID);
+
+		//TODO: Metrics Charts
+		metrics.addCustomChart(new SimplePie("Language_used", () -> {
+			return getConfig().getString("lang");
+		}));
+
+
 
 		//Get NMS Version
 		nmsVersion = getServer().getClass().getPackage().getName().replace(".",",").split(",")[3];
