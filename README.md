@@ -12,6 +12,8 @@ ArmorStandEditor is a plugin for [Spigot and related forks](https://www.spigotmc
 </div>
 
 ##Downloads
+
+
 Downloads for Version 1.17 and higher can be obtained from the [download page](https://www.spigotmc.org/resources/armorstandeditor-reborn.94503/) or our [release tracker](https://github.com/Wolfst0rm/ArmorStandEditor/releases) here on Github. 
 
 For versions older than 1.17, then please use [the original versions download page](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/).
