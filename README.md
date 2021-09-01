@@ -11,7 +11,7 @@
 ArmorStandEditor is a plugin for [Spigot and related forks](https://www.spigotmc.org/resources/armorstandeditor-reborn.94503/) to allow players in survival to easily edit armor stand pose and attributes.
 </div>
 
-##Downloads
+## Downloads
 
 
 Downloads for Version 1.17 and higher can be obtained from the [download page](https://www.spigotmc.org/resources/armorstandeditor-reborn.94503/) or our [release tracker](https://github.com/Wolfst0rm/ArmorStandEditor/releases) here on Github. 
