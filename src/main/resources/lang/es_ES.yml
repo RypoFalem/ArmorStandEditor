@@ -40,8 +40,8 @@ setadj:
   fine: bien
 setgravity: 
   msg: La gravedad esta en  <x>.
-  on: on
-  off: off
+  true: on
+  false: off
 nomode: 
   msg: Haz click con la herramienta de edicion en un soporte de armaduras para seleccionar un modo de edicion primero
 copied: 

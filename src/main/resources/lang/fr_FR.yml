@@ -42,8 +42,8 @@ setadj:
   fine: fin
 setgravity: 
   msg: Gravité <x>.
-  on: activée
-  off: désactivée
+  true: activée
+  false: désactivée
 nomode: 
   msg: Cliquez d'abord avec cet outil hors d'un valet pour sélectionner un mode d'édition.
 copied: 

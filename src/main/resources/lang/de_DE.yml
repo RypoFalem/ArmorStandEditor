@@ -43,8 +43,8 @@ setadj:
   fine: Fein
 setgravity: 
   msg: Erdanziehungskraft <x>.
-  on: an
-  off: aus
+  true: an
+  false: aus
 nomode: 
   msg: Klicke mit dem Bearbeitungswerkzeug weg vom Ruestungsstaender um den Bearbeitungsmodus auszuwählen!
 copied: 

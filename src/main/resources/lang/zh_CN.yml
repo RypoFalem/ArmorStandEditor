@@ -44,8 +44,8 @@ setadj:
   fine: 微调
 setgravity:
   msg: 重力 <x>.
-  on: 开启
-  off: 关闭
+  true: 开启
+  false: 关闭
 nomode:
   msg: 请先点击空气选择设定模式!
 copied:

@@ -41,8 +41,8 @@ setadj:
   fine: Fin
 setgravity: 
   msg: Gravitatie <x>.
-  on: pornita
-  off: oprita
+  true: pornita
+  false: oprita
 nomode: 
   msg: Click cu unealta de editare departe de un armorstand pentru a selecta mai intai modul de editare!
 copied: 

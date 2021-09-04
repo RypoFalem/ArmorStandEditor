@@ -42,8 +42,8 @@ setadj:
   fine: Małe
 setgravity: 
   msg: Grawitacja została <x>.
-  on: włączona
-  off: wyłączona
+  true: włączona
+  false: wyłączona
 nomode: 
   msg: Kliknij narzędziem z dala od stojaka na zbroję, aby najpierw wybrać tryb edycji!
 copied: 

@@ -43,8 +43,8 @@ setadj:
   fine: 細かい
 setgravity:
   msg: 自由落下を <x> に変更しました。
-  on: ON
-  off: OFF
+  true: ON
+  false: OFF
 nomode:
   msg: 編集ツールをアーマスタンドから目を逸らした方向でクリックをして、最初の編集モードを選択してください！
 copied:

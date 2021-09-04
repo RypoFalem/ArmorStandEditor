@@ -41,8 +41,8 @@ setadj:
   fine: Fine
 setgravity: 
   msg: Gravity turned <x>.
-  on: on
-  off: off
+  true: on
+  false: off
 nomode: 
   msg: Click with the edit tool away from an armorstand to select an editing mode first!
 copied: 
