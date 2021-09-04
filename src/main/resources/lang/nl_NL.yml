@@ -43,8 +43,8 @@ setadj:
   fine: Fijn
 setgravity:
   msg: Zwaartekracht staat nu <x>.
-  'true': aan
-  'false': uit
+  true: aan
+  false: uit
 nomode:
   msg: Klik met het aanpas tool weg van een armorstand om een aanpas modus te selecteren!
 copied:
