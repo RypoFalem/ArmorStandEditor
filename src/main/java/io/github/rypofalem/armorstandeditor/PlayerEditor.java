@@ -182,7 +182,7 @@ public class PlayerEditor {
 			case RESET:
 				itemFrame.setVisible(true);
 			case NONE:
-				sendMessage("nomode", null);
+				sendMessage("nomodeif", null);
 				break;
 		}
 	}
@@ -349,8 +349,6 @@ public class PlayerEditor {
 	private void toggleGravity(ArmorStand armorStand) { //Fix for Wolfst0rm/ArmorStandEditor-Issues#6: Translation of On/Off Keys are broken
 
 		armorStand.setGravity(!armorStand.hasGravity());
-		//String state = armorStand.hasGravity() ? "on" : "off";
-		//sendMessage("setgravity", state);
 		sendMessage("setgravity", String.valueOf(armorStand.hasGravity()));
 
 	}
@@ -370,9 +368,7 @@ public class PlayerEditor {
 
 	void toggleItemFrameVisible(ItemFrame itemFrame) {
 		if (!getPlayer().hasPermission("asedit.invisible")) return; //Changed to Invisible, better that visibility is all under same permission node
-		//Potential for OnInteractEvent for ItemFrame to Disable Interaction
-
-		//TODO: Wolfst0rm/ArmorStandEditor-Issues#3 - ItemFrame Invisible Rotate Issue
+		//W0lfstorm/ArmorStandEditor-Issues#3 isnt going to be fixed in the near future. Ignoring for now
 		itemFrame.setVisible(!itemFrame.isVisible());
 	}
 
