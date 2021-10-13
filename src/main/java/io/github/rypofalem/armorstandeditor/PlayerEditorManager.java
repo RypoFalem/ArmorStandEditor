@@ -300,8 +300,8 @@ public class PlayerEditorManager implements Listener {
 
 	boolean canEdit( Player player,  ItemFrame itemf) {
 		ignoreNextInteract = true;
-		 ArrayList<Event> events = new ArrayList<>();
-		events.add(new PlayerInteractEntityEvent(player, itemf, EquipmentSlot.HAND));
+		ArrayList<Event> events = new ArrayList<>();
+		//events.add(new PlayerInteractEntityEvent(player, itemf, EquipmentSlot.HAND));
 		events.add(new PlayerInteractAtEntityEvent(player, itemf, itemf.getLocation().toVector(), EquipmentSlot.HAND));
 		//events.add(new PlayerArmorStandManipulateEvent(player, as, player.getEquipment().getItemInMainHand(), as.getItemInHand(), EquipmentSlot.HAND));
 		for ( Event event : events) {
