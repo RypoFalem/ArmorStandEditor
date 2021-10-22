@@ -1,14 +1,12 @@
 <div align="center">
-## ArmorStandEditor
+  
+  ## ArmorStandEditor
   
   [![Build Status](https://github.com/Wolfst0rm/ArmorStandEditor/actions/workflows/maven-publish.yml/badge.svg?style=flat)](https://github.com/Wolfst0rm/ArmorStandEditor/actions/workflows/maven-publish.yml)
   [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Wolfst0rm_ArmorStandEditor&metric=sqale_rating&style=flat)](https://sonarcloud.io/summary/new_code?id=Wolfst0rm_ArmorStandEditor) 
   [![CodeFactor](https://www.codefactor.io/repository/github/wolfst0rm/armorstandeditor/badge?style=flat)](https://www.codefactor.io/repository/github/wolfst0rm/armorstandeditor)
   [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Wolfst0rm_ArmorStandEditor&metric=alert_status&style=flat)](https://sonarcloud.io/summary/new_code?id=Wolfst0rm_ArmorStandEditor)
-  [![Scanned with Sonarcloud](https://img.shields.io/badge/Scanned%20With-Sonarcloud-orange?style=flat&logo=sonarcloud)](https://sonarcloud.io/summary/new_code?id=Wolfst0rm_ArmorStandEditor)
-  
-  <br />
-  
+  [![Scanned with Sonarcloud](https://img.shields.io/badge/Scanned%20With-Sonarcloud-orange?style=flat&logo=sonarcloud)](https://sonarcloud.io/summary/new_code?id=Wolfst0rm_ArmorStandEditor)  
   [![wakatime](https://wakatime.com/badge/github/Wolfst0rm/ArmorStandEditor.svg?style=flat)](https://wakatime.com/badge/github/Wolfst0rm/ArmorStandEditor) 
   [![Compatibility/GetBukkit](https://img.shields.io/badge/Compatability-Paper%2C%20Spigot%2C%20Bukkit%20etc.%20(GetBukkit.org)-yellowgreen?style=flat)](https://getbukkit.org/)
   [![License](https://img.shields.io/badge/Licence-GNU%20Public%20V2%20-red?style=flat)](https://github.com/Wolfst0rm/ArmorStandEditor/LICENSE.md)
