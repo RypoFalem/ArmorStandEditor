@@ -1,14 +1,22 @@
 <div align="center">
-
 ## ArmorStandEditor
-[![Build Status](https://github.com/Wolfst0rm/ArmorStandEditor/actions/workflows/maven-publish.yml/badge.svg)](https://github.com/Wolfst0rm/ArmorStandEditor/actions/workflows/maven-publish.yml)
-[![wakatime](https://wakatime.com/badge/github/Wolfst0rm/ArmorStandEditor.svg)](https://wakatime.com/badge/github/Wolfst0rm/ArmorStandEditor) 
-[![CodeFactor](https://www.codefactor.io/repository/github/wolfst0rm/armorstandeditor/badge)](https://www.codefactor.io/repository/github/wolfst0rm/armorstandeditor)
-[![Compatibility/GetBukkit](https://img.shields.io/badge/Compatability-Paper%2C%20Spigot%2C%20Bukkit%20etc.%20(GetBukkit.org)-yellowgreen)](https://getbukkit.org/)
-[![License](https://img.shields.io/badge/Licence-GNU%20Public%20V2%20-red)](https://github.com/Wolfst0rm/ArmorStandEditor/LICENSE.md)
-[![Roadmap](https://img.shields.io/badge/Roadmap-ArmorStandEditor--Issues%2311-orange)](https://github.com/Wolfst0rm/ArmorStandEditor-Issues/issues/11)
+  
+  [![Build Status](https://github.com/Wolfst0rm/ArmorStandEditor/actions/workflows/maven-publish.yml/badge.svg?style=flat)](https://github.com/Wolfst0rm/ArmorStandEditor/actions/workflows/maven-publish.yml)
+  [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Wolfst0rm_ArmorStandEditor&metric=sqale_rating&style=flat)](https://sonarcloud.io/summary/new_code?id=Wolfst0rm_ArmorStandEditor) 
+  [![CodeFactor](https://www.codefactor.io/repository/github/wolfst0rm/armorstandeditor/badge?style=flat)](https://www.codefactor.io/repository/github/wolfst0rm/armorstandeditor)
+  [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Wolfst0rm_ArmorStandEditor&metric=alert_status&style=flat)](https://sonarcloud.io/summary/new_code?id=Wolfst0rm_ArmorStandEditor)
+  [![Scanned with Sonarcloud](https://img.shields.io/badge/Scanned%20With-Sonarcloud-orange?style=flat&logo=sonarcloud)](https://sonarcloud.io/summary/new_code?id=Wolfst0rm_ArmorStandEditor)
+  
+  <br />
+  
+  [![wakatime](https://wakatime.com/badge/github/Wolfst0rm/ArmorStandEditor.svg?style=flat)](https://wakatime.com/badge/github/Wolfst0rm/ArmorStandEditor) 
+  [![Compatibility/GetBukkit](https://img.shields.io/badge/Compatability-Paper%2C%20Spigot%2C%20Bukkit%20etc.%20(GetBukkit.org)-yellowgreen?style=flat)](https://getbukkit.org/)
+  [![License](https://img.shields.io/badge/Licence-GNU%20Public%20V2%20-red?style=flat)](https://github.com/Wolfst0rm/ArmorStandEditor/LICENSE.md)
+  [![Roadmap](https://img.shields.io/badge/Roadmap-ArmorStandEditor--Issues%2311-orange?style=flat)](https://github.com/Wolfst0rm/ArmorStandEditor-Issues/issues/11)
+  
 
-ArmorStandEditor is a plugin for [Spigot and related forks](https://www.spigotmc.org/resources/armorstandeditor-reborn.94503/) to allow players in survival to easily edit armor stand pose and attributes.
+  ArmorStandEditor is a plugin for [Spigot and related forks](https://www.spigotmc.org/resources/armorstandeditor-reborn.94503/) to allow players in survival to easily edit armor stand pose and attributes.
+  
 </div>
 
 ## Downloads
@@ -17,8 +25,8 @@ Downloads for Version 1.17 and higher can be obtained from the [download page](h
 For versions older than 1.17, then please use [the original versions download page](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/).
 
 The Latest Downloads Shortcut Links:
-* [Unstable Versions](https://github.com/Wolfst0rm/ArmorStandEditor/actions) - **Use these at your own risk. Limited Support is provided for testing purposes**
-* [1.17.1](https://www.spigotmc.org/threads/armorstandeditor-reborn.517132)
+* [Unstable 1.1x-DEV Versions](https://github.com/Wolfst0rm/ArmorStandEditor/actions) - **Use these at your own risk. Limited Support is provided for testing purposes**
+* [1.17.1](https://www.spigotmc.org/threads/armorstandeditor-reborn.517132) 
 * [1.17](https://github.com/Wolfst0rm/ArmorStandEditor/releases/tag/1.17.1-27)
 * [1.16](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=342891)
 * [1.14](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=299267)
