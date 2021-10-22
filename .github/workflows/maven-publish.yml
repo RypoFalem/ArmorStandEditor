@@ -21,16 +21,28 @@ jobs:
           distribution: 'adopt'
 
       # 3. Setup local Maven package cache to speed up building
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+          
       - name: Cache Maven packages
-        uses: actions/cache@v2
+        uses: actions/cache@v1
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+      
+      #Cache Sonar    
 
       # 4. Build via Maven
-      - name: Build Project based on Maven File
-        run: mvn verify -B --file pom.xml
+      - name: Build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Wolfst0rm_ArmorStandEditor
 
       #5: Create a Clean Package - and Verify it
       - name: Clean package
