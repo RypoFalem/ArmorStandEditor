@@ -13,12 +13,12 @@ jobs:
       - name: Checkout ArmorStandEditor Repository
         uses: actions/checkout@v2
 
-      # 2. Setup Java 16 JDK
-      - name: Set up JDK 16 Environment
+      # 2. Setup Java 17 JDK
+      - name: Set up JDK 17 Environment
         uses: actions/setup-java@v2
         with:
-          java-version: '16'
-          distribution: 'adopt'
+          java-version: '17' # move this over to 17 when Github Actions Supports it
+          distribution: 'zulu'
 
       # 3. Setup local Maven package cache to speed up building
       - name: Cache SonarCloud packages

@@ -54,6 +54,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	private String nmsVersion = null;
 	private String nmsVersionNotLatest = null;
 	PluginDescriptionFile pdfFile = this.getDescription();
+	final static String SEPERATOR = "================================";
 
 	public PlayerEditorManager editorManager;
 
@@ -125,25 +126,27 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 				nmsVersion.startsWith("v1_9")  ||
 				nmsVersion.startsWith("v1_10") ||
 				nmsVersion.startsWith("v1_11") ||
-				nmsVersion.startsWith("v1_12")){
+				nmsVersion.startsWith("v1_12") ||
+				nmsVersion.startsWith("v1_13")
+				){
 			getLogger().warning("Minecraft Version: " + nmsVersion + " is not supported. Loading Plugin Failed.");
-			getLogger().info("================================");
+			getLogger().info(SEPERATOR);
 			getServer().getPluginManager().disablePlugin(this);
 			return;
 		}
 
 		//Also Warn People to Update if using nmsVersion lower than latest
-		if (    nmsVersion.startsWith("v1_13") ||
-				nmsVersion.startsWith("v1_14") ||
+		if (    nmsVersion.startsWith("v1_14") ||
 				nmsVersion.startsWith("v1_15") ||
-				nmsVersion.startsWith("v1_16")){
+				nmsVersion.startsWith("v1_16") ||
+				nmsVersion.startsWith("v1_17")){
 			getLogger().warning("Minecraft Version: " + nmsVersion + " is supported, but not latest.");
 			getLogger().warning("ArmorStandEditor will still work, but please update to the latest Version of " + nmsVersionNotLatest + ". Loading continuing.");
 		} else {
 			getLogger().info("Minecraft Version: " + nmsVersion + " is supported. Loading continuing.");
 		}
 		getServer().getPluginManager().enablePlugin(this);
-		getLogger().info("================================");
+		getLogger().info(SEPERATOR);
 
 		//saveResource doesn't accept File.separator on windows, need to hardcode unix separator "/" instead
 		updateConfig("", "config.yml");
@@ -170,7 +173,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			editTool = Material.getMaterial(toolType); //Ignore Warning
 		} else {
 			 getLogger().severe("Unable to get Tool for Use with Plugin. Unable to continue!");
-			 getLogger().info("================================");
+			 getLogger().info(SEPERATOR);
 			 getServer().getPluginManager().disablePlugin(this);
 			 return;
 		}
@@ -351,5 +354,3 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		return iconKey;
 	}
 }
-//todo:
-//Access to the "Marker" switch (so you can make the hitbox super small)

@@ -10,10 +10,10 @@ warn: c
 menutitle: 8
 
 #info
-setmode: 
+setmode:
   msg: Setze Modus zu <x>.
   head: Kopf Position
-  body: Koerper Position
+  body: Körper Position
   leftleg: Linkes Bein Position
   rightleg: Rechtes Bein Position
   leftarm: Linker Arm Position
@@ -25,193 +25,193 @@ setmode:
   disableslots: Deaktivierte Slots umschalten
   gravity: Erdanziehungskraft umschalten
   baseplate: Bodenplatte umschalten
-  placement: Plazierung
+  placement: Platzierung
   rotate: Drehen
   copy: Kopieren
   paste: Einfügen
   reset: Reset Pose
-setaxis: 
-  msg: Setze Axen zu <x>.
+setaxis:
+  msg: Setze Achsen zu <x>.
   x: X
   y: Y
   z: Z
-setslot: 
-  msg: Setze Kopier Slot zu <x>.
+setslot:
+  msg: Setze Kopier-Slot zu <x>.
 setadj:
   msg: Setze Anpassung zu <x>.
   coarse: Grob
   fine: Fein
-setgravity: 
+setgravity:
   msg: Erdanziehungskraft <x>.
   true: an
   false: aus
-nomode: 
-  msg: Klicke mit dem Bearbeitungswerkzeug weg vom Ruestungsstaender um den Bearbeitungsmodus auszuwählen!
+nomode:
+  msg: Klicke mit dem Bearbeitungswerkzeug weg vom Rüstungsständer um den Bearbeitungsmodus auszuwählen!
 nomodeif:
-  msg: Click with the Edit Tool away from the ItemFrame to select a mode first!
-copied: 
-  msg: Zustand des Ruestungsstaenders wurde zum Slot <x> kopiert.
-pasted: 
-  msg: Zustand des Ruestungsstaenders wurde vom Slot <x> eingefuegt.
+  msg: Um zuerst einem Modus auszuwählen, klicke mit dem Bearbeitungswerkzeug neben einem ItemFrame!
+copied:
+  msg: Zustand des Rüstungsständers wurde zum Slot <x> kopiert.
+pasted:
+  msg: Zustand des Rüstungsständers wurde vom Slot <x> eingefügt.
 target:
-  msg: Ziel Ruestungsstaender wurde gesperrt.
+  msg: Ziel Rüstungsständer wurde gesperrt.
 notarget:
-  msg: Ziel Ruestungsstaender wurde entsperrt.
+  msg: Ziel Rüstungsständer wurde entsperrt.
 frametarget:
-  msg: Itemframe target locked
+  msg: Itemframe Ziel gesperrt.
 noframetarget:
-  msg: Itemframe target unlocked.
+  msg: Itemframe Ziel entsperrt.
 doubletarget:
-  msg: Please look at either an ArmorStand or an ItemFrame, not both!
+  msg: Bitte schaue entweder auf einen Rüstungsständer oder einem ItemFrame, nicht beides!
 help:
   msg: "1. Halte das Bearbeitungswerkzeug(<x>) in deiner Haupthand.
 
-      2. Links oder Rechsklicke entfernt von einem Ruestungsstaender um das Menue zu oeffnen.
+      2. Links oder Rechsklicke entfernt von einem Rüstungsständer um das Menü zu öffnen.
 
-      3. Waehle zwischen den beschrifteten Menue Optionen.
+      3. Wähle zwischen den beschrifteten Menü Optionen.
 
-      4. Linksklicke den Ruestungsstaender mit dem Bearbeitungswerzeug um die Aenderungen zu uebernehmen.
+      4. Linksklicke den Rüstungsständer mit dem Bearbeitungswerkzeug um die Änderungen zu übernehmen.
 
-      5. Rechtsklicke um die Aenderungen zu verwerfen!"
+      5. Rechtsklicke um die Änderungen zu verwerfen!"
 helptips:
   msg: "Tipps:
 
-  1. Druecke die \"Gegenstand in den Haenden wechseln\" Taste (Standard: F) waehrend du das Bearbeitungswerkzeug haeltst um einen speziellen Ruestungsstaender auszuwaehlen falls mehrere in der Naehe sind.
+  1. Drücke die \"Gegenstand in den Händen wechseln\" Taste (Standard: F) während du das Bearbeitungswerkzeug hältst um einen speziellen Rüstungsständer auszuwählen falls mehrere in der Nähe sind.
 
-  2. Du kannst Nametags zu Ruestungsstaender hinzufuegen. Du kannst das \"&\" Symbol für Farben benutzen.
+  2. Du kannst Nametags zu Rüstungsständer hinzufügen. Du kannst das \"&\" Symbol für Farben benutzen.
 
-  3. Du kannst sneaken und das Scrollrad drehen waehrend du das Bearbeitungswerkzeug haelst um die Axen zu waechseln ohne das Menue zu oeffnen."
+  3. Du kannst sneaken und das Scrollrad drehen während du das Bearbeitungswerkzeug hältst um die Achsen zu wechseln ohne das Menü zu öffnen."
 helpurl:
   msg: "Weitere Infos: https://github.com/RypoFalem/ArmorStandEditor/wiki"
 
 #warn
 cantedit:
-  msg: Entschuldigung, du kannst hier keine Ruestungsstaender bearbeiten!
-noperm: 
+  msg: Entschuldigung, du kannst hier keine Rüstungsständer bearbeiten!
+noperm:
   msg: Du hast keine Erlaubnis diesen Befehl zu nutzen!
-noslotnumcom: 
+noslotnumcom:
   msg: Du musst eine Slotnummer angeben!
 noadjcom:
-  msg: Du musst Grob oder Fein auswaehlen!
+  msg: Du musst Grob oder Fein auswählen!
 noaxiscom:
-  msg: Du musst eine Axe auswaehlen!
+  msg: Du musst eine Achse auswählen!
 nomodecom:
-  msg: Du musst einen Modus auswaehlen!
+  msg: Du musst einen Modus auswählen!
 
 #menutitle
 mainmenutitle:
-  msg: Ruestungsstaender Editor Menue
+  msg: Rüstungsständer Editor Menü
 equiptitle:
-  msg: Ruestungsstaender Ausruestung
+  msg: Rüstungsständer Ausrüstung
 
 #icons
 xaxis:
-  msg: X Axe
-  description: 
-    msg: Rotiere Koerperteile entlang der X Axe
-yaxis: 
-  msg: Y Axe
-  description: 
-    msg: Rotiere Koerperteile entlang der Y Axe
-zaxis: 
-  msg: Z Axe
-  description: 
-    msg: Rotiere Koerperteile entlang der Z Axe
-coarseadj: 
+  msg: X Achse
+  description:
+    msg: Rotiere Körperteile entlang der X Achse
+yaxis:
+  msg: Y Achse
+  description:
+    msg: Rotiere Körperteile entlang der Y Achse
+zaxis:
+  msg: Z Achse
+  description:
+    msg: Rotiere Körperteile entlang der Z Achse
+coarseadj:
   msg: Grobe Anpassungen
-  description: 
+  description:
     msg: Mache Grobe Anpassungen
-fineadj: 
+fineadj:
   msg: Feine Anpassungen
-  description: 
+  description:
     msg: Mache Feine Anpassungen
-head: 
+head:
   msg: Kopf Position
-  description: 
+  description:
     msg: Rotiere den Kopf
-body: 
-  msg: Koerper Position
-  description: 
+body:
+  msg: Körper Position
+  description:
     msg: Rotiere den Körper
-leftleg: 
+leftleg:
   msg: Linkes Bein Position
-  description: 
+  description:
     msg: Rotiere das linke Bein
-rightleg: 
+rightleg:
   msg: Rechtes Bein Position
-  description: 
+  description:
     msg: Rotiere das rechte Bein
-leftarm: 
+leftarm:
   msg: Linker Arm Position
-  description: 
+  description:
     msg: Rotiere den linken Arm
-rightarm: 
+rightarm:
   msg: Rechter Arm Position
-  description: 
+  description:
     msg: Rotiere den rechten Arm
-equipment: 
-  msg: Ausruestung
-  description: 
-    msg: Bearbeite Ausruestung
-showarms: 
+equipment:
+  msg: Ausrüstung
+  description:
+    msg: Bearbeite Ausrüstung
+showarms:
   msg: Zeige Arme
-  description: 
+  description:
     msg: Aktiviere oder Deaktiviere die Arme
-invisible: 
+invisible:
   msg: Sichtbarkeit
-  description: 
+  description:
     msg: Mach es Sichtbar oder Unsichtbar
-size: 
+size:
   msg: Größe
-  description: 
+  description:
     msg: Mach es Groß oder Klein
-disableslots: 
+disableslots:
   msg: Deaktiviere Slots
-  description: 
-    msg: Aktiviere und Deaktiviere die Ausruestungssperre
-gravity: 
+  description:
+    msg: Aktiviere und Deaktiviere die Ausrüstungssperre
+gravity:
   msg: Erdanziehungskraft
-  description: 
+  description:
     msg: Schalte die Erdanziehungskraft an oder aus
-baseplate: 
+baseplate:
   msg: Bodenplatte
-  description: 
+  description:
     msg: Schalte die Bodenplatte an oder aus
-placement: 
+placement:
   msg: Plazierung
-  description: 
-    msg: Verschiebe den kompletten Ruestungsstaender
-rotate: 
+  description:
+    msg: Verschiebe den kompletten Rüstungsständer
+rotate:
   msg: Rotiere
   description:
-    msg: Rotiere den kompletten Ruestungsstaender
-copy: 
+    msg: Rotiere den kompletten Rüstungsständer
+copy:
   msg: Kopieren
   description:
-    msg: Kopiere die Ruestungsstaender Einstellungen
-paste: 
+    msg: Kopiere die Rüstungsständer Einstellungen
+paste:
   msg: Einfügen
-  description:  
-    msg: Füge den Ruestungsstaender ein
-copyslot: 
+  description:
+    msg: Füge den Rüstungsständer ein
+copyslot:
   msg: Kopiere Slot <x>
   description:
-    msg: Waehle einen Slot um die Einstellungen zu speichern
+    msg: Wähle einen Slot um die Einstellungen zu speichern
 reset:
-  msg: Pose zuruecksetzen
+  msg: Pose zurücksetzen
   description:
-    msg: Setze die Pose zurueck
+    msg: Setze die Pose zurück
 helpgui:
   msg: Hilfe!
   description:
     msg: Klicke hier um Hilfe zu erhalten!
 
 #icons (equipment menu)
-disabled: 
+disabled:
   msg: Deaktiviert
-equipslot: 
+equipslot:
   msg: <x> Slot
-  description: 
+  description:
     msg: Ziehe deine <x> in den Slot unterhalb
     helm: Helm
     chest: Brustplatte
