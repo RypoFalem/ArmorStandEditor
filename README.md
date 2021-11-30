@@ -5,7 +5,6 @@
   [![Build Status](https://github.com/Wolfst0rm/ArmorStandEditor/actions/workflows/maven-publish.yml/badge.svg?style=flat)](https://github.com/Wolfst0rm/ArmorStandEditor/actions/workflows/maven-publish.yml)
   [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Wolfst0rm_ArmorStandEditor&metric=sqale_rating&style=flat)](https://sonarcloud.io/summary/new_code?id=Wolfst0rm_ArmorStandEditor) 
   [![CodeFactor](https://www.codefactor.io/repository/github/wolfst0rm/armorstandeditor/badge?style=flat)](https://www.codefactor.io/repository/github/wolfst0rm/armorstandeditor)
-  [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Wolfst0rm_ArmorStandEditor&metric=alert_status&style=flat)](https://sonarcloud.io/summary/new_code?id=Wolfst0rm_ArmorStandEditor)
   [![Scanned with Sonarcloud](https://img.shields.io/badge/Scanned%20With-Sonarcloud-orange?style=flat&logo=sonarcloud)](https://sonarcloud.io/summary/new_code?id=Wolfst0rm_ArmorStandEditor)  
   [![wakatime](https://wakatime.com/badge/github/Wolfst0rm/ArmorStandEditor.svg?style=flat)](https://wakatime.com/badge/github/Wolfst0rm/ArmorStandEditor) 
   [![Compatibility/GetBukkit](https://img.shields.io/badge/Compatability-Paper%2C%20Spigot%2C%20Bukkit%20etc.%20(GetBukkit.org)-yellowgreen?style=flat)](https://getbukkit.org/)
@@ -24,7 +23,8 @@ For versions older than 1.17, then please use [the original versions download pa
 
 The Latest Downloads Shortcut Links:
 * [Unstable 1.1x-DEV Versions](https://github.com/Wolfst0rm/ArmorStandEditor/actions) - **Use these at your own risk. Limited Support is provided for testing purposes**
-* [1.17.1](https://www.spigotmc.org/threads/armorstandeditor-reborn.517132) 
+* [1.18](https://www.spigotmc.org/threads/armorstandeditor-reborn.517132)
+* [1.17.1](https://github.com/Wolfst0rm/ArmorStandEditor/releases/tag/1.17.1-30) 
 * [1.17](https://github.com/Wolfst0rm/ArmorStandEditor/releases/tag/1.17.1-27)
 * [1.16](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=342891)
 * [1.14](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=299267)
