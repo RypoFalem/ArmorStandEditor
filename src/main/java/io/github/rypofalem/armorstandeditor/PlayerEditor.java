@@ -41,7 +41,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 import org.bukkit.util.EulerAngle;
 
@@ -183,7 +182,7 @@ public class PlayerEditor {
 	}
 
 	public void editItemFrame(ItemFrame itemFrame) {
-		if (!getPlayer().hasPermission("asedit.invisible")) return; //Change to be asedit.invisible?
+		if (!getPlayer().hasPermission("asedit.itemframe.invisible") || !plugin.invisibleItemFrames) return; //Option to use perms or Config
 		switch (eMode) {
 			case ITEMFRAME:
 				toggleItemFrameVisible(itemFrame);
@@ -329,7 +328,7 @@ public class PlayerEditor {
 	private void toggleDisableSlots(ArmorStand armorStand) {
 		if (!getPlayer().hasPermission("asedit.disableSlots")) return;
 		if (armorStand.hasEquipmentLock(EquipmentSlot.HAND, ArmorStand.LockType.REMOVING_OR_CHANGING)) { //Adds a lock to every slot or removes it
-			team = plugin.scoreboard.getTeam("ASLocked");
+			team = plugin.scoreboard.getTeam(plugin.lockedTeam);
 			armorStandID = armorStand.getUniqueId();
 
 			for (final EquipmentSlot slot : EquipmentSlot.values()) { // UNLOCKED
@@ -361,7 +360,6 @@ public class PlayerEditor {
 	}
 
 	private void toggleGravity(ArmorStand armorStand) { //Fix for Wolfst0rm/ArmorStandEditor-Issues#6: Translation of On/Off Keys are broken
-
 		armorStand.setGravity(!armorStand.hasGravity());
 		sendMessage("setgravity", String.valueOf(armorStand.hasGravity()));
 
@@ -376,13 +374,12 @@ public class PlayerEditor {
 	}
 
 	void toggleVisible(ArmorStand armorStand) {
-		if (!getPlayer().hasPermission("asedit.invisible")) return;
+		if (!getPlayer().hasPermission("asedit.armorstand.invisible") || !plugin.armorStandVisibility) return; //Option to use perms or Config
 		armorStand.setVisible(!armorStand.isVisible());
 	}
 
 	void toggleItemFrameVisible(ItemFrame itemFrame) {
-		if (!getPlayer().hasPermission("asedit.invisible")) return; //Changed to Invisible, better that visibility is all under same permission node
-		//W0lfstorm/ArmorStandEditor-Issues#3 isnt going to be fixed in the near future. Ignoring for now
+		if (!getPlayer().hasPermission("asedit.itemframe.invisible") || !plugin.invisibleItemFrames) return; //Option to use perms or Config
 		itemFrame.setVisible(!itemFrame.isVisible());
 	}
 

@@ -7,6 +7,13 @@ fine: 120
 #Name of the edit tool's item Material. You can find a full list at https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
 tool: FLINT
 
+#If true, the GUI will only open if the player is sneaking
+requireSneaking: false
+
+#Allow the option to toggle invisiblity for ItemFrames and ArmorStand
+ivisibleItemFrames: true
+armorStandVisibility: true
+
 #(Optional) data that the plugin looks for to identify the edit tool, such as the damage value of a sword or the pattern of sandstone.
 requireToolData: false
 toolData: 0
@@ -24,6 +31,3 @@ sendMessagesToActionBar: true
 #(Optional) Glowing Item Frames Support for Item Frames in 1.17 - WILL NOT WORK IN 1.16 OR LOWER AND 1.17.1 OR HIGHER
 #If true, players can make itemFrames glow by right clicking with a Glow Ink Sac
 glowingItemFrame: true
-
-#Don't set to true unless you want players to see random messages or other undesirable behavior
-debug: false

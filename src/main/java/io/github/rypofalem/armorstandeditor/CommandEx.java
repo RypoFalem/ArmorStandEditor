@@ -19,6 +19,7 @@
 
 package io.github.rypofalem.armorstandeditor;
 
+import de.jeff_media.updatechecker.UpdateChecker;
 import io.github.rypofalem.armorstandeditor.modes.AdjustmentMode;
 import io.github.rypofalem.armorstandeditor.modes.Axis;
 import io.github.rypofalem.armorstandeditor.modes.EditMode;
@@ -37,6 +38,7 @@ public class CommandEx implements CommandExecutor {
 	final String LISTSLOT = ChatColor.YELLOW + "/ase slot <1-9>";
 	final String HELP = ChatColor.YELLOW + "/ase help";
 	final String VERSION = ChatColor.YELLOW + "/ase version";
+	final String UPDATE = ChatColor.YELLOW + "/ase update";
 
 	public CommandEx( ArmorStandEditorPlugin armorStandEditorPlugin) {
 		this.plugin = armorStandEditorPlugin;
@@ -56,11 +58,13 @@ public class CommandEx implements CommandExecutor {
 			player.sendMessage(LISTAXIS);
 			player.sendMessage(LISTSLOT);
 			player.sendMessage(LISTADJUSTMENT);
+			player.sendMessage(VERSION);
+			player.sendMessage(UPDATE);
+			player.sendMessage(HELP);
 			return true;
 		}
 		switch (args[0].toLowerCase()) {
-			case "mode":
-				commandMode(player, args);
+			case "mode": commandMode(player, args);
 				break;
 			case "axis": commandAxis(player, args);
 				break;
@@ -73,23 +77,19 @@ public class CommandEx implements CommandExecutor {
 				break;
 			case "version": commandVersion(player);
 				break;
+			case "update": commandUpdate(player);
+				break;
 			default:
 				sender.sendMessage(LISTMODE);
 				sender.sendMessage(LISTAXIS);
 				sender.sendMessage(LISTSLOT);
 				sender.sendMessage(LISTADJUSTMENT);
 				sender.sendMessage(VERSION);
+				sender.sendMessage(UPDATE);
 				sender.sendMessage(HELP);
 		}
 		return true;
 	}
-
-	private void commandVersion(Player player) {
-		if (!(checkPermission(player, "basic", true))) return;
-		String verString = plugin.pdfFile.getVersion();
-		player.sendMessage(ChatColor.YELLOW + "[ArmorStandEditor] Version: " + verString);
-	}
-
 
 	private void commandSlot(Player player, String[] args) {
 
@@ -156,9 +156,10 @@ public class CommandEx implements CommandExecutor {
 		if (args.length > 1) {
 			for ( EditMode mode : EditMode.values()) {
 				if (mode.toString().toLowerCase().contentEquals(args[1].toLowerCase())) {
-					if (args[1].equals("invisible") && !checkPermission(player, "invisible", true)) return;
-					if (args[1].equals("itemframe") && !checkPermission(player, "invisible", true)) return;
+					if (args[1].equals("invisible") && !checkPermission(player, "armorstand.invisible", true)) return;
+					if (args[1].equals("itemframe") && !checkPermission(player, "itemframe.invisible", true)) return;
 					plugin.editorManager.getPlayerEditor(player.getUniqueId()).setMode(mode);
+					plugin.print("Mode set to '" + mode + "' for player '" + player.getDisplayName());
 					return;
 				}
 			}
@@ -175,14 +176,31 @@ public class CommandEx implements CommandExecutor {
 		player.sendRawMessage(plugin.getLang().getMessage("helpurl", ""));
 	}
 
+	private void commandUpdate(Player player) {
+		if(!(checkPermission(player, "update", true))) return;
+		UpdateChecker.getInstance().checkNow(player);
+	}
+
+	private void commandVersion(Player player) {
+		if (!(checkPermission(player, "update", true))) return;
+		String verString = plugin.pdfFile.getVersion();
+		plugin.print("Output of VerString: " + verString);
+		player.sendMessage(ChatColor.YELLOW + "[ArmorStandEditor] Version: " + verString);
+		UpdateChecker.getInstance().checkNow(player);
+	}
+
+
+
 	private boolean checkPermission( Player player, String permName,  boolean sendMessageOnInvalidation) {
-		if (permName.toLowerCase().equals("paste")) {
+		if (permName.equalsIgnoreCase("paste")) {
 			permName = "copy";
 		}
 		if (player.hasPermission("asedit." + permName.toLowerCase())) {
+			plugin.print("Player '"+ player.getDisplayName() +" has Permission: asedit." + permName.toLowerCase());
 			return true;
 		} else {
 			if (sendMessageOnInvalidation) {
+				plugin.print("Player '"+ player.getDisplayName() +" does not have Permission: asedit." + permName.toLowerCase());
 				player.sendMessage(plugin.getLang().getMessage("noperm", "warn"));
 			}
 			return false;
