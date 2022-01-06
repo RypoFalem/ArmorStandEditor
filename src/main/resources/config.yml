@@ -10,7 +10,7 @@ tool: FLINT
 #If true, the GUI will only open if the player is sneaking
 requireSneaking: false
 
-#Allow the option to toggle invisiblity for ItemFrames and ArmorStand
+#Allow the option to toggle invisibility for ItemFrames and ArmorStand
 ivisibleItemFrames: true
 armorStandVisibility: true
 
@@ -32,5 +32,6 @@ sendMessagesToActionBar: true
 #If true, players can make itemFrames glow by right clicking with a Glow Ink Sac
 glowingItemFrame: true
 
-#DO NOT REMOVE THIS - Internal Testing Usage. Enable => Unintended Side Effects
+#DO NOT ENABLE - For Testing Purposes. Can lead to unwanted sideaffects
+#Enable if you are submitting a bug report PLEASE!
 debug: false

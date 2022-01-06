@@ -19,11 +19,9 @@
 
 package io.github.rypofalem.armorstandeditor;
 
-import de.jeff_media.updatechecker.UpdateChecker;
-import de.jeff_media.updatechecker.UserAgentBuilder;
+import de.jeff_media.updatechecker.*;
 import io.github.rypofalem.armorstandeditor.language.Language;
-import io.github.rypofalem.armorstandeditor.Metrics.DrilldownPie;
-import io.github.rypofalem.armorstandeditor.Metrics.SimplePie;
+import io.github.rypofalem.armorstandeditor.Metrics.*;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -37,12 +35,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
+import java.io.*;
+import java.time.*;
+import java.nio.file.Files;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.*;
 import java.io.File;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-
 
 public class ArmorStandEditorPlugin extends JavaPlugin{
 
@@ -81,6 +81,17 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	public Scoreboard scoreboard;
 	public Team team;
 	String lockedTeam = "ASLocked";
+
+	//Better Debug Output
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	Date date = Calendar.getInstance().getTime();
+	Instant instant = Instant.now();
+	DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime( FormatStyle.SHORT ).withLocale( Locale.UK ).withZone( ZoneId.systemDefault() );
+	String dateAsString = dateFormat.format(date);
+	String timeAsString = formatter.format(instant);
+	final String debugOutputFileName = getDataFolder() + File.separator + "DEBUG-" + dateAsString +  ".log";
+	FileOutputStream fos = null;
+	File f = new File(debugOutputFileName);
 
 	private static ArmorStandEditorPlugin plugin;
 
@@ -149,6 +160,14 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		registerScoreboards(scoreboard);
 		getLogger().info(SEPARATOR_FIELD);
 
+		//Is Debug Enabled
+		debug = getConfig().getBoolean("debug", true);
+		print("Debug Mode Enabled? Well if you can read this its true");
+
+		if(debug){
+			createDebugFile();
+		}
+
 		//saveResource doesn't accept File.separator on Windows, need to hardcode unix separator "/" instead
 		updateConfig("", "config.yml");
 		updateConfig("lang/", "test_NA.yml");
@@ -181,7 +200,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			 return;
 		}
 
-		//ArmorStandVisility Node
+		//ArmorStandVisibility Node
 		armorStandVisibility = getConfig().getBoolean("armorStandVisibility", true);
 		print("ArmorStands allowed to be made visible/invisible?: " + armorStandVisibility);
 
@@ -206,9 +225,9 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		requireSneaking = getConfig().getBoolean("requireSneaking",false);
 		print("Sneaking required to activate the UI: " + requireSneaking);
 
-		//Optional Information
-		debug = getConfig().getBoolean("debug", true);
 
+		//Send Messages to Action Bar - NEW SINCE 1.16 at least (?)
+		//TODO: Fix above comment with correct version - FUTURE CHORE!
 		sendToActionBar = getConfig().getBoolean("sendMessagesToActionBar", true);
 		print("Messages being sent to action bar?: " + sendToActionBar);
 
@@ -264,7 +283,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		team = scoreboard.getTeam(lockedTeam);
 		if(team != null) { //Basic Sanity Check to ensure that the team is there
 			team.unregister();
-			print("Team '" + lockedTeam + "sucessfully removed.");
+			print("Team '" + lockedTeam + "' successfully removed.");
 		} else{
 			getLogger().severe("Team Already Appears to be removed. Please do not do this manually!");
 		}
@@ -286,8 +305,41 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		unregisterScoreboards(scoreboard);
 	}
 
+	public void createDebugFile(){
+			try {
+				if (!f.exists() && f.createNewFile()) {
+					Files.setAttribute(f.toPath(), "dos:hidden", false);
+				}
+			} catch (IOException e) {
+				this.getServer().getLogger().warning(e.getMessage());
+			}
+	}
+
 	public void log(String message){
+		//Output to Server Console - Safer than doing a Broadcast to everyone on the Server
+		String timeMsgSep = ": ";
 		this.getServer().getLogger().info("ArmorStandEditor: " + message);
+
+		try{
+			fos = new FileOutputStream(f, true);
+
+			//Write the Content as Bytes
+			fos.write(timeAsString.getBytes());
+			fos.write(timeMsgSep.getBytes());
+			fos.write(message.getBytes());
+			fos.write(10);
+			fos.flush();
+		}catch(IOException e){
+			this.getServer().getLogger().warning(e.getMessage());
+		}finally{
+			if(fos != null){
+				try {
+					fos.close();
+				} catch (IOException e) {
+					this.getServer().getLogger().warning(e.getMessage());
+				}
+			}
+		}
 	}
 
 	public String getNmsVersion(){
@@ -304,6 +356,14 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			nmsVersionNotLatest = "";
 			return false;
 		}
+	}
+
+	public boolean getArmorStandVisibility(){
+		return getConfig().getBoolean("armorStandVisibility");
+	}
+
+	public boolean getItemFrameVisibility(){
+		return getConfig().getBoolean("invisibleItemFrames");
 	}
 
 	public boolean getHasPaper(){
@@ -327,7 +387,6 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 	*/
 	public void print(String message){
 		if(debug){
-			this.getServer().broadcastMessage(message);
 			log(message);
 		}
 	}
@@ -355,7 +414,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
 		if(requireToolLore && editToolLore != null){
 
-			//If the ItemStack does not have Meta Data then we return false
+			//If the ItemStack does not have Metadata then we return false
 			if(!itemStk.hasItemMeta()) { return false; }
 
 			//Get the lore of the Item and if it is null - Return False
@@ -380,24 +439,16 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		Metrics metrics = new Metrics(this, PLUGIN_ID);
 
 		//RequireToolLore Metric
-		metrics.addCustomChart(new SimplePie("tool_lore_enabled", () -> {
-			return getConfig().getString("requireToolLore");
-		}));
+		metrics.addCustomChart(new SimplePie("tool_lore_enabled", () -> getConfig().getString("requireToolLore")));
 
 		//RequireToolData
-		metrics.addCustomChart(new SimplePie("tool_data_enabled", () ->{
-			return getConfig().getString("requireToolData");
-		}));
+		metrics.addCustomChart(new SimplePie("tool_data_enabled", () -> getConfig().getString("requireToolData")));
 
 		//Send Messages to ActionBar
-		metrics.addCustomChart(new SimplePie("action_bar_messages", () -> {
-			return getConfig().getString("sendMessagesToActionBar");
-		}));
+		metrics.addCustomChart(new SimplePie("action_bar_messages", () -> getConfig().getString("sendMessagesToActionBar")));
 
 		//Debug Mode Enabled?
-		metrics.addCustomChart(new SimplePie("uses_debug_mode", () -> {
-			return getConfig().getString("debug");
-		}));
+		metrics.addCustomChart(new SimplePie("uses_debug_mode", () -> getConfig().getString("debug")));
 
 		//Language is used
 		metrics.addCustomChart(new DrilldownPie("language_used", () -> {
@@ -429,7 +480,6 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 			} else{
 				map.put("Other", entry);
 			}
-
 			return map;
 		}));
 

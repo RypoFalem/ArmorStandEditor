@@ -1,6 +1,6 @@
 name: ArmorStandEditor
 main: io.github.rypofalem.armorstandeditor.ArmorStandEditorPlugin
-version: 1.18.1-32
+version: 1.18.1-33
 api-version: "1.13"
 website: https://www.spigotmc.org/resources/94503/
 author: Wolfstorm
@@ -25,7 +25,7 @@ permissions:
       description: Allows setting of ItemFrame Visibility
       default: true
     asedit.rename:
-      description: Rename armorstands
+      description: Rename armorstands - Now Supports Color
       default: true
     asedit.equipment:
       description: Access armorstand equipment GUI
