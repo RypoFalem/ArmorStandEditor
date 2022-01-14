@@ -42,7 +42,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Wolfst0rm_ArmorStandEditor
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=wolfieheart_ArmorStandEditor
 
       #5: Create a Clean Package - and Verify it
       - name: Clean package
@@ -51,7 +51,7 @@ jobs:
       - name: Clean Verify
         run: mvn -B clean verify
 
-      #6 Upload Artifacts (Debug Purposes
+      #6 Upload Artifacts (Debug Purposes)
       - name: Upload Artifact for Debugging
         uses: actions/upload-artifact@v2.3.1
         with:
