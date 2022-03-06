@@ -23,8 +23,7 @@ import io.github.rypofalem.armorstandeditor.language.Language;
 
 import de.jeff_media.updatechecker.*;
 
-import org.bstats.bukkit.Metrics;
-import org.bstats.bukkit.Metrics.*;
+import io.github.rypofalem.armorstandeditor.Metrics.*;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
