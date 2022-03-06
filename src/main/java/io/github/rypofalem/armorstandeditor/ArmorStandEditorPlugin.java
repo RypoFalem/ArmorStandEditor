@@ -228,8 +228,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		print("Sneaking required to activate the UI: " + requireSneaking);
 
 
-		//Send Messages to Action Bar - NEW SINCE 1.16 at least (?)
-		//TODO: Fix above comment with correct version - FUTURE CHORE!
+		//Send Messages to Action Bar
 		sendToActionBar = getConfig().getBoolean("sendMessagesToActionBar", true);
 		print("Messages being sent to action bar?: " + sendToActionBar);
 
