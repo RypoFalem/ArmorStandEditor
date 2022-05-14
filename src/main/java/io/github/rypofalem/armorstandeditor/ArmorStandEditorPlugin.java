@@ -162,7 +162,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 		getLogger().info(SEPARATOR_FIELD);
 
 		//Is Debug Enabled
-		debug = getConfig().getBoolean("debug", true);
+		debug = getConfig().getBoolean("debug", false);
 		print("Debug Mode Enabled? Well if you can read this its true");
 
 		if(debug){
