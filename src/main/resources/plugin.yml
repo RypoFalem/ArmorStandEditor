@@ -1,6 +1,6 @@
 name: ArmorStandEditor
 main: io.github.rypofalem.armorstandeditor.ArmorStandEditorPlugin
-version: 1.19-35
+version: 1.19.1-36
 api-version: "1.13"
 website: https://www.spigotmc.org/resources/94503/
 author: Wolfstorm
@@ -39,7 +39,13 @@ permissions:
     asedit.equipment:
       description: Access armorstand equipment GUI
       default: true
-    asedit.disableslots:
+    asedit.gravity:
+      description: Changes whether the armor stand has gravity
+      default: true
+    asedit.placement:
+      description: Changes whether the armor stand can be moved using the item for editing
+      default: true
+    asedit.disableSlots:
       description: Allows locking and unlocking the contents of an ArmorStand. When locked, armor and equipement can not be added or removed without unlocking it first.
       default: true
     asedit.give:
@@ -48,6 +54,7 @@ permissions:
     asedit.update:
       description: Allows the checking for updates.
       default: false
+
 
     asedit.ignoreProtection.towny:
       description: Allows user to ignore Towny's Protection Limitations.
@@ -95,7 +102,9 @@ permissions:
       children:
         asedit.basic: true
         asedit.equipment: true
-        asedit.disableslots: true
+        asedit.gravity: true
+        asedit.placement: true
+        asedit.disableSlots: true
         asedit.rename: true
         asedit.update: false
         asedit.give: false
@@ -107,7 +116,9 @@ permissions:
         asedit.itemframe.invisible: true
         asedit.armorstand.invisible: true
         asedit.equipment: true
-        asedit.disableslots: true
+        asedit.gravity: true
+        asedit.placement: true
+        asedit.disableSlots: true
         asedit.rename: true
         asedit.update: true
         asedit.ignorePermissions.*: true
