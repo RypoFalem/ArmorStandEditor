@@ -4,7 +4,7 @@
     <groupId>io.github.rypofalem.armorstandeditor</groupId>
     <artifactId>armorstandeditor</artifactId>
     <packaging>jar</packaging>
-    <version>1.19.2-38</version>
+    <version>1.19.3-39</version>
     <name>armorstandeditor</name>
     <url>http://maven.apache.org</url>
 
@@ -76,7 +76,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.19.1-R0.1-SNAPSHOT</version>
+            <version>1.19.3-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <!--- WorldGuard -->
@@ -117,7 +117,7 @@
         <dependency>
             <groupId>com.palmergames.bukkit.towny</groupId>
             <artifactId>towny</artifactId>
-            <version>0.98.4.4</version>
+            <version>0.98.4.5</version>
             <scope>provided</scope>
         </dependency>
         <!--- UpdateChecker -->

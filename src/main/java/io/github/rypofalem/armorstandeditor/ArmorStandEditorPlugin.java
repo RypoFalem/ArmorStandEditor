@@ -62,6 +62,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
     
     //Output for Updates
     boolean opUpdateNotification = false;
+    boolean runTheUpdateChecker = false;
     
     //Edit Tool Information
     Material editTool;
@@ -127,7 +128,8 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
                 nmsVersion.startsWith("v1_15") ||
                 nmsVersion.startsWith("v1_16") ||
                 nmsVersion.startsWith("v1_17") ||
-                nmsVersion.startsWith("v1_18")){
+                nmsVersion.startsWith("v1_18") ||
+                nmsVersion.equals("v1_19_R1")){ //Temp: Will change it to .startsWith("v1_19") once 1.20 Drops
             getLogger().warning("Minecraft Version: " + nmsVersion + " is supported, but not latest.");
             getLogger().warning("ArmorStandEditor will still work, but please update to the latest Version of " + nmsVersionNotLatest + ". Loading continuing.");
         } else {
@@ -160,6 +162,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
         updateConfig("lang/", "test_NA.yml");
         updateConfig("lang/", "nl_NL.yml");
         updateConfig("lang/", "uk_UA.yml");
+        updateConfig("lang/", "ru_RU.yml");
         updateConfig("lang/", "zh_CN.yml");
         updateConfig("lang/", "fr_FR.yml");
         updateConfig("lang/", "ro_RO.yml");
@@ -228,14 +231,19 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
         glowItemFrames = getConfig().getBoolean("glowingItemFrame", true);
         invisibleItemFrames = getConfig().getBoolean("invisibleItemFrames", true);
 
+        //Add ability to enable ot Disable the running of the Updater
+        runTheUpdateChecker = getConfig().getBoolean("runTheUpdateChecker", true);
+
         //Add Ability to check for UpdatePerms that Notify Ops - https://github.com/Wolfieheart/ArmorStandEditor/issues/86
         opUpdateNotification = getConfig().getBoolean("opUpdateNotification", true);
 
         //Run UpdateChecker - Reports out to Console on Startup ONLY!
-        if(opUpdateNotification){
-            runUpdateCheckerWithOPNotifyOnJoinEnabled();
-        } else {
-            runUpdateCheckerConsoleUpdateCheck();
+        if(runTheUpdateChecker) {
+            if (opUpdateNotification) {
+                runUpdateCheckerWithOPNotifyOnJoinEnabled();
+            } else {
+                runUpdateCheckerConsoleUpdateCheck();
+            }
         }
 
         //Get Metrics from bStats
@@ -243,9 +251,12 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
         editorManager = new PlayerEditorManager(this);
         CommandEx execute = new CommandEx(this);
-        Objects.requireNonNull(getCommand("ase")).setExecutor(execute); //Ignore the warning with this. GetCommand is Nullable. Will be fixed in the future
-        getServer().getPluginManager().registerEvents(editorManager, this);
 
+        //CommandExecution and TabCompletion
+        Objects.requireNonNull(getCommand("ase")).setExecutor(execute);
+        Objects.requireNonNull(getCommand("ase")).setTabCompleter(execute);
+
+        getServer().getPluginManager().registerEvents(editorManager, this);
 
     }
 
@@ -368,6 +379,10 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
     public Material getEditTool() {
         return this.editTool;
+    }
+
+    public boolean getRunTheUpdateChecker() {
+        return this.getConfig().getBoolean("runTheUpdateChecker");
     }
 
     public Integer getCustomModelDataInt() { return this.getConfig().getInt("customModelDataInt"); }
@@ -497,4 +512,5 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
         if(iconKey == null) iconKey = new NamespacedKey(this, "command_icon");
         return iconKey;
     }
+
 }

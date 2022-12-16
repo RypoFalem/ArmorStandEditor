@@ -3,7 +3,7 @@
 #-----------------------------#
 
 #DO NOT CHANGE THIS - CHANGES AUTOMATICALLY PER UPDATE
-version: "1.19.2-38"
+version: "1.19.3-39"
 
 #----------- LANGUAGE
 #Name of the language file you wish to use
@@ -13,6 +13,9 @@ version: "1.19.2-38"
 lang: en_US.yml
 
 #----------- UPDATE NOTIFICATIONS
+#Enable or Disable the Update Checker
+runTheUpdateChecker: true
+
 #Set this to allow your operators to get messages w.r.t Plugin updates
 opUpdateNotification: false
 
