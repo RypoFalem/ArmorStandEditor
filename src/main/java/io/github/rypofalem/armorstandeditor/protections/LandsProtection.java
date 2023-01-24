@@ -4,7 +4,6 @@ import io.github.rypofalem.armorstandeditor.ArmorStandEditorPlugin;
 import me.angeschossen.lands.api.LandsIntegration;
 import me.angeschossen.lands.api.land.Area;
 import me.angeschossen.lands.api.land.Land;
-import me.angeschossen.lands.api.player.LandPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -33,12 +32,12 @@ public class LandsProtection implements Protection {
         //Get the Area that the block is in
         Area area = land.getArea(block.getLocation());
 
-        //Get the Lands Player
-        LandPlayer lPlayer = lands.getLandPlayer(player.getUniqueId());
+        if(area != null)
 
-        //Return if Trusted in the area or not either based on BukktiPlayer or LandsPlayer
-        return area == null ? area.isTrusted(player.getUniqueId()) : area.isTrusted(lPlayer.getUID());
-
+            //Return if Trusted in the area or not either based on BukkitPlayer
+            return area.isTrusted(player.getUniqueId());
+        else
+            return false;
 
     }
 }

@@ -39,6 +39,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.logging.Level;
 
 public class ArmorStandEditorPlugin extends JavaPlugin{
 
@@ -52,6 +53,8 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
     
     //Server Version Detection: Paper or Spigot and Invalid NMS Version
     String nmsVersion;
+    String languageFolderLocation = "lang/";
+    String warningMCVer = "Minecraft Version: ";
     public boolean hasSpigot = false;
     public boolean hasPaper = false;
     String nmsVersionNotLatest = null;
@@ -117,7 +120,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
                 nmsVersion.startsWith("v1_11") ||
                 nmsVersion.startsWith("v1_12") ||
                 nmsVersion.startsWith("v1_13")){
-            getLogger().warning("Minecraft Version: " + nmsVersion + " is not supported. Loading Plugin Failed.");
+            getLogger().log(Level.WARNING,"Minecraft Version: {0} is unsupported. Please Update Immediately. Loading failed.",nmsVersion);
             getLogger().info(SEPARATOR_FIELD);
             getServer().getPluginManager().disablePlugin(this);
             return;
@@ -130,10 +133,10 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
                 nmsVersion.startsWith("v1_17") ||
                 nmsVersion.startsWith("v1_18") ){
             //Revert NMS Check for any 1.19 Version
-            getLogger().warning("Minecraft Version: " + nmsVersion + " is supported, but not latest.");
-            getLogger().warning("ArmorStandEditor will still work, but please update to the latest Version of " + nmsVersionNotLatest + ". Loading continuing.");
+            getLogger().log(Level.WARNING,"Minecraft Version: {0} is supported, but not latest.",nmsVersion);
+            getLogger().log(Level.WARNING, "ArmorStandEditor will still work on your current version. Loading Continuing.");
         } else {
-            getLogger().info("Minecraft Version: " + nmsVersion + " is supported. Loading continuing.");
+            getLogger().log(Level.INFO, "Minecraft Version: {0} is supported. Loading Continuing.",nmsVersion);
         }
         //Spigot Check
         hasSpigot = getHasSpigot();
@@ -147,9 +150,10 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
             return;
         } else {
             if (hasSpigot) {
-                getLogger().info("SpigotMC: " + hasSpigot);
+                getLogger().log(Level.INFO,"SpigotMC: {0}",hasSpigot);
+                //getLogger().info("SpigotMC: " + hasSpigot);
             } else {
-                getLogger().info("PaperMC: " + hasPaper);
+                getLogger().log(Level.INFO,"PaperMC: {0}",hasPaper);
             }
         }
 
@@ -159,17 +163,17 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
         //saveResource doesn't accept File.separator on Windows, need to hardcode unix separator "/" instead
         updateConfig("", "config.yml");
-        updateConfig("lang/", "test_NA.yml");
-        updateConfig("lang/", "nl_NL.yml");
-        updateConfig("lang/", "uk_UA.yml");
-        updateConfig("lang/", "ru_RU.yml");
-        updateConfig("lang/", "zh_CN.yml");
-        updateConfig("lang/", "fr_FR.yml");
-        updateConfig("lang/", "ro_RO.yml");
-        updateConfig("lang/", "ja_JP.yml");
-        updateConfig("lang/", "de_DE.yml");
-        updateConfig("lang/", "es_ES.yml");
-        updateConfig("lang/", "pt_BR.yml");
+        updateConfig(languageFolderLocation, "test_NA.yml");
+        updateConfig(languageFolderLocation, "nl_NL.yml");
+        updateConfig(languageFolderLocation, "uk_UA.yml");
+        updateConfig(languageFolderLocation, "ru_RU.yml");
+        updateConfig(languageFolderLocation, "zh_CN.yml");
+        updateConfig(languageFolderLocation, "fr_FR.yml");
+        updateConfig(languageFolderLocation, "ro_RO.yml");
+        updateConfig(languageFolderLocation, "ja_JP.yml");
+        updateConfig(languageFolderLocation, "de_DE.yml");
+        updateConfig(languageFolderLocation, "es_ES.yml");
+        updateConfig(languageFolderLocation, "pt_BR.yml");
 
         //English is the default language and needs to be unaltered to so that there is always a backup message string
         saveResource("lang/en_US.yml", true);
@@ -392,7 +396,6 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
         if (editTool != itemStk.getType()) { return false; }
 
         //FIX: Depreciated Stack for getDurability
-        //		if(requireToolData && item.getDurability() != (short)editToolData) return false;
         if (requireToolData){
             Damageable d1 = (Damageable) itemStk.getItemMeta(); //Get the Damageable Options for itemStk
             if (d1 != null) { //We do this to prevent NullPointers

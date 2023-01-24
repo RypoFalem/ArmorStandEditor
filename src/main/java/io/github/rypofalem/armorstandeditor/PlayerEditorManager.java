@@ -22,7 +22,7 @@ package io.github.rypofalem.armorstandeditor;
 import com.google.common.collect.ImmutableList;
 import io.github.rypofalem.armorstandeditor.menu.ASEHolder;
 import io.github.rypofalem.armorstandeditor.protections.*;
-import me.ryanhamshire.GriefPrevention.GriefPrevention;
+
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -60,7 +60,8 @@ public class PlayerEditorManager implements Listener {
     // Instantiate protections used to determine whether a player may edit an armor stand or item frame
     private final List<Protection> protections = ImmutableList.of(
             new GriefDefenderProtection(), new GriefPreventionProtection(), new LandsProtection(),
-            new PlotSquaredProtection(), new SkyblockProtection(), new TownyProtection(), new WorldGuardProtection());
+            new PlotSquaredProtection(), new SkyblockProtection(), new TownyProtection(), new WorldGuardProtection(),
+            new BentoBoxProtection());
 
     PlayerEditorManager( ArmorStandEditorPlugin plugin) {
         this.plugin = plugin;

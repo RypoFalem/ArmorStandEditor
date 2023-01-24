@@ -16,7 +16,6 @@ public class TownyProtection implements Protection  {
 
     public TownyProtection(){
         tEnabled = Bukkit.getPluginManager().isPluginEnabled("Towny");
-        if(!tEnabled) return;
     }
 
     public boolean checkPermission(Block block, Player player){
@@ -27,9 +26,7 @@ public class TownyProtection implements Protection  {
         Location playerLoc = player.getLocation();
 
         if (TownyAPI.getInstance().isWilderness(playerLoc)) return false;
-        if (!TownyActionEventExecutor.canDestroy(player, block.getLocation(), Material.ARMOR_STAND)) return false;
-
-        return true;
+        return TownyActionEventExecutor.canDestroy(player, block.getLocation(), Material.ARMOR_STAND);
     }
 }
 

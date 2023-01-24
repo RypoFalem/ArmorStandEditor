@@ -8,3 +8,4 @@ target/
 /src/main/java/META-INF/*.MF
 /src/main/java/META-INF/
 /TODO-LIST.MD
+/dependency-reduced-pom.xml

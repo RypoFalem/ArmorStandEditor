@@ -9,12 +9,14 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
+/** @deprecated **/
 
 public class GriefPreventionProtection implements Protection  {
 
     private boolean gpEnabled;
     private GriefPrevention griefPrevention = null;
 
+    /** @deprecated **/
     public GriefPreventionProtection(){
         gpEnabled = Bukkit.getPluginManager().isPluginEnabled("GriefPrevention");
 
@@ -22,6 +24,7 @@ public class GriefPreventionProtection implements Protection  {
         griefPrevention = (GriefPrevention) Bukkit.getPluginManager().getPlugin("GriefPrevention");
     }
 
+    /** @deprecated **/
     public boolean checkPermission(Block block, Player player){
         if(!gpEnabled) return true;
         if(player.hasPermission("asedit.ignoreProtection.griefPrevention")) return true;
