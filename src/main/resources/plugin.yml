@@ -1,12 +1,12 @@
 name: ArmorStandEditor
 main: io.github.rypofalem.armorstandeditor.ArmorStandEditorPlugin
-version: 1.19.3-39
+version: 1.19.3-40
 api-version: "1.13"
 website: https://www.spigotmc.org/resources/94503/
 author: Wolfstorm
 authors: [Wolfstorm, Marfjeh, miknes123, rypofalem, sekwah41, Sikatsu1997, Cool_boy, sumdream, Amaury Carrade, nicuch, kotarobo, prettydude, Jumpy91, Niasio, Patbox, Puremin0rez, Prof-Bloodstone, PlanetTeamSpeak]
 description: Allows players to edit data of armorstands without any commands.
-softdepend: [Towny, WorldGuard, GriefPrevention, PlotSquared, Lands]
+softdepend: [Towny, WorldGuard, GriefPrevention, PlotSquared, Lands, bentobox]
 
 commands:
   ase:
@@ -77,7 +77,9 @@ permissions:
     asedit.ignoreProtection.lands:
       description: Allows user to ignore Lands' Protection Limitations.
       default: false
-
+    asedit.ignoreProtection.bentobox:
+      description: Allows user to ignore Bentobox' Protection Limitations.
+      default: false
 
     asedit.ignoreProtection.*:
       description: Ignore all Protection Limitations
@@ -90,6 +92,7 @@ permissions:
         asedit.ignoreProtection.skyblock: true
         asedit.ignoreProtection.griefDefender: true
         asedit.ignoreProtection.lands: true
+        asedit.ignoreProtection.bentobox: true
 
     asedit.permpack.dontIgnoreProtections:
       default: true
@@ -101,6 +104,7 @@ permissions:
         asedit.ignoreProtection.skyblock: false
         asedit.ignoreProtection.griefDefender: false
         asedit.ignoreProtection.lands: false
+        asedit.ignoreProtection.bentobox: false
 
     asedit.permpack.basic:
       default: true

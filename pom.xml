@@ -4,7 +4,7 @@
     <groupId>io.github.rypofalem.armorstandeditor</groupId>
     <artifactId>armorstandeditor</artifactId>
     <packaging>jar</packaging>
-    <version>1.19.3-39</version>
+    <version>1.19.3-40</version>
     <name>armorstandeditor</name>
     <url>http://maven.apache.org</url>
 
@@ -68,6 +68,11 @@
         <repository>
             <id>bg-repo</id>
             <url>https://repo.bg-software.com/repository/api/</url>
+        </repository>
+        <!-- Bentobox API -->
+        <repository>
+            <id>codemc-repo</id>
+            <url>https://repo.codemc.org/repository/maven-public/</url>
         </repository>
     </repositories>
 
@@ -146,6 +151,13 @@
             <groupId>com.github.angeschossen</groupId>
             <artifactId>LandsAPI</artifactId>
             <version>6.20.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Bentobox -->
+        <dependency>
+            <groupId>world.bentobox</groupId>
+            <artifactId>bentobox</artifactId>
+            <version>1.22.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
