@@ -30,6 +30,7 @@ public class BentoBoxProtection implements Protection  {
                 player.hasPermission("bentobox.admin") ||
                 myBento == null ) return true;
 
+        //Get the Various Managers for Bentobox
         IslandsManager islandsManager = myBento.getIslandsManager();
         AddonsManager addonsManager = myBento.getAddonsManager();
 
@@ -40,11 +41,15 @@ public class BentoBoxProtection implements Protection  {
         Optional<Island> islandOptional = islandsManager.getIslandAt(block.getLocation());
 
         //If there are no Islands Present
-        if(!islandOptional.isPresent()) return false;
+        if(!islandOptional.isPresent()) return true;
+
+        //Do not run this check if the player is the owner of the island
+        if(islandsManager.isOwner(player.getWorld(), player.getUniqueId())) return true;
 
         //Get the Island from the Island Optional
         Island theIsland = islandOptional.get();
 
+        //Return if that User isAllowed to break blocks on that Land
         return theIsland.isAllowed(User.getInstance(player), Flags.BREAK_BLOCKS);
     }
 }
