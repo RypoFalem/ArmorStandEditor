@@ -23,6 +23,8 @@ public class BentoBoxProtection implements Protection  {
 
     @Override
     public boolean checkPermission(Block block, Player player) {
+
+        //Get the Bento Instance
         BentoBox myBento = BentoBox.getInstance();
 
         if(!bentoEnabled || player.isOp() ||
