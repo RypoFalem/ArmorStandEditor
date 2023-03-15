@@ -63,7 +63,7 @@ public class PlayerEditorManager implements Listener {
     private final List<Protection> protections = ImmutableList.of(
             new GriefDefenderProtection(), new GriefPreventionProtection(), new LandsProtection(),
             new PlotSquaredProtection(), new SkyblockProtection(), new TownyProtection(), new WorldGuardProtection(),
-            new BentoBoxProtection());
+            new BentoBoxProtection(), new ResidenceProtection());
 
     PlayerEditorManager( ArmorStandEditorPlugin plugin) {
         this.plugin = plugin;
@@ -287,6 +287,7 @@ public class PlayerEditorManager implements Listener {
     boolean canEdit( Player player,  Entity entity) {
         //Get the Entity being checked for editing
         Block block = entity.getLocation().getBlock();
+
         // Check if all protections allow this edit, if one fails, don't allow edit
         return protections.stream().allMatch(protection -> protection.checkPermission(block, player));
     }
