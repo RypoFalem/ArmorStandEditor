@@ -43,7 +43,7 @@ import java.util.logging.Level;
 
 public class ArmorStandEditorPlugin extends JavaPlugin{
 
-    //!!! DO NOT REMOVE THESE UNDER ANY CIRCUMSTANCES !!!
+    //!!! DO NOT REMOVE THESE UNDER ANY CIRCUMSTANCES - Required for BStats and !!!
     public static final int SPIGOT_RESOURCE_ID = 94503;  //Used for Update Checker
     private static final int PLUGIN_ID = 12668;		     //Used for BStats Metrics
 
@@ -95,7 +95,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
     public Team team;
     String lockedTeam = "ASLocked";
 
-   private static ArmorStandEditorPlugin plugin;
+    private static ArmorStandEditorPlugin plugin;
 
     public ArmorStandEditorPlugin(){
         instance = this;
@@ -132,7 +132,6 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
                 nmsVersion.startsWith("v1_16") ||
                 nmsVersion.startsWith("v1_17") ||
                 nmsVersion.startsWith("v1_18") ){
-            //Revert NMS Check for any 1.19 Version
             getLogger().log(Level.WARNING,"Minecraft Version: {0} is supported, but not latest.",nmsVersion);
             getLogger().log(Level.WARNING, "ArmorStandEditor will still work on your current version. Loading Continuing.");
         } else {
@@ -144,14 +143,13 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
         //If Paper and Spigot are both FALSE - Disable the plugin
         if (!hasPaper && !hasSpigot){
-            getLogger().severe("This plugin requires either Paper, Spigot or one of its forks to run");
+            getLogger().severe("This plugin requires either Paper, Spigot or one of its forks to run. This is not an error, please do not report this!");
             getServer().getPluginManager().disablePlugin(this);
             getLogger().info(SEPARATOR_FIELD);
             return;
         } else {
             if (hasSpigot) {
                 getLogger().log(Level.INFO,"SpigotMC: {0}",hasSpigot);
-                //getLogger().info("SpigotMC: " + hasSpigot);
             } else {
                 getLogger().log(Level.INFO,"PaperMC: {0}",hasPaper);
             }
@@ -163,17 +161,18 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
         //saveResource doesn't accept File.separator on Windows, need to hardcode unix separator "/" instead
         updateConfig("", "config.yml");
-        updateConfig(languageFolderLocation, "test_NA.yml");
-        updateConfig(languageFolderLocation, "nl_NL.yml");
-        updateConfig(languageFolderLocation, "uk_UA.yml");
-        updateConfig(languageFolderLocation, "ru_RU.yml");
-        updateConfig(languageFolderLocation, "zh_CN.yml");
-        updateConfig(languageFolderLocation, "fr_FR.yml");
-        updateConfig(languageFolderLocation, "ro_RO.yml");
-        updateConfig(languageFolderLocation, "ja_JP.yml");
         updateConfig(languageFolderLocation, "de_DE.yml");
         updateConfig(languageFolderLocation, "es_ES.yml");
+        updateConfig(languageFolderLocation, "fr_FR.yml");
+        updateConfig(languageFolderLocation, "ja_JP.yml");
+        updateConfig(languageFolderLocation, "nl_NL.yml");
+        updateConfig(languageFolderLocation, "pl_PL.yml");
         updateConfig(languageFolderLocation, "pt_BR.yml");
+        updateConfig(languageFolderLocation, "ro_RO.yml");
+        updateConfig(languageFolderLocation, "ru_RU.yml");
+        updateConfig(languageFolderLocation, "test_NA.yml");
+        updateConfig(languageFolderLocation, "uk_UA.yml");
+        updateConfig(languageFolderLocation, "zh_CN.yml");
 
         //English is the default language and needs to be unaltered to so that there is always a backup message string
         saveResource("lang/en_US.yml", true);
@@ -354,15 +353,6 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
         }
     }
 
-    public boolean getArmorStandVisibility(){
-        return getConfig().getBoolean("armorStandVisibility");
-    }
-
-    public boolean getItemFrameVisibility(){
-        return getConfig().getBoolean("invisibleItemFrames");
-    }
-
-
     public boolean getHasPaper(){
         try {
             Class.forName("com.destroystokyo.paper.PaperConfig");
@@ -373,6 +363,15 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
             return false;
         }
     }
+
+    public boolean getArmorStandVisibility(){
+        return getConfig().getBoolean("armorStandVisibility");
+    }
+
+    public boolean getItemFrameVisibility(){
+        return getConfig().getBoolean("invisibleItemFrames");
+    }
+
     public Language getLang(){
         return lang;
     }
@@ -458,8 +457,8 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
         //Send Messages to ActionBar
         metrics.addCustomChart(new SimplePie("action_bar_messages", () -> getConfig().getString("sendMessagesToActionBar")));
 
-        //Debug Mode Enabled?
-        metrics.addCustomChart(new SimplePie("uses_debug_mode", () -> getConfig().getString("debug")));
+        //Check for Sneaking
+        metrics.addCustomChart(new SimplePie("require_sneaking", () -> getConfig().getString("requireSneaking")));
 
         //Language is used
         metrics.addCustomChart(new DrilldownPie("language_used", () -> {
@@ -507,6 +506,9 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
         //Add tracking to see who is using Custom Naming in BStats
         metrics.addCustomChart(new SimplePie("custom_toolname_enabled", () -> getConfig().getString("requireToolName")));
+
+        metrics.addCustomChart(new SimplePie("using_the_update_checker", () -> getConfig().getString("runTheUpdateChecker")));
+        metrics.addCustomChart(new SimplePie("op_updates", () -> getConfig().getString("opUpdateNotification")));
 
 
     }
