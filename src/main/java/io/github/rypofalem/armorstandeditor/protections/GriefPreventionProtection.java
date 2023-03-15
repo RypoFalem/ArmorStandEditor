@@ -9,7 +9,8 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
-/** @deprecated **/
+/** @deprecated
+ * Plugin has gone unsupported for a while - Might be cleaned up later. **/
 
 public class GriefPreventionProtection implements Protection  {
 

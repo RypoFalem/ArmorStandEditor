@@ -33,7 +33,6 @@ public class LandsProtection implements Protection {
         Area area = land.getArea(block.getLocation());
 
         if(area != null)
-
             //Return if Trusted in the area or not either based on BukkitPlayer
             return area.isTrusted(player.getUniqueId());
         else

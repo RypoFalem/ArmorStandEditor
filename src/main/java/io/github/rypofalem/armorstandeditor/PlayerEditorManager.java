@@ -45,19 +45,21 @@ import java.util.UUID;
 
 //Manages PlayerEditors and Player Events related to editing armorstands
 public class PlayerEditorManager implements Listener {
-    private  ArmorStandEditorPlugin plugin;
-    private  HashMap<UUID, PlayerEditor> players;
-    private  ASEHolder menuHolder = new ASEHolder(); //Inventory holder that owns the main ase menu inventories for the plugin
-    private  ASEHolder equipmentHolder = new ASEHolder(); //Inventory holder that owns the equipment menu
+    private ArmorStandEditorPlugin plugin;
+    private HashMap<UUID, PlayerEditor> players;
+    private ASEHolder menuHolder = new ASEHolder(); //Inventory holder that owns the main ase menu inventories for the plugin
+    private ASEHolder equipmentHolder = new ASEHolder(); //Inventory holder that owns the equipment menu
     double coarseAdj;
     double fineAdj;
     double coarseMov;
     double fineMov;
     private boolean ignoreNextInteract = false;
-    private  TickCounter counter;
+    private TickCounter counter;
     private ArrayList<ArmorStand> as = null;
     private ArrayList<ItemFrame> itemF = null;
+
     // Instantiate protections used to determine whether a player may edit an armor stand or item frame
+    //NOTE: GriefPreventionProtection is Depreciated as of v1.19.3-40
     private final List<Protection> protections = ImmutableList.of(
             new GriefDefenderProtection(), new GriefPreventionProtection(), new LandsProtection(),
             new PlotSquaredProtection(), new SkyblockProtection(), new TownyProtection(), new WorldGuardProtection(),

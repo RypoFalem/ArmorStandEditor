@@ -30,11 +30,7 @@ public class SkyblockProtection implements Protection  {
         if (island == null) {
             return true;
         } else {
-            if (!island.isMember(sp) && !island.isCoop(sp) && !sp.hasBypassModeEnabled()) {
-                return false;
-            } else {
-                return true;
-            }
+            return island.isMember(sp) || island.isCoop(sp) || sp.hasBypassModeEnabled();
         }
     }
 }

@@ -31,7 +31,6 @@ public class PlotSquaredProtection implements Protection  {
                 block.getLocation().getBlockY(),
                 block.getLocation().getBlockZ());
 
-
         PlotArea area = psPlatform.plotAreaManager().getPlotArea(location);
         if(area == null) return true;
         Plot plot = area.getPlot(location);
