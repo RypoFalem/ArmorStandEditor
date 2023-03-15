@@ -23,14 +23,13 @@ public class BentoBoxProtection implements Protection  {
 
     @Override
     public boolean checkPermission(Block block, Player player) {
+        if(!bentoEnabled || player.isOp() ||
+                player.hasPermission("asedit.ignoreProtection.bentobox") ||
+                player.hasPermission("bentobox.admin")) return true;
 
         //Get the Bento Instance
         BentoBox myBento = BentoBox.getInstance();
-
-        if(!bentoEnabled || player.isOp() ||
-                player.hasPermission("asedit.ignoreProtection.bentobox") ||
-                player.hasPermission("bentobox.admin") ||
-                myBento == null ) return true;
+        if( myBento == null ) return true;
 
         //Get the Various Managers for Bentobox
         IslandsManager islandsManager = myBento.getIslandsManager();
