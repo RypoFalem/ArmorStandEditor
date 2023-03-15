@@ -7,19 +7,16 @@ import me.angeschossen.lands.api.land.Land;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 public class LandsProtection implements Protection {
     private final boolean landsEnabled;
-    private @NotNull LandsIntegration lands;
+    private LandsIntegration lands;
 
     public LandsProtection() {
         landsEnabled = Bukkit.getPluginManager().isPluginEnabled("Lands");
 
         if (landsEnabled)
             lands = LandsIntegration.of(ArmorStandEditorPlugin.instance());
-        else
-            return;
     }
 
     @Override
