@@ -166,7 +166,7 @@
             <artifactId>Residence</artifactId>
             <version>5.1.1.1</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/resources/Residence5.1.1.1.jar</systemPath>
+            <systemPath>${pom.basedir}/src/main/resources/Residence5.1.1.1.jar</systemPath>
         </dependency>
     </dependencies>
     <!--Java 8-->
