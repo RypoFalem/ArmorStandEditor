@@ -66,7 +66,8 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
     //Output for Updates
     boolean opUpdateNotification = false;
     boolean runTheUpdateChecker = false;
-    
+    double updateCheckerInterval;
+
     //Edit Tool Information
     Material editTool;
     String toolType;
@@ -239,14 +240,17 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
         //Add Ability to check for UpdatePerms that Notify Ops - https://github.com/Wolfieheart/ArmorStandEditor/issues/86
         opUpdateNotification = getConfig().getBoolean("opUpdateNotification", true);
+        updateCheckerInterval = getConfig().getDouble("updateCheckerInterval", 24);
 
         //Run UpdateChecker - Reports out to Console on Startup ONLY!
         if(runTheUpdateChecker) {
-            if (opUpdateNotification) {
+
+            if(opUpdateNotification){
                 runUpdateCheckerWithOPNotifyOnJoinEnabled();
             } else {
                 runUpdateCheckerConsoleUpdateCheck();
             }
+
         }
 
         //Get Metrics from bStats
@@ -275,7 +279,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
                     .setChangelogLink("https://www.spigotmc.org/resources/armorstandeditor-reborn.94503/history")
                     .setColoredConsoleOutput(true)
                     .setUserAgent(new UserAgentBuilder().addPluginNameAndVersion().addServerVersion())
-                    .checkEveryXHours(72) //Warn people every 72 hours
+                    .checkEveryXHours(updateCheckerInterval)
                     .checkNow();
         }
     }
@@ -293,7 +297,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
                     .setColoredConsoleOutput(true)
                     .setNotifyOpsOnJoin(true)
                     .setUserAgent(new UserAgentBuilder().addPluginNameAndVersion().addServerVersion())
-                    .checkEveryXHours(72) //Warn people every 72 hours
+                    .checkEveryXHours(updateCheckerInterval)
                     .checkNow();
         }
     }

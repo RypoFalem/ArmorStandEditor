@@ -16,7 +16,10 @@ lang: en_US.yml
 #Enable or Disable the Update Checker
 runTheUpdateChecker: true
 
-#Set this to allow your operators to get messages w.r.t Plugin updates
+# When runTheUpdateChecker is true, we will also check every X hours
+check-interval: 24
+
+#Set this to allow your operators to get messages in game w.r.t Plugin updates
 opUpdateNotification: false
 
 #----------- TOOL SETTINGS
