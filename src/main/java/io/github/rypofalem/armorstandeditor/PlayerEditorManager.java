@@ -22,7 +22,7 @@ package io.github.rypofalem.armorstandeditor;
 import com.google.common.collect.ImmutableList;
 import io.github.rypofalem.armorstandeditor.menu.ASEHolder;
 import io.github.rypofalem.armorstandeditor.protections.*;
-import me.ryanhamshire.GriefPrevention.GriefPrevention;
+
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -45,22 +45,31 @@ import java.util.UUID;
 
 //Manages PlayerEditors and Player Events related to editing armorstands
 public class PlayerEditorManager implements Listener {
-    private  ArmorStandEditorPlugin plugin;
-    private  HashMap<UUID, PlayerEditor> players;
-    private  ASEHolder menuHolder = new ASEHolder(); //Inventory holder that owns the main ase menu inventories for the plugin
-    private  ASEHolder equipmentHolder = new ASEHolder(); //Inventory holder that owns the equipment menu
+    private ArmorStandEditorPlugin plugin;
+    private HashMap<UUID, PlayerEditor> players;
+    private ASEHolder menuHolder = new ASEHolder(); //Inventory holder that owns the main ase menu inventories for the plugin
+    private ASEHolder equipmentHolder = new ASEHolder(); //Inventory holder that owns the equipment menu
     double coarseAdj;
     double fineAdj;
     double coarseMov;
     double fineMov;
     private boolean ignoreNextInteract = false;
-    private  TickCounter counter;
+    private TickCounter counter;
     private ArrayList<ArmorStand> as = null;
     private ArrayList<ItemFrame> itemF = null;
+
     // Instantiate protections used to determine whether a player may edit an armor stand or item frame
+    //NOTE: GriefPreventionProtection is Depreciated as of v1.19.3-40
     private final List<Protection> protections = ImmutableList.of(
-            new GriefDefenderProtection(), new GriefPreventionProtection(), new LandsProtection(),
-            new PlotSquaredProtection(), new SkyblockProtection(), new TownyProtection(), new WorldGuardProtection());
+            new GriefDefenderProtection(),
+            new GriefPreventionProtection(),
+            new LandsProtection(),
+            new PlotSquaredProtection(),
+            new SkyblockProtection(),
+            new TownyProtection(),
+            new WorldGuardProtection(),
+            new BentoBoxProtection(),
+            new ResidenceProtection());
 
     PlayerEditorManager( ArmorStandEditorPlugin plugin) {
         this.plugin = plugin;
@@ -284,6 +293,7 @@ public class PlayerEditorManager implements Listener {
     boolean canEdit( Player player,  Entity entity) {
         //Get the Entity being checked for editing
         Block block = entity.getLocation().getBlock();
+
         // Check if all protections allow this edit, if one fails, don't allow edit
         return protections.stream().allMatch(protection -> protection.checkPermission(block, player));
     }

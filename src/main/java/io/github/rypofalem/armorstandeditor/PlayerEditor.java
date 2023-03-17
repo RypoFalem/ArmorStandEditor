@@ -66,7 +66,6 @@ public class PlayerEditor {
     int frameTargetIndex = 0;
     EquipmentMenu equipMenu;
     long lastCancelled = 0;
-    private boolean state;
 
     public PlayerEditor(UUID uuid, ArmorStandEditorPlugin plugin) {
         this.uuid = uuid;
@@ -171,6 +170,10 @@ public class PlayerEditor {
             case NONE:
                 sendMessage("nomode", null);
                 break;
+            default:
+                sendMessage("nomode", null);
+                break;
+
         }
     }
 
@@ -182,7 +185,11 @@ public class PlayerEditor {
                 break;
             case RESET:
                 itemFrame.setVisible(true);
+                break;
             case NONE:
+                sendMessage("nomodeif", null);
+                break;
+            default:
                 sendMessage("nomodeif", null);
                 break;
         }
@@ -500,7 +507,7 @@ public class PlayerEditor {
     void sendMessage(String path, String format, String option) {
         String message = plugin.getLang().getMessage(path, format, option);
         if (plugin.sendToActionBar) {
-            if (ArmorStandEditorPlugin.instance().hasSpigot || ArmorStandEditorPlugin.instance().hasPaper) { //Paper and Spigot having the same Interaction for sendToActionBar
+            if (ArmorStandEditorPlugin.instance().getHasPaper() || ArmorStandEditorPlugin.instance().getHasSpigot()) { //Paper and Spigot having the same Interaction for sendToActionBar
                 plugin.getServer().getPlayer(getUUID()).spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(message));
             } else {
                 String rawText = plugin.getLang().getRawMessage(path, format, option);

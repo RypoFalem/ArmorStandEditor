@@ -39,10 +39,11 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.logging.Level;
 
 public class ArmorStandEditorPlugin extends JavaPlugin{
 
-    //!!! DO NOT REMOVE THESE UNDER ANY CIRCUMSTANCES !!!
+    //!!! DO NOT REMOVE THESE UNDER ANY CIRCUMSTANCES - Required for BStats and !!!
     public static final int SPIGOT_RESOURCE_ID = 94503;  //Used for Update Checker
     private static final int PLUGIN_ID = 12668;		     //Used for BStats Metrics
 
@@ -52,6 +53,8 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
     
     //Server Version Detection: Paper or Spigot and Invalid NMS Version
     String nmsVersion;
+    String languageFolderLocation = "lang/";
+    String warningMCVer = "Minecraft Version: ";
     public boolean hasSpigot = false;
     public boolean hasPaper = false;
     String nmsVersionNotLatest = null;
@@ -92,7 +95,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
     public Team team;
     String lockedTeam = "ASLocked";
 
-   private static ArmorStandEditorPlugin plugin;
+    private static ArmorStandEditorPlugin plugin;
 
     public ArmorStandEditorPlugin(){
         instance = this;
@@ -117,7 +120,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
                 nmsVersion.startsWith("v1_11") ||
                 nmsVersion.startsWith("v1_12") ||
                 nmsVersion.startsWith("v1_13")){
-            getLogger().warning("Minecraft Version: " + nmsVersion + " is not supported. Loading Plugin Failed.");
+            getLogger().log(Level.WARNING,"Minecraft Version: {0} is unsupported. Please Update Immediately. Loading failed.",nmsVersion);
             getLogger().info(SEPARATOR_FIELD);
             getServer().getPluginManager().disablePlugin(this);
             return;
@@ -128,12 +131,11 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
                 nmsVersion.startsWith("v1_15") ||
                 nmsVersion.startsWith("v1_16") ||
                 nmsVersion.startsWith("v1_17") ||
-                nmsVersion.startsWith("v1_18") ||
-                nmsVersion.equals("v1_19_R1")){ //Temp: Will change it to .startsWith("v1_19") once 1.20 Drops
-            getLogger().warning("Minecraft Version: " + nmsVersion + " is supported, but not latest.");
-            getLogger().warning("ArmorStandEditor will still work, but please update to the latest Version of " + nmsVersionNotLatest + ". Loading continuing.");
+                nmsVersion.startsWith("v1_18") ){
+            getLogger().log(Level.WARNING,"Minecraft Version: {0} is supported, but not latest.",nmsVersion);
+            getLogger().log(Level.WARNING, "ArmorStandEditor will still work on your current version. Loading Continuing.");
         } else {
-            getLogger().info("Minecraft Version: " + nmsVersion + " is supported. Loading continuing.");
+            getLogger().log(Level.INFO, "Minecraft Version: {0} is supported. Loading Continuing.",nmsVersion);
         }
         //Spigot Check
         hasSpigot = getHasSpigot();
@@ -141,15 +143,15 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
         //If Paper and Spigot are both FALSE - Disable the plugin
         if (!hasPaper && !hasSpigot){
-            getLogger().severe("This plugin requires either Paper, Spigot or one of its forks to run");
+            getLogger().severe("This plugin requires either Paper, Spigot or one of its forks to run. This is not an error, please do not report this!");
             getServer().getPluginManager().disablePlugin(this);
             getLogger().info(SEPARATOR_FIELD);
             return;
         } else {
             if (hasSpigot) {
-                getLogger().info("SpigotMC: " + hasSpigot);
+                getLogger().log(Level.INFO,"SpigotMC: {0}",hasSpigot);
             } else {
-                getLogger().info("PaperMC: " + hasPaper);
+                getLogger().log(Level.INFO,"PaperMC: {0}",hasPaper);
             }
         }
 
@@ -159,17 +161,18 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
         //saveResource doesn't accept File.separator on Windows, need to hardcode unix separator "/" instead
         updateConfig("", "config.yml");
-        updateConfig("lang/", "test_NA.yml");
-        updateConfig("lang/", "nl_NL.yml");
-        updateConfig("lang/", "uk_UA.yml");
-        updateConfig("lang/", "ru_RU.yml");
-        updateConfig("lang/", "zh_CN.yml");
-        updateConfig("lang/", "fr_FR.yml");
-        updateConfig("lang/", "ro_RO.yml");
-        updateConfig("lang/", "ja_JP.yml");
-        updateConfig("lang/", "de_DE.yml");
-        updateConfig("lang/", "es_ES.yml");
-        updateConfig("lang/", "pt_BR.yml");
+        updateConfig(languageFolderLocation, "de_DE.yml");
+        updateConfig(languageFolderLocation, "es_ES.yml");
+        updateConfig(languageFolderLocation, "fr_FR.yml");
+        updateConfig(languageFolderLocation, "ja_JP.yml");
+        updateConfig(languageFolderLocation, "nl_NL.yml");
+        updateConfig(languageFolderLocation, "pl_PL.yml");
+        updateConfig(languageFolderLocation, "pt_BR.yml");
+        updateConfig(languageFolderLocation, "ro_RO.yml");
+        updateConfig(languageFolderLocation, "ru_RU.yml");
+        updateConfig(languageFolderLocation, "test_NA.yml");
+        updateConfig(languageFolderLocation, "uk_UA.yml");
+        updateConfig(languageFolderLocation, "zh_CN.yml");
 
         //English is the default language and needs to be unaltered to so that there is always a backup message string
         saveResource("lang/en_US.yml", true);
@@ -350,15 +353,6 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
         }
     }
 
-    public boolean getArmorStandVisibility(){
-        return getConfig().getBoolean("armorStandVisibility");
-    }
-
-    public boolean getItemFrameVisibility(){
-        return getConfig().getBoolean("invisibleItemFrames");
-    }
-
-
     public boolean getHasPaper(){
         try {
             Class.forName("com.destroystokyo.paper.PaperConfig");
@@ -369,6 +363,15 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
             return false;
         }
     }
+
+    public boolean getArmorStandVisibility(){
+        return getConfig().getBoolean("armorStandVisibility");
+    }
+
+    public boolean getItemFrameVisibility(){
+        return getConfig().getBoolean("invisibleItemFrames");
+    }
+
     public Language getLang(){
         return lang;
     }
@@ -392,7 +395,6 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
         if (editTool != itemStk.getType()) { return false; }
 
         //FIX: Depreciated Stack for getDurability
-        //		if(requireToolData && item.getDurability() != (short)editToolData) return false;
         if (requireToolData){
             Damageable d1 = (Damageable) itemStk.getItemMeta(); //Get the Damageable Options for itemStk
             if (d1 != null) { //We do this to prevent NullPointers
@@ -455,8 +457,8 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
         //Send Messages to ActionBar
         metrics.addCustomChart(new SimplePie("action_bar_messages", () -> getConfig().getString("sendMessagesToActionBar")));
 
-        //Debug Mode Enabled?
-        metrics.addCustomChart(new SimplePie("uses_debug_mode", () -> getConfig().getString("debug")));
+        //Check for Sneaking
+        metrics.addCustomChart(new SimplePie("require_sneaking", () -> getConfig().getString("requireSneaking")));
 
         //Language is used
         metrics.addCustomChart(new DrilldownPie("language_used", () -> {
@@ -504,6 +506,9 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
 
         //Add tracking to see who is using Custom Naming in BStats
         metrics.addCustomChart(new SimplePie("custom_toolname_enabled", () -> getConfig().getString("requireToolName")));
+
+        metrics.addCustomChart(new SimplePie("using_the_update_checker", () -> getConfig().getString("runTheUpdateChecker")));
+        metrics.addCustomChart(new SimplePie("op_updates", () -> getConfig().getString("opUpdateNotification")));
 
 
     }
