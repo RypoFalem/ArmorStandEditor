@@ -4,7 +4,7 @@
     <groupId>io.github.rypofalem.armorstandeditor</groupId>
     <artifactId>armorstandeditor</artifactId>
     <packaging>jar</packaging>
-    <version>1.19.4-40</version>
+    <version>1.19.4-40.1</version>
     <name>armorstandeditor</name>
     <url>http://maven.apache.org</url>
 
@@ -122,7 +122,7 @@
         <dependency>
             <groupId>com.palmergames.bukkit.towny</groupId>
             <artifactId>towny</artifactId>
-            <version>0.98.6.19</version>
+            <version>0.98.6.23</version>
             <scope>provided</scope>
         </dependency>
         <!--- UpdateChecker -->
@@ -157,7 +157,7 @@
         <dependency>
             <groupId>world.bentobox</groupId>
             <artifactId>bentobox</artifactId>
-            <version>1.22.0-SNAPSHOT</version>
+            <version>1.22.0</version>
             <scope>provided</scope>
         </dependency>
         <!-- Residence -->
