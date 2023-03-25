@@ -423,14 +423,14 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
             if(!itemStk.hasItemMeta()) { return false; }
 
             //Get the lore of the Item and if it is null - Return False
-            String itemLore = String.valueOf(Objects.requireNonNull(itemStk.getItemMeta()).getLore());
+            String itemLore = String.valueOf(Objects.requireNonNull(itemStk.getItemMeta().getLore()).get(0));
 
             //If the Item does not have Lore - Return False
             boolean hasTheItemLore = itemStk.getItemMeta().hasLore();
             if (!hasTheItemLore)  { return false; }
 
             //Item the first thing in the ItemLore List does not Equal the Config Value "editToolLore" - return false
-            if (!itemLore.equals(editToolLore))  { return false; } //Does not need simplified - IntelliJ likes to complain here
+            if (!itemLore.equalsIgnoreCase(editToolLore))  { return false; } //Does not need simplified - IntelliJ likes to complain here
 
         }
 
