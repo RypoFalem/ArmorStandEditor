@@ -26,22 +26,17 @@ Downloads for Version 1.17 and higher can be obtained from the [download page](h
 For versions older than 1.17, then please use [the original versions download page](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/).
 
 The Latest Downloads Shortcut Links:
-* [Unstable 1.1x-DEV Versions](https://github.com/Wolfst0rm/ArmorStandEditor/actions) - **Use these at your own risk. Limited Support is provided for testing purposes**
-* [1.19](https://www.spigotmc.org/threads/armorstandeditor-reborn.517132)
-* [1.18.2](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.18.2-34.2)
-* [1.18.1](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.18.1-33)
-* [1.18](https://github.com/Wolfst0rm/ArmorStandEditor/releases/tag/1.18-31)
-* [1.17.1](https://github.com/Wolfst0rm/ArmorStandEditor/releases/tag/1.17.1-30)
-* [1.17](https://github.com/Wolfst0rm/ArmorStandEditor/releases/tag/1.17.1-27)
-* [1.16](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=342891)
-* [1.14](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=299267)
-* [1.13](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=235185)
-* [1.11.2](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=152723)
-* [1.11](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=127136)
-* [1.10.2](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=124213)
-* [1.9.4](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=92457)
-* [1.9.2](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=83792)
-* [1.9](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=78164)
+* [Unstable 1.2x-DEV Versions](https://github.com/Wolfst0rm/ArmorStandEditor/actions) - **Use these at your own risk. Limited Support is provided for testing purposes**
+* [1.20 - Not yet Available (Spigot Redirect to latest release)](https://www.spigotmc.org/resources/armorstandeditor-reborn.94503/)
+* [1.19 to 1.19.4](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.19.4-40.2)
+* [1.18 to 1.18.2](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.18.2-34.2)
+* [1.17 to 1.17.1](https://github.com/Wolfst0rm/ArmorStandEditor/releases/tag/1.17.1-27)
+* [1.16 to 1.16.5](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=342891)
+* [1.14 to 1.14.4](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=299267)
+* [1.13 to 1.13.2](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=235185)
+* [1.11 to 1.11.2](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=152723)
+* [1.10 to 1.10.2](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=124213)
+* [1.9 to 1.9.4](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=92457)
 * [1.8](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=29676)
 
 **NOTE:** The 1.17 Versions introduce NMS Version Checks and will not load on versions older than 1.13.
