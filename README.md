@@ -26,7 +26,7 @@ Downloads for Version 1.17 and higher can be obtained from the [download page](h
 For versions older than 1.17, then please use [the original versions download page](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/).
 
 The Latest Downloads Shortcut Links:
-* [Unstable 1.2x-DEV Versions](https://github.com/Wolfst0rm/ArmorStandEditor/actions) - **Use these at your own risk. Limited Support is provided for testing purposes**
+* [ArmorStandEditor-Last (Unstable)](https://github.com/Wolfst0rm/ArmorStandEditor/actions) - **Use these at your own risk. Limited Support is provided for testing purposes**
 * [1.20 - Not yet Available (Spigot Redirect to latest release)](https://www.spigotmc.org/resources/armorstandeditor-reborn.94503/)
 * [1.19 to 1.19.4](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.19.4-40.2)
 * [1.18 to 1.18.2](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.18.2-34.2)
