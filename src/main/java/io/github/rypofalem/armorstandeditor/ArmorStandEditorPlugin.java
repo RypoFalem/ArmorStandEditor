@@ -268,11 +268,13 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
     }
 
     private void runUpdateCheckerConsoleUpdateCheck() {
-        if (Objects.requireNonNull(getConfig().getString("version")).contains(".x")) {
+        if (getArmorStandEditorVersion().contains(".x")) {
+            getLogger().warning("Note from the development team: ");
             getLogger().warning("It appears that you are using the development version of ArmorStandEditor");
             getLogger().warning("This version can be unstable and is not recommended for Production Environments.");
-            getLogger().warning("Please, report bugs to: https://github.com/Wolfieheart/ArmorStandEditor . This warning");
-            getLogger().warning("is intended to be displayed when using a Dev build and is NOT A BUG!");
+            getLogger().warning("Please, report bugs to: https://github.com/Wolfieheart/ArmorStandEditor . ");
+            getLogger().warning("This warning is intended to be displayed when using a Dev build and is NOT A BUG!");
+            getLogger().info("Update Checker does not work on Development Builds.");
         } else {
             new UpdateChecker(this, UpdateCheckSource.SPIGET, "" + SPIGOT_RESOURCE_ID + "")
                     .setDownloadLink("https://www.spigotmc.org/resources/armorstandeditor-reborn.94503/")
@@ -285,11 +287,13 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
     }
 
     private void runUpdateCheckerWithOPNotifyOnJoinEnabled() { 
-        if (Objects.requireNonNull(getConfig().getString("version")).contains(".x")) {
+        if (getArmorStandEditorVersion().contains(".x")) {
+            getLogger().warning("Note from the development team: ");
             getLogger().warning("It appears that you are using the development version of ArmorStandEditor");
             getLogger().warning("This version can be unstable and is not recommended for Production Environments.");
-            getLogger().warning("Please, report bugs to: https://github.com/Wolfieheart/ArmorStandEditor . This warning");
-            getLogger().warning("is intended to be displayed when using a Dev build and is NOT A BUG!");
+            getLogger().warning("Please, report bugs to: https://github.com/Wolfieheart/ArmorStandEditor . ");
+            getLogger().warning("This warning is intended to be displayed when using a Dev build and is NOT A BUG!");
+            getLogger().info("Update Checker does not work on Development Builds.");
         } else {
             new UpdateChecker(this, UpdateCheckSource.SPIGET, "" + SPIGOT_RESOURCE_ID + "")
                     .setDownloadLink("https://www.spigotmc.org/resources/armorstandeditor-reborn.94503/")
@@ -367,6 +371,8 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
             return false;
         }
     }
+
+    public String getArmorStandEditorVersion(){ return getConfig().getString("version"); }
 
     public boolean getArmorStandVisibility(){
         return getConfig().getBoolean("armorStandVisibility");
