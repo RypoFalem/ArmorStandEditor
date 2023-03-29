@@ -8,6 +8,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
+import java.util.UUID;
+
+import static me.angeschossen.lands.api.flags.type.Flags.*;
+
 public class LandsProtection implements Protection {
     private final boolean landsEnabled;
     private LandsIntegration landsAPI;
@@ -23,20 +27,31 @@ public class LandsProtection implements Protection {
     public boolean checkPermission(Block block, Player player) {
         if (!landsEnabled || player.hasPermission("asedit.ignoreProtection.lands")) return true;
 
-        LandWorld landWorld = landsAPI.getWorld(block.getWorld());
+        //Get the players UUID
+        UUID playerUUID = player.getUniqueId();
 
-        if (landWorld != null){
+        //Get the world the play is in
+        LandWorld landWorld = landsAPI.getWorld(player.getWorld());
 
-            //Get the area that the player is in
-            Area landArea = landWorld.getArea(block.getLocation());
+        if(landWorld != null) {
 
-            if(landArea != null){
-                return landArea.isTrusted(player.getUniqueId());
-            } else {
-                return false;
+            //Prep to do check for ClaimedArea
+            Area landArea = landsAPI.getArea(block.getLocation());
+
+            if (landArea != null) {
+                if (landArea.isTrusted(playerUUID)) {
+                    return true;
+                } else if (landArea.hasRoleFlag(playerUUID, BLOCK_BREAK) ||
+                        landArea.hasRoleFlag(playerUUID, BLOCK_PLACE) ||
+                        landArea.hasRoleFlag(playerUUID, INTERACT_GENERAL)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }else {
+                return true;
             }
-
-        } else {
+        }else{
             return true;
         }
     }
