@@ -4,14 +4,14 @@
     <groupId>io.github.rypofalem.armorstandeditor</groupId>
     <artifactId>armorstandeditor</artifactId>
     <packaging>jar</packaging>
-    <version>1.19.4-40.2</version>
+    <version>1.19.4-40.x</version>
     <name>armorstandeditor</name>
     <url>http://maven.apache.org</url>
 
     <properties>
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+        <maven-release-plugin.version>3.0.0</maven-release-plugin.version>
         <sonar.organization>wolfieheart</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
@@ -136,7 +136,7 @@
         <dependency>
             <groupId>com.bgsoftware</groupId>
             <artifactId>SuperiorSkyblockAPI</artifactId>
-            <version>2022.9</version>
+            <version>2023.1</version>
             <scope>provided</scope>
         </dependency>
         <!--- GriefDefender -->
