@@ -45,28 +45,35 @@ public class LandsProtection implements Protection {
             if (landAreaOfAS != null) { //Block is in a Claimed Area
                 if(landAreaOfPlayer == landAreaOfAS) {
 
-                    //If Player has the Visitor Role
+                    //Get Visitor Role for the Area of the AS
                     Role visitorRole = landAreaOfAS.getVisitorRole();
+
+                    //If Player is a Visitor - Dont allow Edits
                     if(landAreaOfAS.getRole(playerUUID) == visitorRole) return false;
 
-                    // Trusted Players and Owners can build
+                    // If Player is Trusted OR Player is Owner of the Area/Claim, Allow Edits
                     if (landAreaOfAS.isTrusted(playerUUID) || landAreaOfAS.getOwnerUID() == landPlayer.getUID())return true;
+
+                    // If in the Claim a Player can:
+                        // break Blocks,
+                        // Place
+                        // Interact with in Claimed Area
+                        // add items to a container
+                    // Allow Edits
                     else if (landAreaOfAS.hasRoleFlag(playerUUID, BLOCK_BREAK) ||
                             landAreaOfAS.hasRoleFlag(playerUUID, BLOCK_PLACE) ||
                             landAreaOfAS.hasRoleFlag(playerUUID, INTERACT_CONTAINER) ||
                             landAreaOfAS.hasRoleFlag(playerUUID, INTERACT_GENERAL)) {
-                        //If Player can break Blocks, Place or Interact with in Claimed Area and add items to a container
+
                         return true;
-                    } else{
+                    } else{ // Any other case, dont allow edits
                         return false;
                     }
-                } else{
-                    return false;
-                }
-            } else {
+                } else return false; //If the land areas are different
+            } else { //If the AS is in the Wilderness
                 return true;
             }
-        }else {
+        }else { //if the ArmorStand is in a world
             return true;
         }
     }
