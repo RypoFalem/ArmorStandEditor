@@ -5,6 +5,7 @@ import me.angeschossen.lands.api.LandsIntegration;
 import me.angeschossen.lands.api.land.Area;
 import me.angeschossen.lands.api.land.LandWorld;
 import me.angeschossen.lands.api.player.LandPlayer;
+import me.angeschossen.lands.api.role.Role;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -43,17 +44,21 @@ public class LandsProtection implements Protection {
 
             if (landAreaOfAS != null) { //Block is in a Claimed Area
                 if(landAreaOfPlayer == landAreaOfAS) {
-                    if (landAreaOfAS.isTrusted(playerUUID) || landAreaOfAS.getOwnerUID() == landPlayer.getUID()) {
-                        // Trusted Players and Owners can build
-                        return true;
-                    } else if (landAreaOfAS.hasRoleFlag(playerUUID, BLOCK_BREAK) ||
+
+                    //If Player has the Visitor Role
+                    Role visitorRole = landAreaOfAS.getVisitorRole();
+                    if(landAreaOfAS.getRole(playerUUID) == visitorRole) return false;
+
+                    // Trusted Players and Owners can build
+                    if (landAreaOfAS.isTrusted(playerUUID) || landAreaOfAS.getOwnerUID() == landPlayer.getUID())return true;
+                    else if (landAreaOfAS.hasRoleFlag(playerUUID, BLOCK_BREAK) ||
                             landAreaOfAS.hasRoleFlag(playerUUID, BLOCK_PLACE) ||
                             landAreaOfAS.hasRoleFlag(playerUUID, INTERACT_CONTAINER) ||
                             landAreaOfAS.hasRoleFlag(playerUUID, INTERACT_GENERAL)) {
                         //If Player can break Blocks, Place or Interact with in Claimed Area and add items to a container
                         return true;
                     } else{
-                        return landAreaOfAS.hasRoleFlag(playerUUID, INTERACT_CONTAINER) || landAreaOfAS.hasRoleFlag(playerUUID, INTERACT_GENERAL);
+                        return false;
                     }
                 } else{
                     return false;
@@ -61,7 +66,7 @@ public class LandsProtection implements Protection {
             } else {
                 return true;
             }
-        }else{
+        }else {
             return true;
         }
     }
