@@ -212,18 +212,19 @@ public class PlayerEditorManager implements Listener {
         as = getTargets(player); //Get All ArmorStand closest to player
         itemF = getFrameTargets(player); //Get ItemFrame Closest to Player
 
-        //Check
-        if(!(as.isEmpty()) && itemF.isEmpty()) {
-            getPlayerEditor(player.getUniqueId()).setTarget(as);
-        } else if(!(itemF.isEmpty()) && as.isEmpty()) {
-            getPlayerEditor(player.getUniqueId()).setFrameTarget(itemF);
-        } else if (!(itemF.isEmpty()) && !(as.isEmpty())) {
-            getPlayerEditor(player.getUniqueId()).sendMessage("doubletarget", "warn");
-        } else {
-            getPlayerEditor(player.getUniqueId()).setTarget(null);
-            getPlayerEditor(player.getUniqueId()).setFrameTarget(null);
+        if(as == null)
+            getPlayerEditor(player.getUniqueId()).sendMessage("nodoubletarget", "warn");
+        else if(itemF == null)
+            getPlayerEditor(player.getUniqueId()).sendMessage("nodoubletarget", "warn");
+        else {
+             if (!as.isEmpty() && itemF.isEmpty()) {
+                getPlayerEditor(player.getUniqueId()).setTarget(as);
+            } else if (!itemF.isEmpty() && as.isEmpty()) {
+                getPlayerEditor(player.getUniqueId()).setFrameTarget(itemF);
+            } else{
+                getPlayerEditor(player.getUniqueId()).sendMessage("doubletarget", "warn");
+            }
         }
-
     }
 
     private ArrayList<ArmorStand> getTargets(Player player) {

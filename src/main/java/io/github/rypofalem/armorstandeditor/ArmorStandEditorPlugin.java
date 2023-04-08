@@ -30,6 +30,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Scoreboard;
@@ -404,9 +405,12 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
         if (itemStk == null) { return false; }
         if (editTool != itemStk.getType()) { return false; }
 
+        ItemMeta itemMeta = itemStk.getItemMeta();
+        if(itemMeta == null) return false;
+
         //FIX: Depreciated Stack for getDurability
         if (requireToolData){
-            Damageable d1 = (Damageable) itemStk.getItemMeta(); //Get the Damageable Options for itemStk
+            Damageable d1 = (Damageable) itemMeta; //Get the Damageable Options for itemStk
             if (d1 != null) { //We do this to prevent NullPointers
                 if (d1.getDamage() != (short) editToolData) { return false; }
             }
@@ -416,7 +420,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
             if(!itemStk.hasItemMeta()) { return false; }
 
             //Get the name of the Edit Tool - If Null, return false
-            String itemName = Objects.requireNonNull(itemStk.getItemMeta()).getDisplayName();
+            String itemName = itemMeta.getDisplayName();
 
             //If the name of the Edit Tool is not the Name specified in Config then Return false
             if(!itemName.equals(editToolName)) { return false; }
@@ -429,10 +433,10 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
             if(!itemStk.hasItemMeta()) { return false; }
 
             //Get the lore of the Item and if it is null - Return False
-            String itemLore = String.valueOf(Objects.requireNonNull(itemStk.getItemMeta().getLore()).get(0));
+            String itemLore = String.valueOf(itemMeta.getLore().get(0));
 
             //If the Item does not have Lore - Return False
-            boolean hasTheItemLore = itemStk.getItemMeta().hasLore();
+            boolean hasTheItemLore = itemMeta.hasLore();
             if (!hasTheItemLore)  { return false; }
 
             //Item the first thing in the ItemLore List does not Equal the Config Value "editToolLore" - return false
@@ -443,7 +447,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
         if (allowCustomModelData && customModelDataInt != null) {
             //If the ItemStack does not have Metadata then we return false
             if(!itemStk.hasItemMeta()) { return false; }
-            Integer itemCustomModel = Objects.requireNonNull(itemStk.getItemMeta()).getCustomModelData();
+            Integer itemCustomModel = itemMeta.getCustomModelData();
             return itemCustomModel.equals(customModelDataInt);
         }
         return true;
