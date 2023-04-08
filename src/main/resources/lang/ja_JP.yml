@@ -63,6 +63,8 @@ noframetarget:
   msg: Itemframe target unlocked.
 doubletarget:
   msg: Please look at either an ArmorStand or an ItemFrame, not both!
+nodoubletarget:
+  msg: Please look at an ArmorStand or an ItemFrame before switching hands!
 help:
   msg: "1. 編集ツール(<x>)を手に持ちます。
 

@@ -70,6 +70,8 @@ give:
   msg: Player given Item with CustomModelData
 doubletarget:
   msg: Please look at either an ArmorStand or an ItemFrame, not both!
+nodoubletarget:
+  msg: Please look at an ArmorStand or an ItemFrame before switching hands!
 reloaded:
   msg: Configuration File has been reloaded.
 help:
@@ -129,7 +131,7 @@ yaxis:
 zaxis:
   msg: Z Axis
   description:
-    msg: Rotate body parts along the Z Axis
+    msg: Rotate body part s along the Z Axis
 coarseadj:
   msg: Coarse Adjustment
   description:

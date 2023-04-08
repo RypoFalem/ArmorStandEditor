@@ -57,7 +57,8 @@ notarget:
   msg: Tinta ArmorStand-ului deblocata.
 give:
   msg: Player given Item with CustomModelData
-
+nodoubletarget:
+  msg: Please look at an ArmorStand or an ItemFrame before switching hands!
 #warn
 cantedit:
   msg: Nu poti edita armorstand-ul aici!

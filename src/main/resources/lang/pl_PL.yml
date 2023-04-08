@@ -64,7 +64,8 @@ doubletarget:
   msg: Please look at either an ArmorStand or an ItemFrame, not both!
 give:
   msg: Player given Item with CustomModelData
-
+nodoubletarget:
+  msg: Please look at an ArmorStand or an ItemFrame before switching hands!
 #warn
 cantedit:
   msg: Nie możesz tego zrobić
