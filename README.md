@@ -26,12 +26,23 @@ Downloads for Version 1.17 and higher can be obtained from the [download page](h
 For versions older than 1.17, then please use [the original versions download page](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/).
 
 The Latest Downloads Shortcut Links:
-* [ArmorStandEditor-Last (Unstable)](https://github.com/Wolfst0rm/ArmorStandEditor/actions) - **Use these at your own risk. Limited Support is provided for testing purposes**
-* [1.20 - Not yet Available (Spigot Redirect to latest release)](https://www.spigotmc.org/resources/armorstandeditor-reborn.94503/)
-* [1.19 to 1.19.4](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.19.4-40.2)
-* [1.18 to 1.18.2](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.18.2-34.2)
-* [1.17 to 1.17.1](https://github.com/Wolfst0rm/ArmorStandEditor/releases/tag/1.17.1-27)
-* [1.16 to 1.16.5](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=342891)
+* [ArmorStandEditor-Last (Unstable)](https://github.com/Wolfst0rm/ArmorStandEditor/actions) 
+  - **Use these at your own risk. Limited Support is provided for testing purposes**
+* 1.20 - Not yet available
+   * [Spigot Redirect to latest release](https://www.spigotmc.org/resources/armorstandeditor-reborn.94503/) 
+   * [Modrinth Redirect to Latest Release](https://modrinth.com/plugin/armorstandeditor-reborn)
+* 1.19 to 1.19.4 
+   * [Spigot/Github](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.19.4-40.2)  
+   * [Modrinth](https://modrinth.com/plugin/armorstandeditor-reborn/version/1.19.4-40.2)
+* 1.18 to 1.18.2
+   * [Spigot/Github](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.18.2-34.2)
+   * [Modrinth](https://modrinth.com/plugin/armorstandeditor-reborn/version/1.18.2-34.2)
+* 1.17 to 1.17.1
+    * [Spigot/Github](https://github.com/Wolfst0rm/ArmorStandEditor/releases/tag/1.17.1-30)
+    * [Modrinth](https://modrinth.com/plugin/armorstandeditor-reborn/version/1.17-30)
+* 1.16 to 1.16.5
+    * [Spigot/Github](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=342891)
+    * [Modrinth](https://modrinth.com/plugin/armorstandeditor-reborn/version/1.16-25)
 * [1.14 to 1.14.4](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=299267)
 * [1.13 to 1.13.2](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=235185)
 * [1.11 to 1.11.2](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=152723)
