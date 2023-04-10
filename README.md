@@ -1,6 +1,6 @@
 <div align="center">
 
-## ArmorStandEditor
+<img src="https://github.com/Wolfieheart/ArmorStandEditor/blob/master/ArmorStandEditorHeader.png" />
 
 [![Build Status](https://github.com/Wolfst0rm/ArmorStandEditor/actions/workflows/maven-publish.yml/badge.svg?style=flat)](https://github.com/Wolfst0rm/ArmorStandEditor/actions/workflows/maven-publish.yml)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=wolfieheart_ArmorStandEditor&metric=sqale_rating&style=flat)](https://sonarcloud.io/summary/new_code?id=wolfieheart_ArmorStandEditor)  
@@ -32,8 +32,8 @@ The Latest Downloads Shortcut Links:
    * [Spigot Redirect to latest release](https://www.spigotmc.org/resources/armorstandeditor-reborn.94503/) 
    * [Modrinth Redirect to Latest Release](https://modrinth.com/plugin/armorstandeditor-reborn)
 * 1.19 to 1.19.4 
-   * [Spigot/Github](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.19.4-40.2)  
-   * [Modrinth](https://modrinth.com/plugin/armorstandeditor-reborn/version/1.19.4-40.2)
+   * [Spigot/Github](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.19.4-41)  
+   * [Modrinth](https://modrinth.com/plugin/armorstandeditor-reborn/version/1.19.4-41)
 * 1.18 to 1.18.2
    * [Spigot/Github](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.18.2-34.2)
    * [Modrinth](https://modrinth.com/plugin/armorstandeditor-reborn/version/1.18.2-34.2)
