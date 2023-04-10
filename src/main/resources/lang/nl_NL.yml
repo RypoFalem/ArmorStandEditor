@@ -61,6 +61,8 @@ noframetarget:
   msg: Itemframe target unlocked.
 doubletarget:
   msg: Kijk aub naar een ArmorStand of een ItemFrame, niet allebei!
+nodoubletarget:
+  msg: Kijk naar een ArmorStand of een ItemFrame voor je van hand verandert!
 give:
   msg: Speler heeft een item met CustomModelData ontvangen
 

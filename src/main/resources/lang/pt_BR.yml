@@ -65,6 +65,8 @@ give:
   msg: Player given Item with CustomModelData
 doubletarget:
   msg: Please look at either an ArmorStand or an ItemFrame, not both!
+nodoubletarget:
+  msg: Please look at an ArmorStand or an ItemFrame before switching hands!
 reloaded:
   msg: Configuration File has been reloaded.
 help:

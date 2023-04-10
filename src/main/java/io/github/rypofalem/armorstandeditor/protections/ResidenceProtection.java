@@ -6,7 +6,6 @@ import com.bekvon.bukkit.residence.containers.Flags;
 import com.bekvon.bukkit.residence.protection.ClaimedResidence;
 import com.bekvon.bukkit.residence.protection.ResidencePermissions;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -16,9 +15,9 @@ public class ResidenceProtection implements Protection {
 
     private final boolean resEnabled;
     private Plugin residencePlugin;
-    private ResidenceApi residenceApi;
+    ResidenceApi residenceApi;
     private Residence resInstance;
-    private boolean permChecker = TRUE;
+    private static final boolean PERMCHECKER = TRUE;
 
     public ResidenceProtection() {
         resEnabled = Bukkit.getPluginManager().isPluginEnabled("Residence"); //Check if Plugin is Enabled
@@ -36,15 +35,10 @@ public class ResidenceProtection implements Protection {
 
     @Override
     public boolean checkPermission(Block block, Player player) {
-        if(residencePlugin == null) return true;
-        if(!resEnabled) return true;
-        if(player.hasPermission("asedit.ignoreProtection.residence")) return true;
-
-        //Get the Blocks Location
-        Location loc = block.getLocation();
+        if(residenceApi == null || residencePlugin == null || !resEnabled || player.hasPermission("asedit.ignoreProtection.residence") ) return true;
 
         //Get the Claimed Residence by Location
-        ClaimedResidence resClaim = resInstance.getResidenceManager().getByLoc(loc);
+        ClaimedResidence resClaim = resInstance.getResidenceManager().getByLoc(block.getLocation());
 
         if(resClaim != null ){
 
@@ -52,16 +46,19 @@ public class ResidenceProtection implements Protection {
             ResidencePermissions resPerms = resClaim.getPermissions();
 
             //Check: Is player has Admin Flag?
-            boolean isPlayerAdmin = resPerms.playerHas(player, Flags.admin, permChecker);
+            boolean isPlayerAdmin = resPerms.playerHas(player, Flags.admin, PERMCHECKER);
             if(isPlayerAdmin) return true;
 
-            //Check if Player can Build / Destory / Place ?
-            boolean playerCanBuild = resPerms.playerHas(player, Flags.build, permChecker);
-            boolean playerCanDestory = resPerms.playerHas(player, Flags.destroy, permChecker);
-            boolean playerCanPlace = resPerms.playerHas(player, Flags.place, permChecker);
+            //Check if Player can Build / Destroy / Place ?
+            boolean playerCanBuild = resPerms.playerHas(player, Flags.build, PERMCHECKER);
+            boolean playerCanDestroy = resPerms.playerHas(player, Flags.destroy, PERMCHECKER);
+            boolean playerCanPlace = resPerms.playerHas(player, Flags.place, PERMCHECKER);
+            boolean playerCanInteractWContainer = resPerms.playerHas(player, Flags.container, PERMCHECKER);
 
-            if(playerCanBuild || playerCanDestory || playerCanPlace) return true;
-            else return false;
+
+            if(playerCanBuild || playerCanDestroy || playerCanPlace){
+                return playerCanInteractWContainer;
+            } else return false;
         } else{
             return true;
         }

@@ -217,10 +217,15 @@ public class CommandEx implements CommandExecutor, TabCompleter {
         if (!(checkPermission(player, "update", true))) return;
 
         //Only Run if the Update Command Works
-        if(plugin.getRunTheUpdateChecker()) {
-            new UpdateChecker(plugin, UpdateCheckSource.SPIGOT, "" + ArmorStandEditorPlugin.SPIGOT_RESOURCE_ID + "").checkNow(player); //Runs Update Check
-        } else{
-            player.sendMessage(ChatColor.YELLOW + "[ArmorStandEditor] Update Checker is not enabled on this server");
+        if (plugin.getArmorStandEditorVersion().contains(".x")) {
+            player.sendMessage(ChatColor.YELLOW + "[ArmorStandEditor] Update Checker will not work on Development Versions.");
+            player.sendMessage(ChatColor.YELLOW + "[ArmorStandEditor] Report all bugs to: https://github.com/Wolfieheart/ArmorStandEditor/issues");
+        } else {
+            if (plugin.getRunTheUpdateChecker()) {
+                new UpdateChecker(plugin, UpdateCheckSource.SPIGOT, "" + ArmorStandEditorPlugin.SPIGOT_RESOURCE_ID + "").checkNow(player); //Runs Update Check
+            } else {
+                player.sendMessage(ChatColor.YELLOW + "[ArmorStandEditor] Update Checker is not enabled on this server");
+            }
         }
     }
 
