@@ -1,6 +1,6 @@
 /*
  * ArmorStandEditor: Bukkit plugin to allow editing armor stand attributes
- * Copyright (C) 2016  RypoFalem
+ * Copyright (C) 2016-2023  RypoFalem
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -19,16 +19,13 @@
 
 package io.github.rypofalem.armorstandeditor;
 
-//UpdateChecker
 import com.jeff_media.updatechecker.UpdateCheckSource;
 import com.jeff_media.updatechecker.UpdateChecker;
 
-//Plugin Self
 import io.github.rypofalem.armorstandeditor.modes.AdjustmentMode;
 import io.github.rypofalem.armorstandeditor.modes.Axis;
 import io.github.rypofalem.armorstandeditor.modes.EditMode;
 
-//Bukkit
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -40,11 +37,9 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-//Java
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class CommandEx implements CommandExecutor, TabCompleter {
     ArmorStandEditorPlugin plugin;
@@ -52,7 +47,7 @@ public class CommandEx implements CommandExecutor, TabCompleter {
     final String LISTAXIS = ChatColor.YELLOW + "/ase axis <" + Util.getEnumList(Axis.class) + ">";
     final String LISTADJUSTMENT = ChatColor.YELLOW + "/ase adj <" + Util.getEnumList(AdjustmentMode.class) + ">";
     final String LISTSLOT = ChatColor.YELLOW + "/ase slot <1-9>";
-    final String HELP = ChatColor.YELLOW + "/ase help";
+    final String HELP = ChatColor.YELLOW + "/ase help or /ase ?";
     final String VERSION = ChatColor.YELLOW + "/ase version";
     final String UPDATE = ChatColor.YELLOW + "/ase update";
     final String GIVECUSTOMMODEL = ChatColor.YELLOW + "/ase give";
@@ -90,8 +85,7 @@ public class CommandEx implements CommandExecutor, TabCompleter {
                 break;
             case "slot": commandSlot(player, args);
                 break;
-            case "help":
-            case "?": commandHelp(player);
+            case "help","?": commandHelp(player);
                 break;
             case "version": commandVersion(player);
                 break;
@@ -203,7 +197,7 @@ public class CommandEx implements CommandExecutor, TabCompleter {
         }
     }
 
-    private void commandHelp( Player player) {
+    private void commandHelp(Player player) {
         player.closeInventory();
         player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
         player.sendMessage(plugin.getLang().getMessage("help", "info", plugin.editTool.name()));
@@ -211,6 +205,7 @@ public class CommandEx implements CommandExecutor, TabCompleter {
         player.sendMessage(plugin.getLang().getMessage("helptips", "info"));
         player.sendMessage("");
         player.sendRawMessage(plugin.getLang().getMessage("helpurl", ""));
+        player.sendRawMessage(plugin.getLang().getMessage("helpdiscord", ""));
     }
 
     private void commandUpdate(Player player) {
@@ -277,8 +272,6 @@ public class CommandEx implements CommandExecutor, TabCompleter {
 
             if (args.length == 1 && getPermissionBasic(player)) {
 
-
-
                 //Basic Permission Check
                 if (getPermissionBasic(player)) {
                     argList.add("mode");
@@ -286,6 +279,7 @@ public class CommandEx implements CommandExecutor, TabCompleter {
                     argList.add("adj");
                     argList.add("slot");
                     argList.add("help");
+                    argList.add("?");
                 }
 
                 //Update Permission Check
@@ -299,7 +293,7 @@ public class CommandEx implements CommandExecutor, TabCompleter {
                     argList.add("give");
                 }
 
-                return argList.stream().filter(a -> a.startsWith(args[0])).collect(Collectors.toList());
+                return argList.stream().filter(a -> a.startsWith(args[0])).toList();
             }
 
             //Options for Mode
