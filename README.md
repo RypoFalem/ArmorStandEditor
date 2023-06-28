@@ -22,10 +22,10 @@ For versions older than 1.17, then please use [the original versions download pa
 The Latest Downloads Shortcut Links:
 * [ArmorStandEditor-Last (Unstable)](https://github.com/Wolfst0rm/ArmorStandEditor/actions)
   - **Use these at your own risk. Limited Support is provided for testing purposes**
-* 1.20(.1) - Not available yet, currently in progress.
-  * [Spigot/Github](https://media.giphy.com/media/hNRvZFeBDgLsI/giphy.gif)
-  * [Hangar](https://media.giphy.com/media/hNRvZFeBDgLsI/giphy.gif)
-  * [Modrinth](https://media.giphy.com/media/hNRvZFeBDgLsI/giphy.gif)
+* 1.20(.1) - Now Available.
+  * [Spigot/Github](https://www.spigotmc.org/resources/armorstandeditor-reborn.94503/)
+  * [Hangar](https://hangar.papermc.io/Wolfieheart/ArmorStandEditor-Reborn/versions/1.20.1-43)
+  * [Modrinth](https://modrinth.com/plugin/armorstandeditor-reborn/version/NuCQHkBx)
 * 1.19 to 1.19.4
   * [Spigot/Github](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.19.4-41)
   * [Modrinth](https://modrinth.com/plugin/armorstandeditor-reborn/version/1.19.4-41)
