@@ -15,34 +15,23 @@ ArmorStandEditor is a plugin for [Spigot](https://www.spigotmc.org/resources/arm
 
 </div>
 
-## Credits
-
-* RypoFalem for the original version of this plugin. Thank you for all your hard work (Archived on this repository on the branch [Original-Version](https://github.com/Wolfst0rm/ArmorStandEditor/tree/Original-Version) )
-* Anyone who has contributed to this project with tests, issues, code reviews etc. Thank you!
-* Shamblecraft for using the plugin originally and giving me the idea to maintain it.
-
 ## Downloads
 Downloads for Version 1.17 and higher can be obtained from the [download page](https://www.spigotmc.org/resources/armorstandeditor-reborn.94503/) or our [release tracker](https://github.com/Wolfst0rm/ArmorStandEditor/releases) here on GitHub.
 For versions older than 1.17, then please use [the original versions download page](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/).
 
 The Latest Downloads Shortcut Links:
-* [ArmorStandEditor-Last (Unstable)](https://github.com/Wolfst0rm/ArmorStandEditor/actions) 
+* [ArmorStandEditor-Last (Unstable)](https://github.com/Wolfst0rm/ArmorStandEditor/actions)
   - **Use these at your own risk. Limited Support is provided for testing purposes**
-* 1.20 - Not yet available
-   * [Spigot Redirect to the latest release](https://www.spigotmc.org/resources/armorstandeditor-reborn.94503/) 
-   * [Modrinth Redirect to the latest Release](https://modrinth.com/plugin/armorstandeditor-reborn)
-* 1.19 to 1.19.4 
-   * [Spigot/Github](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.19.4-41)  
-   * [Modrinth](https://modrinth.com/plugin/armorstandeditor-reborn/version/1.19.4-41)
-* 1.18 to 1.18.2
-   * [Spigot/Github](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.18.2-34.2)
-   * [Modrinth](https://modrinth.com/plugin/armorstandeditor-reborn/version/1.18.2-34.2)
-* 1.17 to 1.17.1
-    * [Spigot/Github](https://github.com/Wolfst0rm/ArmorStandEditor/releases/tag/1.17.1-30)
-    * [Modrinth](https://modrinth.com/plugin/armorstandeditor-reborn/version/1.17-30)
-* 1.16 to 1.16.5
-    * [Spigot/Github](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=342891)
-    * [Modrinth](https://modrinth.com/plugin/armorstandeditor-reborn/version/1.16-25)
+* 1.20(.1) - Not available yet, currently in progress.
+  * [Spigot/Github](https://media.giphy.com/media/hNRvZFeBDgLsI/giphy.gif)
+  * [Hangar](https://media.giphy.com/media/hNRvZFeBDgLsI/giphy.gif)
+  * [Modrinth](https://media.giphy.com/media/hNRvZFeBDgLsI/giphy.gif)
+* 1.19 to 1.19.4
+  * [Spigot/Github](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.19.4-41)
+  * [Modrinth](https://modrinth.com/plugin/armorstandeditor-reborn/version/1.19.4-41)
+* [1.18 to 1.18.2](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.18.2-34.2)
+* [1.17 to 1.17.1](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.17.1-30)
+* [1.16 to 1.16.5](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=342891)
 * [1.14 to 1.14.4](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=299267)
 * [1.13 to 1.13.2](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=235185)
 * [1.11 to 1.11.2](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=152723)
@@ -68,6 +57,8 @@ subject to change in the future. The minimum enforced API Version is 1.13.
 * Multiple Language Support through the use of community translations
 * Respects multiple protection plugins: WorldGuard, Towny, GriefPrevention, Residence etc.
 * Targeting of an ArmorStand by pressing F with the tool in your hand
+* Toggle for Vulnerability of the ArmorStand (New in 1.20)
+* Ability to get Player Heads via a Command (New in 1.20)
 * Glowing ArmorStand to signify Targeting and Slot Disables through the use of Scoreboards.
 * Folia Support (as of 1.19.4)
 
@@ -80,3 +71,36 @@ If there are issues with the plugin on the latest release, you can report them [
 If there are new feature requests, you can ask them to be implemented [here](https://github.com/Wolfst0rm/ArmorStandEditor/issues/new?assignees=&labels=&template=feature-request.yml).
 
 **NOTE:** Bugs are also first tested to ensure that they can be reproduced according to the reported steps. If they can not, we will ask for more info.
+
+## Adding ArmorStandEditor as a Dependency
+ArmorStandEditor has an API and is supported through [Jitpack](https://jitpack.io/#Wolfieheart/ArmorStandEditor). The Source Code for that API can be found [here](https://github.com/Wolfieheart/ArmorStandEditor/src/main/java/io/github/rypofalem/armorstandeditor/api). 
+You can find an example plugin [here](https://github.com/Wolfieheart/ArmorStandEditor/API-Example-Plugin/src/main/java/io/github/rypofalem/apiexample). It contains very basic tests and examples of what you could do with such an API.
+
+For Maven Users, if you want to interact directly, you need to add the following to your pom.xml file:
+```XML
+     <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+     </repository>
+```
+```XML
+    <dependency>
+      <groupId>com.github.Wolfieheart</groupId>
+      <artifactId>ArmorStandEditor</artifactId>
+      <version>latest</version>
+    </dependency>
+```
+
+
+## Credits / Special Thanks
+
+![JetBrains Logo (Main) logo](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png)
+[JetBrains](https://www.jetbrains.com/), creators of IntelliJ Idea, who are supporting ArmorStandEditor with one of their [Open Source Licenses](https://www.jetbrains.com/opensource/). IntelliJ Idea is the IDE recommended for working with ArmorStandEditor.
+
+RypoFalem for the original version of this plugin. Thank you for all your hard work (Archived on this repository on the branch [Original-Version](https://github.com/Wolfst0rm/ArmorStandEditor/tree/Original-Version) )
+
+Anyone who has contributed to this project with tests, issues, code reviews etc. Thank you!
+
+![Shamblecraft](https://pbs.twimg.com/profile_images/1466015518029193221/lemURPH9_400x400.jpg)
+
+Shamblecraft for using the plugin originally and giving me the idea to maintain it.

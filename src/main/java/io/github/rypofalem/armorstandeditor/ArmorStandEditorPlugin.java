@@ -90,6 +90,10 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
     boolean invisibleItemFrames = true;
     boolean armorStandVisibility = true;
 
+    //Misc Options
+    boolean allowedToRetrievePlayerHead = false;
+    boolean adminOnlyNotifications = false;
+
     //Glow Entity Colors
     public Scoreboard scoreboard;
     public Team team;
@@ -124,7 +128,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
         }
 
         //Also Warn People to Update if using nmsVersion lower than latest
-        if (nmsVersion.compareTo("v1_19") < 0) {
+        if (nmsVersion.compareTo("v1_20") < 0) {
             getLogger().log(Level.WARNING,"Minecraft Version: {0}",nmsVersion);
             getLogger().warning("ArmorStandEditor is compatible with this version of Minecraft, but it is not the latest supported version.");
             getLogger().warning("Loading continuing, but please consider updating to the latest version.");
@@ -236,6 +240,11 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
         opUpdateNotification = getConfig().getBoolean("opUpdateNotification", true);
         updateCheckerInterval = getConfig().getDouble("updateCheckerInterval", 24);
 
+        //Ability to get Player Heads via a command
+        allowedToRetrievePlayerHead = getConfig().getBoolean("allowedToRetrievePlayerHead", true);
+
+        adminOnlyNotifications = getConfig().getBoolean("adminOnlyNotifications", true);
+
         //Run UpdateChecker - Reports out to Console on Startup ONLY!
         if(!Scheduler.isFolia() && runTheUpdateChecker) {
 
@@ -280,7 +289,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
         }
     }
 
-    private void runUpdateCheckerWithOPNotifyOnJoinEnabled() { 
+    private void runUpdateCheckerWithOPNotifyOnJoinEnabled() {
         if (getArmorStandEditorVersion().contains(".x")) {
             getLogger().warning("Note from the development team: ");
             getLogger().warning("It appears that you are using the development version of ArmorStandEditor");
@@ -368,6 +377,8 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
         }
     }
 
+
+
     public String getArmorStandEditorVersion(){ return getConfig().getString("version"); }
 
     public boolean getArmorStandVisibility(){
@@ -395,6 +406,11 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
     }
 
     public Integer getCustomModelDataInt() { return this.getConfig().getInt("customModelDataInt"); }
+
+    //New in 1.20-43: Allow the ability to get a player head from a command - ENABLED VIA CONFIG ONLY!
+    public boolean getAllowedToRetrievePlayerHead() { return this.getConfig().getBoolean("allowedToRetrievePlayerHead"); }
+
+    public boolean getAdminOnlyNotifications() { return this.getConfig().getBoolean("adminOnlyNotifications"); }
 
     public boolean isEditTool(ItemStack itemStk){
         if (itemStk == null) { return false; }
@@ -526,6 +542,10 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
         //Add ability to enable ot Disable the running of the Updater
         runTheUpdateChecker = getConfig().getBoolean("runTheUpdateChecker", true);
 
+        //Ability to get Player Heads via a command
+        allowedToRetrievePlayerHead = getConfig().getBoolean("allowedToRetrievePlayerHead", true);
+        adminOnlyNotifications = getConfig().getBoolean("adminOnlyNotifications", true);
+
         //Add Ability to check for UpdatePerms that Notify Ops - https://github.com/Wolfieheart/ArmorStandEditor/issues/86
         opUpdateNotification = getConfig().getBoolean("opUpdateNotification", true);
         updateCheckerInterval = getConfig().getDouble("updateCheckerInterval", 24);
@@ -540,7 +560,6 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
             }
 
         }
-
     }
 
     public static ArmorStandEditorPlugin instance(){
@@ -576,8 +595,6 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
                 map.put("Dutch", entry);
             } else if (languageUsed.startsWith("de")) {
                 map.put("German", entry);
-            } else if (languageUsed.startsWith("en")) {
-                map.put("English", entry);
             } else if (languageUsed.startsWith("es")) {
                 map.put("Spanish", entry);
             } else if (languageUsed.startsWith("fr")) {
@@ -597,7 +614,7 @@ public class ArmorStandEditorPlugin extends JavaPlugin{
             } else if(languageUsed.startsWith("pt")) {
                 map.put("Brazilian", entry);
             } else{
-                map.put("Other", entry);
+                map.put("English", entry);
             }
             return map;
         }));
