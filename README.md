@@ -27,8 +27,8 @@ The Latest Downloads Shortcut Links:
   * [Hangar](https://hangar.papermc.io/Wolfieheart/ArmorStandEditor-Reborn/versions/1.20.1-43)
   * [Modrinth](https://modrinth.com/plugin/armorstandeditor-reborn/version/NuCQHkBx)
 * 1.19 to 1.19.4
-  * [Spigot/Github](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.19.4-41)
-  * [Modrinth](https://modrinth.com/plugin/armorstandeditor-reborn/version/1.19.4-41)
+  * [Spigot/Github](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.19.4-38)
+  * [Modrinth](https://modrinth.com/plugin/armorstandeditor-reborn/version/1.19.4-38)
 * [1.18 to 1.18.2](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.18.2-34.2)
 * [1.17 to 1.17.1](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.17.1-30)
 * [1.16 to 1.16.5](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=342891)
