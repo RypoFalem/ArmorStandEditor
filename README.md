@@ -24,12 +24,14 @@ The Latest Downloads Shortcut Links:
 * [ArmorStandEditor-Last (Unstable)](https://github.com/Wolfst0rm/ArmorStandEditor/actions)
   - **Use these at your own risk. Limited Support is provided for testing purposes**
 * 1.20(.1) - Now Available.
-  * [Spigot/Github](https://www.spigotmc.org/resources/armorstandeditor-reborn.94503/)
+  * [Github](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.20.1-43.1)
+  * Spigot: Currently Offline due to Ban.
   * [Hangar](https://hangar.papermc.io/Wolfieheart/ArmorStandEditor-Reborn/versions/1.20.1-43)
   * [Modrinth](https://modrinth.com/plugin/armorstandeditor-reborn/version/NuCQHkBx)
 * 1.19 to 1.19.4
-  * [Spigot/Github](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.19.4-38)
-  * [Modrinth](https://modrinth.com/plugin/armorstandeditor-reborn/version/1.19.4-38)
+  * [Github](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.19.2-38)
+  * Spigot: Currently Offline due to Ban.
+  * [Modrinth](https://modrinth.com/plugin/armorstandeditor-reborn/version/1.19.2-38)
 * [1.18 to 1.18.2](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.18.2-34.2)
 * [1.17 to 1.17.1](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.17.1-30)
 * [1.16 to 1.16.5](https://www.spigotmc.org/resources/armor-stand-editor-dead.7688/download?version=342891)
@@ -50,13 +52,14 @@ subject to change in the future. The minimum enforced API Version is 1.13.
 * Rotation of all ArmorStand Parts along each axis
 * Rotation of entire ArmorStand after Placement. Supported by Crouching and Scrolling, so you never have to open the menu
 * Finer Adjustment to allow for Fine-Tuning of Positions.
+* Adjust the Vulnerability State of your ArmorStand
 * Coarser Adjustments to allow you to quickly to get to the intended position
 * Toggles for: Disabling Slots, Invisibility, Gravity, Base Plates, Size (Normal and Small)
 * Copying and Pasting ArmorStand Settings between ArmorStandEditor in a Survival Friendly way
 * Storage of Copied Settings in one of 9 available slots.
 * Naming of ArmorStands through the use of Vanilla Name tags, with colored name support
 * Multiple Language Support through the use of community translations
-* Respects multiple protection plugins: WorldGuard, Towny, GriefPrevention, Residence etc.
+* Respects multiple protection plugins: WorldGuard, Towny, GriefPrevention, PlotSquared etc.
 * Targeting of an ArmorStand by pressing F with the tool in your hand
 * Toggle for Vulnerability of the ArmorStand (New in 1.20)
 * Ability to get Player Heads via a Command (New in 1.20)
@@ -94,7 +97,7 @@ For Maven Users, if you want to interact directly, you need to add the following
 
 
 ## Credits / Special Thanks
-
+<center>
 ![JetBrains Logo (Main) logo](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png)
 [JetBrains](https://www.jetbrains.com/), creators of IntelliJ Idea, who are supporting ArmorStandEditor with one of their [Open Source Licenses](https://www.jetbrains.com/opensource/). IntelliJ Idea is the IDE recommended for working with ArmorStandEditor.
 
@@ -103,5 +106,5 @@ RypoFalem for the original version of this plugin. Thank you for all your hard w
 Anyone who has contributed to this project with tests, issues, code reviews etc. Thank you!
 
 ![Shamblecraft](https://pbs.twimg.com/profile_images/1466015518029193221/lemURPH9_400x400.jpg)
-
 Shamblecraft for using the plugin originally and giving me the idea to maintain it.
+</center>
