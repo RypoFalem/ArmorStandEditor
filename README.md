@@ -4,6 +4,7 @@
 
 [![Build Status](https://github.com/Wolfst0rm/ArmorStandEditor/actions/workflows/maven-publish.yml/badge.svg?style=flat)](https://github.com/Wolfst0rm/ArmorStandEditor/actions/workflows/maven-publish.yml)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=wolfieheart_ArmorStandEditor&metric=sqale_rating&style=flat)](https://sonarcloud.io/summary/new_code?id=wolfieheart_ArmorStandEditor)  
+[![](https://jitpack.io/v/Wolfieheart/ArmorStandEditor.svg)](https://jitpack.io/#Wolfieheart/ArmorStandEditor)
 [![CodeFactor](https://www.codefactor.io/repository/github/wolfieheart/armorstandeditor/badge?style=flat)](https://www.codefactor.io/repository/github/wolfieheart/armorstandeditor)
 [![Scanned with Sonarcloud](https://img.shields.io/badge/Scanned%20With-Sonarcloud-orange?style=flat&logo=sonarcloud)](https://sonarcloud.io/summary/new_code?id=Wolfst0rm_ArmorStandEditor)  
 [![wakatime](https://wakatime.com/badge/github/Wolfst0rm/ArmorStandEditor.svg?style=flat)](https://wakatime.com/badge/github/Wolfst0rm/ArmorStandEditor)
