@@ -110,9 +110,6 @@ permissions:
   asedit.ignoreProtection.bentobox:
     description: Allows user to ignore Bentobox Protection Limitations.
     default: false
-  asedit.ignoreProtection.residence:
-    description: Allows user to ignore Residence Protection Limitations.
-    default: false
 
   asedit.ignoreProtection.*:
     description: Ignore all Protection Limitations
@@ -126,7 +123,6 @@ permissions:
       asedit.ignoreProtection.griefDefender: true
       asedit.ignoreProtection.lands: true
       asedit.ignoreProtection.bentobox: true
-      asedit.ignoreProtection.residence: true
 
   asedit.permpack.dontIgnoreProtections:
     children:
@@ -138,7 +134,6 @@ permissions:
       asedit.ignoreProtection.griefDefender: false
       asedit.ignoreProtection.lands: false
       asedit.ignoreProtection.bentobox: false
-      asedit.ignoreProtection.residence: false
 
   asedit.permpack.basic:
     default: true
