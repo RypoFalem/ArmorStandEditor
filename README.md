@@ -12,7 +12,7 @@
 [![License](https://img.shields.io/badge/Licence-GNU%20Public%20V3%20-red?style=flat)](https://github.com/Wolfst0rm/ArmorStandEditor/LICENSE.md)
 [![Support Discord](https://dcbadge.vercel.app/api/server/3BbJKWpTCj?style=flat)](https://discord.gg/3BbJKWpTCj)
 
-ArmorStandEditor is a plugin for [Spigot](https://www.spigotmc.org/resources/armorstandeditor-reborn.94503/) / [Paper, All related forks](https://papermc.io/downloads/paper) / [Folia etc.](https://github.com/PaperMC/Folia)  to allow players in survival to easily edit armor stand pose and attributes.
+ArmorStandEditor is a plugin for [Spigot](https://www.spigotmc.org/) / [Paper, All related forks](https://papermc.io/downloads/paper) / [Folia etc.](https://github.com/PaperMC/Folia)  to allow players in survival to easily edit armor stand pose and attributes.
 
 </div>
 
