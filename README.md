@@ -25,12 +25,12 @@ The Latest Downloads Shortcut Links:
   - **Use these at your own risk. Limited Support is provided for testing purposes**
 * 1.20(.1) - Now Available.
   * [Github](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.20.1-43.1)
-  * Spigot: Currently Offline due to Ban.
+  * [Spigot](https://www.spigotmc.org/resources/armorstandeditor-reborn.94503/update?update=507126)
   * [Hangar](https://hangar.papermc.io/Wolfieheart/ArmorStandEditor-Reborn/versions/1.20.1-43)
   * [Modrinth](https://modrinth.com/plugin/armorstandeditor-reborn/version/NuCQHkBx)
 * 1.19 to 1.19.4
   * [Github](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.19.2-38)
-  * Spigot: Currently Offline due to Ban.
+  * [Spigot](https://www.spigotmc.org/resources/armorstandeditor-reborn.94503/download?version=472773)
   * [Modrinth](https://modrinth.com/plugin/armorstandeditor-reborn/version/1.19.2-38)
 * [1.18 to 1.18.2](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.18.2-34.2)
 * [1.17 to 1.17.1](https://github.com/Wolfieheart/ArmorStandEditor/releases/tag/1.17.1-30)
@@ -98,7 +98,7 @@ For Maven Users, if you want to interact directly, you need to add the following
 
 ## Credits / Special Thanks
 <center>
-![JetBrains Logo (Main) logo](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png)
+[![JetBrains Logo (Main) logo](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png)
 [JetBrains](https://www.jetbrains.com/), creators of IntelliJ Idea, who are supporting ArmorStandEditor with one of their [Open Source Licenses](https://www.jetbrains.com/opensource/). IntelliJ Idea is the IDE recommended for working with ArmorStandEditor.
 
 RypoFalem for the original version of this plugin. Thank you for all your hard work (Archived on this repository on the branch [Original-Version](https://github.com/Wolfst0rm/ArmorStandEditor/tree/Original-Version) )
