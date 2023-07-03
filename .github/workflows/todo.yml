@@ -1,12 +1,11 @@
-name: "TODO Issue Creator"
+name: "Run TODO to Issue"
 on: ["push"]
 jobs:
-  build:
-    runs-on: "ubuntu-latest"
-    steps:
-      - uses: "actions/checkout@master"
-      - name: "TODO to Issue"
-        uses: "alstr/todo-to-issue-action@v3.0.2-beta"
-        id: "todo"
-        with:
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    build:
+        runs-on: "ubuntu-latest"
+        steps:
+            - uses: "actions/checkout@v3"
+            - name: "TODO to Issue"
+              uses: "alstr/todo-to-issue-action@v4"
+              with:
+                  AUTO_ASSIGN: true
