@@ -50,7 +50,8 @@ public class Scheduler {
         try {
             clazz.getDeclaredMethod(methodName, parameterTypes);
             return true;
-        } catch (Throwable ignored) {}
+        } catch (Throwable ignored) {
+        }
         return false;
     }
 
@@ -79,7 +80,7 @@ public class Scheduler {
         if (isFolia()) {
             Object globalRegionScheduler = getGlobalRegionScheduler();
             callMethod(globalRegionScheduler, "runAtFixedRate", new Class[]{Plugin.class, Consumer.class, long.class, long.class},
-                       plugin, (Consumer<?>) (task) -> runnable.run(), initialDelayTicks, periodTicks);
+                plugin, (Consumer<?>) (task) -> runnable.run(), initialDelayTicks, periodTicks);
             return;
         }
         Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, runnable, initialDelayTicks, periodTicks);
@@ -89,7 +90,7 @@ public class Scheduler {
         if (isFolia()) {
             Object globalRegionScheduler = getGlobalRegionScheduler();
             callMethod(globalRegionScheduler, "runDelayed", new Class[]{Plugin.class, Consumer.class, long.class},
-                       plugin, (Consumer<?>) (task) -> runnable.run(), delayedTicks);
+                plugin, (Consumer<?>) (task) -> runnable.run(), delayedTicks);
             return;
         }
         Bukkit.getScheduler().runTaskLater(plugin, runnable, delayedTicks);

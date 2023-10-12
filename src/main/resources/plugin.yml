@@ -1,11 +1,11 @@
 name: ArmorStandEditor
 main: io.github.rypofalem.armorstandeditor.ArmorStandEditorPlugin
-version: 1.20.1-43.2
-api-version: "1.13"
+version: 1.20.2-44
+api-version: "1.17"
 folia-supported: true
 website: https://www.spigotmc.org/resources/94503/
 author: Wolfstorm
-authors: [Wolfstorm, Pinnkk, Kugge, Marfjeh, miknes123, rypofalem, sekwah41, Sikatsu1997, Cool_boy, sumdream, Amaury Carrade, nicuch, kotarobo, prettydude, Jumpy91, Niasio, Patbox, Puremin0rez, Prof-Bloodstone, PlanetTeamSpeak]
+authors: [Wolfstorm, DreiFxn, Pinnkk, Kugge, Marfjeh, miknes123, rypofalem, sekwah41, Sikatsu1997, Cool_boy, sumdream, Amaury Carrade, nicuch, kotarobo, prettydude, Jumpy91, Niasio, Patbox, Puremin0rez, Prof-Bloodstone, PlanetTeamSpeak]
 description: Allows players to edit data of armorstands without any commands.
 softdepend: [Towny, WorldGuard, GriefPrevention, PlotSquared, Lands, bentobox]
 
@@ -24,19 +24,20 @@ permissions:
     children:
       asedit.permpack.admin: true
       asedit.ignoreProtection.*: true
+      asedit.head: true
 
   asedit.basic:
     description: Allow use armorstand edit functions. If set to false it will override all other functions.
     default: true
   asedit.rename:
     description: Rename armorstands - Now Supports Color
-    default: false
+    default: true
   asedit.equipment:
     description: Access armorstand equipment GUI
-    default: false
+    default: true
   asedit.disableSlots:
     description: Allows locking and unlocking the contents of an ArmorStand. When locked, armor and equipment can not be added or removed without unlocking it first.
-    default: false
+    default: true
   asedit.give:
     description: Gives player the EditTool with Proper CustomModelData
     default: false
@@ -51,10 +52,10 @@ permissions:
     default: false
   asedit.movement:
     description: Changes whether the armor stand can be moved using the item for editing
-    default: false
+    default: true
   asedit.rotation:
     description: Allows player to rotate the ArmorStand
-    default: false
+    default: true
   asedit.copy:
     description: Allows the players to create copies of their ArmorStand Configurations.
     default: false
@@ -63,28 +64,34 @@ permissions:
     default: false
   asedit.reset:
     description: Allows the reset of the ArmorStand back to Default values
-    default: false
+    default: true
   asedit.togglearmorstandvisibility:
     description: Toggles ArmorStand visibility.
-    default: false
+    default: true
   asedit.toggleitemframevisibility:
     description: Allows setting of ItemFrame Visibility
-    default: false
+    default: true
   asedit.toggleInvulnerability:
     description: Allows players to toggle the vulnerability state of an ArmorStand.
-    default: false
+    default: true
   asedit.togglebaseplate:
     description: Allows the toggling of the Baseplate of an ArmorStand.
-    default: false
+    default: true
   asedit.togglearms:
     description: Allows the toggling of the Arms of an ArmorStand.
-    default: false
+    default: true
   asedit.togglesize:
     description: Allows the toggling of the size of an ArmorStand.
-    default: false
+    default: true
   asedit.togglegravity:
     description: Changes whether the armor stand has gravity
-    default: false
+    default: true
+  asedit.togglearmorstandglow:
+    description: Allows toggling of the Glowing State of an ArmorStand.
+    default: true
+  asedit.stats:
+    description: Ability to view ArmorStand Stats.
+    default: true
 
   asedit.ignoreProtection.towny:
     description: Allows user to ignore Towny's Protection Limitations.
@@ -158,6 +165,7 @@ permissions:
       asedit.togglesize: true
       asedit.togglearmorstandvisibility: true
       asedit.toggleitemframevisibility: true
+      asedit.togglearmorstandglow: true
       asedit.permpack.dontIgnoreProtections: true
 
   asedit.permpack.admin:

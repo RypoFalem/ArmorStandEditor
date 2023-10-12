@@ -3,7 +3,7 @@
 #-----------------------------#
 
 #DO NOT CHANGE THIS - CHANGES AUTOMATICALLY PER UPDATE
-version: "1.20.1-43.2"
+version: "1.20.2-44"
 
 #----------- LANGUAGE
 #Name of the language file you wish to use
@@ -13,14 +13,22 @@ version: "1.20.1-43.2"
 lang: en_US.yml
 
 #----------- UPDATE NOTIFICATIONS
-#Enable or Disable the Update Checker
+# Enable or Disable the Update Checker
 runTheUpdateChecker: true
 
 # When runTheUpdateChecker is true, we will also check every X hours
 check-interval: 24
 
-#Set this to allow your operators to get messages in game w.r.t Plugin updates
+# Set this to allow your operators to get messages in game w.r.t Plugin updates
 opUpdateNotification: false
+
+#----------- WORLD SETTINGS
+# Add in a list of Worlds where ArmorStandEditing is allowed to happen
+# Please add your own worlds to this list. All Default Worlds are supported.
+allowed-worlds:
+  - world
+  - world_nether
+  - world_the_end
 
 #----------- TOOL SETTINGS
 
