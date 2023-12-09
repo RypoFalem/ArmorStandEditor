@@ -1,6 +1,6 @@
 /*
  * ArmorStandEditor: Bukkit plugin to allow editing armor stand attributes
- * Copyright (C) 2016  RypoFalem
+ * Copyright (C) 2016-2023  RypoFalem
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -25,9 +25,9 @@ import org.bukkit.inventory.InventoryHolder;
 
 public class ASEHolder implements InventoryHolder {
 
-	@Override
-	public Inventory getInventory() {
-		return null;
-	}
+    @Override
+    public Inventory getInventory() {
+        return null;
+    }
 
 }

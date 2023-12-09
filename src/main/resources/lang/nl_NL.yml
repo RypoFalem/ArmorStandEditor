@@ -23,6 +23,7 @@ setmode:
   invisible: Toggle Zichtbaarheid
   size: Toggle Grootte
   disableslots: Toggle Slots Uitschakelen
+  vulnerability: Toggle Kwetsbaarheid.
   gravity: Toggle Zwaartekracht
   baseplate: Toggle Bodemplaat
   placement: Plaatsing
@@ -43,20 +44,91 @@ setadj:
   fine: Fijn
 setgravity:
   msg: Zwaartekracht staat nu <x>.
-  'true': aan
-  'false': uit
+  true: aan
+  false: uit
 nomode:
   msg: Klik met het aanpas tool weg van een armorstand om een aanpas modus te selecteren!
+nomodeif:
+  msg: Klik met het aanpas tool weg van een itemframe om een aanpas modus te selecteren!
 copied:
   msg: Armorstand status gekopieerd naar slot <x>.
 pasted:
   msg: Armorstand status geplakt vanuit slot <x>.
+notarget:
+  msg: <x> target unlocked.
+  armorstand: ArmorStand
+  itemframe: ItemFrame
+frametarget:
+  msg: Itemframe target locked
+toggleinvulnerability:
+  msg: ArmorStand vulnerability state gezet op <x>.
+  true: onkwetsbaar
+  false: kwetsbaar
+doubletarget:
+  msg: Kijk aub naar een ArmorStand of een ItemFrame, niet allebei!
+nodoubletarget:
+  msg: Kijk naar een ArmorStand of een ItemFrame voor je van hand verandert!
+give:
+  msg: Speler heeft een item met CustomModelData ontvangen
+unabledestroycreative:
+  msg: Unable to Destroy this Invulnerable ArmorStand in Creative Mode.
+notincorrectworld:
+  msg: Sorry but you are not in the correct world to use ArmorStandEditor.
+playerheadhelp:
+  msg: "Please use /ase playerhead <name> to get a players head. Ex of the command - /ase playerhead Wolfieheart_"
+#Help
+help:
+  msg: "1. Houd het wijzigingsgereedschap (<x>) in uw hoofdhand.
+
+      2. Links of rechts klikken vanaf een armor stand om het menu te openen.
+
+      3. Selecteer een gelabelde menu-optie..
+
+      4. Linksklik op de armor stand met het wijzigingsgereedschap in de hand om die optie toe te passen.
+
+      5. Rechtsklik in plaats daarvan om achteruit te bewerken!"
+helptips:
+  msg: "Tips:
+
+  1. Druk op de toets \"Verwissel item in handen\" (standaard F) terwijl je het wijzigingsgereedschap vasthoudt om een specifieke armor stand te richten, als er andere armor stands in de weg staan.
+
+  2. Je kunt NameTags toepassen op armor stands. Je kunt het & symbool gebruiken om gekleurde namen te maken.
+
+  3. Je kunt crouch + scrollwiel gebruiken terwijl je het bewerkingsgereedschap vasthoudt om de as te veranderen zonder het menu te openen."
+helpurl:
+  msg: "Meer info: https://github.com/RypoFalem/ArmorStandEditor/wiki"
+helpdiscord:
+  msg: "or kom naar onze Discord: https://discord.gg/3BbJKWpTCj"
+playerhead:
+  msg: Player Head opgehaald.
+playerheaderror:
+  msg: Probleem om Player Head af te halen.
+stats:
+  msg: Here are the statistics for your ArmorStand.
 
 #warn
 cantedit:
   msg: Sorry, je kunt hier geen armorstands aanpassen!
 noperm:
-  msg: Je hebt geen toestemming om dit te gebruiken!
+  msg: Sorry, je hebt geen tostemming om dit command te gebruiken!
+nopermoption:
+  msg: Sorry, je hebt geen tostemming om <x> optie te gebruiken!
+  basic: Normal ArmorStand
+  showarms: Show Arms
+  armorstandvisibility: Armor Stand Visibility
+  baseplate: Set Baseplate Visibility
+  gravity: Toggle Gravity
+  vulnerability: Toggle Vulnerability!
+  itemframevisibility: Item Frame Visibility
+  size: Toggle ArmorStand Size
+  disableslots: Toggle Equipment Lock
+  paste: Paste ArmorStand Config
+  copy: Copy ArmorStand Config
+  reset: Reset ArmorStand Config
+  stats: View ArmorStand Statistics
+  armorstandglow: Toggle ArmorStand Glow
+norangestats:
+  msg: Please get next to an ArmorStand before running this command.
 noslotnumcom:
   msg: Je moet een slot nummer opgeven!
 noadjcom:
@@ -65,6 +137,10 @@ noaxiscom:
   msg: Je moet een as opgeven!
 nomodecom:
   msg: Je moet een modus opgeven!
+nogive:
+  msg: Sorry, je hebt geen tostemming om dit command te gebruiken!
+noplayerhead:
+  msg: Schakel de mogelijkheid in om een player head op te halen in het configuratiebestand.
 
 #menutitle
 mainmenutitle:
@@ -169,6 +245,26 @@ copyslot:
   msg: Kopieer Slot <x>
   description:
     msg: Selecteer een slot om instellingen op te slaan
+vulnerability:
+  msg: Kwetsbaarheid
+  description:
+    msg: In en uit schakelen van Kwetsbaarheid.
+itemframevisible:
+  msg: Itemframe Visibility
+  description:
+    msg: Toggles an itemframes visibility
+playerheadmenu:
+  msg: Player Head
+  description:
+    msg: Please use /ase playerhead <name>
+blankslot:
+  msg: Nothing here
+  description:
+    msg: Just a placeholder item. Clicking me will not do anything.
+armorstandglow:
+  msg: Toggle ArmorStand Glow
+  description:
+    msg: Turn ArmorStand Glowing on or off.
 
 #icons (equipment menu)
 disabled:
