@@ -1,6 +1,6 @@
 /*
  * ArmorStandEditor: Bukkit plugin to allow editing armor stand attributes
- * Copyright (C) 2016  RypoFalem
+ * Copyright (C) 2016-2023  RypoFalem
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,25 +22,25 @@ package io.github.rypofalem.armorstandeditor.modes;
 import org.bukkit.entity.ArmorStand;
 
 public class CopySlots {
-	ArmorStandData[] slots = new ArmorStandData[9];
-	public byte currentSlot =0;
-	
-	//returns true if parameters are acceptable, false otherwise.
-	public boolean changeSlots(byte slot){
-		if(slot < slots.length && slot>=0){
-			currentSlot = slot;
-			return true;
-		}else{
-			return false;
-		}
-	}
-	
-	public void copyDataToSlot(ArmorStand armorStand){
-		slots[currentSlot] = new ArmorStandData(armorStand);
-	}
-	
-	//returns null if there is not data in current slot
-	public ArmorStandData getDataToPaste(){
-		return slots[currentSlot];
-	}
+    ArmorStandData[] slots = new ArmorStandData[9];
+    public byte currentSlot = 0;
+
+    //returns true if parameters are acceptable, false otherwise.
+    public boolean changeSlots(byte slot) {
+        if (slot < slots.length && slot >= 0) {
+            currentSlot = slot;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void copyDataToSlot(ArmorStand armorStand) {
+        slots[currentSlot] = new ArmorStandData(armorStand);
+    }
+
+    //returns null if there is not data in current slot
+    public ArmorStandData getDataToPaste() {
+        return slots[currentSlot];
+    }
 }

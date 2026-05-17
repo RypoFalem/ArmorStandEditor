@@ -1,6 +1,6 @@
 /*
  * ArmorStandEditor: Bukkit plugin to allow editing armor stand attributes
- * Copyright (C) 2016  RypoFalem
+ * Copyright (C) 2016-2023  RypoFalem
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -20,15 +20,15 @@
 package io.github.rypofalem.armorstandeditor.modes;
 
 public enum AdjustmentMode {
-	COARSE("Coarse"), FINE("Fine");
-	
-	private String name;
-	
-	AdjustmentMode(String name){
-		this.name = name;
-	}
-	
-	public String toString(){
-		return name;
-	}
+    COARSE("Coarse"), FINE("Fine");
+
+    private String name;
+
+    AdjustmentMode(String name) {
+        this.name = name;
+    }
+
+    public String toString() {
+        return name;
+    }
 }

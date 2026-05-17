@@ -1,0 +1,82 @@
+name: Nightly ASE Build of Main (CI/CD)
+
+on:
+  schedule:
+    - cron: "0 23 * * *"
+
+jobs:
+  nightly-build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java_version: ['25']
+
+    steps:
+      # Checkout the repository
+      - name: Checkout ArmorStandEditor
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      # Set up the Java Development Kit (JDK)
+      - name: Setup JDK ${{ matrix.java_version }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ matrix.java_version }}
+          distribution: 'zulu'
+
+      # Make gradlew executable
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      # Cache Gradle packages
+      - name: Cache Gradle packages
+        uses: actions/cache@v5
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/build.gradle', '**/settings.gradle') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      # Cache SonarCloud for analysis
+      - name: Cache SonarCloud for Analysis
+        uses: actions/cache@v5
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      # Build and analyze via Gradle + SonarCloud
+      - name: Build and Analyze via Gradle
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: ./gradlew clean shadowJar sonar --no-daemon -Dsonar.projectKey=wolfieheart_ArmorStandEditor
+
+      # Get the current date and time
+      - name: Get Current Date and Time
+        id: date
+        run: echo "DATE=$(date +'%Y-%m-%d_%H-%M-%S')" >> $GITHUB_ENV
+
+      # Get version from JAR filename
+      - name: Get Version
+        id: get_version
+        run: echo "version=$(ls build/libs/ArmorStandEditor-*-all.jar | sed 's/.*ArmorStandEditor-\(.*\)-all.jar/\1/')" >> $GITHUB_OUTPUT
+
+      # Rename the artifact with date and Java version
+      - name: Rename Artifact
+        run: |
+          mv build/libs/ArmorStandEditor-*-all.jar \
+          build/libs/ArmorStandEditor-${{ steps.get_version.outputs.version }}-${{ env.DATE }}-Java${{ matrix.java_version }}.jar
+
+      # Upload the renamed artifact
+      - name: Upload Artifact for Debugging
+        uses: actions/upload-artifact@v7
+        with:
+          name: ArmorStandEditor-${{ steps.get_version.outputs.version }}-${{ env.DATE }}-Java${{ matrix.java_version }}
+          path: build/libs/ArmorStandEditor-*-Java${{ matrix.java_version }}.jar
+          if-no-files-found: error
+          retention-days: 1
+          overwrite: true

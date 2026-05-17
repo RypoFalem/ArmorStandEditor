@@ -1,0 +1,78 @@
+name: Java CI with Gradle
+permissions:
+  contents: read
+  pull-requests: write
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  build:
+    if: "!contains(github.event.head_commit.message, 'ci-skip') && !contains(github.event.head_commit.message, 'CI-SKIP') && !contains(github.event.head_commit.message, 'CI SKIP') && !contains(github.event.head_commit.message, 'ci skip')"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java: ['25']
+
+    steps:
+      # 1. Check out the repository
+      - name: Checkout ArmorStandEditor Repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      # 2. Set up JDK
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ matrix.java }}
+          distribution: 'zulu'
+
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      # 3. Cache Gradle packages
+      - name: Cache Gradle packages
+        uses: actions/cache@v5
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/build.gradle', '**/settings.gradle') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      # Cache SonarCloud for analysis
+      - name: Cache SonarCloud for Analysis
+        uses: actions/cache@v5
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      # Build and analyze via Gradle + SonarCloud
+      - name: Build and Analyze via Gradle
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: ./gradlew clean shadowJar sonar --no-daemon -Dsonar.projectKey=wolfieheart_ArmorStandEditor
+
+      # 5. Optional: Run tests
+      - name: Run tests
+        run: ./gradlew test --no-daemon
+
+      # 6. Get Version from JAR name
+      - name: Get Version
+        id: get_version
+        run: echo "version=$(ls build/libs/ArmorStandEditor-*-all.jar | sed 's/.*ArmorStandEditor-\(.*\)-all.jar/\1/')" >> $GITHUB_OUTPUT
+
+      # 7. Upload the built JAR
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ArmorStandEditor-${{ steps.get_version.outputs.version }}
+          path: build/libs/ArmorStandEditor-*-all.jar
+          if-no-files-found: error

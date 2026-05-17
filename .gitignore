@@ -1,3 +1,23 @@
 .idea/
 target/
 *.iml
+/bin/
+/.project
+/.classpath
+/.settings/
+/src/main/java/META-INF/*.MF
+/src/main/java/META-INF/
+/TODO-LIST.MD
+/dependency-reduced-pom.xml
+.mvn/.develocity/
+/out/
+out/
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
+
+# Ignore Kotlin plugin data
+.kotlin

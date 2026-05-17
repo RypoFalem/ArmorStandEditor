@@ -1,6 +1,6 @@
 /*
  * ArmorStandEditor: Bukkit plugin to allow editing armor stand attributes
- * Copyright (C) 2016  RypoFalem
+ * Copyright (C) 2016-2023  RypoFalem
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -19,186 +19,291 @@
 
 package io.github.rypofalem.armorstandeditor.menu;
 
-import io.github.rypofalem.armorstandeditor.ArmorStandEditorPlugin;
+import io.github.rypofalem.armorstandeditor.Debug;
 import io.github.rypofalem.armorstandeditor.PlayerEditor;
+
+import io.papermc.paper.datacomponent.DataComponentTypes;
+import io.papermc.paper.datacomponent.item.ItemLore;
+import io.papermc.paper.datacomponent.item.PotionContents;
+import io.papermc.paper.datacomponent.item.TooltipDisplay;
+import net.kyori.adventure.text.Component;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.persistence.PersistentDataType;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
-
-import java.util.ArrayList;
+import org.bukkit.potion.PotionType;
 
 public class Menu {
-	private Inventory menuInv;
-	private PlayerEditor pe;
-	private static String name = "Armor Stand Editor Menu";
+    private final Inventory menuInv;
+    private final PlayerEditor pe;
+    Component name;
+    private Debug debug;
 
-	public Menu(PlayerEditor pe){
-		this.pe = pe;
-		name = pe.plugin.getLang().getMessage("mainmenutitle", "menutitle");
-		menuInv = Bukkit.createInventory(pe.getManager().getMenuHolder(), 54, name);
-		fillInventory();
-	}
+    public Menu(PlayerEditor pe) {
+        this.pe = pe;
+        this.debug = pe.plugin.debug;
+        name = pe.plugin.getLang().getMessage("mainmenutitle", "menutitle");
+        menuInv = Bukkit.createInventory(pe.getManager().getMenuHolder(), 54, name);
+        fillInventory();
+    }
 
-	private void fillInventory() {
-		menuInv.clear();
+    private void fillInventory() {
 
-		ItemStack xAxis= null, yAxis= null, zAxis= null, coarseAdj= null, fineAdj= null, rotate = null, place = null, headPos= null,
-				rightArmPos= null, bodyPos= null, leftArmPos= null, reset = null, showArms= null, visibility= null, size= null,
-				rightLegPos= null, equipment = null, leftLegPos= null, disableSlots = null, gravity= null, plate= null, copy= null, paste= null,
-				slot1= null, slot2= null, slot3= null, slot4= null, help= null;
+        menuInv.clear();
 
-		xAxis = createIcon(new ItemStack(Material.RED_WOOL, 1),
-				"xaxis", "axis x");
+        ItemStack xAxis;
+        ItemStack yAxis;
+        ItemStack zAxis;
+        ItemStack coarseAdj;
+        ItemStack fineAdj;
+        ItemStack rotate = null;
+        ItemStack headPos;
+        ItemStack rightArmPos;
+        ItemStack bodyPos;
+        ItemStack leftArmPos;
+        ItemStack reset;
+        ItemStack showArms;
+        ItemStack visibility;
+        ItemStack size = null;
+        ItemStack rightLegPos;
+        ItemStack glowing;
+        ItemStack leftLegPos;
+        ItemStack plate = null;
+        ItemStack copy = null;
+        ItemStack paste = null;
+        ItemStack slot1 = null;
+        ItemStack slot2 = null;
+        ItemStack slot3 = null;
+        ItemStack slot4 = null;
+        String copySlotText = "copyslot";
+        ItemStack help;
+        ItemStack itemFrameVisible;
+        ItemStack blankSlot;
+        ItemStack presetItem = null;
 
-		yAxis = createIcon(new ItemStack(Material.GREEN_WOOL, 1),
-				"yaxis", "axis y");
+        //Variables that need to be Initialized
+        ItemStack place = null;
+        ItemStack equipment = null;
+        ItemStack disableSlots = null;
+        ItemStack gravity = null;
+        ItemStack playerHead = null;
+        ItemStack toggleVulnerabilty = null;
 
-		zAxis = createIcon(new ItemStack(Material.BLUE_WOOL, 1),
-				"zaxis", "axis z");
+        //Slots with No Value
+        blankSlot = createIcon(ItemStack.of(Material.BLACK_STAINED_GLASS_PANE),
+            "blankslot", "");
 
-		coarseAdj = createIcon(new ItemStack(Material.DIRT, 1),
-				"coarseadj", "adj coarse");
+        //Axis - X, Y, Z for Movement
+        xAxis = createIcon(ItemStack.of(Material.RED_CONCRETE),
+            "xaxis", "axis x");
 
-		fineAdj = createIcon( new ItemStack(Material.SANDSTONE),
-				"fineadj", "adj fine");
+        yAxis = createIcon(ItemStack.of(Material.GREEN_CONCRETE),
+            "yaxis", "axis y");
+
+        zAxis = createIcon(ItemStack.of(Material.BLUE_CONCRETE),
+            "zaxis", "axis z");
+
+        //Movement Speed
+        coarseAdj = createIcon(ItemStack.of(Material.COARSE_DIRT),
+            "coarseadj", "adj coarse");
+
+        fineAdj = createIcon(ItemStack.of(Material.SMOOTH_SANDSTONE),
+            "fineadj", "adj fine");
+
+        //Reset Changes
+        reset = createIcon(ItemStack.of(Material.WATER_BUCKET),
+            "reset", "mode reset");
+
+        //Which Part to Move
+        headPos = createIcon(ItemStack.of(Material.IRON_HELMET),
+            "head", "mode head");
+
+        bodyPos = createIcon(ItemStack.of(Material.IRON_CHESTPLATE),
+            "body", "mode body");
+
+        leftLegPos = createIcon(ItemStack.of(Material.IRON_LEGGINGS),
+            "leftleg", "mode leftleg");
+
+        rightLegPos = createIcon(ItemStack.of(Material.IRON_LEGGINGS),
+            "rightleg", "mode rightleg");
+
+        leftArmPos = createIcon(ItemStack.of(Material.STICK),
+            "leftarm", "mode leftarm");
+
+        rightArmPos = createIcon(ItemStack.of(Material.STICK),
+            "rightarm", "mode rightarm");
+
+        showArms = createIcon(ItemStack.of(Material.STICK),
+            "showarms", "mode showarms");
+
+        presetItem = createIcon(ItemStack.of(Material.BOOKSHELF), "presetmenu", "mode preset");
+
+        //Praise Start - Sikatsu and cowgod, Nicely spotted this being broken
+        if (pe.getPlayer().hasPermission("asedit.togglearmorstandvisibility") ||
+            pe.plugin.getArmorStandVisibility()) {
+            visibility = ItemStack.of(Material.POTION);
+            visibility.setData(DataComponentTypes.POTION_CONTENTS, PotionContents.potionContents().potion(PotionType.INVISIBILITY).build());
+            createIcon(visibility, "invisible", "mode invisible");
+        } else {
+            visibility = blankSlot;
+        }
+        if (pe.getPlayer().hasPermission("asedit.toggleitemframevisibility") ||
+            pe.plugin.getItemFrameVisibility()) {
+            itemFrameVisible = ItemStack.of(Material.ITEM_FRAME);
+            createIcon(itemFrameVisible, "itemframevisible", "mode itemframe");
+        } else {
+            itemFrameVisible = blankSlot;
+        }
+
+        //Praise end
+
+        if (pe.getPlayer().hasPermission("asedit.toggleInvulnerability")) {
+            toggleVulnerabilty = createIcon(ItemStack.of(Material.TOTEM_OF_UNDYING),
+                "vulnerability", "mode vulnerability");
+        } else {
+            toggleVulnerabilty = blankSlot;
+        }
+
+        if (pe.getPlayer().hasPermission("asedit.togglesize")) {
+            size = createIcon(ItemStack.of(Material.PUFFERFISH),
+                "size", "mode size");
+        } else {
+            size = blankSlot;
+        }
+
+        if (pe.getPlayer().hasPermission("asedit.disableslots")) {
+            disableSlots = createIcon(ItemStack.of(Material.BARRIER), "disableslots", "mode disableslots");
+        } else {
+            disableSlots = blankSlot;
+        }
+
+        if (pe.getPlayer().hasPermission("asedit.togglegravity")) {
+            gravity = createIcon(ItemStack.of(Material.SAND), "gravity", "mode gravity");
+        } else {
+            gravity = blankSlot;
+        }
+
+        if (pe.getPlayer().hasPermission("asedit.togglebaseplate")) {
+            plate = createIcon(ItemStack.of(Material.SMOOTH_STONE_SLAB),
+                "baseplate", "mode baseplate");
+        } else {
+            plate = blankSlot;
+        }
+
+        if (pe.getPlayer().hasPermission("asedit.movement")) {
+            place = createIcon(ItemStack.of(Material.RAIL),
+                "placement", "mode placement");
+        } else {
+            place = blankSlot;
+        }
+
+        if (pe.getPlayer().hasPermission("asedit.rotation")) {
+            rotate = createIcon(ItemStack.of(Material.COMPASS),
+                "rotate", "mode rotate");
+        } else {
+            rotate = blankSlot;
+        }
+
+        if (pe.getPlayer().hasPermission("asedit.equipment")) {
+            equipment = createIcon(ItemStack.of(Material.CHEST),
+                "equipment", "mode equipment");
+        } else {
+            equipment = blankSlot;
+        }
+
+        if (pe.getPlayer().hasPermission("asedit.copy")) {
+            copy = createIcon(ItemStack.of(Material.FLOWER_BANNER_PATTERN),
+                "copy", "mode copy");
+
+            slot1 = createIcon(ItemStack.of(Material.BOOK),
+                copySlotText, "slot 1", "1");
+
+            slot2 = createIcon(ItemStack.of(Material.BOOK, 2),
+                copySlotText, "slot 2", "2");
+
+            slot3 = createIcon(ItemStack.of(Material.BOOK, 3),
+                copySlotText, "slot 3", "3");
+
+            slot4 = createIcon(ItemStack.of(Material.BOOK, 4),
+                copySlotText, "slot 4", "4");
+        }
+
+        if (pe.getPlayer().hasPermission("asedit.paste")) {
+            paste = createIcon(ItemStack.of(Material.FEATHER),
+                "paste", "mode paste");
+        }
+
+        if (pe.getPlayer().hasPermission("asedit.head") || pe.plugin.getAllowedToRetrieveOwnPlayerHead()) {
+            playerHead = createIcon(ItemStack.of(Material.PLAYER_HEAD),
+                "playerheadmenu",
+                "playerhead");
+        } else {
+            playerHead = blankSlot;
+        }
+
+        if (pe.getPlayer().hasPermission("asedit.togglearmorstandglow")) {
+            glowing = createIcon(ItemStack.of(Material.GLOW_INK_SAC, 1),
+                "armorstandglow",
+                "mode armorstandglow");
+        } else {
+            glowing = blankSlot;
+        }
+
+        help = createIcon(new ItemStack(Material.NETHER_STAR), "helpgui", "help");
+
+        ItemStack[] items = {
+
+            blankSlot, blankSlot, blankSlot, xAxis, yAxis, zAxis, blankSlot, blankSlot, help,
+            copy, paste, blankSlot, playerHead, headPos, reset, blankSlot, itemFrameVisible, glowing,
+            slot1, slot2, blankSlot, rightArmPos, bodyPos, leftArmPos, blankSlot, rotate, place,
+            slot3, slot4, blankSlot, rightLegPos, equipment, leftLegPos, blankSlot, coarseAdj, fineAdj,
+            presetItem, blankSlot, blankSlot, blankSlot, blankSlot, blankSlot, blankSlot, blankSlot, disableSlots,
+            blankSlot, showArms, visibility, size, blankSlot, plate, toggleVulnerabilty, gravity, blankSlot
+        };
+
+        menuInv.setContents(items);
+    }
+
+    private ItemStack createIcon(ItemStack icon, String path, String command) {
+        return createIcon(icon, path, command, null);
+    }
+
+    private ItemStack createIcon(ItemStack icon, String path, String command, String option) {
+
+        if (!command.isEmpty()) {
+            icon.editPersistentDataContainer(pdc -> pdc.set(pe.plugin.getIconKey(), PersistentDataType.STRING, "ase " + command));
+            icon.setData(DataComponentTypes.TOOLTIP_DISPLAY, TooltipDisplay.tooltipDisplay()
+                .addHiddenComponents(DataComponentTypes.POTION_CONTENTS)
+                .addHiddenComponents(DataComponentTypes.ATTRIBUTE_MODIFIERS)
+                .build());
+        } else {
+            icon.setData(DataComponentTypes.TOOLTIP_DISPLAY, TooltipDisplay.tooltipDisplay().hideTooltip(true).build());
+        }
+
+        icon.setData(DataComponentTypes.CUSTOM_NAME, getIconName(path, option));
+        icon.setData(DataComponentTypes.LORE, ItemLore.lore().addLine(getIconDescription(path, option)).build());
+
+        return icon;
+    }
 
 
+    private Component getIconName(String path, String option) {
 
-		reset = createIcon( new ItemStack(Material.LEVER),
-				"reset", "mode reset");
+        return pe.plugin.getLang().getMessage(path, "iconname", option);
+    }
 
 
-		headPos = createIcon( new ItemStack(Material.LEATHER_HELMET),
-				"head", "mode head");
+    private Component getIconDescription(String path, String option) {
+        return pe.plugin.getLang().getMessage(path + ".description", "icondescription", option);
+    }
 
-		bodyPos = createIcon( new ItemStack(Material.LEATHER_CHESTPLATE),
-				"body", "mode body");
-
-		leftLegPos = createIcon( new ItemStack(Material.LEATHER_LEGGINGS),
-				"leftleg", "mode leftleg");
-
-		rightLegPos = createIcon( new ItemStack(Material.LEATHER_LEGGINGS),
-				"rightleg", "mode rightleg");
-
-		leftArmPos = createIcon( new ItemStack(Material.STICK),
-				"leftarm", "mode leftarm");
-
-		rightArmPos = createIcon( new ItemStack(Material.STICK),
-				"rightarm", "mode rightarm");
-
-		showArms = createIcon( new ItemStack(Material.STICK),
-				"showarms", "mode showarms");
-
-		if(pe.getPlayer().hasPermission("asedit.invisible")){
-			visibility = new ItemStack(Material.POTION, 1);
-			PotionMeta potionMeta = (PotionMeta) visibility.getItemMeta();
-			PotionEffect eff1 = new PotionEffect(PotionEffectType.INVISIBILITY, 1, 0);
-			potionMeta.addCustomEffect(eff1, true);
-			visibility.setItemMeta(potionMeta);
-			visibility = createIcon( visibility, "invisible", "mode invisible");
-		}
-
-		size = createIcon( new ItemStack(Material.PUFFERFISH, 1),
-				"size", "mode size");
-
-		if(pe.getPlayer().hasPermission("asedit.disableslots")){
-			disableSlots = createIcon(new ItemStack(Material.BARRIER), "disableslots", "mode disableslots");
-		}
-
-		gravity = createIcon( new ItemStack(Material.SAND), "gravity", "mode gravity");
-
-		plate = createIcon( new ItemStack(Material.STONE_SLAB, 1),
-				"baseplate", "mode baseplate");
-
-		place = createIcon( new ItemStack(Material.MINECART, 1),
-				"placement", "mode placement");
-
-		rotate = createIcon( new ItemStack(Material.COMPASS, 1),
-				"rotate", "mode rotate");
-
-		equipment = createIcon(new ItemStack(Material.CHEST, 1),
-				"equipment", "mode equipment");
-
-		copy = createIcon(new ItemStack(Material.WRITABLE_BOOK),
-				"copy","mode copy");
-
-		paste = createIcon(new ItemStack(Material.ENCHANTED_BOOK),
-				"paste","mode paste");
-
-		slot1 = createIcon(new ItemStack(Material.DANDELION),
-				"copyslot","slot 1", "1");
-
-		slot2 = createIcon(new ItemStack(Material.AZURE_BLUET, 2),
-				"copyslot", "slot 2", "2");
-
-		slot3 = createIcon(new ItemStack(Material.BLUE_ORCHID, 3),
-				"copyslot","slot 3", "3");
-
-		slot4 = createIcon( new ItemStack(Material.PEONY, 4),
-				"copyslot","slot 4", "4");
-
-		help = createIcon(new ItemStack(Material.NETHER_STAR), "helpgui", "help");
-
-		ItemStack[] items =
-				{
-						xAxis, yAxis, zAxis, null, coarseAdj, fineAdj, null, rotate, place,
-						null, headPos, null, null, null, null, null, null, null,
-						rightArmPos, bodyPos, leftArmPos, reset, null, null, showArms, visibility, size,
-						rightLegPos, equipment, leftLegPos, null, null, null, null, gravity, plate,
-						null, copy, paste, null, null, null, null, null, null,
-						slot1, slot2, slot3, slot4, null, null, null, null, help
-				};
-		menuInv.setContents(items);
-	}
-
-	private ItemStack createIcon(ItemStack icon, String path, String command){
-		return createIcon(icon, path, command, null);
-	}
-
-	private ItemStack createIcon(ItemStack icon, String path, String command, String option){
-		ItemMeta meta = icon.getItemMeta();
-		meta.getPersistentDataContainer().set(ArmorStandEditorPlugin.instance().getIconKey(), PersistentDataType.STRING, "ase " + command);
-		meta.setDisplayName(getIconName(path, option));
-		ArrayList<String> loreList = new ArrayList<>();
-		loreList.add(getIconDescription(path, option));
-		meta.setLore(loreList);
-		meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-		meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
-		icon.setItemMeta(meta);
-		return icon;
-	}
-
-	private String getIconName(String path){
-		return getIconName(path, null);
-	}
-
-	private String getIconName(String path, String option){
-		return pe.plugin.getLang().getMessage(path, "iconname", option);
-	}
-
-	private String getIconDescription(String path){
-		return getIconDescription(path, null);
-	}
-
-	private String getIconDescription(String path, String option){
-		return pe.plugin.getLang().getMessage(path + ".description", "icondescription", option);
-	}
-
-	public void openMenu(){
-		if(pe.getPlayer().hasPermission("asedit.basic")){
-			fillInventory();
-			pe.getPlayer().openInventory(menuInv);
-		}
-	}
-
-	public static String getName(){
-		return name;
-	}
+    public void openMenu() {
+        if (pe.getPlayer().hasPermission("asedit.basic")) {
+            fillInventory();
+            debug.log("Player '" + pe.getPlayer().getName() + "' has opened the Main ASE Menu");
+            pe.getPlayer().openInventory(menuInv);
+        }
+    }
 }

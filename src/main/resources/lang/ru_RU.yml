@@ -1,0 +1,372 @@
+# Translated by KPidS+Hopak120
+# Fixed by Szarkan, GENIIY
+
+#NOTE from Author:
+# Do NOT Add CustomColors to icons (PresetMenu or SizeMenu) as it will break how presets work and do the translation
+# Please change the info number if you want to mess with the color of those - It will change it globally however.
+
+iconname: 2n
+icondescription: 5
+info: 6
+warn: c
+menutitle: 8
+
+#info
+setmode:
+  msg: Устанавливаю режим на <x>.
+  head: Положение головы
+  body: Положение тела
+  leftleg: Положение левой ноги
+  rightleg: Положение правой ноги
+  leftarm: Положение левой руки
+  rightarm: Положение правой руки
+  equipment: Снаряжение
+  showarms: Показать/Скрыть руки
+  invisible: Показать/Скрыть невидимость
+  size: Изменить размер
+  disableslots: Заблокировать/Разблокировать слоты
+  vulnerability: Включить/Выключить уязвимость
+  gravity: Включить/Выключить гравитацию
+  baseplate: Включить/Выключить базовую пластину
+  placement: Размещение
+  rotate: Повернуть
+  copy: Копировать
+  paste: Вставить
+  reset: Сбросить позу
+  itemframe: Показать/Скрыть видимость рамки
+  playerhead: Получить голову игрока
+setaxis:
+  msg: Устанавливаю ось на <x>.
+  x: X
+  y: Y
+  z: Z
+setslot:
+  msg: Устанавливаю копируемый слот на <x>.
+setadj:
+  msg: Установлена <x> настройка
+  coarse: грубая
+  fine: точная
+setgravity:
+  msg: Гравитация <x>.
+  true: включена
+  false: выключена
+nomode:
+  msg: Кликни с инструментом редактирования вне стойки для брони, чтобы сначала выбрать режим редактирования!
+nomodeif:
+  msg: Кликни с инструментом редактирования вне рамки предмета, чтобы сначала выбрать режим!
+copied:
+  msg: Состояние стойки для брони скопировано в слот <x>.
+pasted:
+  msg: Состояние стойки для брони вставлено из слота <x>.
+disabledslots:
+  msg: Состояние блокировки снаряжения переключено
+toggleinvulnerability:
+  msg: Стойка для брони <x>.
+  true: неуязвима
+  false: уязвима
+target:
+  msg: Цель стойки для брони заблокирована.
+notarget:
+  msg: Цель <x> разблокирована.
+  armorstand: Стойка для брони
+  itemframe: Рамка
+frametarget:
+  msg: Цель рамки заблокирована.
+give:
+  msg: Игроку выдан предмет с пользовательскими данными модели
+doubletarget:
+  msg: Пожалуйста, смотри либо на стойку для брони, либо на рамку предмета, но не на оба!
+nodoubletarget:
+  msg: Пожалуйста, смотри на стойку для брони или на рамку предмета перед переключением рук!
+reloaded:
+  msg: Конфиг перезагружен.
+playerhead:
+  msg: Голова игрока получена.
+playerheaderror:
+  msg: Не удалось дать тебе голову игрока.
+unabledestroycreative:
+  msg: Невозможно уничтожить эту неуязвимую стойку для брони в креативном режиме.
+notincorrectworld:
+  msg: Извини, но ты находишься не в том мире, чтобы использовать ArmorStandEditor.
+stats:
+  msg: Статистика стойки для брони.
+help:
+  msg: "1. Держи инструмент редактирования(<x>) в основной руке
+
+      2. Левый или правый клик вне стойки для брони, чтобы открыть меню.
+
+      3. Выбери опции в меню.
+
+      4. Левый клик по стойке для брони с инструментом редактирования в руке, чтобы применить эти опции.
+
+      5. Правый клик вместо этого, чтобы редактировать в обратном порядке!"
+helptips:
+  msg: "Советы:
+
+  1. Нажми клавишу \"Поменять предметы в руках\" (по умолчанию F), держа инструмент редактирования, чтобы нацелиться на конкретную стойку для брони, если другие стойки мешают.
+
+  2. Ты можешь применить метки с именами к стойкам для брони. Ты можешь использовать символ & для создания цветных имен.
+
+  3. Ты можешь использовать приседание + колесо прокрутки, держа инструмент редактирования, чтобы изменить ось без открытия меню."
+helpurl:
+  msg: "Больше информации: https://github.com/RypoFalem/ArmorStandEditor/wiki"
+helpdiscord:
+  msg: "или присоединяйся к нашему Discord: https://discord.gg/3BbJKWpTCj"
+
+#warn
+cantedit:
+  msg: Здесь нельзя редактировать стойки для брони!
+noperm:
+  msg: Недастаточно прав!
+nopermoption:
+  msg: У тебя нет прав на использование <x>!
+  basic: Обычная стойка для брони
+  showarms: Показать руки
+  armorstandvisibility: Видимость стойки для брони
+  baseplate: Установить видимость базовой пластины
+  gravity: Включить/Выключить гравитацию
+  vulnerability: Включить/Выключить уязвимость
+  itemframevisibility: Видимость рамки предмета
+  size: Включить/Выключить размер стойки для брони
+  disableslots: Заблокировать/Разблокировать слоты снаряжения
+  paste: Вставить конфигурацию стойки для брони
+  copy: Скопировать конфигурацию стойки для брони
+  reset: Сбросить конфигурацию стойки для брони
+  stats: Просмотр статистики стойки для брони
+  armorstandglow: Включить/Выключить свечение стойки для брони
+norangestats:
+  msg: Пожалуйста, подойди к стойке для брони перед выполнением этой команды.
+noslotnumcom:
+  msg: Нужно указать номер слота!
+noadjcom:
+  msg: Нужно указать грубую или точную настройку!
+noaxiscom:
+  msg: Нужно указать ось!
+nomodecom:
+  msg: Нужно указать режим!
+noreloadcom:
+  msg: Ты не можешь перезагружать.
+nogive:
+  msg: "У тебя нет прав на использование команды выдачи или это запрещено в конфигурации плагина"
+noconsolecom:
+  msg: Невозможно выполнить из консоли.
+renamestopped:
+  msg: Пожалуйста, убедись, что у тебя достаточно прав что бы давать стойке для брони цветные имена.
+blackGlassClick:
+  msg: Clicking this item will have no effect. Please choose another item.
+
+#menutitle
+mainmenutitle:
+  msg: Меню редактора стойки для брони
+equiptitle:
+  msg: Снаряжение стойки для брони
+presettitle:
+  msg: Предустановленные позы стойки для брони
+
+#icons
+xaxis:
+  msg: Ось X
+  description:
+    msg: Повернуть части тела по оси X
+yaxis:
+  msg: Ось Y
+  description:
+    msg: Повернуть части тела по оси Y
+zaxis:
+  msg: Ось Z
+  description:
+    msg: Повернуть части тела по оси Z
+coarseadj:
+  msg: Грубая настройка
+  description:
+    msg: Сделать большие изменения
+fineadj:
+  msg: Точная настройка
+  description:
+    msg: Сделать небольшие изменения
+head:
+  msg: Положение головы
+  description:
+    msg: Повернуть голову
+body:
+  msg: Положение тела
+  description:
+    msg: Повернуть тело
+leftleg:
+  msg: Положение левой ноги
+  description:
+    msg: Повернуть левую ногу
+rightleg:
+  msg: Положение правой ноги
+  description:
+    msg: Повернуть правую ногу
+leftarm:
+  msg: Положение левой руки
+  description:
+    msg: Повернуть левую руку
+rightarm:
+  msg: Положение правой руки
+  description:
+    msg: Повернуть правую руку
+equipment:
+  msg: Снаряжение
+  description:
+    msg: Редактировать снаряжение
+showarms:
+  msg: Показать руки
+  description:
+    msg: Включить или выключить руки
+invisible:
+  msg: Видимость
+  description:
+    msg: Сделать видимым или невидимым
+size:
+  msg: Размер
+  description:
+    msg: Сделать большим или маленьким
+disableslots:
+  msg: Отключить слоты
+  description:
+    msg: Включить или выключить блокировку слотов снаряжения
+vulnerability:
+  msg: Включить уязвимость
+  description:
+    msg: Включить или выключить уязвимость стойки для брони
+gravity:
+  msg: Гравитация
+  description:
+    msg: Включить или выключить гравитацию
+baseplate:
+  msg: Базовая пластина
+  description:
+    msg: Включить или выключить базовую пластину
+placement:
+  msg: Размещение
+  description:
+    msg: Переместить всю стойку для брони
+rotate:
+  msg: Повернуть
+  description:
+    msg: Повернуть всю стойку для брони
+copy:
+  msg: Копировать
+  description:
+    msg: Скопировать настройки стойки для брони
+paste:
+  msg: Вставить
+  description:
+    msg: Вставить настройки стойки для брони
+copyslot:
+  msg: Копировать слот <x>
+  description:
+    msg: Выбрать слот для хранения настроек
+reset:
+  msg: Сбросить позу
+  description:
+    msg: Сбросить положение частей тела по умолчанию
+helpgui:
+  msg: Помощь!
+  description:
+    msg: Кликни сюда, чтобы получить помощь!
+itemframevisible:
+  msg: Видимость рамки предмета
+  description:
+    msg: Включить или выключить видимость рамки предмета
+playerheadmenu:
+  msg: Голова игрока
+  description:
+    msg: Кликни, чтобы получить копию своей головы
+blankslot:
+  msg: " "
+  description:
+    msg: " "
+armorstandglow:
+  msg: Включить свечение стойки для брони
+  description:
+    msg: Включить или выключить свечение стойки для брони.
+
+#icons (equipment menu)
+disabled:
+  msg: Отключено
+equipslot:
+  msg: Слот <x>
+  description:
+    msg: Перетащи свой <x> в слот ниже
+    helm: Шлем
+    chest: Нагрудник
+    pants: Штаны
+    boots: Ботинки
+    rhand: Предмет в правой руке
+    lhand: Предмет в левой руке
+  helm: Шлем
+  chest: Нагрудник
+  pants: Штаны
+  boots: Ботинки
+  rhand: Правая рука
+  lhand: Левая рука
+
+#all things related to Presets
+presetmenu:
+  msg: Предустановленные позы
+  description:
+    msg: Используй предустановленную позу для своей стойки для брони [откроется другое меню]
+
+#icons (Preset Menu)
+sitting:
+  msg: Сидящий
+  description:
+    msg: Время сесть и расслабиться.
+waving:
+  msg: Махающий
+  description:
+    msg: Эй, сюда!
+greeting 1:
+  msg: Приветствие 1
+  description:
+    msg: Привет, я твоя стойка для брони.
+greeting 2:
+  msg: Приветствие 2
+  description:
+    msg: О, привет, я твоя стойка для брони и шиза.
+archer:
+  msg: Лучник
+  description:
+    msg: Осторожно, твоя стойка для брони собирается стрелять :O
+dancing:
+  msg: Танцующий
+  description:
+    msg: Привет, хочешь потанцевать?
+cheers:
+  msg: За здоровье
+  description:
+    msg: За это нужно выпить
+hanging:
+  msg: Висит
+  description:
+    msg: Время повисеть на этом горе, как будто наша жизнь от этого зависит.
+present:
+  msg: Подарок
+  description:
+    msg: Твоя стойка для брони приготовила для тебя подарок <3
+fishing:
+  msg: Рыбачит
+  description:
+    msg: Время рыбалки
+
+#Help for Presets
+backtomenu:
+  msg: Назад в меню
+  description:
+    msg: Нажми чтобы вернуться в главное меню
+howtopreset:
+  msg: Инструкция
+  description:
+    msg: Краткая инструкция использования предустановки.
+howtopresetmsg:
+  msg: "1. Держи инструмент редактирования в основной руке
+  
+  2. Открой меню с активным режимом предустановок.
+  
+  3. Выбери одну из предустановленных поз стойки для брони.
+  
+  4. После выбора меню закроется, и выбранная предустановка будет применена. "
